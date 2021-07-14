@@ -60,6 +60,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
+    "jazzmin",
     "django.contrib.admin",
     "django.forms",
 ]
@@ -76,6 +77,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "biserici_inlemnite.users.apps.UsersConfig",
+    "biserici_inlemnite.biserici.apps.BisericiConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

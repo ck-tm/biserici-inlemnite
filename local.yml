@@ -5,15 +5,15 @@ volumes:
   local_postgres_data_backups: {}
 
 services:
-  django: &django
+  django-bi: &django
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     image: biserici_inlemnite_local_django
-    container_name: django
+    container_name: django-bi
     depends_on:
-      - postgres
-      - mailhog
+      - postgres-bi
+      - mailhog-bi
     volumes:
       - .:/app:z
     env_file:
@@ -23,70 +23,70 @@ services:
       - "8000:8000"
     command: /start
 
-  postgres:
+  postgres-bi:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: biserici_inlemnite_production_postgres
-    container_name: postgres
+    container_name: postgres-bi
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
+      - /tmp/pgdata:/var/lib/postgresql/data:Z
+      - /tmp/pgbackup:/backups:z
     env_file:
       - ./.envs/.local/.postgres
 
-  docs:
-    image: biserici_inlemnite_local_docs
-    container_name: docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./biserici_inlemnite:/app/biserici_inlemnite:z
-    ports:
-      - "7000:7000"
-    command: /start-docs
+  # docs-bi:
+  #   image: biserici_inlemnite_local_docs
+  #   container_name: docs-bi
+  #   build:
+  #     context: .
+  #     dockerfile: ./compose/local/docs/Dockerfile
+  #   env_file:
+  #     - ./.envs/.local/.django
+  #   volumes:
+  #     - ./docs:/docs:z
+  #     - ./config:/app/config:z
+  #     - ./biserici_inlemnite:/app/biserici_inlemnite:z
+  #   ports:
+  #     - "7000:7000"
+  #   command: /start-docs
 
-  mailhog:
+  mailhog-bi:
     image: mailhog/mailhog:v1.0.0
-    container_name: mailhog
+    container_name: mailhog-bi
     ports:
       - "8025:8025"
 
-  redis:
-    image: redis:5.0
-    container_name: redis
+  # redis-bi:
+  #   image: redis:5.0
+  #   container_name: redis-bi
 
-  celeryworker:
-    <<: *django
-    image: biserici_inlemnite_local_celeryworker
-    container_name: celeryworker
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker
+  # celeryworker-bi:
+  #   <<: *django-bi
+  #   image: biserici_inlemnite_local_celeryworker
+  #   container_name: celeryworker-bi
+  #   depends_on:
+  #     - redis-bi
+  #     - postgres-bi
+  #     - mailhog-bi
+  #   ports: []
+  #   command: /start-celeryworker
 
-  celerybeat:
-    <<: *django
-    image: biserici_inlemnite_local_celerybeat
-    container_name: celerybeat
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat
+  # celerybeat-bi:
+  #   <<: *django-bi
+  #   image: biserici_inlemnite_local_celerybeat
+  #   container_name: celerybeat-bi
+  #   depends_on:
+  #     - redis-bi
+  #     - postgres-bi
+  #     - mailhog-bi
+  #   ports: []
+  #   command: /start-celerybeat
 
-  flower:
-    <<: *django
-    image: biserici_inlemnite_local_flower
-    container_name: flower
-    ports:
-      - "5555:5555"
-    command: /start-flower
+  # flower-bi:
+  #   <<: *django-bi
+  #   image: biserici_inlemnite_local_flower
+  #   container_name: flower-bi
+  #   ports:
+  #     - "5555:5555"
+  #   command: /start-flower

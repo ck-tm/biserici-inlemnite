@@ -18,15 +18,16 @@ services:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
-
+    volumes:
+      - /mnt/HC_Volume_12351385/media:/app/oxigen_api/media
   postgres:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: biserici_inlemnite_production_postgres
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data:Z
-      - production_postgres_data_backups:/backups:z
+      - /mnt/HC_Volume_12351385/pgdata:/var/lib/postgresql/data:Z
+      - /mnt/HC_Volume_12351385/pgbackups:/backups:z
     env_file:
       - ./.envs/.production/.postgres
 
@@ -44,20 +45,20 @@ services:
       - "0.0.0.0:443:443"
       - "0.0.0.0:5555:5555"
 
-  redis:
-    image: redis:5.0
+  # redis:
+  #   image: redis:5.0
 
-  celeryworker:
-    <<: *django
-    image: biserici_inlemnite_production_celeryworker
-    command: /start-celeryworker
+  # celeryworker:
+  #   <<: *django
+  #   image: biserici_inlemnite_production_celeryworker
+  #   command: /start-celeryworker
 
-  celerybeat:
-    <<: *django
-    image: biserici_inlemnite_production_celerybeat
-    command: /start-celerybeat
+  # celerybeat:
+  #   <<: *django
+  #   image: biserici_inlemnite_production_celerybeat
+  #   command: /start-celerybeat
 
-  flower:
-    <<: *django
-    image: biserici_inlemnite_production_flower
-    command: /start-flower
+  # flower:
+  #   <<: *django
+  #   image: biserici_inlemnite_production_flower
+  #   command: /start-flower
