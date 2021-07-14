@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=biserici_inlemnite
+POSTGRES_USER=IxsdxqHAmAfmIlqrofRliZGfSMtXPLJk
+POSTGRES_PASSWORD=Lf1mQk3bNjnVSRRxNkQtXvJci1qtoQCJnjwLFZLs2HhGMG1v8hA5OhPKn8W1Ot2s
