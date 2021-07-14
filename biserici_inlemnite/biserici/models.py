@@ -1,9 +1,14 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
+User = get_user_model()
 
-
-
+IDENTIFICARE_DOC_CADASTRALE = (
+    (1, 'Da'),
+    (2, 'Nu'),
+    (3, 'În curs de'),
+)
 
 class Judet(models.Model):
     """
@@ -40,6 +45,9 @@ class Biserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=50)
+
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name_plural = "Biserici"
@@ -128,7 +136,7 @@ class ProprietateBiserica(models.Model):
 
 class Identificare(models.Model):
     """
-    Description: Model Description
+    Capitol: Identificare Biserica
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
     judet = models.ForeignKey('Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
@@ -151,10 +159,79 @@ class Identificare(models.Model):
     functiune_initiala_detalii = models.TextField(null=True, blank=True)
     proprietate_actuala = models.ForeignKey('ProprietateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
     proprietate_detalii = models.TextField(null=True, blank=True)
+    proprietar_actual = models.TextField(null=True, blank=True)
+    inscriere_documente_cadastrale = models.IntegerField(choices=IDENTIFICARE_DOC_CADASTRALE, null=True, blank=True)
 
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
-        verbose_name_plural = "Identificări Biserici"
+        verbose_name_plural = "Identificare Biserici"
 
     def __str__(self):
         return f"Identificare {self.biserica.nume}"
+
+
+
+class Istoric(models.Model):
+    """
+    Capitol: Istoric Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+    
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name_plural = "Istoric Biserici"
+
+    def __str__(self):
+        return f"Istoric {self.biserica.nume}"
+
+
+class Descriere(models.Model):
+    """
+    Capitol: Descriere Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+    
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name_plural = "Descriere Biserici"
+
+    def __str__(self):
+        return f"Descriere {self.biserica.nume}"
+
+
+class ValoarePatrimoniuCultural(models.Model):
+    """
+    Capitol: Valoare Patrimoniu Cultural Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name='patrimoniu')
+    
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name_plural = "Valoare patrimoniu cultural Biserici"
+
+    def __str__(self):
+        return f"Valoare patrimoniu cultural {self.biserica.nume}"
+
+
+class StareConservare(models.Model):
+    """
+    Capitol: Stare conservare Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name='conservare')
+    
+    last_edit_date = models.DateTimeField(auto_now=True)
+    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name_plural = "Stare conservare Biserici"
+
+    def __str__(self):
+        return f"Stare conservare {self.biserica.nume}"
