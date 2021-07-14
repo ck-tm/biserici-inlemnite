@@ -13,7 +13,7 @@ services:
     image: biserici_inlemnite_production_django
     depends_on:
       - postgres
-      - redis
+      # - redis
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
