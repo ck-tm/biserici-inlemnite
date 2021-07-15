@@ -126,7 +126,7 @@ class BisericaAdmin(admin.ModelAdmin):
     list_filter = ["identificare__judet"]
     inlines = [
         IdentificareInline,
-        # IstoricInline,
+        IstoricInline,
         # DescriereInline,
         # ValoarePatrimoniuCulturalInline,
         # StareConservareInline
@@ -152,16 +152,16 @@ class BisericaAdmin(admin.ModelAdmin):
         print('saved')
 
     def update_identificare(self, obj):
-        return f"{obj.last_edit_user} ({obj.identificare.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
+        return f"{obj.identificare.last_edit_user} ({obj.identificare.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
 
     def update_istoric(self, obj):
-        return f"{obj.last_edit_user} ({obj.istoric.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
+        return f"{obj.istoric.last_edit_user} ({obj.istoric.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
 
     def update_descriere(self, obj):
-        return f"{obj.last_edit_user} ({obj.descriere.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
+        return f"{obj.descriere.last_edit_user} ({obj.descriere.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
 
     def update_patrimoniu(self, obj):
-        return f"{obj.last_edit_user} ({obj.patrimoniu.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
+        return f"{obj.patrimoniu.last_edit_user} ({obj.patrimoniu.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
 
     def update_conservare(self, obj):
-        return f"{obj.last_edit_user} ({obj.conservare.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"
+        return f"{obj.conservare.last_edit_user} ({obj.conservare.last_edit_date.strftime('%d %b %Y %H:%M:%S')})"

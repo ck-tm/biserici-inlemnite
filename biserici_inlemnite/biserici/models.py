@@ -172,13 +172,31 @@ class Identificare(models.Model):
         return f"Identificare {self.biserica.nume}"
 
 
+class MutareBiserica(models.Model):
+    """
+    Description: Model Description
+    """
+    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
+    localitate = models.ForeignKey('Localitate', null=True, blank=True, on_delete=models.SET_NULL)
+    latitudine = models.FloatField(null=True, blank=True)
+    longitudine = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        pass
+
 
 class Istoric(models.Model):
     """
     Capitol: Istoric Biserica
     """
+
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    
+    ctitor = models.TextField(null=True, blank=True)
+    pisanie = models.TextField(null=True, blank=True)
+    mesteri = models.TextField(null=True, blank=True)
+    zugravi = models.TextField(null=True, blank=True)
+    personalitati = models.TextField(null=True, blank=True)
+
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -193,8 +211,9 @@ class Descriere(models.Model):
     """
     Capitol: Descriere Biserica
     """
+
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    
+
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -226,7 +245,7 @@ class StareConservare(models.Model):
     Capitol: Stare conservare Biserica
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name='conservare')
-    
+
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
