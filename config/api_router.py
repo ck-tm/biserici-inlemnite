@@ -10,7 +10,7 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
-router.register("biserici", BisericaViewSet)
+router.register("biserici", BisericaViewSet, basename='biserica')
 
 
 app_name = "api"

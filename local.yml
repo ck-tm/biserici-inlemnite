@@ -30,8 +30,8 @@ services:
     image: biserici_inlemnite_production_postgres
     container_name: postgres-bi
     volumes:
-      - /tmp/pgdata:/var/lib/postgresql/data:Z
-      - /tmp/pgbackup:/backups:z
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
 

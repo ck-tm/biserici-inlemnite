@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Count
+from django.contrib.auth.models import Group
 import csv
 from pprint import pprint
 from biserici import models
@@ -119,7 +120,7 @@ class Command(BaseCommand):
             models.Judet.objects.get_or_create(
                 nume=nume,
                 cod=cod)
-
+            Group.objects.get_or_create(name=nume)
         for nume in FUNCTIUNI:
             models.FunctiuneBiserica.objects.get_or_create(
                 nume=nume)

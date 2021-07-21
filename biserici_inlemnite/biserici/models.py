@@ -224,11 +224,11 @@ class Descriere(models.Model):
         return f"Descriere {self.biserica.nume}"
 
 
-class ValoarePatrimoniuCultural(models.Model):
+class Patrimoniu(models.Model):
     """
     Capitol: Valoare Patrimoniu Cultural Biserica
     """
-    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name='patrimoniu')
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
     
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
@@ -240,11 +240,11 @@ class ValoarePatrimoniuCultural(models.Model):
         return f"Valoare patrimoniu cultural {self.biserica.nume}"
 
 
-class StareConservare(models.Model):
+class Conservare(models.Model):
     """
     Capitol: Stare conservare Biserica
     """
-    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name='conservare')
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)

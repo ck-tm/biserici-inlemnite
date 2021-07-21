@@ -1,7 +1,14 @@
 from django.contrib import admin
-
+from django.contrib.auth.models import Permission
 # Register your models here.
 from biserici import models
+from guardian.admin import GuardedModelAdmin
+
+
+
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    list_display = ["name"]
 
 
 @admin.register(models.Localitate)
@@ -104,23 +111,23 @@ class DescriereInline(admin.StackedInline):
 
 
 
-class ValoarePatrimoniuCulturalInline(admin.StackedInline):
-    model = models.ValoarePatrimoniuCultural
+class PatrimoniuInline(admin.StackedInline):
+    model = models.Patrimoniu
     verbose_name = "Valoare Patrimoniu Cultural"
     verbose_name_plural = "Valoare Patrimoniu Cultural"
     readonly_fields = ['last_edit_date', 'last_edit_user']
 
 
 
-class StareConservareInline(admin.StackedInline):
-    model = models.StareConservare
+class ConservareInline(admin.StackedInline):
+    model = models.Conservare
     verbose_name = "Stare Conservare"
     verbose_name_plural = "Stare Conservare"
     readonly_fields = ['last_edit_date', 'last_edit_user']
 
 
 @admin.register(models.Biserica)
-class BisericaAdmin(admin.ModelAdmin):
+class BisericaAdmin(GuardedModelAdmin):
     list_display = ['nume', 'update_identificare', 'update_istoric', 'update_descriere', 'update_patrimoniu', 'update_conservare']
     search_fields = ["nume"]
     list_filter = ["identificare__judet"]
@@ -128,8 +135,8 @@ class BisericaAdmin(admin.ModelAdmin):
         IdentificareInline,
         IstoricInline,
         # DescriereInline,
-        # ValoarePatrimoniuCulturalInline,
-        # StareConservareInline
+        # PatrimoniuInline,
+        # ConservareInline
         ]
     readonly_fields = ['last_edit_date', 'last_edit_user']
 
