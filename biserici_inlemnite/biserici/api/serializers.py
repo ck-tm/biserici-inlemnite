@@ -149,9 +149,7 @@ class BisericaSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSeri
         capitole = []
         user = self.context['request'].user
         checker = ObjectPermissionChecker(user)
-        print(checker)
         for capitol in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
-            print('has perm', capitol, checker.has_perm(f'change_{capitol}', getattr(obj, capitol)))
             if checker.has_perm(f'change_{capitol}', getattr(obj, capitol)):
                 capitole.append({
                     'name': capitol,

@@ -134,9 +134,9 @@ class BisericaAdmin(GuardedModelAdmin):
     inlines = [
         IdentificareInline,
         IstoricInline,
-        # DescriereInline,
-        # PatrimoniuInline,
-        # ConservareInline
+        DescriereInline,
+        PatrimoniuInline,
+        ConservareInline
         ]
     readonly_fields = ['last_edit_date', 'last_edit_user']
 

@@ -17,7 +17,7 @@ from biserici.api import serializers
 from biserici.permissions import BaseModelPermissions
 from biserici import models
 from pprint import pprint
-
+from itertools import chain
 
 
 class ForeignMetaData(SimpleMetadata):
@@ -36,21 +36,24 @@ class ForeignMetaData(SimpleMetadata):
 class BisericaViewSet(ModelViewSet):
     serializer_class = serializers.BisericaSerializer
     queryset = models.Biserica.objects.all()
-    metadata_class = ForeignMetaData
+    # metadata_class = ForeignMetaData
     permission_classes = [BaseModelPermissions]
     filter_backends = [filters.ObjectPermissionsFilter]
 
     def get_queryset(self):
         queryset = self.queryset
         user = self.request.user
-        biserici_user = []
 
-        # for biserica in get_objects_for_user(user, 'biserici.view_biserica'):
-        #     if user.has_perm('view_biserica', biserica):
-        #         print(biserica, user.has_perm('view_biserica', biserica))
-        #         biserici_user.append(biserica.pk)
-        
-        # return queryset.filter(pk__in=biserici_user)
+        if self.request.META['PATH_INFO'].endswith('identificare/'):
+            return get_objects_for_user(user, 'biserici.view_identificare')
+        if self.request.META['PATH_INFO'].endswith('descriere'):
+            return get_objects_for_user(user, 'biserici.view_descriere')
+        if self.request.META['PATH_INFO'].endswith('istoric'):
+            return get_objects_for_user(user, 'biserici.view_istoric')
+        if self.request.META['PATH_INFO'].endswith('patrimoniu'):
+            return get_objects_for_user(user, 'biserici.view_patrimoniu')
+        if self.request.META['PATH_INFO'].endswith('conservare'):
+            return get_objects_for_user(user, 'biserici.view_conservare')
         return get_objects_for_user(user, 'biserici.view_biserica')
 
     def get_serializer_class(self):
