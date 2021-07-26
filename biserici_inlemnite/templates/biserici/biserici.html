@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<div class="row">
+  <div class="col-12">
+
+
+    <!-- <form method="get" class="filter-form">
+        {{ filter.form }}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-dark px-4" />
+    </form> -->
+    <hr>
+
+    <h1>Biserici [{{object_list.count}}]</h1>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped mt-4">
+      
+        <thead>
+          <tr>
+            <th class="">Denumire</th>
+            <th class="">Localitate</th>
+            <th>Județ</th>
+            <th class="text-center">Completare (%)</th>
+            <th class="text-center">Ultima actualizare</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          {% for biserica in object_list %}
+            <tr>
+              <td><a href="{% url 'biserica'  biserica.pk %}">{{biserica}}</a></td>
+              <td>{{biserica.identificare.localitate}}</td>
+              <td>{{biserica.identificare.judet}}</td>
+              <td class="text-center">{{biserica.completare}}</td>
+              <td class="text-center">{{biserica.last_edit_date}} ({{biserica.last_edit_user}})</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %} {% block inline_javascript %}
+
+<script>
+  $(document).ready(function() {
+   console.log('ready')
+  });
+</script>
+{% endblock inline_javascript %}

@@ -55,6 +55,8 @@ class Biserica(models.Model):
     def __str__(self):
         return self.nume
 
+    def completare(self):
+        return 0
 
 class FunctiuneBiserica(models.Model):
     """

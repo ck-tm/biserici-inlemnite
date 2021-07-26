@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+  <div class="row">
+    <div class="col-12">
+      <!-- <form method="get" class="filter-form">
+        {{ filter.form }}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-dark px-4" />
+      </form> -->
+      <hr>
+      <h1>{{biserica}}</h1>
+      <ul class="nav nav-tabs mt-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Identificare</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Descriere</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Istoric</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" aria-disabled="true">Valoare Patrimoniu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" aria-disabled="true">Stare conservare</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock content %} {% block inline_javascript %}
+<script>
+$(document).ready(function() {
+console.log('ready')
+});
+</script>
+{% endblock inline_javascript %}
