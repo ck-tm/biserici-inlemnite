@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.models import Group
+from guardian.shortcuts import get_objects_for_user, assign_perm, remove_perm
 
 User = get_user_model()
 
@@ -54,6 +55,7 @@ class Biserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 
     def completare(self):
         return 0
@@ -173,6 +175,33 @@ class Identificare(models.Model):
     def __str__(self):
         return f"Identificare {self.biserica.nume}"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_judet = self.judet
+
+    def save(self, *args, **kwargs):
+        print(kwargs)
+        if self.judet:
+            if self.__original_judet != self.judet or kwargs.get('force_update', False) == True:
+                biserica = self.biserica
+
+                judet_biserica = self.judet.nume
+                grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
+                assign_perm('view_biserica', grup_judet, biserica)
+                assign_perm('change_biserica', grup_judet, biserica)
+
+                for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
+                        assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
+                        assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
+
+                for judet in Group.objects.exclude(name=judet_biserica):
+                    remove_perm('view_biserica', judet, biserica)
+                    remove_perm('change_biserica', judet, biserica)
+
+                    for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
+                        remove_perm(f'view_{t}', judet, getattr(biserica, t))
+                        remove_perm(f'change_{t}', judet, getattr(biserica, t))
+        super().save(*args, **kwargs)
 
 class MutareBiserica(models.Model):
     """

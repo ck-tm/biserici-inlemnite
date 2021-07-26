@@ -21,24 +21,24 @@ class IdentificareSerializer(ObjectPermissionsAssignmentMixin, serializers.Model
         instance = self.instance
         grup_judet = None
         if instance.judet:
-            biserica = instance.biserica
-
-            judet_biserica = instance.judet.nume
             grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-            assign_perm('view_biserica', grup_judet, biserica)
-            assign_perm('change_biserica', grup_judet, biserica)
+        #     biserica = instance.biserica
 
-            for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
-                    assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
-                    assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
+        #     judet_biserica = instance.judet.nume
+        #     assign_perm('view_biserica', grup_judet, biserica)
+        #     assign_perm('change_biserica', grup_judet, biserica)
 
-            for judet in Group.objects.exclude(name=judet_biserica):
-                remove_perm('view_biserica', judet, biserica)
-                remove_perm('change_biserica', judet, biserica)
+        #     for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
+        #             assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
+        #             assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
 
-                for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
-                    remove_perm(f'view_{t}', judet, getattr(biserica, t))
-                    remove_perm(f'change_{t}', judet, getattr(biserica, t))
+        #     for judet in Group.objects.exclude(name=judet_biserica):
+        #         remove_perm('view_biserica', judet, biserica)
+        #         remove_perm('change_biserica', judet, biserica)
+
+        #         for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
+        #             remove_perm(f'view_{t}', judet, getattr(biserica, t))
+        #             remove_perm(f'change_{t}', judet, getattr(biserica, t))
 
         return {
             'view_identificare': [current_user, grup_judet],

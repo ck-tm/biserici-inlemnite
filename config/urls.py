@@ -9,7 +9,8 @@ from biserici import views
 
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", view=views.BisericiView.as_view(), name="home"),
     path("biserici/", view=views.BisericiView.as_view(), name="biserici"),
     path('biserici/<int:pk>/', view=views.BisericaView.as_view(), name='biserica'),
     path('biserici/<int:biserica_pk>/identificare', view=views.IdentificareBisericaView.as_view(), name='identificare'),

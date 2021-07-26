@@ -1,24 +1,38 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% load guardian_tags %}
+
+
+{% block content %}
   <div class="row">
     <div class="col-12">
 
       <h1>{{biserica}}</h1>
       <ul class="nav nav-tabs mt-4">
-        <li class="nav-item">
-          <a class="nav-link {% if active_page == 'identificare' %}active{% endif %}" aria-current="page" href="{% url 'identificare' biserica.pk %}">Identificare</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if active_page == 'descriere' %}active{% endif %}" aria-current="page" href="{% url 'descriere' biserica.pk %}">Descriere</a>
-        </li>
+        {% if 'change_identificare' in user_permissions%}
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == 'identificare' %}active{% endif %}" aria-current="page" href="{% url 'identificare' biserica.pk %}">Identificare</a>
+          </li>
+        {% endif %}
+        {% if 'change_descriere' in user_permissions%}
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == 'descriere' %}active{% endif %}" aria-current="page" href="{% url 'descriere' biserica.pk %}">Descriere</a>
+          </li>
+        {% endif %}
+        {% if 'change_istoric' in user_permissions%}
         <li class="nav-item">
           <a class="nav-link {% if active_page == 'istoric' %}active{% endif %}" aria-current="page" href="{% url 'istoric' biserica.pk %}">Istoric</a>
         </li>
+        {% endif %}
+        {% if 'change_patrimoniu' in user_permissions%}
         <li class="nav-item">
           <a class="nav-link {% if active_page == 'patrimoniu' %}active{% endif %}" aria-current="page" href="{% url 'patrimoniu' biserica.pk %}">Valoare Patrimoniu</a>
         </li>
+        {% endif %}
+        {% if 'change_conservare' in user_permissions%}
         <li class="nav-item">
           <a class="nav-link {% if active_page == 'conservare' %}active{% endif %}" aria-current="page" href="{% url 'conservare' biserica.pk %}">Stare Conservare</a>
         </li>
+        {% endif %}
       </ul>
     </div>
   </div>
