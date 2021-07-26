@@ -1,0 +1,17 @@
+{% extends "biserici/biserica_detail.html" %}
+{% load crispy_forms_tags %}
+{% block form %}
+<br>
+  <div class="row">
+    <form method="post">{% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Update">
+    </form>
+  </div>
+{% endblock form %} {% block inline_javascript %}
+<script>
+$(document).ready(function() {
+console.log('ready')
+});
+</script>
+{% endblock inline_javascript %}

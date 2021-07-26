@@ -12,6 +12,11 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path("biserici/", view=views.BisericiView.as_view(), name="biserici"),
     path('biserici/<int:pk>/', view=views.BisericaView.as_view(), name='biserica'),
+    path('biserici/<int:biserica_pk>/identificare', view=views.IdentificareBisericaView.as_view(), name='identificare'),
+    path('biserici/<int:biserica_pk>/descriere', view=views.DescriereBisericaView.as_view(), name='descriere'),
+    path('biserici/<int:biserica_pk>/istoric', view=views.IstoricBisericaView.as_view(), name='istoric'),
+    path('biserici/<int:biserica_pk>/patrimoniu', view=views.PatrimoniuBisericaView.as_view(), name='patrimoniu'),
+    path('biserici/<int:biserica_pk>/conservare', view=views.ConservareBisericaView.as_view(), name='conservare'),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),

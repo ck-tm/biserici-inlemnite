@@ -1,33 +1,33 @@
 {% extends "base.html" %} {% block content %}
   <div class="row">
     <div class="col-12">
-      <!-- <form method="get" class="filter-form">
-        {{ filter.form }}
-        {% csrf_token %}
-        <input type="submit" class="btn btn-dark px-4" />
-      </form> -->
-      <hr>
+
       <h1>{{biserica}}</h1>
       <ul class="nav nav-tabs mt-4">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Identificare</a>
+          <a class="nav-link {% if active_page == 'identificare' %}active{% endif %}" aria-current="page" href="{% url 'identificare' biserica.pk %}">Identificare</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Descriere</a>
+          <a class="nav-link {% if active_page == 'descriere' %}active{% endif %}" aria-current="page" href="{% url 'descriere' biserica.pk %}">Descriere</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Istoric</a>
+          <a class="nav-link {% if active_page == 'istoric' %}active{% endif %}" aria-current="page" href="{% url 'istoric' biserica.pk %}">Istoric</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" aria-disabled="true">Valoare Patrimoniu</a>
+          <a class="nav-link {% if active_page == 'patrimoniu' %}active{% endif %}" aria-current="page" href="{% url 'patrimoniu' biserica.pk %}">Valoare Patrimoniu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" aria-disabled="true">Stare conservare</a>
+          <a class="nav-link {% if active_page == 'conservare' %}active{% endif %}" aria-current="page" href="{% url 'conservare' biserica.pk %}">Stare Conservare</a>
         </li>
       </ul>
     </div>
   </div>
-{% endblock content %} {% block inline_javascript %}
+{% block form %}
+    
+{% endblock form %}
+{% endblock content %} 
+
+{% block inline_javascript %}
 <script>
 $(document).ready(function() {
 console.log('ready')
