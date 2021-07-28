@@ -3,7 +3,7 @@ from django.contrib.auth.models import Permission
 # Register your models here.
 from biserici import models
 from guardian.admin import GuardedModelAdmin
-from reversion_compare.admin import CompareVersionAdmin
+
 from simple_history.admin import SimpleHistoryAdmin
 
 class HistoryChangedFields(object):
