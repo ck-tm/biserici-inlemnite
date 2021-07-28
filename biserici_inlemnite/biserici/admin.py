@@ -3,16 +3,24 @@ from django.contrib.auth.models import Permission
 # Register your models here.
 from biserici import models
 from guardian.admin import GuardedModelAdmin
+from reversion_compare.admin import CompareVersionAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
-
+class HistoryChangedFields(object):
+    history_list_display = ["changed_fields"]
+    def changed_fields(self, obj):
+        if obj.prev_record:
+            delta = obj.diff_against(obj.prev_record)
+            return delta.changed_fields
+        return None
 
 @admin.register(Permission)
-class PermissionAdmin(admin.ModelAdmin):
+class PermissionAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ["name"]
 
 
 @admin.register(models.Localitate)
-class LocalitateAdmin(admin.ModelAdmin):
+class LocalitateAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
     list_filter = ["judet"]
@@ -22,7 +30,7 @@ class LocalitateAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Judet)
-class JudetAdmin(admin.ModelAdmin):
+class JudetAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'cod', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -31,7 +39,7 @@ class JudetAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.StatutBiserica)
-class StatutBisericaAdmin(admin.ModelAdmin):
+class StatutBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -40,7 +48,7 @@ class StatutBisericaAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.CultBiserica)
-class CultBisericaAdmin(admin.ModelAdmin):
+class CultBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -49,7 +57,7 @@ class CultBisericaAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.UtilizareBiserica)
-class UtilizareBisericaAdmin(admin.ModelAdmin):
+class UtilizareBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -58,7 +66,7 @@ class UtilizareBisericaAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.SingularitateBiserica)
-class SingularitateBisericaAdmin(admin.ModelAdmin):
+class SingularitateBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -67,7 +75,7 @@ class SingularitateBisericaAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.ProprietateBiserica)
-class ProprietateBisericaAdmin(admin.ModelAdmin):
+class ProprietateBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -76,7 +84,7 @@ class ProprietateBisericaAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.FunctiuneBiserica)
-class FunctiuneBisericaAdmin(admin.ModelAdmin):
+class FunctiuneBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici', 'nr_biserici_initiale']
     search_fields = ["nume"]
 
@@ -96,14 +104,14 @@ class IdentificareInline(admin.StackedInline):
 
 
 @admin.register(models.Identificare)
-class IdentificareAdmin(GuardedModelAdmin):
+class IdentificareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
 
 
 
 @admin.register(models.SursaDatare)
-class SursaDatareAdmin(admin.ModelAdmin):
+class SursaDatareAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici', 'nr_biserici_initiale']
     search_fields = ["nume"]
 
@@ -115,7 +123,7 @@ class SursaDatareAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Secol)
-class SecolAdmin(admin.ModelAdmin):
+class SecolAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici', 'nr_biserici_initiale']
     search_fields = ["nume"]
 
@@ -127,25 +135,25 @@ class SecolAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.StudiuDendocronologic)
-class StudiuDendocronologicAdmin(admin.ModelAdmin):
+class StudiuDendocronologicAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'fisier']
     search_fields = ["nume"]
 
 
 @admin.register(models.Persoana)
-class PersoanaAdmin(admin.ModelAdmin):
+class PersoanaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume']
     search_fields = ["nume"]
 
 
 @admin.register(models.Eveniment)
-class EvenimentAdmin(admin.ModelAdmin):
+class EvenimentAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume']
     search_fields = ["nume"]
 
 
 @admin.register(models.Studiu)
-class StudiuAdmin(admin.ModelAdmin):
+class StudiuAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume']
     search_fields = ["nume"]
 
@@ -204,7 +212,7 @@ class StudiuIstoricInline(admin.StackedInline):
 
 
 @admin.register(models.Istoric)
-class IstoricAdmin(GuardedModelAdmin):
+class IstoricAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica', 'last_edit_user']
@@ -217,6 +225,8 @@ class IstoricAdmin(GuardedModelAdmin):
         MutareBisericaInline,
         StudiuIstoricInline
     ]
+
+
 
 class DescriereInline(admin.StackedInline):
     model = models.Descriere
@@ -233,8 +243,10 @@ class PatrimoniuInline(admin.StackedInline):
     readonly_fields = ['last_edit_date', 'last_edit_user']
 
 
+
+
 @admin.register(models.Patrimoniu)
-class PatrimoniuAdmin(GuardedModelAdmin):
+class PatrimoniuAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica', 'last_edit_user']
@@ -248,7 +260,7 @@ class ConservareInline(admin.StackedInline):
 
 
 @admin.register(models.Conservare)
-class ConservareAdmin(GuardedModelAdmin):
+class ConservareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica', 'last_edit_user']
@@ -275,7 +287,7 @@ class ConservareAdmin(GuardedModelAdmin):
 
 
 @admin.register(models.Biserica)
-class BisericaAdmin(GuardedModelAdmin):
+class BisericaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'update_identificare', 'update_istoric', 'update_descriere', 'update_patrimoniu', 'update_conservare']
     search_fields = ["nume"]
     list_filter = ["identificare__judet"]

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from guardian.shortcuts import get_objects_for_user, assign_perm, remove_perm
+from simple_history.models import HistoricalRecords
 
 User = get_user_model()
 
@@ -33,7 +34,8 @@ class Judet(models.Model):
     nume = models.CharField(max_length=50)
     cod = models.CharField(max_length=2)
     
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Județe"
 
@@ -47,7 +49,8 @@ class Localitate(models.Model):
     nume = models.CharField(max_length=50)
     judet = models.ForeignKey('Judet', on_delete=models.CASCADE)
     
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Localități"
 
@@ -64,7 +67,8 @@ class Biserica(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "Biserici"
 
@@ -80,7 +84,8 @@ class FunctiuneBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Funcțiuni Biserică"
 
@@ -93,7 +98,8 @@ class StatutBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Statuturi Biserică"
 
@@ -106,7 +112,8 @@ class CultBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Culturi Biserică"
 
@@ -119,7 +126,8 @@ class UtilizareBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Utilizări Biserică"
 
@@ -132,7 +140,8 @@ class SingularitateBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Singularități Biserică"
 
@@ -145,7 +154,8 @@ class ProprietateBiserica(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "_Proprietăți Biserică"
 
@@ -183,7 +193,8 @@ class Identificare(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "Identificare Biserici"
 
@@ -227,7 +238,8 @@ class MutareBiserica(models.Model):
     localitate = models.ForeignKey('Localitate', null=True, blank=True, on_delete=models.SET_NULL)
     latitudine = models.FloatField(null=True, blank=True)
     longitudine = models.FloatField(null=True, blank=True)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Mutări Biserică'
 
@@ -237,7 +249,8 @@ class SursaDatare(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Surse Datări'
 
@@ -254,7 +267,8 @@ class StudiuDendocronologic(models.Model):
     an = models.IntegerField(null=True, blank=True)
     autor = models.CharField(max_length=150, null=True, blank=True)
     detalii = models.TextField(null=True, blank=True)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Studii dendocronologice'
 
@@ -266,7 +280,8 @@ class Persoana(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Persoane'
 
@@ -279,7 +294,8 @@ class Eveniment(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=150)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Evenimente'
 
@@ -295,7 +311,8 @@ class CtitorBiserica(models.Model):
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
     detalii = models.TextField()
     sursa = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = 'Ctitori'
 
@@ -310,7 +327,8 @@ class ZugravBiserica(models.Model):
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
     detalii = models.TextField()
     sursa = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = 'Zugravi'
 
@@ -325,7 +343,8 @@ class MesterBiserica(models.Model):
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
     detalii = models.TextField()
     sursa = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = 'Meșteri'
 
@@ -340,7 +359,8 @@ class PersonalitateBiserica(models.Model):
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
     detalii = models.TextField()
     sursa = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Personalități Biserică'
 
@@ -356,7 +376,8 @@ class EvenimentBiserica(models.Model):
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
     detalii = models.TextField()
     sursa = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = 'Evenimente Istorice'
 
@@ -370,7 +391,8 @@ class Studiu(models.Model):
     """
     nume = models.CharField(max_length=150)
     fisier = models.FileField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Studii'
 
@@ -383,7 +405,8 @@ class Secol(models.Model):
     Description: Model Description
     """
     nume = models.CharField(max_length=6)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = '_Secole'
 
@@ -400,7 +423,8 @@ class StudiuIstoric(models.Model):
     nume = models.CharField(max_length=150)
     fisier = models.FileField()
     drepturi_de_autor = models.TextField()
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = 'Studii Istorice'
 
@@ -435,6 +459,7 @@ class Istoric(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Istoric Biserici"
@@ -452,7 +477,8 @@ class Descriere(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "Descriere Biserici"
 
@@ -493,7 +519,8 @@ class Patrimoniu(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "Valoare Patrimoniu"
 
@@ -560,7 +587,8 @@ class Conservare(models.Model):
 
     last_edit_date = models.DateTimeField(auto_now=True)
     last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-
+    history = HistoricalRecords()
+    
     class Meta:
         verbose_name_plural = "Stare conservare Biserici"
 

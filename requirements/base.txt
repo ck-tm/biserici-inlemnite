@@ -25,3 +25,4 @@ django-guardian>=2.4.0,<3.0.0
 djangorestframework-guardian>=0.3.0,<1.0.0
 django-filter==2.4.0
 crispy-bootstrap5>=0.4,<1.0
+django-simple-history
