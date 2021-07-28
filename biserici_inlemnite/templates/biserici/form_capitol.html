@@ -1,5 +1,5 @@
 {% extends "biserici/biserica_detail.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static%}
 {% block form %}
 <br>
   <div class="row">
@@ -8,10 +8,63 @@
       <input type="submit" value="Update">
     </form>
   </div>
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock form %} {% block inline_javascript %}
+
 <script>
 $(document).ready(function() {
-console.log('ready')
+    // console.log('ready form' )
+    $('.modal-btn').on('click', function(e){
+        e.preventDefault()
+        var model = $(this).attr('data-type');
+        var selectId = $(this).attr('data-select');
+        console.log('click')
+        console.log('click', $(this).attr('data-type'))
+
+        $.get('/biserici/add-constant/' + model, function(result) {
+          $('#createModal .modal-body').html(result)
+          $('#createModal').modal('show')
+
+          $('.form-submit').on('click', function(e){
+            $('.alert').addClass('d-none')
+            $.post('/biserici/add-constant/' + model, $("#createForm").serialize())
+              .done(function(result) {
+                console.log(result)
+                $('#' + selectId).append(new Option(result.name, result.pk));
+                $(`#${selectId} option[value="${result.pk}"]`).attr("selected", "selected");
+                $('#createModal').modal('hide')
+              })
+              .fail(function(e) {
+                var error = e.responseJSON;
+                var alertMessage = ''
+                for (const [key, value] of Object.entries(error)) {
+                  alertMessage += `${key}: ${value}<br>`
+                }
+                $('.alert').html(alertMessage)
+                $('.alert').removeClass('d-none')
+              })
+
+          })
+        })
+    })
+
+    $('#createModal').on('hidden.bs.modal', function (e) {
+      console.log($('.form-submit'))
+      $('.form-submit').unbind( "click" );
+      console.log('remove bind')
+    })
+    
 });
 </script>
 {% endblock inline_javascript %}

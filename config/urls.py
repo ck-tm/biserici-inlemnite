@@ -18,6 +18,7 @@ urlpatterns = [
     path('biserici/<int:biserica_pk>/istoric', view=views.IstoricBisericaView.as_view(), name='istoric'),
     path('biserici/<int:biserica_pk>/patrimoniu', view=views.PatrimoniuBisericaView.as_view(), name='patrimoniu'),
     path('biserici/<int:biserica_pk>/conservare', view=views.ConservareBisericaView.as_view(), name='conservare'),
+    path("biserici/add-constant/<str:model_name>", view=views.ContentCreateView.as_view(), name="constant-create"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),

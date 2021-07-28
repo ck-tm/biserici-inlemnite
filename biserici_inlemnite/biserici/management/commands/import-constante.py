@@ -112,35 +112,80 @@ IDENTIFICARE_PROPRIETATE = [
 ]
 
 
+SURSA_DATARE = [
+    "Pisanie tradusă",
+    "Studiu dendrocronologic",
+
+]
+
+SECOL = [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
+    "X",
+    "XI",
+    "XII",
+    "XIII",
+    "XIV",
+    "XV",
+    "XVI",
+    "XVII",
+    "XVII",
+    "XIX",
+    "XX",
+]
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
         for cod, nume in JUDETE.items():
+            print(f"Import JUDETE: {nume}")
             models.Judet.objects.get_or_create(
                 nume=nume,
                 cod=cod)
             Group.objects.get_or_create(name=nume)
         for nume in FUNCTIUNI:
+            print(f"Import FUNCTIUNI: {nume}")
             models.FunctiuneBiserica.objects.get_or_create(
                 nume=nume)
 
         for nume in IDENTIFICARE_CULT:
+            print(f"Import IDENTIFICARE_CULT: {nume}")
             models.CultBiserica.objects.get_or_create(
                 nume=nume)
 
         for nume in IDENTIFICARE_UTILIZARE:
+            print(f"Import IDENTIFICARE_UTILIZARE: {nume}")
             models.UtilizareBiserica.objects.get_or_create(
                 nume=nume)
 
         for nume in IDENTIFICARE_SINGULARITATE:
+            print(f"Import IDENTIFICARE_SINGULARITATE: {nume}")
             models.SingularitateBiserica.objects.get_or_create(
                 nume=nume)
 
         for nume in IDENTIFICARE_STATUT:
+            print(f"Import IDENTIFICARE_STATUT: {nume}")
             models.StatutBiserica.objects.get_or_create(
                 nume=nume)
 
         for nume in IDENTIFICARE_PROPRIETATE:
+            print(f"Import IDENTIFICARE_PROPRIETATE: {nume}")
             models.ProprietateBiserica.objects.get_or_create(
+                nume=nume)
+
+        for nume in SURSA_DATARE:
+            print(f"Import SURSA_DATARE: {nume}")
+            models.SursaDatare.objects.get_or_create(
+                nume=nume)
+
+        for nume in SECOL:
+            print(f"Import SECOL: {nume}")
+            models.Secol.objects.get_or_create(
                 nume=nume)

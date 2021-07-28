@@ -1,10 +1,11 @@
 # from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.contenttypes.models import ContentType
 
 from django.views.generic.list import ListView
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin, DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils import timezone
@@ -12,7 +13,8 @@ from django.shortcuts import redirect
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from biserici import models, forms
+
+from biserici import models, forms, mixins
 from django_filters.views import FilterView
 
 from guardian.shortcuts import get_objects_for_user, get_perms
@@ -137,3 +139,24 @@ class PatrimoniuBisericaView(UpdateChapterMixin, UpdateView):
 class ConservareBisericaView(UpdateChapterMixin, UpdateView):
     model = models.Conservare
     form_class = forms.ConservareForm
+
+
+class ContentCreateView(mixins.JsonableResponseMixin, CreateView):
+    template_name='biserici/snippets/create_form.html'
+    fields='__all__'
+
+    def dispatch(self, request, *args, **kwargs):
+        model_name = kwargs['model_name'].lower()
+        model = ContentType.objects.get_by_natural_key('biserici', model_name)
+        self.model = model.model_class()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        context['title'] = self.model._meta.object_name
+        print(self.model)
+        return context
+
+    def get_success_url(self):
+        return '%'
