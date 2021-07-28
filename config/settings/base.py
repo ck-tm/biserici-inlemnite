@@ -81,8 +81,6 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "guardian",
     "django_filters",
-    "reversion",
-    "reversion_compare",
     "simple_history"
 ]
 
