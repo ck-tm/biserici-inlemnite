@@ -431,8 +431,8 @@ DETALIU_POD_TURN = [
     "timpanul",
     "balconul",
     "clopotul",
-    "șarpanta" turnului,
-    "marcaje" dulgherești,
+    "șarpanta turnului",
+    "marcaje dulgherești",
     "îmbinări",
 ]
 
