@@ -3,8 +3,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from guardian.shortcuts import get_objects_for_user, assign_perm, remove_perm
 from simple_history.models import HistoricalRecords
+from simple_history import register
+
+from nomenclatoare import models as nmodels
+
 
 User = get_user_model()
+register(User, app=__package__)
 
 IDENTIFICARE_DOC_CADASTRALE = (
     (1, 'Da'),
@@ -27,46 +32,13 @@ NR135 = (
 )
 
 
-class Judet(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=50)
-    cod = models.CharField(max_length=2)
-    
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Județe"
-
-    def __str__(self):
-        return self.nume
-
-class Localitate(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=50)
-    judet = models.ForeignKey('Judet', on_delete=models.CASCADE)
-    
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Localități"
-
-
-    def __str__(self):
-        return self.nume
-
-
 class Biserica(models.Model):
     """
     Description: Model Description
     """
     nume = models.CharField(max_length=50)
 
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    
     history = HistoricalRecords()
     
     class Meta:
@@ -79,122 +51,37 @@ class Biserica(models.Model):
     def completare(self):
         return 0
 
-class FunctiuneBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Funcțiuni Biserică"
-
-    def __str__(self):
-        return self.nume
-
-
-class StatutBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Statuturi Biserică"
-
-    def __str__(self):
-        return self.nume
-
-
-class CultBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Culturi Biserică"
-
-    def __str__(self):
-        return self.nume
-
-
-class UtilizareBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Utilizări Biserică"
-
-    def __str__(self):
-        return self.nume
-
-
-class SingularitateBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Singularități Biserică"
-
-    def __str__(self):
-        return self.nume
-
-
-class ProprietateBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = "_Proprietăți Biserică"
-
-    def __str__(self):
-        return self.nume
-
 
 class Identificare(models.Model):
     """
     Capitol: Identificare Biserica
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    judet = models.ForeignKey('Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    localitate = models.ForeignKey('Localitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    localitate = models.ForeignKey('nomenclatoare.Localitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     latitudine = models.FloatField(null=True, blank=True)
     longitudine = models.FloatField(null=True, blank=True)
-    statut = models.ForeignKey('StatutBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    statut = models.ForeignKey('nomenclatoare.StatutBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     denumire_actuala = models.CharField(max_length=150, null=True, blank=True)
     denumire_precedenta = models.CharField(max_length=150, null=True, blank=True)
     denumire_locala = models.CharField(max_length=150, null=True, blank=True)
     denumire_oberservatii = models.TextField(null=True, blank=True)
-    cult = models.ForeignKey('CultBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    utilizare = models.ForeignKey('UtilizareBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    cult = models.ForeignKey('nomenclatoare.CultBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    utilizare = models.ForeignKey('nomenclatoare.UtilizareBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     utilizare_detalii = models.TextField(null=True, blank=True)
-    singularitate = models.ForeignKey('SingularitateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    singularitate = models.ForeignKey('nomenclatoare.SingularitateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     singularitate_detalii = models.TextField(null=True, blank=True)
-    functiune = models.ForeignKey('FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    functiune = models.ForeignKey('nomenclatoare.FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     functiune_detalii = models.TextField(null=True, blank=True)
-    functiune_initiala = models.ForeignKey('FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
+    functiune_initiala = models.ForeignKey('nomenclatoare.FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
     functiune_initiala_detalii = models.TextField(null=True, blank=True)
-    proprietate_actuala = models.ForeignKey('ProprietateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
+    proprietate_actuala = models.ForeignKey('nomenclatoare.ProprietateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
     proprietate_detalii = models.TextField(null=True, blank=True)
     proprietar_actual = models.TextField(null=True, blank=True)
     inscriere_documente_cadastrale = models.IntegerField(choices=IDENTIFICARE_DOC_CADASTRALE, null=True, blank=True)
 
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Identificare Biserici"
 
@@ -205,267 +92,29 @@ class Identificare(models.Model):
         super().__init__(*args, **kwargs)
         self.__original_judet = self.judet
 
-    def save(self, *args, **kwargs):
-        print(kwargs)
-        if self.judet:
-            if self.__original_judet != self.judet or kwargs.get('force_update', False) == True:
-                biserica = self.biserica
+    # def save(self, *args, **kwargs):
+    #     print(kwargs)
+    #     if self.judet:
+    #         if self.__original_judet != self.judet or kwargs.get('force_update', False) == True:
+    #             biserica = self.biserica
 
-                judet_biserica = self.judet.nume
-                grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-                assign_perm('view_biserica', grup_judet, biserica)
-                assign_perm('change_biserica', grup_judet, biserica)
+    #             judet_biserica = self.judet.nume
+    #             grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
+    #             assign_perm('view_biserica', grup_judet, biserica)
+    #             assign_perm('change_biserica', grup_judet, biserica)
 
-                for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
-                        assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
-                        assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
+    #             for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
+    #                     assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
+    #                     assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
 
-                for judet in Group.objects.exclude(name=judet_biserica):
-                    remove_perm('view_biserica', judet, biserica)
-                    remove_perm('change_biserica', judet, biserica)
+    #             for judet in Group.objects.exclude(name=judet_biserica):
+    #                 remove_perm('view_biserica', judet, biserica)
+    #                 remove_perm('change_biserica', judet, biserica)
 
-                    for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
-                        remove_perm(f'view_{t}', judet, getattr(biserica, t))
-                        remove_perm(f'change_{t}', judet, getattr(biserica, t))
-        super().save(*args, **kwargs)
-
-
-class MutareBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    localitate = models.ForeignKey('Localitate', null=True, blank=True, on_delete=models.SET_NULL)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Mutări Biserică'
-
-
-class SursaDatare(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Surse Datări'
-
-    def __str__(self):
-        return self.nume
-
-
-class StudiuDendocronologic(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    fisier = models.FileField()
-    an = models.IntegerField(null=True, blank=True)
-    autor = models.CharField(max_length=150, null=True, blank=True)
-    detalii = models.TextField(null=True, blank=True)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Studii dendocronologice'
-
-    def __str__(self):
-        return f"{self.nume} - {self.autor} ({self.an})"
-
-class Persoana(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Persoane'
-
-    def __str__(self):
-        return self.nume
-
-
-class Eveniment(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Evenimente'
-
-    def __str__(self):
-        return self.nume
-
-
-class CtitorBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = 'Ctitori'
-
-    def __str__(self):
-        return self.nume
-
-class ZugravBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = 'Zugravi'
-
-    def __str__(self):
-        return self.nume
-
-class MesterBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = 'Meșteri'
-
-    def __str__(self):
-        return self.nume
-
-class PersonalitateBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Personalități Biserică'
-
-    def __str__(self):
-        return self.nume
-
-
-class EvenimentBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    eveniment = models.ForeignKey('Eveniment', on_delete=models.CASCADE)
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = 'Evenimente Istorice'
-
-    def __str__(self):
-        return self.nume
-
-
-class Studiu(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    fisier = models.FileField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Studii'
-
-    def __str__(self):
-        return self.nume
-
-
-class Secol(models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=6)
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = '_Secole'
-
-    def __str__(self):
-        return self.nume
-
-
-
-class StudiuIstoric(models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    nume = models.CharField(max_length=150)
-    fisier = models.FileField()
-    drepturi_de_autor = models.TextField()
-    history = HistoricalRecords()
-    
-    class Meta:
-        verbose_name_plural = 'Studii Istorice'
-
-    def __str__(self):
-        return self.studiu.nume
-
-
-
-class Istoric(models.Model):
-    """
-    Capitol: Istoric Biserica
-    """
-
-    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    sursa_datare = models.ManyToManyField(SursaDatare, related_name='biserici')
-    anul_constructiei = models.IntegerField(null=True, blank=True)
-    datare_prin_interval_timp = models.CharField(max_length=50, null=True, blank=True)
-    datare_secol = models.ForeignKey('Secol', null=True, blank=True, on_delete=models.CASCADE, related_name='biserici')
-    datare_secol_detalii  = models.TextField(null=True, blank=True)
-    datare_secol_sursa  = models.TextField(null=True, blank=True)
-    studiu_dendocronologic = models.ForeignKey('StudiuDendocronologic', null=True, blank=True, on_delete=models.CASCADE)
-    pisanie_traducere = models.TextField(null=True, blank=True)
-    pisanie_secol_detalii  = models.TextField(null=True, blank=True)
-    pisanie_secol_sursa  = models.TextField(null=True, blank=True)
-    ctitori = models.ManyToManyField('Persoana', through=CtitorBiserica, related_name='ctitor')
-    mesteri = models.ManyToManyField('Persoana', through=MesterBiserica, related_name='mester')
-    zugravi = models.ManyToManyField('Persoana', through=ZugravBiserica, related_name='zugrav')
-    personalitati = models.ManyToManyField('Persoana', through=PersonalitateBiserica, related_name='personalitate')
-    evenimente = models.ManyToManyField('Eveniment', through=EvenimentBiserica)
-
-    mutari_biserica = models.ManyToManyField(Localitate, through=MutareBiserica)
-
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = "Istoric Biserici"
-
-    def __str__(self):
-        return f"Istoric {self.biserica.nume}"
+    #                 for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
+    #                     remove_perm(f'view_{t}', judet, getattr(biserica, t))
+    #                     remove_perm(f'change_{t}', judet, getattr(biserica, t))
+    #     super().save(*args, **kwargs)
 
 
 class Descriere(models.Model):
@@ -475,16 +124,53 @@ class Descriere(models.Model):
 
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
 
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    # Localizare/peisaj
+    amplasament = models.ForeignKey('nomenclatoare.AmplasamentBiserica', null=True, blank=True, on_delete=models.SET_NULL)
+    topografie = models.ForeignKey('nomenclatoare.TopografieBiserica', null=True, blank=True, on_delete=models.SET_NULL)
+    toponim = models.CharField(max_length=150, null=True, blank=True, help_text="denumirea locului")
+
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Descriere Biserici"
 
     def __str__(self):
         return f"Descriere {self.biserica.nume}"
 
+
+class Istoric(models.Model):
+    """
+    Capitol: Istoric Biserica
+    """
+
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+    sursa_datare = models.ManyToManyField('nomenclatoare.SursaDatare', related_name='biserici', blank=True)
+    anul_constructiei = models.IntegerField(null=True, blank=True)
+    datare_prin_interval_timp = models.CharField(max_length=50, null=True, blank=True)
+    datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    datare_secol_detalii  = models.TextField(null=True, blank=True)
+    datare_secol_sursa  = models.TextField(null=True, blank=True)
+    studiu_dendocronologic = models.ForeignKey('nomenclatoare.StudiuDendocronologic', null=True, blank=True, on_delete=models.SET_NULL)
+    pisanie_traducere = models.TextField(null=True, blank=True)
+    pisanie_secol_detalii  = models.TextField(null=True, blank=True)
+    pisanie_secol_sursa  = models.TextField(null=True, blank=True)
+    ctitori = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.CtitorBiserica, related_name='ctitor')
+    mesteri = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.MesterBiserica, related_name='mester')
+    zugravi = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.ZugravBiserica, related_name='zugrav')
+    personalitati = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.PersonalitateBiserica, related_name='personalitate')
+    evenimente = models.ManyToManyField('nomenclatoare.Eveniment', through=nmodels.EvenimentBiserica)
+
+    mutari_biserica = models.ManyToManyField('nomenclatoare.Localitate', through=nmodels.MutareBiserica)
+
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Istoric Biserici"
+        
+
+    def __str__(self):
+        return f"Istoric {self.biserica.nume}"
 
 class Patrimoniu(models.Model):
     """
@@ -517,10 +203,8 @@ class Patrimoniu(models.Model):
     potential = models.IntegerField(choices=NR135, null=True, blank=True, help_text= "Potențialul de beneficii aduse comunității locale")
     potential_detalii = models.TextField(null=True, blank=True)
 
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Valoare Patrimoniu"
 
@@ -585,10 +269,9 @@ class Conservare(models.Model):
     starea_mobilier = models.IntegerField(choices=NR15, null=True, blank=True)
     starea_mobilier_detalii = models.TextField( null=True, blank=True)
 
-    last_edit_date = models.DateTimeField(auto_now=True)
-    last_edit_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Stare conservare Biserici"
 

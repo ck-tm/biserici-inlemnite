@@ -28,7 +28,7 @@
         <tbody>
           {% for biserica in object_list %}
             <tr>
-              <td><a href="#">{{biserica}}</a></td>
+              <td><a href="{% url 'biserica' biserica.pk %}">{{biserica}}</a></td>
               <td>{{biserica.identificare.localitate}}</td>
               <td>{{biserica.identificare.judet}}</td>
               <td class="text-center">{{biserica.completare}}</td>

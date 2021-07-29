@@ -1,0 +1,12 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls bi_tags %}
+
+{% block object-tools-items %}
+    {% if request.user.is_superuser or request.user|has_group:"admin" %}
+        {% url opts|admin_urlname:'permissions' original.pk|admin_urlquote as history_url %}
+        <li>
+            <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-secondary btn-sm mb-3">{% trans "Object permissions" %}</a>
+        </li>
+    {% endif %}
+{{ block.super }}
+{% endblock %}

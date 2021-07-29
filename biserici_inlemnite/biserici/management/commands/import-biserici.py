@@ -3,6 +3,7 @@ from django.db.models import Count
 import csv
 from pprint import pprint
 from biserici import models
+from nomenclatoare import models as nmodels
 from datetime import datetime
 
 BISERICI = [
@@ -46,7 +47,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
 
-        judet, _  = models.Judet.objects.get_or_create(nume="Arad")
+        judet, _  = nmodels.Judet.objects.get_or_create(nume="Arad")
         print(models.Biserica.objects.all().delete())
         for nume in BISERICI:
             biserica, _ = models.Biserica.objects.get_or_create(
@@ -55,7 +56,7 @@ class Command(BaseCommand):
 
             identificare = biserica.identificare
             identificare.judet = judet
-            identificare.localitate, _ = models.Localitate.objects.get_or_create(
+            identificare.localitate, _ = nmodels.Localitate.objects.get_or_create(
                 nume=nume.replace('1', '').replace('2', ''),
                 judet=judet)
             identificare.save()

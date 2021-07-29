@@ -14,7 +14,7 @@ class IdentificareSerializer(ObjectPermissionsAssignmentMixin, serializers.Model
     class Meta:
         model = models.Identificare
         exclude = ["biserica"]
-        read_only_fields = ["last_edit_user"]
+        # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
         current_user = self.context['request'].user
@@ -50,7 +50,7 @@ class IstoricSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSeria
     class Meta:
         model = models.Istoric
         exclude = ["biserica"]
-        read_only_fields = ["last_edit_user"]
+        # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
         current_user = self.context['request'].user
@@ -72,7 +72,7 @@ class DescriereSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSer
     class Meta:
         model = models.Descriere
         exclude = ["biserica"]
-        read_only_fields = ["last_edit_user"]
+        # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
         current_user = self.context['request'].user
@@ -94,7 +94,7 @@ class PatrimoniuSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSe
     class Meta:
         model = models.Patrimoniu
         exclude = ["biserica"]
-        read_only_fields = ["last_edit_user"]
+        # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
         current_user = self.context['request'].user
@@ -118,7 +118,7 @@ class ConservareSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSe
     class Meta:
         model = models.Conservare
         exclude = ["biserica"]
-        read_only_fields = ["last_edit_user"]
+        # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
         current_user = self.context['request'].user

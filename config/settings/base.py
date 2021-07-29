@@ -79,13 +79,15 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "guardian",
     "django_filters",
-    "simple_history"
+    "simple_history",
+    "guardian",
+    "adminsortable",
 ]
 
 LOCAL_APPS = [
     "biserici_inlemnite.users.apps.UsersConfig",
+    "biserici_inlemnite.nomenclatoare.apps.NomenclatoareConfig",
     "biserici_inlemnite.biserici.apps.BisericiConfig",
     # Your stuff: custom apps go here
 ]
@@ -220,7 +222,7 @@ FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
 # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-httponly
 SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
 SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
@@ -296,14 +298,25 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = "username"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
+
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_USERNAME_REQUIRED = True
+LOGIN_REDIRECT_URL = '/?activated'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+
 SOCIALACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.SocialAccountAdapter"
 
 # django-rest-framework
@@ -331,16 +344,16 @@ JAZZMIN_SETTINGS = {
     "site_header": "Biserici Înlemnite",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    # "site_logo": "books/img/logo.png",
+    "site_logo": "images/church-solid.svg",
 
     # CSS classes that are applied to the logo above
-    "site_logo_classes": "img-circle",
+    "site_logo_classes": "bi-brand-image",
 
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Salut!",
+    "welcome_sign": "",
 
     # Copyright on the footer
     "copyright": "CK",
@@ -359,16 +372,20 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
 
         # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        # {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # external url that opens in a new window (Permissions can be added)
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
 
         # model admin to link to (Permissions checked against model)
-        {"model": "auth.Biserica"},
+        {"model": "biserici.Identificare"},
+        {"model": "biserici.Istoric"},
+        {"model": "biserici.Descriere"},
+        {"model": "biserici.Patrimoniu"},
+        {"model": "biserici.Conservare "},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "biserici"},
+        # {"app": "biserici"},
     ],
 
     #############
@@ -431,7 +448,7 @@ JAZZMIN_SETTINGS = {
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    "custom_css": None,
+    "custom_css": "css/admin.css",
     "custom_js": None,
     # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,

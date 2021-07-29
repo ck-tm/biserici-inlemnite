@@ -31,14 +31,15 @@ class BisericiView(FilterView):
     def get_queryset(self):
         queryset = super().get_queryset().prefetch_related('identificare__judet', 'identificare__localitate')
         user = self.request.user
-        checker = ObjectPermissionChecker(user)
+        # checker = ObjectPermissionChecker(user)
         # for obj in queryset:
         #     print(obj)
         #     print(checker.get_user_perms(obj))
         #     print(checker.get_group_perms(obj))
         #     print(get_perms(user, obj))
-        print(get_objects_for_user(user, 'biserici.change_biserica'))
+        # print(get_objects_for_user(user, 'biserici.change_biserica'))
         # print(user)
+        return queryset
         return get_objects_for_user(user, 'biserici.change_biserica')
 
 @method_decorator(login_required, name='dispatch')
@@ -50,7 +51,6 @@ class BisericaView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -79,11 +79,11 @@ class UpdateChapterMixin(object):
         user = self.request.user
         obj = self.get_object()
         checker = ObjectPermissionChecker(user)
-        print(dir(checker))
+        # print(dir(checker))
         user_permissions = []
         for chapter in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
             user_permissions += checker.get_perms(getattr(obj.biserica, chapter))
-        print(user_permissions)
+        # print(user_permissions)
         context['user_permissions'] = user_permissions
         context['biserica'] = self.object.biserica
         context['active_page'] = self.model._meta.model_name
@@ -95,21 +95,13 @@ class UpdateChapterMixin(object):
     def get_success_url(self):
         return reverse(self.model._meta.model_name, kwargs={'biserica_pk': self.object.biserica.pk})
 
-    def form_valid(self, form):
-        """
-        If the form is valid, save the associated model.
-        """
-        user = self.request.user
-        self.object = form.save()
-        instance = form.instance
-        instance.last_edit_date = timezone.now()
-        instance.last_edit_user = user
-        instance.save()
-        biserica = instance.biserica
-        biserica.last_edit_date = timezone.now()
-        biserica.last_edit_user = user
-        biserica.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     """
+    #     If the form is valid, save the associated model.
+    #     """
+    #     user = self.request.user
+    #     self.object = form.save()
+    #     return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
 class IdentificareBisericaView(UpdateChapterMixin, UpdateView):
@@ -153,9 +145,9 @@ class ContentCreateView(mixins.JsonableResponseMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
+        # print(context)
         context['title'] = self.model._meta.object_name
-        print(self.model)
+        # print(self.model)
         return context
 
     def get_success_url(self):

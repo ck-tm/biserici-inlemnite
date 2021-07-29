@@ -5,8 +5,6 @@ register = template.Library()
 
 @register.filter(name='get_model')
 def get_model(field):
-    print(field)
-    print(field.field.__class__)
     if field.field.__class__ in [ModelChoiceField, ModelMultipleChoiceField]:
         try:
             m = field.field.queryset[0]
@@ -16,13 +14,13 @@ def get_model(field):
     return None
 
 
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()
 
- 
 
-
-@register.filter
-def is_checkboxselectmultiple(field):
-    if field.field.__class__ == ModelMultipleChoiceField:
-        print(field, True)
-        return True
-    return isinstance(field.field.widget, forms.CheckboxSelectMultiple)
+# @register.filter
+# def is_checkboxselectmultiple(field):
+#     if field.field.__class__ == ModelMultipleChoiceField:
+#         return True
+#     return isinstance(field.field.widget, forms.CheckboxSelectMultiple)

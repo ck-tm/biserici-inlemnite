@@ -1,28 +1,37 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+
 from biserici import models
 
+class ReadOnlyForm(object):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['readonly'] = True
+            self.fields[field].widget.attrs['disabled'] = True
 
-class IdentificareForm(forms.ModelForm):
+class IdentificareForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
         model = models.Identificare
-        exclude = ('biserica', 'last_edit_user', 'last_edit_date')
+        exclude = ('biserica',)
 
-class DescriereForm(forms.ModelForm):
+class DescriereForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
         model = models.Descriere
-        exclude = ('biserica', 'last_edit_user', 'last_edit_date')
+        exclude = ('biserica',)
 
-class IstoricForm(forms.ModelForm):
+class IstoricForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
         model = models.Istoric
-        exclude = ('biserica', 'last_edit_user', 'last_edit_date')
+        exclude = ('biserica',)
+        # readonly_fields = '__all__'
 
-class PatrimoniuForm(forms.ModelForm):
+class PatrimoniuForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
         model = models.Patrimoniu
-        exclude = ('biserica', 'last_edit_user', 'last_edit_date')
+        exclude = ('biserica',)
 
-class ConservareForm(forms.ModelForm):
+class ConservareForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
         model = models.Conservare
-        exclude = ('biserica', 'last_edit_user', 'last_edit_date')
+        exclude = ('biserica',)
