@@ -9,12 +9,11 @@ class Judet(models.Model):
     """
     nume = models.CharField(max_length=50)
     cod = models.CharField(max_length=2)
-    
+
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Județe"
-        
 
     def __str__(self):
         return self.nume
@@ -26,13 +25,11 @@ class Localitate(models.Model):
     """
     nume = models.CharField(max_length=50)
     judet = models.ForeignKey('Judet', on_delete=models.CASCADE)
-    
+
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Localități"
-        
-
 
     def __str__(self):
         return self.nume
@@ -45,10 +42,9 @@ class FunctiuneBiserica(models.Model):
     """
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
-    
+
     class Meta:
         verbose_name_plural = "Funcțiuni Biserică"
-        
 
     def __str__(self):
         return self.nume
@@ -384,7 +380,9 @@ class RelatieCimitir(models.Model):
 
     class Meta:
         verbose_name_plural = "Relație Cimitir"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class PeisagisticaSit(models.Model):
@@ -394,7 +392,9 @@ class PeisagisticaSit(models.Model):
 
     class Meta:
         verbose_name_plural = "Peisagistică Sit"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class ElementAnsambluConstruit(models.Model):
@@ -404,7 +404,9 @@ class ElementAnsambluConstruit(models.Model):
 
     class Meta:
         verbose_name_plural = "Elemente Ansamblu Construit"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class ElementImportant(models.Model):
@@ -414,7 +416,9 @@ class ElementImportant(models.Model):
 
     class Meta:
         verbose_name_plural = "Elemente Importante"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class Planimetrie(models.Model):
@@ -424,7 +428,9 @@ class Planimetrie(models.Model):
 
     class Meta:
         verbose_name_plural = "Planimetrii"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class Material(models.Model):
@@ -434,7 +440,9 @@ class Material(models.Model):
 
     class Meta:
         verbose_name_plural = "Materiale"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class DimensiuneTurn(models.Model):
@@ -444,7 +452,9 @@ class DimensiuneTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Dimensiuni Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipTurn(models.Model):
@@ -454,7 +464,9 @@ class TipTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class DecorTurn(models.Model):
@@ -464,7 +476,9 @@ class DecorTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Decoruri Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class PlanTurn(models.Model):
@@ -474,7 +488,9 @@ class PlanTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Planuri Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class AmplasareTurn(models.Model):
@@ -484,7 +500,9 @@ class AmplasareTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Amplasări Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class GalerieTurn(models.Model):
@@ -494,7 +512,9 @@ class GalerieTurn(models.Model):
 
     class Meta:
         verbose_name_plural = "Galerii Turn"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipSarpanta(models.Model):
@@ -504,7 +524,9 @@ class TipSarpanta(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Sarpanta"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class FinisajExterior(models.Model):
@@ -514,7 +536,9 @@ class FinisajExterior(models.Model):
 
     class Meta:
         verbose_name_plural = "Finisaj Exterior"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipBatereSindrila(models.Model):
@@ -524,7 +548,9 @@ class TipBatereSindrila(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Batere Sindrila"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipPrindereSindrila(models.Model):
@@ -534,7 +560,9 @@ class TipPrindereSindrila(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Prindere Sindrila"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipBotSindrila(models.Model):
@@ -544,7 +572,9 @@ class TipBotSindrila(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Bot Sindrila"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipPrelucrareSindrila(models.Model):
@@ -554,7 +584,9 @@ class TipPrelucrareSindrila(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Prelucrare Sindrila"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class EsentaLemnoasa(models.Model):
@@ -564,17 +596,21 @@ class EsentaLemnoasa(models.Model):
 
     class Meta:
         verbose_name_plural = "Esenta Lemnoasa"
-        
+
+    def __str__(self):
+        return self.nume
 
 
-class ElementeBiserica(models.Model):
+class ElementBiserica(models.Model):
     nume = models.CharField(max_length=150)
 
     history = HistoricalRecords()
 
     class Meta:
         verbose_name_plural = "Elemente Biserica"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class MaterialFinisajPardoseli(models.Model):
@@ -584,7 +620,9 @@ class MaterialFinisajPardoseli(models.Model):
 
     class Meta:
         verbose_name_plural = "Material Finisaj Pardoseli"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class MaterialFinisajPeretiInteriori(models.Model):
@@ -594,7 +632,9 @@ class MaterialFinisajPeretiInteriori(models.Model):
 
     class Meta:
         verbose_name_plural = "Material Finisaj Pereti Interiori"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class Finisaj(models.Model):
@@ -604,7 +644,9 @@ class Finisaj(models.Model):
 
     class Meta:
         verbose_name_plural = "Finisaj"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipFundatie(models.Model):
@@ -614,7 +656,9 @@ class TipFundatie(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Fundatie"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipStructuraCheotoare(models.Model):
@@ -624,7 +668,9 @@ class TipStructuraCheotoare(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Structură Cheotoare"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipStructuraCatei(models.Model):
@@ -634,7 +680,9 @@ class TipStructuraCatei(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Structură Căței"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class LocalizarePictura(models.Model):
@@ -644,7 +692,9 @@ class LocalizarePictura(models.Model):
 
     class Meta:
         verbose_name_plural = "Localizări Pictură"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TehnicaPictura(models.Model):
@@ -654,7 +704,9 @@ class TehnicaPictura(models.Model):
 
     class Meta:
         verbose_name_plural = "Tehnici Pictura"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class FinisajIconostas(models.Model):
@@ -664,7 +716,9 @@ class FinisajIconostas(models.Model):
 
     class Meta:
         verbose_name_plural = "Finisaje Iconostas"
-        
+
+    def __str__(self):
+        return self.nume
 
 
 class TipIconostas(models.Model):
@@ -674,4 +728,19 @@ class TipIconostas(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Iconostas"
-        
+
+    def __str__(self):
+        return self.nume
+
+
+class DetaliuPodTurn(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Detalii podul turnului"
+
+    def __str__(self):
+        return self.nume
+

@@ -116,7 +116,7 @@ class FunctiuneBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
 
 @admin.register(models.SursaDatare)
 class SursaDatareAdmin(HistoryChangedFields, SimpleHistoryAdmin):
-    list_display = ['nume', 'nr_biserici', 'nr_biserici_initiale']
+    list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
     def nr_biserici(self, obj):
@@ -124,14 +124,11 @@ class SursaDatareAdmin(HistoryChangedFields, SimpleHistoryAdmin):
            return obj.biserici.count()
         except:
             return 'N.A.'
-
-    def nr_biserici_initiale(self, obj):
-       return obj.biserici_initiale.count()
 
 
 @admin.register(models.Secol)
 class SecolAdmin(HistoryChangedFields, SimpleHistoryAdmin):
-    list_display = ['nume', 'nr_biserici', 'nr_biserici_initiale']
+    list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
     def nr_biserici(self, obj):
@@ -139,9 +136,6 @@ class SecolAdmin(HistoryChangedFields, SimpleHistoryAdmin):
            return obj.biserici.count()
         except:
             return 'N.A.'
-
-    def nr_biserici_initiale(self, obj):
-       return obj.biserici_initiale.count()
 
 
 @admin.register(models.StudiuDendocronologic)
@@ -466,8 +460,8 @@ class EsentaLemnoasaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return 'N.A.'
 
 
-@admin.register(models.ElementeBiserica)
-class ElementeBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+@admin.register(models.ElementBiserica)
+class ElementBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ["nume", "nr_biserici"]
     search_fields = ["nume"]
 

@@ -128,6 +128,27 @@ class Descriere(models.Model):
     amplasament = models.ForeignKey('nomenclatoare.AmplasamentBiserica', null=True, blank=True, on_delete=models.SET_NULL)
     topografie = models.ForeignKey('nomenclatoare.TopografieBiserica', null=True, blank=True, on_delete=models.SET_NULL)
     toponim = models.CharField(max_length=150, null=True, blank=True, help_text="denumirea locului")
+    toponim_sursa  = models.TextField(null=True, blank=True)
+    relatia_cu_cimitirul = models.ForeignKey('nomenclatoare.RelatieCimitir', null=True, blank=True, on_delete=models.SET_NULL)
+    peisagistica_sitului = models.ManyToManyField('nomenclatoare.PeisagisticaSit')
+
+
+    # Ansamblu construit
+    elemente = models.ManyToManyField('nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit")
+    detalii_elemente = models.TextField(null=True, blank=True)
+
+    elemente_importante = models.ManyToManyField('nomenclatoare.ElementImportant', help_text="Elemente ansamblu construit")
+    detalii_elemente_importante = models.TextField(null=True, blank=True)
+
+    
+
+    amplasament = models.ForeignKey('nomenclatoare.AmplasamentBiserica', null=True, blank=True, on_delete=models.SET_NULL)
+    topografie = models.ForeignKey('nomenclatoare.TopografieBiserica', null=True, blank=True, on_delete=models.SET_NULL)
+    toponim = models.CharField(max_length=150, null=True, blank=True, help_text="denumirea locului")
+    toponim_sursa  = models.TextField(null=True, blank=True)
+    relatia_cu_cimitirul = models.ForeignKey('nomenclatoare.RelatieCimitir', null=True, blank=True, on_delete=models.SET_NULL)
+
+
 
     history = HistoricalRecords()
 
@@ -137,6 +158,36 @@ class Descriere(models.Model):
     def __str__(self):
         return f"Descriere {self.biserica.nume}"
 
+
+class PovesteBiserica(models.Model):
+    """
+    Description: Model Description
+    """
+    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
+    detalii = models.TextField()
+    sursa = models.TextField()
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = 'Povești Biserică'
+
+
+class InterventieBiserica(models.Model):
+    """
+    Description: Model Description
+    """
+    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    datat = models.BooleanField(default=False)
+    an = models.IntegerField(null=True, blank=True)
+    observatii = models.TextField(null=True, blank=True)
+    sursa = models.TextField(null=True, blank=True)
+    este_ultima_interventie = models.BooleanField(default=False)
+
+
+    class Meta:
+        pass
 
 class Istoric(models.Model):
     """
@@ -277,3 +328,308 @@ class Conservare(models.Model):
 
     def __str__(self):
         return f"Stare conservare {self.biserica.nume}"
+
+
+class FotografieAnsamblu(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+
+class FotografieFatada(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+
+class FotografiePortal(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieFereastra(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieCheotoar(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieTalpa(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieStreasina(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieInvelitoare(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieCruceBiserica(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieTurn(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieDegradariExterioare(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieInteriorDesfasurat(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografiePisanieInscriptieCtitorMester(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografiePortalPronaos(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografiePortalNaos(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieDetaliuBolta(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieIconostasNaos(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieIconostasAltar(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieIcoana(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieObiectCult(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieMobilierCandelabre(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieDegradariInterior(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+class FotografieDegradariPod(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+
+class FotografieDetaliuPod(models.Model):
+    """
+    Description: Model Description
+    """
+    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
+    detaliu = models.ForeignKey('nomenclatoare.DetaliuPodTurn', on_delete=models.CASCADE)
+    poza = models.ImageField(upload_to='fotografii', max_length=250)
+    detalii = models.TextField(null=True, blank=True)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    class Meta:
+        pass
+
+
+class Fotografii(models.Model):
+    """
+    Capitol: Fotografii Biserica
+    """
+
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Fotografii"
+

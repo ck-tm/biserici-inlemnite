@@ -347,7 +347,7 @@ ESENTA_LEMNOASA = [
     "fag",
 ]
 
-ELEMENTE_BISERICA = [
+ELEMENT_BISERICA = [
     "portic",
     "pronaos",
     "naos",
@@ -427,7 +427,14 @@ TIP_ICONOSTAS = [
     "Fruntar sub tâmplă",
 ]
 
-
+DETALIU_POD_TURN = [
+    "timpanul",
+    "balconul",
+    "clopotul",
+    "șarpanta" turnului,
+    "marcaje" dulgherești,
+    "îmbinări",
+]
 
 
 class Command(BaseCommand):
@@ -566,9 +573,9 @@ class Command(BaseCommand):
             print(f"Import ESENTA_LEMNOASA: {nume} ")
             models.EsentaLemnoasa.objects.get_or_create(
                 nume=nume)
-        for nume in ELEMENTE_BISERICA:
-            print(f"Import ELEMENTE_BISERICA: {nume} ")
-            models.ElementeBiserica.objects.get_or_create(
+        for nume in ELEMENT_BISERICA:
+            print(f"Import ELEMENT_BISERICA: {nume} ")
+            models.ElementBiserica.objects.get_or_create(
                 nume=nume)
         for nume in MATERIAL_FINISAJ_PARDOSELI:
             print(f"Import MATERIAL_FINISAJ_PARDOSELI: {nume} ")
@@ -609,4 +616,8 @@ class Command(BaseCommand):
         for nume in TIP_ICONOSTAS:
             print(f"Import TIP_ICONOSTAS: {nume} ")
             models.TipIconostas.objects.get_or_create(
+                nume=nume)
+        for nume in DETALIU_POD_TURN:
+            print(f"Import DETALIU_POD_TURN: {nume} ")
+            models.DetaliuPodTurn.objects.get_or_create(
                 nume=nume)

@@ -2,15 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Permission
 # Register your models here.
 from biserici import models
-from nomenclatoare.admin import (
-    CtitorBisericaInline,
-    MesterBisericaInline,
-    ZugravBisericaInline,
-    PersonalitateBisericaInline,
-    EvenimentBisericaInline,
-    MutareBisericaInline,
-    StudiuIstoricInline,
-    )
+from nomenclatoare import admin as nadmin
 from guardian.admin import GuardedModelAdmin
 
 from simple_history.admin import SimpleHistoryAdmin
@@ -42,19 +34,34 @@ class IstoricInline(admin.StackedInline):
     verbose_name_plural = "Istoric"
 
 
+class PovesteBisericaInline(admin.StackedInline):
+    model = models.PovesteBiserica
+    verbose_name = "Poveste"
+    verbose_name_plural = "Povești"
+    extra = 1
+
+class InterventieBisericaInline(admin.StackedInline):
+    model = models.InterventieBiserica
+    verbose_name = "Intervenție"
+    verbose_name_plural = "Intervenții"
+    extra = 1
+
+
 @admin.register(models.Istoric)
 class IstoricAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
     inlines = [
-        CtitorBisericaInline,
-        MesterBisericaInline,
-        ZugravBisericaInline,
-        PersonalitateBisericaInline,
-        EvenimentBisericaInline,
-        MutareBisericaInline,
-        StudiuIstoricInline
+        nadmin.CtitorBisericaInline,
+        nadmin.MesterBisericaInline,
+        nadmin.ZugravBisericaInline,
+        nadmin.PersonalitateBisericaInline,
+        nadmin.EvenimentBisericaInline,
+        nadmin.MutareBisericaInline,
+        nadmin.StudiuIstoricInline,
+        PovesteBisericaInline,
+        InterventieBisericaInline
     ]
 
 
@@ -160,3 +167,212 @@ class BisericaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin)
         if last_update:
             return f"{last_update.history_user} ({last_update.history_date.strftime('%d %b %Y %H:%M:%S')})"
         return '-'
+
+
+
+class InterventieBisericaInline(admin.StackedInline):
+    model = models.InterventieBiserica
+    verbose_name = "Intervenție"
+    verbose_name_plural = "Intervenții"
+    extra = 1
+
+
+class FotografieAnsambluInline(admin.StackedInline):
+    model = models.FotografieAnsamblu
+    verbose_name = 'Fotografie Ansamblu'
+    verbose_name_plural = 'Ansamblu'
+    extra = 1
+
+
+class FotografieFatadaInline(admin.StackedInline):
+    model = models.FotografieFatada
+    verbose_name = 'Fotografie Fatada'
+    verbose_name_plural = 'Fatada'
+    extra = 1
+
+
+class FotografiePortalInline(admin.StackedInline):
+    model = models.FotografiePortal
+    verbose_name = 'Fotografie Portal'
+    verbose_name_plural = 'Portal'
+    extra = 1
+
+
+class FotografieFereastraInline(admin.StackedInline):
+    model = models.FotografieFereastra
+    verbose_name = 'Fotografie Fereastra'
+    verbose_name_plural = 'Fereastra'
+    extra = 1
+
+
+class FotografieCheotoarInline(admin.StackedInline):
+    model = models.FotografieCheotoar
+    verbose_name = 'Fotografie Cheotoar'
+    verbose_name_plural = 'Cheotoar'
+    extra = 1
+
+
+class FotografieTalpaInline(admin.StackedInline):
+    model = models.FotografieTalpa
+    verbose_name = 'Fotografie Talpa'
+    verbose_name_plural = 'Talpa'
+    extra = 1
+
+
+class FotografieStreasinaInline(admin.StackedInline):
+    model = models.FotografieStreasina
+    verbose_name = 'Fotografie Streasina'
+    verbose_name_plural = 'Streasina'
+    extra = 1
+
+
+class FotografieInvelitoareInline(admin.StackedInline):
+    model = models.FotografieInvelitoare
+    verbose_name = 'Fotografie Invelitoare'
+    verbose_name_plural = 'Invelitoare'
+    extra = 1
+
+
+class FotografieCruceBisericaInline(admin.StackedInline):
+    model = models.FotografieCruceBiserica
+    verbose_name = 'Fotografie Cruce Biserica'
+    verbose_name_plural = 'Cruce Biserica'
+    extra = 1
+
+
+class FotografieTurnInline(admin.StackedInline):
+    model = models.FotografieTurn
+    verbose_name = 'Fotografie Turn'
+    verbose_name_plural = 'Turn'
+    extra = 1
+
+
+class FotografieDegradariExterioareInline(admin.StackedInline):
+    model = models.FotografieDegradariExterioare
+    verbose_name = 'Fotografie Degradări Exterioare'
+    verbose_name_plural = 'Degradări Exterioare'
+    extra = 1
+
+
+class FotografieInteriorDesfasuratInline(admin.StackedInline):
+    model = models.FotografieInteriorDesfasurat
+    verbose_name = 'Fotografie Interior Desfașurat'
+    verbose_name_plural = 'Interior Desfașurat'
+    extra = 1
+
+
+class FotografiePisanieInscriptieCtitorMesterInline(admin.StackedInline):
+    model = models.FotografiePisanieInscriptieCtitorMester
+    verbose_name = 'Fotografie Pisanie/Inscriptie/Ctitor/Mester'
+    verbose_name_plural = 'Pisanie Inscriptie Ctitor Mester'
+    extra = 1
+
+
+class FotografiePortalPronaosInline(admin.StackedInline):
+    model = models.FotografiePortalPronaos
+    verbose_name = 'Fotografie Portal Pronaos/Naos'
+    verbose_name_plural = 'Portal Pronaos'
+    extra = 1
+
+
+class FotografiePortalNaosInline(admin.StackedInline):
+    model = models.FotografiePortalNaos
+    verbose_name = 'Fotografie Portal Naos/Pronaos'
+    verbose_name_plural = 'Portal Naos'
+    extra = 1
+
+
+class FotografieDetaliuBoltaInline(admin.StackedInline):
+    model = models.FotografieDetaliuBolta
+    verbose_name = 'Fotografie Detaliu Boltă'
+    verbose_name_plural = 'Detaliu Boltă'
+    extra = 1
+
+
+class FotografieIconostasNaosInline(admin.StackedInline):
+    model = models.FotografieIconostasNaos
+    verbose_name = 'Fotografie Iconostas Naos'
+    verbose_name_plural = 'Iconostas Naos'
+    extra = 1
+
+
+class FotografieIconostasAltarInline(admin.StackedInline):
+    model = models.FotografieIconostasAltar
+    verbose_name = 'Fotografie Iconostas Altar'
+    verbose_name_plural = 'Iconostas Altar'
+    extra = 1
+
+
+class FotografieIcoanaInline(admin.StackedInline):
+    model = models.FotografieIcoana
+    verbose_name = 'Fotografie Icoană'
+    verbose_name_plural = 'Icoane'
+    extra = 1
+
+
+class FotografieObiectCultInline(admin.StackedInline):
+    model = models.FotografieObiectCult
+    verbose_name = 'Fotografie Obiect Cult'
+    verbose_name_plural = 'Obiecte Cult'
+    extra = 1
+
+
+class FotografieMobilierCandelabreInline(admin.StackedInline):
+    model = models.FotografieMobilierCandelabre
+    verbose_name = 'Fotografie Mobilier Candelabre'
+    verbose_name_plural = 'Mobilier/Candelabre'
+    extra = 1
+
+
+class FotografieDegradariInteriorInline(admin.StackedInline):
+    model = models.FotografieDegradariInterior
+    verbose_name = 'Fotografie Degradări Interior'
+    verbose_name_plural = 'Degradări Interior'
+    extra = 1
+
+
+class FotografieDegradariPodInline(admin.StackedInline):
+    model = models.FotografieDegradariPod
+    verbose_name = 'Fotografie Degradări Pod'
+    verbose_name_plural = 'Degradări Pod'
+    extra = 1
+
+
+class FotografieDetaliuPodInline(admin.StackedInline):
+    model = models.FotografieDetaliuPod
+    verbose_name = 'Fotografie Detaliu Pod'
+    verbose_name_plural = 'Detalii Pod'
+    extra = 1
+
+
+
+@admin.register(models.Fotografii)
+class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ['biserica']
+    search_fields = ["biserica__nume"]
+    exclude = ['biserica']
+    inlines = [
+        FotografieFatadaInline,
+        FotografiePortalInline,
+        FotografieFereastraInline,
+        FotografieCheotoarInline,
+        FotografieTalpaInline,
+        FotografieStreasinaInline,
+        FotografieInvelitoareInline,
+        FotografieCruceBisericaInline,
+        FotografieTurnInline,
+        FotografieDegradariExterioareInline,
+        FotografieInteriorDesfasuratInline,
+        FotografiePisanieInscriptieCtitorMesterInline,
+        FotografiePortalPronaosInline,
+        FotografiePortalNaosInline,
+        FotografieDetaliuBoltaInline,
+        FotografieIconostasNaosInline,
+        FotografieIconostasAltarInline,
+        FotografieIcoanaInline,
+        FotografieObiectCultInline,
+        FotografieMobilierCandelabreInline,
+        FotografieDegradariInteriorInline,
+        FotografieDegradariPodInline,
+        FotografieDetaliuPodInline,
+    ]

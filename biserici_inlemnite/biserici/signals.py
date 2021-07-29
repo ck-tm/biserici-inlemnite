@@ -9,6 +9,7 @@ from biserici.models import (
     Istoric,
     Patrimoniu,
     Conservare,
+    Fotografii
     )
 
 
@@ -21,3 +22,4 @@ def create_biserica(sender, instance, created, **kwargs):
         Istoric.objects.create(biserica=instance)
         Patrimoniu.objects.create(biserica=instance)
         Conservare.objects.create(biserica=instance)
+        Fotografii.objects.create(biserica=instance)
