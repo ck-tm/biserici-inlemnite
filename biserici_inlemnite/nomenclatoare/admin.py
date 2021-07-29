@@ -590,3 +590,15 @@ class TipIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return obj.biserici.count()
         except:
             return 'N.A.'
+
+
+@admin.register(models.DetaliuPodTurn)
+class DetaliuPodTurnAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
