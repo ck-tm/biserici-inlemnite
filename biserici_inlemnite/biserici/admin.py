@@ -4,7 +4,8 @@ from django.contrib.auth.models import Permission
 from biserici import models
 from nomenclatoare import admin as nadmin
 from guardian.admin import GuardedModelAdmin
-
+from adminsortable.admin import SortableAdmin
+from adminsortable2.admin import SortableAdminMixin
 from simple_history.admin import SimpleHistoryAdmin
 
 class HistoryChangedFields(object):
@@ -144,7 +145,7 @@ class ConservareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
 
 
 @admin.register(models.Biserica)
-class BisericaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
+class BisericaAdmin(SortableAdminMixin, GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'update_identificare', 'update_istoric', 'update_descriere', 'update_patrimoniu', 'update_conservare']
     search_fields = ["nume"]
     list_filter = ["identificare__judet"]

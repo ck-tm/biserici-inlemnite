@@ -20,6 +20,7 @@ services:
     command: /start
     volumes:
       - /mnt/HC_Volume_12351385/media:/app/biserici_inlemnite/media
+      - .:/app:z
   postgres:
     build:
       context: .

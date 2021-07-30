@@ -1,7 +1,6 @@
 version: '3'
 
 volumes:
-  local_django_data: {}
   local_postgres_data: {}
   local_postgres_data_backups: {}
 
@@ -16,7 +15,8 @@ services:
       - postgres-bi
       - mailhog-bi
     volumes:
-      - /tmp/media:/app/biserici_inlemnite/media
+      - .:/app:z
+      # - /tmp/media:/app/biserici_inlemnite/media
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres

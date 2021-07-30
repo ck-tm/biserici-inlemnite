@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from guardian.shortcuts import get_objects_for_user, assign_perm, remove_perm
 from simple_history.models import HistoricalRecords
 from simple_history import register
+from adminsortable.models import SortableMixin
 
 from nomenclatoare import models as nmodels
 
@@ -32,16 +33,18 @@ NR135 = (
 )
 
 
-class Biserica(models.Model):
+class Biserica(SortableMixin):
     """
     Description: Model Description
     """
     nume = models.CharField(max_length=50)
 
-    
+    the_order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
     history = HistoricalRecords()
-    
+
     class Meta:
+        ordering = ['the_order']
         verbose_name_plural = "Biserici"
 
     def __str__(self):
@@ -83,6 +86,7 @@ class Identificare(models.Model):
     history = HistoricalRecords()
 
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Identificare Biserici"
 
     def __str__(self):
@@ -203,6 +207,7 @@ class Descriere(models.Model):
     history = HistoricalRecords()
 
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Descriere Biserici"
 
     def __str__(self):
@@ -267,6 +272,7 @@ class Istoric(models.Model):
     history = HistoricalRecords()
 
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Istoric Biserici"
         
 
@@ -307,6 +313,7 @@ class Patrimoniu(models.Model):
     history = HistoricalRecords()
 
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Valoare Patrimoniu"
 
     def __str__(self):
@@ -374,6 +381,7 @@ class Conservare(models.Model):
     history = HistoricalRecords()
 
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Stare conservare Biserici"
 
     def __str__(self):
@@ -680,9 +688,13 @@ class Fotografii(models.Model):
 
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
     history = HistoricalRecords()
+
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Fotografii"
 
+    def __str__(self):
+        return f"Fotografii {self.biserica.nune}"
 
 class FinisajActualInvelitoare(models.Model):
     """
@@ -854,8 +866,11 @@ class Finisaj(models.Model):
 
     history = HistoricalRecords()
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Finisaje"
 
+    def __str__(self):
+        return f"Finisaj Artistica {self.biserica.nune}"
 
 class PicturaExterioara(models.Model):
     """
@@ -879,6 +894,7 @@ class PicturaExterioara(models.Model):
     class Meta:
         pass
 
+
 class PicturaInterioara(models.Model):
     """
     Description: Model Description
@@ -901,9 +917,6 @@ class PicturaInterioara(models.Model):
 
     class Meta:
         pass
-
-
-
 
 class ComponentaArtistica(models.Model):
     """
@@ -953,4 +966,8 @@ class ComponentaArtistica(models.Model):
 
     history = HistoricalRecords()
     class Meta:
+        ordering = ["biserica__the_order"]
         verbose_name_plural = "Componenta Artistică"
+
+    def __str__(self):
+        return f"Componenta Artistica {self.biserica.nune}"

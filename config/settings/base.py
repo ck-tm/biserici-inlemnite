@@ -82,7 +82,8 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "simple_history",
     "guardian",
-    "adminsortable",
+    # "adminsortable",
+    "adminsortable2"
 ]
 
 LOCAL_APPS = [
