@@ -40,9 +40,6 @@ BISERICI = [
     "Zăbalț",
 ]
 
-
-
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")

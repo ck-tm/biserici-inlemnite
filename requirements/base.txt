@@ -8,7 +8,8 @@ hiredis==1.1.0  # https://github.com/redis/hiredis-py
 celery==4.4.6  # pyup: < 5.0,!=4.4.7  # https://github.com/celery/celery
 django-celery-beat==2.2.0  # https://github.com/celery/django-celery-beat
 flower==0.9.7  # https://github.com/mher/flower
-
+pydot>=1.4.2,<2.0.0
+pyparsing
 # Django
 # ------------------------------------------------------------------------------
 django==3.1.13  # pyup: < 3.2  # https://www.djangoproject.com/
@@ -27,3 +28,4 @@ django-filter==2.4.0
 crispy-bootstrap5>=0.4,<1.0
 django-simple-history>=3.0.0,<4.0.0
 django-admin-sortable>=2.2.4,<3.0.0
+

@@ -247,9 +247,8 @@ MATERIAL = [
     "Piatră",
     "Zidărie",
     "Mixt",
-
-
-
+    "Tablă",
+    "Fier"
 ]
 
 DIMENSIUNE_TURN = [
@@ -291,6 +290,15 @@ GALERIE_TURN = [
     "închisă cu orificii",
     "galerie dublă",
     "galerie ieșită în exterior",
+]
+
+ASEZARE_TALPA_TURN = [
+    "tălpile turnului intră în corpul bisericii",
+    "tălpile turnului se așează pe butea bisericii",
+]
+RELATIE_TALPA_TURN = [
+    "cele paralele cu axul bisericii deasupra",
+    "cele perpendiculare pe axul bisericii deasupra",
 ]
 
 
@@ -377,7 +385,6 @@ FINISAJ = [
     "Pictate parțial",
     "Tencuite și zugravite",
     "Lemn natur",
-    "Altele",
 ]
 
 TIP_FUNDATIE = [
@@ -436,6 +443,27 @@ DETALIU_POD_TURN = [
     "îmbinări",
 ]
 
+TIP_BOLTA_PRONAOS = [
+    "Boltă semicilindrică",
+    "Boltă poligonală în secțiune",
+    "Cupolă",
+    "Intersecții de bolți",
+    "Fără",
+
+]
+
+BOLTA_PESTE_ALTAR = [
+    "În prelungirea bolții peste naos",
+    "Retrasă față de bolta naosului",
+    "Fără",
+]
+
+TIP_BOLTA_PESTE_ALTAR = [
+    "Lunetă",
+    "Semicilindrică",
+    "Semicalotă sferică",
+    "Calotă sferică",
+]
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -621,3 +649,24 @@ class Command(BaseCommand):
             print(f"Import DETALIU_POD_TURN: {nume} ")
             models.DetaliuPodTurn.objects.get_or_create(
                 nume=nume)
+        for nume in ASEZARE_TALPA_TURN:
+            print(f"Import ASEZARE_TALPA_TURN: {nume} ")
+            models.AsezareTalpaTurn.objects.get_or_create(
+                nume=nume)
+        for nume in RELATIE_TALPA_TURN:
+            print(f"Import RELATIE_TALPA_TURN: {nume} ")
+            models.RelatieTalpaTurn.objects.get_or_create(
+                nume=nume)
+        for nume in BOLTA_PESTE_ALTAR:
+            print(f"Import BOLTA_PESTE_ALTAR: {nume} ")
+            models.BoltaPesteAltar.objects.get_or_create(
+                nume=nume)
+        for nume in TIP_BOLTA_PESTE_ALTAR:
+            print(f"Import TIP_BOLTA_PESTE_ALTAR: {nume} ")
+            models.TipBoltaPesteAltar.objects.get_or_create(
+                nume=nume)
+        for nume in TIP_BOLTA_PRONAOS:
+            print(f"Import TIP_BOLTA_PRONAOS: {nume} ")
+            models.TipBoltaPronaos.objects.get_or_create(
+                nume=nume)
+

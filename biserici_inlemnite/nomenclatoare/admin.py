@@ -207,7 +207,6 @@ class StudiuIstoricInline(admin.StackedInline):
     extra = 1
 
 
-
 @admin.register(models.AmplasamentBiserica)
 class AmplasamentBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ["nume", "nr_biserici"]
@@ -602,3 +601,68 @@ class DetaliuPodTurnAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return obj.biserici.count()
         except:
             return 'N.A.'
+
+
+
+
+@admin.register(models.AsezareTalpaTurn)
+class AsezareTalpaTurnAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+@admin.register(models.RelatieTalpaTurn)
+class RelatieTalpaTurnAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+
+
+@admin.register(models.BoltaPesteAltar)
+class BoltaPesteAltarAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+
+@admin.register(models.TipBoltaPesteAltar)
+class TipBoltaPesteAltarAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+
+@admin.register(models.TipBoltaPronaos)
+class TipBoltaPronaosAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+
+

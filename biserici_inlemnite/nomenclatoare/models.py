@@ -744,3 +744,66 @@ class DetaliuPodTurn(models.Model):
     def __str__(self):
         return self.nume
 
+
+
+class AsezareTalpaTurn(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Așezări talpă turn"
+
+    def __str__(self):
+        return self.nume
+
+
+class RelatieTalpaTurn(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Relații talpă turn"
+
+    def __str__(self):
+        return self.nume
+
+
+
+
+class BoltaPesteAltar(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Bolți peste altar"
+
+    def __str__(self):
+        return self.nume
+
+
+class TipBoltaPesteAltar(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tipuri boltă peste altar"
+
+    def __str__(self):
+        return self.nume
+
+
+class TipBoltaPronaos(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tipuri boltă pronaos/naos"
+
+    def __str__(self):
+        return self.nume
+

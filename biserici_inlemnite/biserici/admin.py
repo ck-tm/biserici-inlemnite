@@ -77,6 +77,25 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
 
+    fieldsets = (
+        ('Localizare/peisaj', {
+           'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului")
+        }),
+        ('Ansamblu construit', {
+            'fields': ("elemente", "detalii_elemente", "elemente_importante", "detalii_elemente_importante")
+        }),
+        ('Arhitectura', {
+            'fields': ("planimetria_bisericii", "gabarit_exterior_al_talpilor", "materiale", "detalii_materiale")
+        }),
+        ('Elemente arhitecturale', {
+            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese", "numar_geamuri", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_altar_tip", "solee", "masa_altar_material_picior", "masa_altar_material_blat")
+        }),
+        ('Structura', {
+            'fields': ("fundatia", "sistem_in_cheotoare", "sistem_in_catei", "sistem_mixt")
+        })
+    )
+
+
 
 class PatrimoniuInline(admin.StackedInline):
     model = models.Patrimoniu
@@ -345,7 +364,6 @@ class FotografieDetaliuPodInline(admin.StackedInline):
     extra = 1
 
 
-
 @admin.register(models.Fotografii)
 class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
@@ -376,3 +394,107 @@ class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
         FotografieDegradariPodInline,
         FotografieDetaliuPodInline,
     ]
+
+class FinisajActualInline(admin.StackedInline):
+    model = models.FinisajActualInvelitoare
+    verbose_name = 'Finisaj actual al învelitorii peste corpul bisericii'
+    verbose_name_plural = 'Finisajul actual al învelitorii peste corpul bisericii'
+    max_num = 1
+
+
+class FinisajAnteriorInvelitoareInline(admin.StackedInline):
+    model = models.FinisajAnteriorInvelitoare
+    verbose_name = 'Etapă anterioară vizibilă a învelitorii '
+    verbose_name_plural = 'Etape anterioare vizibile ale învelitorii '
+    max_num = 1 
+
+
+class FinisajTamburTurnInline(admin.StackedInline):
+    model = models.FinisajTamburTurn
+    verbose_name = 'Finisaj exterior al tamburului turnului bisericii (dacă are turn)'
+    verbose_name_plural = 'Finisajul exterior al tamburului turnului bisericii (dacă are turn)'
+    max_num = 1 
+
+class FinisajInvelitoareTurnInline(admin.StackedInline):
+    model = models.FinisajInvelitoareTurn
+    verbose_name = 'Finisaj învelitore peste turnul bisercii (dacă are turn)'
+    verbose_name_plural = 'Finisajul învelitorii peste turnul bisercii (dacă are turn)'
+    max_num = 1 
+
+class FinisajPardoseaInline(admin.StackedInline):
+    model = models.FinisajPardosea
+    verbose_name = 'Finisaj pardoseli interioare'
+    verbose_name_plural = 'Finisajul pardoselilor interioare'
+    extra = 1 
+
+class FinisajPeretiInteriorInline(admin.StackedInline):
+    model = models.FinisajPeretiInterior
+    verbose_name = 'Finisaj perete interior'
+    verbose_name_plural = 'Pereți interiori'
+    extra = 1 
+
+class FinisajBoltiInline(admin.StackedInline):
+    model = models.FinisajBolti
+    verbose_name = 'Finisaj boltă'
+    verbose_name_plural = 'Bolți'
+    extra = 1 
+
+class FinisajTavanInline(admin.StackedInline):
+    model = models.FinisajTavan
+    verbose_name = 'Finisaj tavan'
+    verbose_name_plural = 'Tavane'
+    extra = 1 
+
+
+@admin.register(models.Finisaj)
+class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ['biserica']
+    search_fields = ["biserica__nume"]
+    exclude = ['biserica']
+    inlines = [
+        FinisajActualInline,
+        FinisajAnteriorInvelitoareInline,
+        FinisajPardoseaInline,
+        FinisajPeretiInteriorInline,
+        FinisajBoltiInline,
+        FinisajTavanInline,
+    ]
+
+
+class PicturaExterioaraInline(admin.StackedInline):
+    model = models.PicturaExterioara
+    verbose_name = 'Pictură exterioară aplicată'
+    verbose_name_plural = 'Pictură exterioară aplicată'
+    max_num = 1
+
+class PicturaInterioaraInline(admin.StackedInline):
+    model = models.PicturaInterioara
+    verbose_name = 'Pictură interioară aplicată'
+    verbose_name_plural = 'Pictură interioară aplicată'
+    max_num = 1
+
+@admin.register(models.ComponentaArtistica)
+class ComponentaArtisticaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ['biserica']
+    search_fields = ["biserica__nume"]
+    exclude = ['biserica']
+    inlines = [
+        PicturaExterioaraInline,
+        PicturaInterioaraInline
+    ]
+
+    fieldsets = (
+        ('General', {
+           'fields': ("proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii")
+        }),
+        ('Iconostasul (dintre naos și altar)', {
+           'fields': ("iconostas_naos_altar_tip","iconostas_naos_altar_numar_intrari","iconostas_naos_altar_finisaj","iconostas_naos_altar_detalii")
+        }),
+        ('Iconostasul (dintre pronaos și naos)', {
+           'fields': ("iconostas_pronaos_naos_tip","iconostas_pronaos_naos_numar_intrari","iconostas_pronaos_naos_finisaj","iconostas_pronaos_naos_detalii")
+        }),
+        ('Altar', {
+           'fields': ("altar_decor", "altar_decor_detalii")
+        })
+    )
+
