@@ -31,9 +31,11 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
+    list_display = ["username", "user_groups", "is_superuser", "is_staff"]
     search_fields = ["name"]
 
+    def user_groups(self, obj):
+        return ', '.join(obj.groups.values_list('name', flat=True))
 
 
 
