@@ -379,14 +379,14 @@ JAZZMIN_SETTINGS = {
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
 
         # model admin to link to (Permissions checked against model)
-        {"model": "biserici.Identificare"},
-        {"model": "biserici.Istoric"},
-        {"model": "biserici.ComponentaArtistica "},
-        {"model": "biserici.Descriere"},
-        {"model": "biserici.Patrimoniu"},
-        {"model": "biserici.Conservare "},
-        {"model": "biserici.Fotografii "},
-        {"model": "biserici.Finisaje "},
+        # {"model": "biserici.Identificare"},
+        # {"model": "biserici.Istoric"},
+        # {"model": "biserici.ComponentaArtistica "},
+        # {"model": "biserici.Descriere"},
+        # {"model": "biserici.Patrimoniu"},
+        # {"model": "biserici.Conservare "},
+        # {"model": "biserici.Fotografii "},
+        # {"model": "biserici.Finisaje "},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
         # {"app": "biserici"},
