@@ -19,7 +19,7 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     volumes:
-      - /mnt/HC_Volume_12351385/media:/app/oxigen_api/media
+      - /mnt/HC_Volume_12351385/media:/app/biserici_inlemnite/media
   postgres:
     build:
       context: .
