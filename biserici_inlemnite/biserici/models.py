@@ -694,7 +694,7 @@ class Fotografii(models.Model):
         verbose_name_plural = "Fotografii"
 
     def __str__(self):
-        return f"Fotografii {self.biserica.nune}"
+        return f"Fotografii {self.biserica.nume}"
 
 class FinisajActualInvelitoare(models.Model):
     """
@@ -970,4 +970,4 @@ class ComponentaArtistica(models.Model):
         verbose_name_plural = "Componenta Artistică"
 
     def __str__(self):
-        return f"Componenta Artistica {self.biserica.nune}"
+        return f"Componenta Artistica {self.biserica.nume}"
