@@ -709,6 +709,19 @@ class TehnicaPictura(models.Model):
         return self.nume
 
 
+
+class SuportPictura(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Suport Pictură"
+
+    def __str__(self):
+        return self.nume
+
+
 class FinisajIconostas(models.Model):
     nume = models.CharField(max_length=150)
 
@@ -721,6 +734,18 @@ class FinisajIconostas(models.Model):
         return self.nume
 
 
+class RegistruIconostas(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Registre Iconostas"
+
+    def __str__(self):
+        return self.nume
+
+
 class TipIconostas(models.Model):
     nume = models.CharField(max_length=150)
 
@@ -728,6 +753,18 @@ class TipIconostas(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri Iconostas"
+
+    def __str__(self):
+        return self.nume
+
+
+class TipUsiIconostas(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tipuri Uși Iconostas"
 
     def __str__(self):
         return self.nume
@@ -803,6 +840,29 @@ class TipBoltaPronaos(models.Model):
 
     class Meta:
         verbose_name_plural = "Tipuri boltă pronaos/naos"
+
+    def __str__(self):
+        return self.nume
+
+class Mobilier( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Mobilier"
+
+    def __str__(self):
+        return self.nume
+
+
+class ObiectCult( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Obiecte Cult"
 
     def __str__(self):
         return self.nume

@@ -306,7 +306,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-
+# ACCOUNT_SIGNUP_FORM_CLASS = "users.forms.customSignupForm"
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_USERNAME_REQUIRED = True

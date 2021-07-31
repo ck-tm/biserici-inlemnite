@@ -413,10 +413,18 @@ LOCALIZARE_PICTURA = [
     "Nepictat",
 ]
 
+SUPORT_PICTURA = [
+    "lemn",
+    "pânză",
+    "tencuială",
+]
+
 TEHNICA_PICTURA = [
-    "distemper",
-    "tempera",
+    "alseco",
+    "fresco",
+    "tempera slabă",
     "vopsele pe bază de ulei",
+    "tempera",
 ]
 
 FINISAJ_ICONOSTAS = [
@@ -426,6 +434,22 @@ FINISAJ_ICONOSTAS = [
     "Icoane împărătești",
     "Sculptat",
     "Nepictat",
+]
+
+
+TIPURI_USI = [
+    "împărătești",
+    "diaconești"
+]
+
+
+REGISTRU_ICONOSTAS = [
+    "poale",
+    "icoanelor împărătești",
+    "prăznicale",
+    "apostoli",
+    "prooroci",
+    "crucea cu molenii",
 ]
 
 TIP_ICONOSTAS = [
@@ -463,6 +487,33 @@ TIP_BOLTA_PESTE_ALTAR = [
     "Semicilindrică",
     "Semicalotă sferică",
     "Calotă sferică",
+]
+
+MOBILIER = [
+    "strane",
+    "scaun", 
+    "arhieresc",
+    "tetrapoade",
+    "bănucuțe",
+    "cuiere",
+    "anvone",
+    "cafas",
+    "cor",
+    "pangar",
+    "cutia milei"
+    "tetrapod"
+]
+
+OBIECTE_CULT = [
+    "epitaf",
+    "ripidă",
+    "cruce",
+    "candelă",
+    "chivot",
+    "sfeșnic",
+    "candelabru",
+    "potir",
+    "textile"
 ]
 
 class Command(BaseCommand):
@@ -637,6 +688,10 @@ class Command(BaseCommand):
             print(f"Import TEHNICA_PICTURA: {nume} ")
             models.TehnicaPictura.objects.get_or_create(
                 nume=nume)
+        for nume in SUPORT_PICTURA:
+            print(f"Import SUPORT_PICTURA: {nume} ")
+            models.SuportPictura.objects.get_or_create(
+                nume=nume)
         for nume in FINISAJ_ICONOSTAS:
             print(f"Import FINISAJ_ICONOSTAS: {nume} ")
             models.FinisajIconostas.objects.get_or_create(
@@ -644,6 +699,16 @@ class Command(BaseCommand):
         for nume in TIP_ICONOSTAS:
             print(f"Import TIP_ICONOSTAS: {nume} ")
             models.TipIconostas.objects.get_or_create(
+                nume=nume)
+
+
+        for nume in TIPURI_USI:
+            print(f"Import TIPURI_USI: {nume} ")
+            models.TipUsiIconostas.objects.get_or_create(
+                nume=nume)
+        for nume in REGISTRU_ICONOSTAS:
+            print(f"Import REGISTRU_ICONOSTAS: {nume} ")
+            models.RegistruIconostas.objects.get_or_create(
                 nume=nume)
         for nume in DETALIU_POD_TURN:
             print(f"Import DETALIU_POD_TURN: {nume} ")
@@ -668,5 +733,15 @@ class Command(BaseCommand):
         for nume in TIP_BOLTA_PRONAOS:
             print(f"Import TIP_BOLTA_PRONAOS: {nume} ")
             models.TipBoltaPronaos.objects.get_or_create(
+                nume=nume)
+
+        for nume in MOBILIER:
+            print(f"Import MOBILIER: {nume} ")
+            models.Mobilier.objects.get_or_create(
+                nume=nume)
+
+        for nume in OBIECTE_CULT:
+            print(f"Import OBIECTE_CULT: {nume} ")
+            models.ObiectCult.objects.get_or_create(
                 nume=nume)
 

@@ -566,6 +566,39 @@ class TehnicaPicturaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
         except:
             return 'N.A.'
 
+@admin.register(models.RegistruIconostas)
+class RegistruIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+@admin.register(models.TipUsiIconostas)
+class TipUsiIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+@admin.register(models.SuportPictura)
+class SuportPicturaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
 
 @admin.register(models.FinisajIconostas)
 class FinisajIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
@@ -663,6 +696,33 @@ class TipBoltaPronaosAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return obj.biserici.count()
         except:
             return 'N.A.'
+
+
+@admin.register(models.Mobilier)
+class MobilierAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
+
+
+
+@admin.register(models.ObiectCult)
+class ObiectCultAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ["nume", "nr_biserici"]
+    search_fields = ["nume"]
+
+    def nr_biserici(self, obj):
+        try:
+            return obj.biserici.count()
+        except:
+            return 'N.A.'
+
 
 
 

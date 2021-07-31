@@ -18,6 +18,13 @@ IDENTIFICARE_DOC_CADASTRALE = (
     (3, 'În curs de'),
 )
 
+
+CLASE_EVALUARE = (
+    (1, "A"),
+    (2, "B"),
+    (3, "C"),
+)
+
 NR15 = (
     (1, 1),
     (2, 2),
@@ -285,29 +292,29 @@ class Patrimoniu(models.Model):
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
 
-    vechime = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Printr-un algorim definit se va da automat o notă de la 1-5 în funcție de vechimea monumentului si a picturii descrise conform OMCC2682/2003 ETC")
+    vechime = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Printr-un algorim definit se va da automat o notă de la 1-5 în funcție de vechimea monumentului si a picturii descrise conform OMCC2682/2003 ETC")
     vechime_detalii = models.TextField(null=True, blank=True)
-    integritate = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Integritate / Autenticitate")
+    integritate = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Integritate / Autenticitate")
     integritate_detalii = models.TextField(null=True, blank=True)
-    unicitate = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Unicitate / raritate")
+    unicitate = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Unicitate / raritate")
     unicitate_detalii = models.TextField(null=True, blank=True)
-    valoare_memoriala = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "evenimente, personalități")
+    valoare_memoriala = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "evenimente, personalități")
     valoare_memoriala_detalii = models.TextField(null=True, blank=True)
-    peisaj_cultural = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Parte definitorie a peisajului cultural al zonei")
+    peisaj_cultural = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Parte definitorie a peisajului cultural al zonei")
     peisaj_cultural_detalii = models.TextField(null=True, blank=True)
-    valoare_sit = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Valoarea sitului împreună cu toate componentele ansamblului din care face parte, ținând cont de integritate, autenticitate, estetică peisageră, biodiversitate, etc. SUBIECTIV")
+    valoare_sit = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Valoarea sitului împreună cu toate componentele ansamblului din care face parte, ținând cont de integritate, autenticitate, estetică peisageră, biodiversitate, etc. SUBIECTIV")
     valoare_sit_detalii = models.TextField(null=True, blank=True, help_text= "Descriere a elementelor valoroase, particulare")
-    estetica = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Estetică / Arhitectură")
+    estetica = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Estetică / Arhitectură")
     estetica_detalii = models.TextField(null=True, blank=True)
-    mestesug = models.IntegerField(choices=NR15, null=True, blank=True, help_text= "Meșteșug (calitatea muncii -  a se vedea golurile dintre lemne (dintre bârne în general dar în special la așezarea elementelor orizontale peste cele verticale))")
+    mestesug = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Meșteșug (calitatea muncii -  a se vedea golurile dintre lemne (dintre bârne în general dar în special la așezarea elementelor orizontale peste cele verticale))")
     mestesug_detalii = models.TextField(null=True, blank=True)
-    pictura = models.IntegerField(choices=NR15, null=True, blank=True, )
+    pictura = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, )
     pictura_detalii = models.TextField(null=True, blank=True)
-    folosinta_actuala = models.IntegerField(choices=NR135, null=True, blank=True, help_text= "Folosință actuală / singura biserică din sat / loc al patrimoniului imaterial")
+    folosinta_actuala = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Folosință actuală / singura biserică din sat / loc al patrimoniului imaterial")
     folosinta_actuala_detalii = models.TextField(null=True, blank=True)
-    relevanta_actuala = models.IntegerField(choices=NR135, null=True, blank=True, help_text= "Relevanța actuală pentru comunitatea locală (prin reprezentanții săi: preot, crâsnic, învățător, familii de bază)")
+    relevanta_actuala = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Relevanța actuală pentru comunitatea locală (prin reprezentanții săi: preot, crâsnic, învățător, familii de bază)")
     relevanta_actuala_detalii = models.TextField(null=True, blank=True)
-    potential = models.IntegerField(choices=NR135, null=True, blank=True, help_text= "Potențialul de beneficii aduse comunității locale")
+    potential = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Potențialul de beneficii aduse comunității locale")
     potential_detalii = models.TextField(null=True, blank=True)
 
     history = HistoricalRecords()
@@ -327,54 +334,54 @@ class Conservare(models.Model):
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
 
     # Sit
-    stare_cimitir = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_cimitir = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_cimitir_detalii = models.TextField( null=True, blank=True)
-    stare_monumente_funerare_valoroase = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_monumente_funerare_valoroase = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_monumente_funerare_valoroase_detalii = models.TextField( null=True, blank=True)
-    vegetatie_invaziva = models.IntegerField(choices=NR15, null=True, blank=True)
+    vegetatie_invaziva = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     vegetatie_invaziva_detalii = models.TextField( null=True, blank=True, help_text="Vegetație invazivă ce poate pune monumentul în pericol")
-    stare_elemente_arhitecturale = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_elemente_arhitecturale = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_elemente_arhitecturale_detalii = models.TextField( null=True, blank=True)
 
     # Structura bisericii
-    stare_teren = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_teren = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_teren_detalii = models.TextField( null=True, blank=True)
-    stare_fundatii = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_fundatii = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_fundatii_detalii = models.TextField( null=True, blank=True)
-    stare_corp_biserica = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_corp_biserica = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_corp_biserica_detalii = models.TextField( null=True, blank=True)
-    stare_bolti = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_bolti = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_bolti_detalii = models.TextField( null=True, blank=True)
-    stare_sarpanta_peste_corp_biserica = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_sarpanta_peste_corp_biserica = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_sarpanta_peste_corp_biserica_detalii = models.TextField( null=True, blank=True)
-    stare_structura_turn = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_structura_turn = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_structura_turn_detalii = models.TextField( null=True, blank=True, help_text="tarea structurii turnului, inclusiv a tălpilor și a coifului")
 
     # Finisaje de arhitectură
-    stare_invelitoare = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_invelitoare = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_invelitoare_detalii = models.TextField( null=True, blank=True)
-    stare_finisaj_peste_corp = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_finisaj_peste_corp = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_finisaj_peste_corp_detalii = models.TextField( null=True, blank=True)
-    stare_finisaj_tambur_turn = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_finisaj_tambur_turn = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_finisaj_tambur_turn_detalii = models.TextField( null=True, blank=True)
-    stare_pardoseli_interioare = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_pardoseli_interioare = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_pardoseli_interioare_detalii = models.TextField( null=True, blank=True)
-    stare_usi_si_ferestre = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_usi_si_ferestre = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_usi_si_ferestre_detalii = models.TextField( null=True, blank=True)
 
     # Starea stratului pictural
-    stare_picturi_exterioare = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_picturi_exterioare = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_picturi_exterioare_detalii = models.TextField( null=True, blank=True)
-    stare_picturi_interioare = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_picturi_interioare = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_picturi_interioare_detalii = models.TextField( null=True, blank=True)
 
 
     # Obiecte de cult
-    stare_icoane_istorice = models.IntegerField(choices=NR15, null=True, blank=True)
+    stare_icoane_istorice = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     stare_icoane_istorice_detalii = models.TextField( null=True, blank=True)
-    starea_obiecte_de_cult = models.IntegerField(choices=NR15, null=True, blank=True)
+    starea_obiecte_de_cult = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     starea_obiecte_de_cult_detalii = models.TextField( null=True, blank=True)
-    starea_mobilier = models.IntegerField(choices=NR15, null=True, blank=True)
+    starea_mobilier = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True)
     starea_mobilier_detalii = models.TextField( null=True, blank=True)
 
 
@@ -881,6 +888,7 @@ class PicturaExterioara(models.Model):
     localizare = models.ForeignKey('nomenclatoare.LocalizarePictura', on_delete=models.SET_NULL, null=True, blank=True, related_name='localizari_exterioare')
     localizare_detalii = models.TextField(null=True, blank=True)
     tehnica = models.ForeignKey('nomenclatoare.TehnicaPictura', on_delete=models.SET_NULL, null=True, blank=True)
+    suport = models.ManyToManyField('nomenclatoare.SuportPictura', blank=True)
     numar_straturi_pictura = models.IntegerField(null=True, blank=True)
 
     sursa_datare = models.ManyToManyField('nomenclatoare.SursaDatare', related_name='componente_artistice_exterioare', blank=True)
@@ -904,6 +912,7 @@ class PicturaInterioara(models.Model):
     localizare = models.ForeignKey('nomenclatoare.LocalizarePictura', on_delete=models.SET_NULL, null=True, blank=True, related_name='localizari_interioare')
     localizare_detalii = models.TextField(null=True, blank=True)
     tehnica = models.ForeignKey('nomenclatoare.TehnicaPictura', on_delete=models.SET_NULL, null=True, blank=True)
+    suport = models.ManyToManyField('nomenclatoare.SuportPictura', blank=True)
     numar_straturi_pictura = models.IntegerField(null=True, blank=True)
 
     sursa_datare = models.ManyToManyField('nomenclatoare.SursaDatare', related_name='componente_artistice_interioare', blank=True)
@@ -932,11 +941,11 @@ class ComponentaArtistica(models.Model):
     alte_icoane_vechi = models.BooleanField(default=False, verbose_name="Elemente sculptate / decoruri în biserică")
     alte_icoane_vechi_detalii = models.TextField(null=True, blank=True, help_text="Elemente sculptate / decoruri în biserică")
 
-    obiecte_de_cult = models.BooleanField(default=False)
+    obiecte_de_cult = models.ManyToManyField('nomenclatoare.ObiectCult', verbose_name="Obiecte de cult", blank=True)
     obiecte_de_cult_detalii = models.TextField(null=True, blank=True)
 
-    mobiliere = models.BooleanField(default=False, verbose_name="Mobilier / candelabre /lumânărare / sfeșnice")
-    mobiliere_detalii = models.TextField(null=True, blank=True, help_text="Mobilier / candelabre /lumânărare / sfeșnice")
+    mobiliere = models.ManyToManyField('nomenclatoare.Material', verbose_name="Mobilier", blank=True)
+    mobiliere_detalii = models.TextField(null=True, blank=True, help_text="strane, scaun arhieresc, tetrapoade, bănucuțe, cuiere, anvone, cafas, cor")
 
     obiecte_instrainate = models.BooleanField(default=False, verbose_name="Obiecte de cult înstrăinate")
     obiecte_instrainate_detalii = models.TextField(null=True, blank=True, help_text="Observații privind înstrăinarea obiectelor de cult aparținătoare bisericii ")
@@ -951,6 +960,8 @@ class ComponentaArtistica(models.Model):
     iconostas_naos_altar_tip = models.ForeignKey('nomenclatoare.TipIconostas',verbose_name='Tip', null=True, blank=True, on_delete=models.SET_NULL, related_name='iconostasuri_naos_altar')
     iconostas_naos_altar_numar_intrari =  models.IntegerField(verbose_name='Număr intrări',null=True, blank=True)
     iconostas_naos_altar_finisaj = models.ManyToManyField('nomenclatoare.FinisajIconostas',verbose_name='Finisaj', related_name='iconostasuri_naos_altar', blank=True)
+    iconostas_naos_altar_registre = models.ManyToManyField('nomenclatoare.RegistruIconostas',verbose_name='Registru', related_name='iconostasuri_naos_altar', blank=True)
+    iconostas_naos_altar_tip_usi = models.ManyToManyField('nomenclatoare.TipUsiIconostas',verbose_name='Tip uși', related_name='iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_detalii = models.TextField(verbose_name='Detalii', null=True, blank=True, help_text="Particularități ale iconostasului ce merită a fi precizate (de urmărit care este standardul de iconostas în zonă și care sunt eventualele deviații de la standard")
 
     # Iconostasul  (dintre pronaos și naos)

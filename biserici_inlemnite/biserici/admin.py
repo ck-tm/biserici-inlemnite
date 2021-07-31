@@ -464,14 +464,14 @@ class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
 
 class PicturaExterioaraInline(admin.StackedInline):
     model = models.PicturaExterioara
-    verbose_name = 'Pictură exterioară aplicată'
-    verbose_name_plural = 'Pictură exterioară aplicată'
+    verbose_name = 'Pictură exterioară'
+    verbose_name_plural = 'Pictură exterioară'
     max_num = 1
 
 class PicturaInterioaraInline(admin.StackedInline):
     model = models.PicturaInterioara
-    verbose_name = 'Pictură interioară aplicată'
-    verbose_name_plural = 'Pictură interioară aplicată'
+    verbose_name = 'Pictură interioară'
+    verbose_name_plural = 'Pictură interioară'
     max_num = 1
 
 @admin.register(models.ComponentaArtistica)
@@ -488,10 +488,10 @@ class ComponentaArtisticaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHi
         ('General', {
            'fields': ("proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii")
         }),
-        ('Iconostasul (dintre naos și altar)', {
-           'fields': ("iconostas_naos_altar_tip","iconostas_naos_altar_numar_intrari","iconostas_naos_altar_finisaj","iconostas_naos_altar_detalii")
+        ('Iconostasul', {
+           'fields': ("iconostas_naos_altar_tip", "iconostas_naos_altar_numar_intrari", "iconostas_naos_altar_finisaj", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_detalii")
         }),
-        ('Iconostasul (dintre pronaos și naos)', {
+        ('Perete despărțitor (pronaos/naos)', {
            'fields': ("iconostas_pronaos_naos_tip","iconostas_pronaos_naos_numar_intrari","iconostas_pronaos_naos_finisaj","iconostas_pronaos_naos_detalii")
         }),
         ('Altar', {
