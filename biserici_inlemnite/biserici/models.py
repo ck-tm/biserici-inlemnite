@@ -870,7 +870,7 @@ class Finisaj(models.Model):
         verbose_name_plural = "Finisaje"
 
     def __str__(self):
-        return f"Finisaj Artistica {self.biserica.nune}"
+        return f"Finisaj Artistica {self.biserica.nume}"
 
 class PicturaExterioara(models.Model):
     """
