@@ -8,6 +8,32 @@ from adminsortable.admin import SortableAdmin
 from adminsortable2.admin import SortableAdminMixin
 from simple_history.admin import SimpleHistoryAdmin
 
+
+# class MyAdminSite(admin.AdminSite):
+#     def get_app_list(self, request):
+#         """
+#         Return a sorted list of all the installed apps that have been
+#         registered in this site.
+#         """
+#         ordering = {
+#             "Biserici": 1,
+#             "Identificare Biserici": 2,
+#         }
+#         app_dict = self._build_app_dict(request)
+#         # a.sort(key=lambda x: b.index(x[0]))
+#         # Sort the apps alphabetically.
+#         app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
+#         print('new admin .....')
+#         print('new admin .....')
+#         print('new admin .....')
+#         print('new admin .....')
+#         # Sort the models alphabetically within each app.
+#         for app in app_list:
+#             app['models'].sort(key=lambda x: ordering[x['name']])
+
+#         return app_list
+
+
 class HistoryChangedFields(object):
     history_list_display = ["changed_fields"]
     def changed_fields(self, obj):
@@ -23,10 +49,6 @@ class IdentificareInline(admin.StackedInline):
     verbose_name_plural = "Identificare"
 
 
-@admin.register(models.Identificare)
-class IdentificareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
-    list_display = ['biserica']
-    search_fields = ["biserica__nume"]
 
 
 class IstoricInline(admin.StackedInline):
@@ -80,7 +102,7 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
 
     fieldsets = (
         ('Localizare/peisaj', {
-           'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului")
+           'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului", "observatii")
         }),
         ('Ansamblu construit', {
             'fields': ("elemente", "detalii_elemente", "elemente_importante", "detalii_elemente_importante")
@@ -89,7 +111,7 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
             'fields': ("planimetria_bisericii", "gabarit_exterior_al_talpilor", "materiale", "detalii_materiale")
         }),
         ('Elemente arhitecturale', {
-            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese", "numar_geamuri", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_altar_tip", "solee", "masa_altar_material_picior", "masa_altar_material_blat")
+            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "turn_observatii", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese_pridvor", "numar_accese_pridvor_detalii", "numar_accese_pronaos", "numar_accese_pronaos_detalii", "numar_accese_naos", "numar_accese_naos_detalii", "numar_accese_altar", "numar_accese_altar_detalii", "numar_geamuri_pridvor", "numar_geamuri_pridvor_detalii", "numar_geamuri_pronaos", "numar_geamuri_pronaos_detalii", "numar_geamuri_naos", "numar_geamuri_naos_detalii", "numar_geamuri_altar", "numar_geamuri_altar_detalii", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_pronaos_material", "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_pronaos_observatii", "bolta_peste_naos", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc", "bolta_peste_naos_observatii", "bolta_peste_altar", "bolta_peste_altar_tip", "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "bolta_peste_altar_observatii", "solee", "solee_detalii", "masa_altar_material_picior", "masa_altar_material_blat", "masa_altar_observatii")
         }),
         ('Structura', {
             'fields': ("fundatia", "sistem_in_cheotoare", "sistem_in_catei", "sistem_mixt")
@@ -129,13 +151,13 @@ class ConservareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
            'fields': ('stare_cimitir', 'stare_cimitir_detalii', 'stare_monumente_funerare_valoroase', 'stare_monumente_funerare_valoroase_detalii', 'vegetatie_invaziva', 'vegetatie_invaziva_detalii', 'stare_elemente_arhitecturale', 'stare_elemente_arhitecturale_detalii')
         }),
         ('Structura bisericii', {
-           'fields': ("stare_teren", "stare_teren_detalii", "stare_fundatii", "stare_fundatii_detalii", "stare_corp_biserica", "stare_corp_biserica_detalii", "stare_bolti", "stare_bolti_detalii", "stare_sarpanta_peste_corp_biserica", "stare_sarpanta_peste_corp_biserica_detalii", "stare_structura_turn", "stare_structura_turn_detalii")
+           'fields': ("stare_teren", "stare_teren_detalii", "stare_fundatii", "stare_fundatii_detalii", "stare_corp_biserica", "stare_corp_biserica_detalii", "stare_bolti", "stare_bolti_detalii", "stare_sarpanta_peste_corp_biserica", "stare_sarpanta_peste_corp_biserica_detalii", "stare_structura_turn", "stare_structura_turn_detalii", "stare_talpi", "stare_talpi_detalii", "stare_cosoroabe", "stare_cosoroabe_detalii", "stare_sarpanta_turn", "stare_sarpanta_turn_detalii")
         }),
         ('Finisaje de arhitectură', {
            'fields': ("stare_invelitoare", "stare_invelitoare_detalii", "stare_finisaj_peste_corp", "stare_finisaj_peste_corp_detalii", "stare_finisaj_tambur_turn", "stare_finisaj_tambur_turn_detalii", "stare_pardoseli_interioare", "stare_pardoseli_interioare_detalii", "stare_usi_si_ferestre", "stare_usi_si_ferestre_detalii")
         }),
         ('Starea stratului pictural', {
-           'fields': ("stare_picturi_exterioare", "stare_picturi_exterioare_detalii", "stare_picturi_interioare", "stare_picturi_interioare_detalii")
+           'fields': ("stare_picturi_exterioare", "stare_picturi_exterioare_detalii", "stare_picturi_interioare", "stare_picturi_interioare_detalii", "stare_iconostas", "stare_iconostas_detalii")
         }),
         ('Obiecte de cult', {
            'fields': ("stare_icoane_istorice", "stare_icoane_istorice_detalii", "starea_obiecte_de_cult", "starea_obiecte_de_cult_detalii", "starea_mobilier", "starea_mobilier_detalii")
@@ -365,6 +387,35 @@ class FotografieDetaliuPodInline(admin.StackedInline):
     extra = 1
 
 
+class FotografieDetaliuSculpturaInline(admin.StackedInline):
+    model = models.FotografieDetaliuSculptura
+    verbose_name = 'Fotografie Detaliu Sculptură'
+    verbose_name_plural = 'Sculptură'
+    extra = 1
+
+
+
+class FotografieDetaliuImaginePeretiInline(admin.StackedInline):
+    model = models.FotografieDetaliuImaginePereti
+    verbose_name = 'Fotografie Detaliu Imagine Pereți'
+    verbose_name_plural = 'Pereți'
+    extra = 1
+
+
+class FotografieProgramIconograficInline(admin.StackedInline):
+    model = models.FotografieProgramIconografic
+    verbose_name = 'Fotografie Program Iconografic'
+    verbose_name_plural = 'Program Iconografic'
+    extra = 1
+
+
+class FotografieUrmeSemneSimboluriInline(admin.StackedInline):
+    model = models.FotografieUrmeSemneSimboluri
+    verbose_name = 'Fotografie Urme/Semne/Simboluri'
+    verbose_name_plural = 'Urme/Semne/Simboluri'
+    extra = 1
+
+
 @admin.register(models.Fotografii)
 class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
@@ -382,10 +433,12 @@ class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
         FotografieTurnInline,
         FotografieDegradariExterioareInline,
         FotografieInteriorDesfasuratInline,
+        FotografieDetaliuImaginePeretiInline,
         FotografiePisanieInscriptieCtitorMesterInline,
         FotografiePortalPronaosInline,
         FotografiePortalNaosInline,
         FotografieDetaliuBoltaInline,
+        FotografieDetaliuSculpturaInline,
         FotografieIconostasNaosInline,
         FotografieIconostasAltarInline,
         FotografieIcoanaInline,
@@ -394,6 +447,8 @@ class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
         FotografieDegradariInteriorInline,
         FotografieDegradariPodInline,
         FotografieDetaliuPodInline,
+        FotografieProgramIconograficInline,
+        FotografieUrmeSemneSimboluriInline
     ]
 
 class FinisajActualInline(admin.StackedInline):
@@ -402,6 +457,8 @@ class FinisajActualInline(admin.StackedInline):
     verbose_name_plural = 'Finisajul actual al învelitorii peste corpul bisericii'
     max_num = 1
 
+    class Media:
+        js = ('js/admin/invelitoare.js',)
 
 class FinisajAnteriorInvelitoareInline(admin.StackedInline):
     model = models.FinisajAnteriorInvelitoare
@@ -447,6 +504,31 @@ class FinisajTavanInline(admin.StackedInline):
     extra = 1 
 
 
+class FinisajPorticInline(admin.StackedInline):
+    model = models.FinisajPortic
+    verbose_name = 'Finisaj Portic'
+    verbose_name_plural = 'Portic'
+    extra = 1 
+
+class FinisajPronaosInline(admin.StackedInline):
+    model = models.FinisajPronaos
+    verbose_name = 'Finisaj Pronaos'
+    verbose_name_plural = 'Pronaos'
+    extra = 1 
+
+class FinisajNaosInline(admin.StackedInline):
+    model = models.FinisajNaos
+    verbose_name = 'Finisaj Naos'
+    verbose_name_plural = 'Naos'
+    extra = 1 
+
+class FinisajAltarInline(admin.StackedInline):
+    model = models.FinisajAltar
+    verbose_name = 'Finisaj Altar'
+    verbose_name_plural = 'Altar'
+    extra = 1 
+
+
 @admin.register(models.Finisaj)
 class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
@@ -455,10 +537,16 @@ class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     inlines = [
         FinisajActualInline,
         FinisajAnteriorInvelitoareInline,
+        FinisajTamburTurnInline,
+        FinisajInvelitoareTurnInline,
         FinisajPardoseaInline,
         FinisajPeretiInteriorInline,
         FinisajBoltiInline,
         FinisajTavanInline,
+        FinisajPorticInline,
+        FinisajPronaosInline,
+        FinisajNaosInline,
+        FinisajAltarInline,
     ]
 
 
@@ -486,16 +574,22 @@ class ComponentaArtisticaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHi
 
     fieldsets = (
         ('General', {
-           'fields': ("proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii")
+           'fields': ("proscomidie", "suport_proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii")
         }),
         ('Iconostasul', {
-           'fields': ("iconostas_naos_altar_tip", "iconostas_naos_altar_numar_intrari", "iconostas_naos_altar_finisaj", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_detalii")
+           'fields': ("iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_numar_intrari", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_detalii")
         }),
         ('Perete despărțitor (pronaos/naos)', {
-           'fields': ("iconostas_pronaos_naos_tip","iconostas_pronaos_naos_numar_intrari","iconostas_pronaos_naos_finisaj","iconostas_pronaos_naos_detalii")
+           'fields': ("iconostas_pronaos_naos_tip","iconostas_pronaos_naos_numar_intrari","iconostas_pronaos_naos_tehnica","iconostas_pronaos_naos_detalii")
         }),
         ('Altar', {
-           'fields': ("altar_decor", "altar_decor_detalii")
+           'fields': ("altar_placa_mesei", "altar_piciorul_mesei", "altar_decor", "altar_detalii")
         })
     )
 
+
+
+@admin.register(models.Identificare)
+class IdentificareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
+    list_display = ['biserica']
+    search_fields = ["biserica__nume"]

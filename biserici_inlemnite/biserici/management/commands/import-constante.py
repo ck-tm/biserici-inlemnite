@@ -420,11 +420,12 @@ SUPORT_PICTURA = [
 ]
 
 TEHNICA_PICTURA = [
-    "alseco",
-    "fresco",
     "tempera slabă",
-    "vopsele pe bază de ulei",
     "tempera",
+    "ulei de in",
+    # "alseco",
+    # "fresco",
+    # "vopsele pe bază de ulei",
 ]
 
 FINISAJ_ICONOSTAS = [
@@ -435,6 +436,8 @@ FINISAJ_ICONOSTAS = [
     "Sculptat",
     "Nepictat",
 ]
+
+
 
 
 TIPURI_USI = [

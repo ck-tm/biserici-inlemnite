@@ -90,6 +90,7 @@ LOCAL_APPS = [
     "biserici_inlemnite.users.apps.UsersConfig",
     "biserici_inlemnite.nomenclatoare.apps.NomenclatoareConfig",
     "biserici_inlemnite.biserici.apps.BisericiConfig",
+    # "biserici_inlemnite.biserici.apps.BisericiAdminConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

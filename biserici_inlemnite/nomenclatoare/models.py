@@ -19,12 +19,28 @@ class Judet(models.Model):
         return self.nume
 
 
+class Comuna(models.Model):
+    """
+    Description: Model Description
+    """
+    nume = models.CharField(max_length=50)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Comune"
+
+    def __str__(self):
+        return self.nume
+
+
 class Localitate(models.Model):
     """
     Description: Model Description
     """
     nume = models.CharField(max_length=50)
     judet = models.ForeignKey('Judet', on_delete=models.CASCADE)
+    comuna = models.ForeignKey('Comuna', on_delete=models.CASCADE, null=True, blank=True)
 
     history = HistoricalRecords()
 
@@ -863,6 +879,19 @@ class ObiectCult( models.Model):
 
     class Meta:
         verbose_name_plural = "Obiecte Cult"
+
+    def __str__(self):
+        return self.nume
+
+
+
+class TipArcBolta( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tipuri arc boltă"
 
     def __str__(self):
         return self.nume
