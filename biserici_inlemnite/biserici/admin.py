@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 from django.utils.html import format_html
+from django.conf import settings
 
 from biserici import models
 from nomenclatoare import admin as nadmin
@@ -191,60 +192,60 @@ class BisericaAdmin(SortableAdminMixin, GuardedModelAdmin, HistoryChangedFields,
 
     def identificare_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/identificare/{obj.identificare.pk}/change/'>{obj.identificare.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/identificare/{obj.identificare.pk}/change/'>{obj.identificare.completare}</a> <br>"
         return format_html(html)
 
     def descriere_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
         return format_html(html)
 
     def istoric_completare(self, obj):
-        html = f"<a href='/admin/biserici/istoric/{obj.istoric.pk}/change/'>{obj.istoric.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/istoric/{obj.istoric.pk}/change/'>{obj.istoric.completare}</a> <br>"
         return format_html(html)
 
     def decriere_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
         return format_html(html)
 
 
     def fotografii_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/fotografii/{obj.fotografii.pk}/change/'>{obj.fotografii.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/fotografii/{obj.fotografii.pk}/change/'>{obj.fotografii.completare}</a> <br>"
         return format_html(html)
 
 
     def finisaje_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/finisaj/{obj.finisaj.pk}/change/'>{obj.finisaj.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/finisaj/{obj.finisaj.pk}/change/'>{obj.finisaj.completare}</a> <br>"
         return format_html(html)
 
     def componenta_artistica_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>{obj.componentaartistica.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>{obj.componentaartistica.completare}</a> <br>"
         return format_html(html)
 
     def patrimoniu_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>{obj.patrimoniu.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>{obj.patrimoniu.completare}</a> <br>"
         return format_html(html)
 
     def conservare_completare(self, obj):
         
-        html = f"<a href='/admin/biserici/conservare/{obj.conservare.pk}/change/'>{obj.conservare.completare}</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/conservare/{obj.conservare.pk}/change/'>{obj.conservare.completare}</a> <br>"
         return format_html(html)
 
 
     def capitole(self, obj):
-        html = f"<a href='/admin/biserici/identificare/{obj.identificare.pk}/change/'>1. Identificare</a> <br>"
-        html += f"<a href='/admin/biserici/istoric/{obj.istoric.pk}/change/'>2. Istoric</a> <br>"
-        html += f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>3. Descriere</a> <br>"
-        html += f"<a href='/admin/biserici/fotografii/{obj.fotografii.pk}/change/'>3.1. Fotografii</a> <br>"
-        html += f"<a href='/admin/biserici/finisaj/{obj.finisaj.pk}/change/'>3.2. Finisaje</a> <br>"
-        html += f"<a href='/admin/biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>3.3. Componenta Artistică</a> <br>"
-        html += f"<a href='/admin/biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>4. Valoare patrimoniu</a> <br>"
-        html += f"<a href='/admin/biserici/conservare/{obj.conservare.pk}/change/'>5. Stare de conservare</a> <br>"
+        html = f"<a href='/{settings.ADMIN_URL}biserici/identificare/{obj.identificare.pk}/change/'>1. Identificare</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/istoric/{obj.istoric.pk}/change/'>2. Istoric</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/descriere/{obj.descriere.pk}/change/'>3. Descriere</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/fotografii/{obj.fotografii.pk}/change/'>3.1. Fotografii</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/finisaj/{obj.finisaj.pk}/change/'>3.2. Finisaje</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>3.3. Componenta Artistică</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>4. Valoare patrimoniu</a> <br>"
+        html += f"<a href='/{settings.ADMIN_URL}biserici/conservare/{obj.conservare.pk}/change/'>5. Stare de conservare</a> <br>"
 
         return format_html(html)
 
