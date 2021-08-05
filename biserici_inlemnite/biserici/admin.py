@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
-# Register your models here.
+from django.utils.html import format_html
+
 from biserici import models
 from nomenclatoare import admin as nadmin
 from guardian.admin import GuardedModelAdmin
@@ -75,6 +76,7 @@ class IstoricAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
+    readonly_fields = ['completare', 'missing_fields']
     inlines = [
         nadmin.CtitorBisericaInline,
         nadmin.MesterBisericaInline,
@@ -99,7 +101,7 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
-
+    readonly_fields = ['completare', 'missing_fields']
     fieldsets = (
         ('Localizare/peisaj', {
            'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului", "observatii")
@@ -111,7 +113,7 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
             'fields': ("planimetria_bisericii", "gabarit_exterior_al_talpilor", "materiale", "detalii_materiale")
         }),
         ('Elemente arhitecturale', {
-            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "turn_observatii", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese_pridvor", "numar_accese_pridvor_detalii", "numar_accese_pronaos", "numar_accese_pronaos_detalii", "numar_accese_naos", "numar_accese_naos_detalii", "numar_accese_altar", "numar_accese_altar_detalii", "numar_geamuri_pridvor", "numar_geamuri_pridvor_detalii", "numar_geamuri_pronaos", "numar_geamuri_pronaos_detalii", "numar_geamuri_naos", "numar_geamuri_naos_detalii", "numar_geamuri_altar", "numar_geamuri_altar_detalii", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_pronaos_material", "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_pronaos_observatii", "bolta_peste_naos", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc", "bolta_peste_naos_observatii", "bolta_peste_altar", "bolta_peste_altar_tip", "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "bolta_peste_altar_observatii", "solee", "solee_detalii", "masa_altar_material_picior", "masa_altar_material_blat", "masa_altar_observatii")
+            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "turn_observatii", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese_pridvor", "numar_accese_pridvor_detalii", "numar_accese_pronaos", "numar_accese_pronaos_detalii", "numar_accese_naos", "numar_accese_naos_detalii", "numar_accese_altar", "numar_accese_altar_detalii", "numar_geamuri_pridvor", "numar_geamuri_pridvor_detalii", "numar_geamuri_pronaos", "numar_geamuri_pronaos_detalii", "numar_geamuri_naos", "numar_geamuri_naos_detalii", "numar_geamuri_altar", "numar_geamuri_altar_detalii", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_pronaos_material", "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_pronaos_observatii", "bolta_peste_naos", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc", "bolta_peste_naos_observatii", "bolta_peste_altar", "bolta_peste_altar_tip", "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "bolta_peste_altar_observatii", "cor", "cor_material", "cor_observatii", "solee", "solee_detalii", "masa_altar_material_picior", "masa_altar_material_blat", "masa_altar_observatii")
         }),
         ('Structura', {
             'fields': ("fundatia", "sistem_in_cheotoare", "sistem_in_catei", "sistem_mixt")
@@ -131,6 +133,7 @@ class PatrimoniuAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
+    readonly_fields = ['completare', 'missing_fields']
 
 
 class ConservareInline(admin.StackedInline):
@@ -144,6 +147,7 @@ class ConservareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
+    readonly_fields = ['completare', 'missing_fields']
     inlines = [
     ]
     fieldsets = (
@@ -168,8 +172,9 @@ class ConservareAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
 
 @admin.register(models.Biserica)
 class BisericaAdmin(SortableAdminMixin, GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
-    list_display = ['nume', 'update_identificare', 'update_istoric', 'update_descriere', 'update_patrimoniu', 'update_conservare']
+    list_display = ['nume', 'identificare_completare', 'istoric_completare', 'descriere_completare', 'finisaje_completare', 'fotografii_completare', 'componenta_artistica_completare', 'patrimoniu_completare', 'conservare_completare']
     search_fields = ["nume"]
+    readonly_fields = ('capitole',)
     list_filter = ["identificare__judet"]
     inlines = [
         # IdentificareInline,
@@ -179,6 +184,69 @@ class BisericaAdmin(SortableAdminMixin, GuardedModelAdmin, HistoryChangedFields,
         # ConservareInline
         ]
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).select_related("identificare","descriere","istoric","patrimoniu","conservare","fotografii","finisaj","componentaartistica")
+        print('get')
+        return qs
+
+    def identificare_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/identificare/{obj.identificare.pk}/change/'>{obj.identificare.completare}</a> <br>"
+        return format_html(html)
+
+    def descriere_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
+        return format_html(html)
+
+    def istoric_completare(self, obj):
+        html = f"<a href='/admin/biserici/istoric/{obj.istoric.pk}/change/'>{obj.istoric.completare}</a> <br>"
+        return format_html(html)
+
+    def decriere_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
+        return format_html(html)
+
+
+    def fotografii_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/fotografii/{obj.fotografii.pk}/change/'>{obj.fotografii.completare}</a> <br>"
+        return format_html(html)
+
+
+    def finisaje_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/finisaj/{obj.finisaj.pk}/change/'>{obj.finisaj.completare}</a> <br>"
+        return format_html(html)
+
+    def componenta_artistica_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>{obj.componentaartistica.completare}</a> <br>"
+        return format_html(html)
+
+    def patrimoniu_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>{obj.patrimoniu.completare}</a> <br>"
+        return format_html(html)
+
+    def conservare_completare(self, obj):
+        
+        html = f"<a href='/admin/biserici/conservare/{obj.conservare.pk}/change/'>{obj.conservare.completare}</a> <br>"
+        return format_html(html)
+
+
+    def capitole(self, obj):
+        html = f"<a href='/admin/biserici/identificare/{obj.identificare.pk}/change/'>1. Identificare</a> <br>"
+        html += f"<a href='/admin/biserici/istoric/{obj.istoric.pk}/change/'>2. Istoric</a> <br>"
+        html += f"<a href='/admin/biserici/descriere/{obj.descriere.pk}/change/'>3. Descriere</a> <br>"
+        html += f"<a href='/admin/biserici/fotografii/{obj.fotografii.pk}/change/'>3.1. Fotografii</a> <br>"
+        html += f"<a href='/admin/biserici/finisaj/{obj.finisaj.pk}/change/'>3.2. Finisaje</a> <br>"
+        html += f"<a href='/admin/biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>3.3. Componenta Artistică</a> <br>"
+        html += f"<a href='/admin/biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>4. Valoare patrimoniu</a> <br>"
+        html += f"<a href='/admin/biserici/conservare/{obj.conservare.pk}/change/'>5. Stare de conservare</a> <br>"
+
+        return format_html(html)
 
     def update_identificare(self, obj):
         last_update = obj.identificare.history.last()
@@ -421,6 +489,7 @@ class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
+    readonly_fields = ['completare', 'missing_fields']
     inlines = [
         FotografieFatadaInline,
         FotografiePortalInline,
@@ -534,6 +603,7 @@ class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['biserica']
     search_fields = ["biserica__nume"]
     exclude = ['biserica']
+    readonly_fields = ['completare', 'missing_fields']
     inlines = [
         FinisajActualInline,
         FinisajAnteriorInvelitoareInline,
@@ -571,10 +641,11 @@ class ComponentaArtisticaAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHi
         PicturaExterioaraInline,
         PicturaInterioaraInline
     ]
+    readonly_fields = ['completare', 'missing_fields']
 
     fieldsets = (
         ('General', {
-           'fields': ("proscomidie", "suport_proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii")
+           'fields': ("proscomidie", "suport_proscomidie","elemente_sculptate","elemente_detalii","alte_icoane_vechi","alte_icoane_vechi_detalii","obiecte_de_cult","obiecte_de_cult_detalii","mobiliere","mobiliere_detalii","obiecte_instrainate","obiecte_instrainate_detalii", "completare", "missing_fields")
         }),
         ('Iconostasul', {
            'fields': ("iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_numar_intrari", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_detalii")

@@ -46,6 +46,39 @@ ELEMENTE_BISERICA = (
     ('tavan', 'tavan'),
     )
 
+
+def get_completare(self):
+        fields = self._meta.get_fields()
+        n_fields = len(self._meta.get_fields()) - 2
+        n_count = 0
+        missing_fields = []
+
+        for field in fields:
+            if field.name in ['completare', 'missing_fields']:
+                continue
+            try:
+                if getattr(self, field.name):
+                    n_count += 1
+                else:
+                    missing_fields.append(field.verbose_name)
+            except:
+                if getattr(self, field.name+'_set').count():
+                    n_count += 1
+                else:
+                    # print('---')
+                    # print(field)
+                    # print(dir(field))
+                    # print(field.__dict__['related_model'])
+                    # print(dir(field.__dict__['related_model']._meta))
+                    # print(field.__dict__['related_model']._meta.verbose_name)
+                    # print('====')
+                    # print(field.__class__)
+                    # print(dir(field.__class__))
+                    missing_fields.append(field.__dict__['related_model']._meta.verbose_name)
+
+        return round(n_count / n_fields * 100, 2), missing_fields
+
+
 class Biserica(SortableMixin):
     """
     Description: Model Description
@@ -97,6 +130,9 @@ class Identificare(models.Model):
     proprietar_actual = models.TextField(null=True, blank=True)
     inscriere_documente_cadastrale = models.IntegerField(choices=IDENTIFICARE_DOC_CADASTRALE, null=True, blank=True)
 
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
+
     history = HistoricalRecords()
 
     class Meta:
@@ -109,6 +145,14 @@ class Identificare(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__original_judet = self.judet
+
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
 
     # def save(self, *args, **kwargs):
     #     print(kwargs)
@@ -163,7 +207,7 @@ class Descriere(models.Model):
     planimetria_bisericii = models.ForeignKey('nomenclatoare.Planimetrie', null=True, blank=True, on_delete=models.SET_NULL)
     gabarit_exterior_al_talpilor = models.ImageField(upload_to='schite', max_length=100, null=True, blank=True, help_text='o schiță a planului tălpilor / elevației /  turnului / triunghiului șarpantei')
     materiale = models.ManyToManyField('nomenclatoare.Material', help_text="Materiale folosite in construcția bisericii", blank=True)
-    detalii_materiale = models.TextField(null=True, blank=True)
+    detalii_materiale = models.TextField(null=True, blank=True, help_text="Materialele care compun structura de rezistentă a bisericii")
 
     # Elemente arhitecturale
 
@@ -232,6 +276,9 @@ class Descriere(models.Model):
     bolta_peste_altar_tipul_de_arc = models.ManyToManyField('nomenclatoare.TipArcBolta', blank=True, related_name='biserici_bolta_peste_altar')
     bolta_peste_altar_observatii = models.TextField(null=True, blank=True)
 
+    cor = models.BooleanField(default=False)
+    cor_material = models.ManyToManyField('nomenclatoare.Material', blank=True, related_name='biserici_cor')
+    cor_observatii = models.TextField(null=True, blank=True)
 
     solee = models.BooleanField(default=False)
     solee_detalii =  models.TextField(null=True, blank=True, verbose_name='Solee (observații)')
@@ -252,6 +299,9 @@ class Descriere(models.Model):
     # elemente = models.ManyToManyField('nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit", blank=True)
     # datat = models.BooleanField(default=False)
 
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
+
     history = HistoricalRecords()
 
     class Meta:
@@ -261,6 +311,14 @@ class Descriere(models.Model):
     def __str__(self):
         return f"Descriere {self.biserica.nume}"
 
+    
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
 
 class PovesteBiserica(models.Model):
     """
@@ -316,6 +374,8 @@ class Istoric(models.Model):
 
     mutari_biserica = models.ManyToManyField('nomenclatoare.Localitate', through=nmodels.MutareBiserica, blank=True)
 
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
 
     history = HistoricalRecords()
 
@@ -326,6 +386,14 @@ class Istoric(models.Model):
 
     def __str__(self):
         return f"Istoric {self.biserica.nume}"
+
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
 
 class Patrimoniu(models.Model):
     """
@@ -358,6 +426,9 @@ class Patrimoniu(models.Model):
     potential = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Potențialul de beneficii aduse comunității locale")
     potential_detalii = models.TextField(null=True, blank=True)
 
+
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -366,6 +437,15 @@ class Patrimoniu(models.Model):
 
     def __str__(self):
         return f"Valoare patrimoniu cultural {self.biserica.nume}"
+
+    
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
 
 
 class Conservare(models.Model):
@@ -435,7 +515,8 @@ class Conservare(models.Model):
     starea_mobilier = models.IntegerField(choices=NR15, null=True, blank=True)
     starea_mobilier_detalii = models.TextField( null=True, blank=True)
 
-
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -444,6 +525,15 @@ class Conservare(models.Model):
 
     def __str__(self):
         return f"Stare conservare {self.biserica.nume}"
+
+    
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
 
 
 class FotografieAnsamblu(models.Model):
@@ -800,6 +890,8 @@ class Fotografii(models.Model):
     """
 
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -808,6 +900,16 @@ class Fotografii(models.Model):
 
     def __str__(self):
         return f"Fotografii {self.biserica.nume}"
+
+    
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
+
 
 class FinisajActualInvelitoare(models.Model):
     """
@@ -1038,6 +1140,9 @@ class Finisaj(models.Model):
     # finisaj_actual_invelitoare = models.ForeignKey('FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True)
     # finisaj_tambur_turn = models.ForeignKey('FinisajInvelitoare', related_name='finisaje_tambur_turn', on_delete=models.SET_NULL, null=True, blank=True)
 
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
+
     history = HistoricalRecords()
     class Meta:
         ordering = ["biserica__the_order"]
@@ -1045,6 +1150,16 @@ class Finisaj(models.Model):
 
     def __str__(self):
         return f"Finisaj Artistica {self.biserica.nume}"
+
+    
+
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
+
 
 class PicturaExterioara(models.Model):
     """
@@ -1147,6 +1262,9 @@ class ComponentaArtistica(models.Model):
     altar_decor = models.ForeignKey('nomenclatoare.FinisajIconostas', verbose_name = "Decor", on_delete=models.SET_NULL, null=True, blank=True, related_name='decoruri_altar')
     altar_detalii = models.TextField(null=True, blank=True, verbose_name='Detalii')
 
+    completare = models.FloatField(default=0)
+    missing_fields = models.JSONField(null=True, blank=True)
+
     history = HistoricalRecords()
     class Meta:
         ordering = ["biserica__the_order"]
@@ -1154,3 +1272,11 @@ class ComponentaArtistica(models.Model):
 
     def __str__(self):
         return f"Componenta Artistica {self.biserica.nume}"
+
+    
+
+    def save(self, *args, **kwargs):
+        completare = get_completare(self)
+        self.completare = completare[0]
+        self.missing_fields = completare[1]
+        super().save(*args, **kwargs)
