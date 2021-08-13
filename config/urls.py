@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
+# from django.contrib import admin
+from baton.autodiscover import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
@@ -35,9 +37,11 @@ urlpatterns = [
 # API URLS
 urlpatterns += [
     # API base url
+    path('api/rest-auth/', include('dj_rest_auth.urls')),
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+
 ]
 
 if settings.DEBUG:

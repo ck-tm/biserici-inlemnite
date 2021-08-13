@@ -82,6 +82,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "simple_history",
     "guardian",
+    "dj_rest_auth",
     # "adminsortable",
     "adminsortable2"
 ]
@@ -326,10 +327,11 @@ SOCIALACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.SocialAccountAdapter"
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
@@ -473,3 +475,7 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     # "language_chooser": True,
 }
+
+
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'JWT'

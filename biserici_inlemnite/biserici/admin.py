@@ -45,7 +45,7 @@ class HistoryChangedFields(object):
         return None
 
 
-class IdentificareInline(admin.StackedInline):
+class IdentificareInline(admin.TabularInline):
     model = models.Identificare
     verbose_name = "Identificare"
     verbose_name_plural = "Identificare"
@@ -53,19 +53,19 @@ class IdentificareInline(admin.StackedInline):
 
 
 
-class IstoricInline(admin.StackedInline):
+class IstoricInline(admin.TabularInline):
     model = models.Istoric
     verbose_name = "Istoric"
     verbose_name_plural = "Istoric"
 
 
-class PovesteBisericaInline(admin.StackedInline):
+class PovesteBisericaInline(admin.TabularInline):
     model = models.PovesteBiserica
     verbose_name = "Poveste"
     verbose_name_plural = "Povești"
     extra = 1
 
-class InterventieBisericaInline(admin.StackedInline):
+class InterventieBisericaInline(admin.TabularInline):
     model = models.InterventieBiserica
     verbose_name = "Intervenție"
     verbose_name_plural = "Intervenții"
@@ -91,7 +91,7 @@ class IstoricAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     ]
 
 
-class DescriereInline(admin.StackedInline):
+class DescriereInline(admin.TabularInline):
     model = models.Descriere
     verbose_name = "Descriere"
     verbose_name_plural = "Descriere"
@@ -105,25 +105,30 @@ class DescriereAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin
     readonly_fields = ['completare', 'missing_fields']
     fieldsets = (
         ('Localizare/peisaj', {
-           'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului", "observatii")
+           'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului", "observatii"),
+
         }),
         ('Ansamblu construit', {
-            'fields': ("elemente", "detalii_elemente", "elemente_importante", "detalii_elemente_importante")
+            'fields': ("elemente", "detalii_elemente", "elemente_importante", "detalii_elemente_importante"),
+            'description': 'This is another description text'
         }),
         ('Arhitectura', {
-            'fields': ("planimetria_bisericii", "gabarit_exterior_al_talpilor", "materiale", "detalii_materiale")
+            'fields': ("planimetria_bisericii", "gabarit_exterior_al_talpilor", "materiale", "detalii_materiale"),
+            'description': 'This is another description text'
         }),
         ('Elemente arhitecturale', {
-            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "turn_observatii", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese_pridvor", "numar_accese_pridvor_detalii", "numar_accese_pronaos", "numar_accese_pronaos_detalii", "numar_accese_naos", "numar_accese_naos_detalii", "numar_accese_altar", "numar_accese_altar_detalii", "numar_geamuri_pridvor", "numar_geamuri_pridvor_detalii", "numar_geamuri_pronaos", "numar_geamuri_pronaos_detalii", "numar_geamuri_naos", "numar_geamuri_naos_detalii", "numar_geamuri_altar", "numar_geamuri_altar_detalii", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_pronaos_material", "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_pronaos_observatii", "bolta_peste_naos", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc", "bolta_peste_naos_observatii", "bolta_peste_altar", "bolta_peste_altar_tip", "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "bolta_peste_altar_observatii", "cor", "cor_material", "cor_observatii", "solee", "solee_detalii", "masa_altar_material_picior", "masa_altar_material_blat", "masa_altar_observatii")
+            'fields': ("turn_dimensiune", "turn_tip", "turn_numar", "turn_decor", "turn_plan", "turn_amplasare", "turn_galerie", "turn_numar_arcade", "turn_numar_arcade_detalii", "turn_asezare_talpi", "turn_relatie_talpi", "turn_numar_talpi", "turn_observatii", "clopote_an", "clopote_inscriptie", "sarpanta_tip", "sarpanta_veche_nefolosita", "sarpanta_numar_turnulete", "sarpanta_numar_cruci", "sarpanta_material_cruci", "sarpanta_detalii", "numar_accese_pridvor", "numar_accese_pridvor_detalii", "numar_accese_pronaos", "numar_accese_pronaos_detalii", "numar_accese_naos", "numar_accese_naos_detalii", "numar_accese_altar", "numar_accese_altar_detalii", "numar_geamuri_pridvor", "numar_geamuri_pridvor_detalii", "numar_geamuri_pronaos", "numar_geamuri_pronaos_detalii", "numar_geamuri_naos", "numar_geamuri_naos_detalii", "numar_geamuri_altar", "numar_geamuri_altar_detalii", "oachiesi_aerisitoare", "oachiesi_aerisitoare_detalii", "bolta_peste_pronaos", "bolta_peste_pronaos_material", "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_pronaos_observatii", "bolta_peste_naos", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc", "bolta_peste_naos_observatii", "bolta_peste_altar", "bolta_peste_altar_tip", "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "bolta_peste_altar_observatii", "cor", "cor_material", "cor_observatii", "solee", "solee_detalii", "masa_altar_material_picior", "masa_altar_material_blat", "masa_altar_observatii"),
+            'description': 'This is another description text'
         }),
         ('Structura', {
-            'fields': ("fundatia", "sistem_in_cheotoare", "sistem_in_catei", "sistem_mixt")
+            'fields': ("fundatia", "sistem_in_cheotoare", "sistem_in_catei", "sistem_mixt"),
+            'description': 'This is another description text'
         })
     )
 
 
 
-class PatrimoniuInline(admin.StackedInline):
+class PatrimoniuInline(admin.TabularInline):
     model = models.Patrimoniu
     verbose_name = "Valoare Patrimoniu Cultural"
     verbose_name_plural = "Valoare Patrimoniu Cultural"
@@ -137,7 +142,7 @@ class PatrimoniuAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
     readonly_fields = ['completare', 'missing_fields']
 
 
-class ConservareInline(admin.StackedInline):
+class ConservareInline(admin.TabularInline):
     model = models.Conservare
     verbose_name = "Stare Conservare"
     verbose_name_plural = "Stare Conservare"
@@ -281,182 +286,182 @@ class BisericaAdmin(SortableAdminMixin, GuardedModelAdmin, HistoryChangedFields,
 
 
 
-class InterventieBisericaInline(admin.StackedInline):
+class InterventieBisericaInline(admin.TabularInline):
     model = models.InterventieBiserica
     verbose_name = "Intervenție"
     verbose_name_plural = "Intervenții"
     extra = 1
 
 
-class FotografieAnsambluInline(admin.StackedInline):
+class FotografieAnsambluInline(admin.TabularInline):
     model = models.FotografieAnsamblu
     verbose_name = 'Fotografie Ansamblu'
     verbose_name_plural = 'Ansamblu'
     extra = 1
 
 
-class FotografieFatadaInline(admin.StackedInline):
+class FotografieFatadaInline(admin.TabularInline):
     model = models.FotografieFatada
     verbose_name = 'Fotografie Fatada'
     verbose_name_plural = 'Fatada'
     extra = 1
 
 
-class FotografiePortalInline(admin.StackedInline):
+class FotografiePortalInline(admin.TabularInline):
     model = models.FotografiePortal
     verbose_name = 'Fotografie Portal'
     verbose_name_plural = 'Portal'
     extra = 1
 
 
-class FotografieFereastraInline(admin.StackedInline):
+class FotografieFereastraInline(admin.TabularInline):
     model = models.FotografieFereastra
     verbose_name = 'Fotografie Fereastra'
     verbose_name_plural = 'Fereastra'
     extra = 1
 
 
-class FotografieCheotoarInline(admin.StackedInline):
+class FotografieCheotoarInline(admin.TabularInline):
     model = models.FotografieCheotoar
     verbose_name = 'Fotografie Cheotoar'
     verbose_name_plural = 'Cheotoar'
     extra = 1
 
 
-class FotografieTalpaInline(admin.StackedInline):
+class FotografieTalpaInline(admin.TabularInline):
     model = models.FotografieTalpa
     verbose_name = 'Fotografie Talpa'
     verbose_name_plural = 'Talpa'
     extra = 1
 
 
-class FotografieStreasinaInline(admin.StackedInline):
+class FotografieStreasinaInline(admin.TabularInline):
     model = models.FotografieStreasina
     verbose_name = 'Fotografie Streasina'
     verbose_name_plural = 'Streasina'
     extra = 1
 
 
-class FotografieInvelitoareInline(admin.StackedInline):
+class FotografieInvelitoareInline(admin.TabularInline):
     model = models.FotografieInvelitoare
     verbose_name = 'Fotografie Invelitoare'
     verbose_name_plural = 'Invelitoare'
     extra = 1
 
 
-class FotografieCruceBisericaInline(admin.StackedInline):
+class FotografieCruceBisericaInline(admin.TabularInline):
     model = models.FotografieCruceBiserica
     verbose_name = 'Fotografie Cruce Biserica'
     verbose_name_plural = 'Cruce Biserica'
     extra = 1
 
 
-class FotografieTurnInline(admin.StackedInline):
+class FotografieTurnInline(admin.TabularInline):
     model = models.FotografieTurn
     verbose_name = 'Fotografie Turn'
     verbose_name_plural = 'Turn'
     extra = 1
 
 
-class FotografieDegradariExterioareInline(admin.StackedInline):
+class FotografieDegradariExterioareInline(admin.TabularInline):
     model = models.FotografieDegradariExterioare
     verbose_name = 'Fotografie Degradări Exterioare'
     verbose_name_plural = 'Degradări Exterioare'
     extra = 1
 
 
-class FotografieInteriorDesfasuratInline(admin.StackedInline):
+class FotografieInteriorDesfasuratInline(admin.TabularInline):
     model = models.FotografieInteriorDesfasurat
     verbose_name = 'Fotografie Interior Desfașurat'
     verbose_name_plural = 'Interior Desfașurat'
     extra = 1
 
 
-class FotografiePisanieInscriptieCtitorMesterInline(admin.StackedInline):
+class FotografiePisanieInscriptieCtitorMesterInline(admin.TabularInline):
     model = models.FotografiePisanieInscriptieCtitorMester
     verbose_name = 'Fotografie Pisanie/Inscriptie/Ctitor/Mester'
     verbose_name_plural = 'Pisanie Inscriptie Ctitor Mester'
     extra = 1
 
 
-class FotografiePortalPronaosInline(admin.StackedInline):
+class FotografiePortalPronaosInline(admin.TabularInline):
     model = models.FotografiePortalPronaos
     verbose_name = 'Fotografie Portal Pronaos/Naos'
     verbose_name_plural = 'Portal Pronaos'
     extra = 1
 
 
-class FotografiePortalNaosInline(admin.StackedInline):
+class FotografiePortalNaosInline(admin.TabularInline):
     model = models.FotografiePortalNaos
     verbose_name = 'Fotografie Portal Naos/Pronaos'
     verbose_name_plural = 'Portal Naos'
     extra = 1
 
 
-class FotografieDetaliuBoltaInline(admin.StackedInline):
+class FotografieDetaliuBoltaInline(admin.TabularInline):
     model = models.FotografieDetaliuBolta
     verbose_name = 'Fotografie Detaliu Boltă'
     verbose_name_plural = 'Detaliu Boltă'
     extra = 1
 
 
-class FotografieIconostasNaosInline(admin.StackedInline):
+class FotografieIconostasNaosInline(admin.TabularInline):
     model = models.FotografieIconostasNaos
     verbose_name = 'Fotografie Iconostas Naos'
     verbose_name_plural = 'Iconostas Naos'
     extra = 1
 
 
-class FotografieIconostasAltarInline(admin.StackedInline):
+class FotografieIconostasAltarInline(admin.TabularInline):
     model = models.FotografieIconostasAltar
     verbose_name = 'Fotografie Iconostas Altar'
     verbose_name_plural = 'Iconostas Altar'
     extra = 1
 
 
-class FotografieIcoanaInline(admin.StackedInline):
+class FotografieIcoanaInline(admin.TabularInline):
     model = models.FotografieIcoana
     verbose_name = 'Fotografie Icoană'
     verbose_name_plural = 'Icoane'
     extra = 1
 
 
-class FotografieObiectCultInline(admin.StackedInline):
+class FotografieObiectCultInline(admin.TabularInline):
     model = models.FotografieObiectCult
     verbose_name = 'Fotografie Obiect Cult'
     verbose_name_plural = 'Obiecte Cult'
     extra = 1
 
 
-class FotografieMobilierCandelabreInline(admin.StackedInline):
+class FotografieMobilierCandelabreInline(admin.TabularInline):
     model = models.FotografieMobilierCandelabre
     verbose_name = 'Fotografie Mobilier Candelabre'
     verbose_name_plural = 'Mobilier/Candelabre'
     extra = 1
 
 
-class FotografieDegradariInteriorInline(admin.StackedInline):
+class FotografieDegradariInteriorInline(admin.TabularInline):
     model = models.FotografieDegradariInterior
     verbose_name = 'Fotografie Degradări Interior'
     verbose_name_plural = 'Degradări Interior'
     extra = 1
 
 
-class FotografieDegradariPodInline(admin.StackedInline):
+class FotografieDegradariPodInline(admin.TabularInline):
     model = models.FotografieDegradariPod
     verbose_name = 'Fotografie Degradări Pod'
     verbose_name_plural = 'Degradări Pod'
     extra = 1
 
 
-class FotografieDetaliuPodInline(admin.StackedInline):
+class FotografieDetaliuPodInline(admin.TabularInline):
     model = models.FotografieDetaliuPod
     verbose_name = 'Fotografie Detaliu Pod'
     verbose_name_plural = 'Detalii Pod'
     extra = 1
 
 
-class FotografieDetaliuSculpturaInline(admin.StackedInline):
+class FotografieDetaliuSculpturaInline(admin.TabularInline):
     model = models.FotografieDetaliuSculptura
     verbose_name = 'Fotografie Detaliu Sculptură'
     verbose_name_plural = 'Sculptură'
@@ -464,21 +469,21 @@ class FotografieDetaliuSculpturaInline(admin.StackedInline):
 
 
 
-class FotografieDetaliuImaginePeretiInline(admin.StackedInline):
+class FotografieDetaliuImaginePeretiInline(admin.TabularInline):
     model = models.FotografieDetaliuImaginePereti
     verbose_name = 'Fotografie Detaliu Imagine Pereți'
     verbose_name_plural = 'Pereți'
     extra = 1
 
 
-class FotografieProgramIconograficInline(admin.StackedInline):
+class FotografieProgramIconograficInline(admin.TabularInline):
     model = models.FotografieProgramIconografic
     verbose_name = 'Fotografie Program Iconografic'
     verbose_name_plural = 'Program Iconografic'
     extra = 1
 
 
-class FotografieUrmeSemneSimboluriInline(admin.StackedInline):
+class FotografieUrmeSemneSimboluriInline(admin.TabularInline):
     model = models.FotografieUrmeSemneSimboluri
     verbose_name = 'Fotografie Urme/Semne/Simboluri'
     verbose_name_plural = 'Urme/Semne/Simboluri'
@@ -521,7 +526,7 @@ class FotografiiAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmi
         FotografieUrmeSemneSimboluriInline
     ]
 
-class FinisajActualInline(admin.StackedInline):
+class FinisajActualInline(admin.TabularInline):
     model = models.FinisajActualInvelitoare
     verbose_name = 'Finisaj actual al învelitorii peste corpul bisericii'
     verbose_name_plural = 'Finisajul actual al învelitorii peste corpul bisericii'
@@ -530,69 +535,69 @@ class FinisajActualInline(admin.StackedInline):
     class Media:
         js = ('js/admin/invelitoare.js',)
 
-class FinisajAnteriorInvelitoareInline(admin.StackedInline):
+class FinisajAnteriorInvelitoareInline(admin.TabularInline):
     model = models.FinisajAnteriorInvelitoare
     verbose_name = 'Etapă anterioară vizibilă a învelitorii '
     verbose_name_plural = 'Etape anterioare vizibile ale învelitorii '
     max_num = 1 
 
 
-class FinisajTamburTurnInline(admin.StackedInline):
+class FinisajTamburTurnInline(admin.TabularInline):
     model = models.FinisajTamburTurn
     verbose_name = 'Finisaj exterior al tamburului turnului bisericii (dacă are turn)'
     verbose_name_plural = 'Finisajul exterior al tamburului turnului bisericii (dacă are turn)'
     max_num = 1 
 
-class FinisajInvelitoareTurnInline(admin.StackedInline):
+class FinisajInvelitoareTurnInline(admin.TabularInline):
     model = models.FinisajInvelitoareTurn
     verbose_name = 'Finisaj învelitore peste turnul bisercii (dacă are turn)'
     verbose_name_plural = 'Finisajul învelitorii peste turnul bisercii (dacă are turn)'
     max_num = 1 
 
-class FinisajPardoseaInline(admin.StackedInline):
+class FinisajPardoseaInline(admin.TabularInline):
     model = models.FinisajPardosea
     verbose_name = 'Finisaj pardoseli interioare'
     verbose_name_plural = 'Finisajul pardoselilor interioare'
     extra = 1 
 
-class FinisajPeretiInteriorInline(admin.StackedInline):
+class FinisajPeretiInteriorInline(admin.TabularInline):
     model = models.FinisajPeretiInterior
     verbose_name = 'Finisaj perete interior'
     verbose_name_plural = 'Pereți interiori'
     extra = 1 
 
-class FinisajBoltiInline(admin.StackedInline):
+class FinisajBoltiInline(admin.TabularInline):
     model = models.FinisajBolti
     verbose_name = 'Finisaj boltă'
     verbose_name_plural = 'Bolți'
     extra = 1 
 
-class FinisajTavanInline(admin.StackedInline):
+class FinisajTavanInline(admin.TabularInline):
     model = models.FinisajTavan
     verbose_name = 'Finisaj tavan'
     verbose_name_plural = 'Tavane'
     extra = 1 
 
 
-class FinisajPorticInline(admin.StackedInline):
+class FinisajPorticInline(admin.TabularInline):
     model = models.FinisajPortic
     verbose_name = 'Finisaj Portic'
     verbose_name_plural = 'Portic'
     extra = 1 
 
-class FinisajPronaosInline(admin.StackedInline):
+class FinisajPronaosInline(admin.TabularInline):
     model = models.FinisajPronaos
     verbose_name = 'Finisaj Pronaos'
     verbose_name_plural = 'Pronaos'
     extra = 1 
 
-class FinisajNaosInline(admin.StackedInline):
+class FinisajNaosInline(admin.TabularInline):
     model = models.FinisajNaos
     verbose_name = 'Finisaj Naos'
     verbose_name_plural = 'Naos'
     extra = 1 
 
-class FinisajAltarInline(admin.StackedInline):
+class FinisajAltarInline(admin.TabularInline):
     model = models.FinisajAltar
     verbose_name = 'Finisaj Altar'
     verbose_name_plural = 'Altar'
@@ -621,13 +626,13 @@ class FinisajAdmin(GuardedModelAdmin, HistoryChangedFields, SimpleHistoryAdmin):
     ]
 
 
-class PicturaExterioaraInline(admin.StackedInline):
+class PicturaExterioaraInline(admin.TabularInline):
     model = models.PicturaExterioara
     verbose_name = 'Pictură exterioară'
     verbose_name_plural = 'Pictură exterioară'
     max_num = 1
 
-class PicturaInterioaraInline(admin.StackedInline):
+class PicturaInterioaraInline(admin.TabularInline):
     model = models.PicturaInterioara
     verbose_name = 'Pictură interioară'
     verbose_name_plural = 'Pictură interioară'

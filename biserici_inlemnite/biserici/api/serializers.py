@@ -174,7 +174,22 @@ class BisericaSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSeri
 
 class BisericaListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="api:biserica-detail")
+    capitole = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Biserica
-        fields = ["nume", "pk", "url"]
+        fields = ["nume", "pk", "url", "capitole"]
+
+    def get_capitole(self, obj):
+        capitole = []
+        user = self.context['request'].user
+        checker = ObjectPermissionChecker(user)
+        for capitol in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
+            capitol_obj = getattr(obj, capitol)
+            if checker.has_perm(f'change_{capitol}', capitol_obj):
+                capitole.append({
+                    'nume': capitol,
+                    'completare': capitol_obj.completare,
+                    'url': reverse(f"api:biserica-{capitol}", args=[obj.pk], request=self.context['request'])
+                    })
+        return capitole
