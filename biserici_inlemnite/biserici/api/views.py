@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from rest_framework.relations import ManyRelatedField
 from rest_framework.metadata import SimpleMetadata
@@ -38,6 +39,7 @@ class BisericaViewSet(ModelViewSet):
     queryset = models.Biserica.objects.all()
     # metadata_class = ForeignMetaData
     permission_classes = [BaseModelPermissions]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     filter_backends = [filters.ObjectPermissionsFilter]
 
     def get_queryset(self):
