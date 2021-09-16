@@ -10,9 +10,20 @@ from rest_framework.authtoken.views import obtain_auth_token
 from biserici import views
 
 
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+
+from .api_router import wagtail_api
+
+
 urlpatterns = [
     # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path("", view=views.BisericiView.as_view(), name="home"),
+    path('cms/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
+
     path("biserici/", view=views.BisericiView.as_view(), name="biserici"),
     path('biserici/<int:pk>/', view=views.BisericaView.as_view(), name='biserica'),
     path('biserici/<int:biserica_pk>/identificare', view=views.IdentificareBisericaView.as_view(), name='identificare'),
@@ -39,6 +50,7 @@ urlpatterns += [
     # API base url
     path('api/rest-auth/', include('dj_rest_auth.urls')),
     path("api/", include("config.api_router")),
+    path('wagtail/api/', wagtail_api.urls),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
 

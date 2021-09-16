@@ -84,13 +84,31 @@ THIRD_PARTY_APPS = [
     "guardian",
     "dj_rest_auth",
     # "adminsortable",
-    "adminsortable2"
+    "adminsortable2",
+
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail.core",
+    "wagtail.api.v2",
+    "wagtailmodelchooser",
+
+    "modelcluster",
+    "taggit",
 ]
 
 LOCAL_APPS = [
     "biserici_inlemnite.users.apps.UsersConfig",
     "biserici_inlemnite.nomenclatoare.apps.NomenclatoareConfig",
     "biserici_inlemnite.biserici.apps.BisericiConfig",
+    "biserici_inlemnite.app.apps.AppConfig",
     # "biserici_inlemnite.biserici.apps.BisericiAdminConfig",
     # Your stuff: custom apps go here
 ]
@@ -153,6 +171,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware"
 ]
 
 
@@ -479,3 +498,6 @@ JAZZMIN_SETTINGS = {
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'JWT'
+
+WAGTAIL_SITE_NAME = 'Biserici Înlemnite'
+WAGTAILADMIN_COMMENTS_ENABLED = False
