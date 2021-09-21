@@ -49,6 +49,7 @@ class Comuna(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Localitate(index.Indexed, models.Model):
@@ -85,6 +86,7 @@ class FunctiuneBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class StatutBiserica(index.Indexed, models.Model):
@@ -102,6 +104,7 @@ class StatutBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class CultBiserica(index.Indexed, models.Model):
@@ -119,6 +122,7 @@ class CultBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class UtilizareBiserica(index.Indexed, models.Model):
@@ -136,6 +140,7 @@ class UtilizareBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class SingularitateBiserica(index.Indexed, models.Model):
@@ -153,6 +158,7 @@ class SingularitateBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class ProprietateBiserica(index.Indexed, models.Model):
@@ -170,6 +176,7 @@ class ProprietateBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class MutareBiserica(index.Indexed, models.Model):
@@ -204,6 +211,7 @@ class SursaDatare(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class StudiuDendocronologic(index.Indexed, models.Model):
@@ -243,6 +251,7 @@ class Persoana(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Eveniment(index.Indexed, models.Model):
@@ -260,6 +269,7 @@ class Eveniment(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class CtitorBiserica(models.Model):
@@ -278,6 +288,7 @@ class CtitorBiserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class ZugravBiserica(models.Model):
@@ -296,6 +307,7 @@ class ZugravBiserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class MesterBiserica(models.Model):
@@ -314,6 +326,7 @@ class MesterBiserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class PersonalitateBiserica(models.Model):
@@ -332,6 +345,7 @@ class PersonalitateBiserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class EvenimentBiserica(models.Model):
@@ -350,6 +364,7 @@ class EvenimentBiserica(models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Studiu(index.Indexed, models.Model):
@@ -368,6 +383,7 @@ class Studiu(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Secol(index.Indexed, models.Model):
@@ -461,6 +477,7 @@ class RelatieCimitir(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class PeisagisticaSit(index.Indexed, models.Model):
@@ -475,6 +492,7 @@ class PeisagisticaSit(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class ElementAnsambluConstruit(index.Indexed, models.Model):
@@ -489,6 +507,7 @@ class ElementAnsambluConstruit(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class ElementImportant(index.Indexed, models.Model):
@@ -503,6 +522,7 @@ class ElementImportant(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Planimetrie(index.Indexed, models.Model):
@@ -517,6 +537,7 @@ class Planimetrie(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Material(index.Indexed, models.Model):
@@ -531,6 +552,7 @@ class Material(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class DimensiuneTurn(index.Indexed, models.Model):
@@ -545,6 +567,7 @@ class DimensiuneTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipTurn(index.Indexed, models.Model):
@@ -559,6 +582,7 @@ class TipTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class DecorTurn(index.Indexed, models.Model):
@@ -573,6 +597,7 @@ class DecorTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class PlanTurn(index.Indexed, models.Model):
@@ -587,6 +612,7 @@ class PlanTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class AmplasareTurn(index.Indexed, models.Model):
@@ -601,6 +627,7 @@ class AmplasareTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class GalerieTurn(index.Indexed, models.Model):
@@ -615,6 +642,7 @@ class GalerieTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipSarpanta(index.Indexed, models.Model):
@@ -629,6 +657,7 @@ class TipSarpanta(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class FinisajExterior(index.Indexed, models.Model):
@@ -643,6 +672,7 @@ class FinisajExterior(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipBatereSindrila(index.Indexed, models.Model):
@@ -657,6 +687,7 @@ class TipBatereSindrila(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipPrindereSindrila(index.Indexed, models.Model):
@@ -671,6 +702,7 @@ class TipPrindereSindrila(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipBotSindrila(index.Indexed, models.Model):
@@ -685,6 +717,7 @@ class TipBotSindrila(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipPrelucrareSindrila(index.Indexed, models.Model):
@@ -699,6 +732,7 @@ class TipPrelucrareSindrila(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class EsentaLemnoasa(index.Indexed, models.Model):
@@ -713,6 +747,7 @@ class EsentaLemnoasa(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class ElementBiserica(index.Indexed, models.Model):
@@ -727,6 +762,7 @@ class ElementBiserica(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class MaterialFinisajPardoseli(index.Indexed, models.Model):
@@ -741,6 +777,7 @@ class MaterialFinisajPardoseli(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class MaterialFinisajPeretiInteriori(index.Indexed, models.Model):
@@ -755,6 +792,7 @@ class MaterialFinisajPeretiInteriori(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class Finisaj(index.Indexed, models.Model):
@@ -769,6 +807,7 @@ class Finisaj(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipFundatie(index.Indexed, models.Model):
@@ -783,6 +822,7 @@ class TipFundatie(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipStructuraCheotoare(index.Indexed, models.Model):
@@ -797,6 +837,7 @@ class TipStructuraCheotoare(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipStructuraCatei(index.Indexed, models.Model):
@@ -811,6 +852,7 @@ class TipStructuraCatei(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class LocalizarePictura(index.Indexed, models.Model):
@@ -825,6 +867,7 @@ class LocalizarePictura(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TehnicaPictura(index.Indexed, models.Model):
@@ -854,6 +897,7 @@ class SuportPictura(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class FinisajIconostas(index.Indexed, models.Model):
@@ -868,6 +912,7 @@ class FinisajIconostas(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class RegistruIconostas(index.Indexed, models.Model):
@@ -882,6 +927,7 @@ class RegistruIconostas(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipIconostas(index.Indexed, models.Model):
@@ -896,6 +942,7 @@ class TipIconostas(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipUsiIconostas(index.Indexed, models.Model):
@@ -910,6 +957,7 @@ class TipUsiIconostas(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class DetaliuPodTurn(index.Indexed, models.Model):
@@ -939,6 +987,7 @@ class AsezareTalpaTurn(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class RelatieTalpaTurn(index.Indexed, models.Model):
@@ -969,6 +1018,7 @@ class BoltaPesteAltar(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipBoltaPesteAltar(index.Indexed, models.Model):
@@ -983,6 +1033,7 @@ class TipBoltaPesteAltar(index.Indexed, models.Model):
 
     def __str__(self):
         return self.nume
+
 @register_snippet
 @register_model_chooser
 class TipBoltaPronaos(index.Indexed, models.Model):
@@ -998,6 +1049,8 @@ class TipBoltaPronaos(index.Indexed, models.Model):
     def __str__(self):
         return self.nume
 
+@register_snippet
+@register_model_chooser
 class Mobilier( models.Model):
     nume = models.CharField(max_length=150)
 
@@ -1011,7 +1064,8 @@ class Mobilier( models.Model):
     def __str__(self):
         return self.nume
 
-
+@register_snippet
+@register_model_chooser
 class ObiectCult( models.Model):
     nume = models.CharField(max_length=150)
 
@@ -1026,7 +1080,8 @@ class ObiectCult( models.Model):
         return self.nume
 
 
-
+@register_snippet
+@register_model_chooser
 class TipArcBolta( models.Model):
     nume = models.CharField(max_length=150)
 

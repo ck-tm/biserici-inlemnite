@@ -8,6 +8,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 from biserici import views
+from app import views as app_views
 
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -22,6 +23,7 @@ urlpatterns = [
     path("", view=views.BisericiView.as_view(), name="home"),
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
+    path('pages/<int:parent_page_id>/', app_views.wagtail_pages, name='wagtailadmin_explore'),
     path('pages/', include(wagtail_urls)),
 
     path("biserici/", view=views.BisericiView.as_view(), name="biserici"),

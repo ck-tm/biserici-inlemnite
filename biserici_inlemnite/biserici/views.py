@@ -158,3 +158,5 @@ class ContentCreateView(mixins.JsonableResponseMixin, CreateView):
 
     def get_success_url(self):
         return '%'
+
+
