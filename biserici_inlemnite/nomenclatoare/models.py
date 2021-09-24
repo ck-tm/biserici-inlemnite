@@ -188,9 +188,9 @@ class MutareBiserica(index.Indexed, models.Model):
     latitudine = models.FloatField(null=True, blank=True)
     longitudine = models.FloatField(null=True, blank=True)
     history = HistoricalRecords()
-    search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
-    ]
+    # search_fields = [
+        # index.SearchField('nume', partial_match=True, boost=10),
+    # ]
     class Meta:
         verbose_name_plural = 'Mutări Biserică'
         
@@ -223,6 +223,7 @@ class StudiuDendocronologic(index.Indexed, models.Model):
     an = models.IntegerField(null=True, blank=True)
     autor = models.CharField(max_length=150, null=True, blank=True)
     detalii = models.TextField(null=True, blank=True)
+
     history = HistoricalRecords()
     search_fields = [
         index.SearchField('nume', partial_match=True, boost=10),
@@ -1091,6 +1092,68 @@ class TipArcBolta( models.Model):
     ]
     class Meta:
         verbose_name_plural = "Tipuri arc boltă"
+
+    def __str__(self):
+        return self.nume
+
+
+@register_snippet
+@register_model_chooser
+class PozitionareTurle( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+    class Meta:
+        verbose_name_plural = "Poziționare turle"
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class FormaSarpanteTurle( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+    class Meta:
+        verbose_name_plural = "Forme șarpante turle"
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class TipTiranti( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+    class Meta:
+        verbose_name_plural = "Tip tiranti"
+
+    def __str__(self):
+        return self.nume
+
+
+@register_snippet
+@register_model_chooser
+class MaterialInvelitoareTurle( models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+    class Meta:
+        verbose_name_plural = "Material învelitoare turle"
 
     def __str__(self):
         return self.nume

@@ -519,6 +519,33 @@ OBIECTE_CULT = [
     "textile"
 ]
 
+POZITIONARE_TURLE = [
+    "deasupra pronaosului",
+    "deasupra naosului",
+    "pe absidiole",
+]
+
+FORMA_SARPANTE_TURLE = [
+    "barocă",
+    "coif simplu cu pantă frântă",
+
+]
+
+
+TIP_TIRANTI = [
+    "tirant istoric din lemn",
+    "element metalic ulterior",
+    "element lemn ulterior",
+]
+
+
+MATERIAL_INVELITOARE_TURLE = [
+    "scândură",
+    "lambriu",
+    "șindrilă",
+    "tencuială",
+
+]
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
@@ -746,5 +773,26 @@ class Command(BaseCommand):
         for nume in OBIECTE_CULT:
             print(f"Import OBIECTE_CULT: {nume} ")
             models.ObiectCult.objects.get_or_create(
+                nume=nume)
+
+        for nume in POZITIONARE_TURLE:
+            print(f"Import POZITIONARE_TURLE: {nume} ")
+            models.PozitionareTurle.objects.get_or_create(
+                nume=nume)
+
+        for nume in FORMA_SARPANTE_TURLE:
+            print(f"Import FORMA_SARPANTE_TURLE: {nume} ")
+            models.FormaSarpanteTurle.objects.get_or_create(
+                nume=nume)
+
+
+        for nume in TIP_TIRANTI:
+            print(f"Import TIP_TIRANTI: {nume} ")
+            models.TipTiranti.objects.get_or_create(
+                nume=nume)
+
+        for nume in MATERIAL_INVELITOARE_TURLE:
+            print(f"Import MATERIAL_INVELITOARE_TURLE: {nume} ")
+            models.MaterialInvelitoareTurle.objects.get_or_create(
                 nume=nume)
 
