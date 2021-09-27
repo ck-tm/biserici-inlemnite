@@ -951,15 +951,9 @@ class FinisajAnteriorInvelitoare(models.Model):
     sindrila_cu_tesitura = models.BooleanField(default=False)
     sindrlia_esenta_lemnoasa = models.ForeignKey('nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL)
 
-
     alte_tipuri_invelitoare = models.TextField(null=True, blank=True)
-    # sindrila_lungime = models.IntegerField(null=True, blank=True)
-    # sindrila_latime_medie = models.IntegerField(null=True, blank=True)
-    # sindrila_grosime_medie = models.IntegerField(null=True, blank=True)
-    # sindrila_pasul_baterii = models.IntegerField(null=True, blank=True)
-    # sindrlia_tipul_prindere = models.ForeignKey('nomenclatoare.TipPrindereSindrila', null=True, blank=True, on_delete=models.SET_NULL)
-    # sindrlia_prelucrare = models.ForeignKey('nomenclatoare.TipPrelucrareSindrila', null=True, blank=True, on_delete=models.SET_NULL)
     observatii = models.TextField(null=True, blank=True)
+
     history = HistoricalRecords()
     class Meta:
         pass
