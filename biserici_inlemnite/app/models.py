@@ -219,9 +219,7 @@ class IdentificarePage(Page):
 
     subpage_types = []
 
-    promote_panels = []
-
-    content_panels = Page.content_panels + [
+    content_panels = [
         MultiFieldPanel(
             [
                 ModelChooserPanel("localitate"),
@@ -231,7 +229,12 @@ class IdentificarePage(Page):
             heading="Localizare",
             classname="collapsible collapsed ",
         ),
-        FieldPanel("statut"),
+        MultiFieldPanel(
+            [
+                FieldPanel("statut")],
+            heading="Statut",
+            classname="collapsible collapsed ",
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("denumire_actuala"),
@@ -241,8 +244,13 @@ class IdentificarePage(Page):
             ],
             heading="Denumire",
             classname="collapsible collapsed ",
+        ),MultiFieldPanel(
+            [
+                FieldPanel("cult"),
+                ],
+            heading="Cult",
+            classname="collapsible collapsed ",
         ),
-        FieldPanel("cult"),
         MultiFieldPanel(
             [
                 FieldPanel("utilizare"),
@@ -278,8 +286,20 @@ class IdentificarePage(Page):
             heading="Proprietate",
             classname="collapsible collapsed ",
         ),
-        FieldPanel("inscriere_documente_cadastrale")
+        MultiFieldPanel(
+            [
+                FieldPanel("inscriere_documente_cadastrale")
+                ],
+            heading="Înscriere documente cadastrale",
+            classname="collapsible collapsed ",
+        ),
     ]
+
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading='Identificare'),
+        ]
+    )
 
     class Meta:  # noqa
 

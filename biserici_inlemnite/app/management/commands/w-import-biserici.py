@@ -5,6 +5,8 @@ from pprint import pprint
 from app import models
 from nomenclatoare import models as nmodels
 from datetime import datetime
+from biserici import models as b_models
+
 
 BISERICI = [
     "Baia",
@@ -45,23 +47,18 @@ class Command(BaseCommand):
         print("Starting import..")
 
         judet, _  = nmodels.Judet.objects.get_or_create(nume="Arad")
-        print(models.BisericaPage.objects.all().delete())
+        # print(models.BisericaPage.objects.all().delete())
         biserici_index = models.HomePage.objects.last()
-        for nume in BISERICI:
+        for biserica_old in b_models.Biserica.objects.all():
+            nume = biserica_old.nume
+            print(f'Create: {nume}')
+
             biserica = models.BisericaPage.objects.filter(title=nume)
             if not biserica.exists():
                 biserica = models.BisericaPage()
-                biserica.title = f"Biserica de la {nume}"
+                biserica.title = nume
+                biserica.judet = judet
                 # biserica._generate_slug()
                 biserici_index.add_child(instance=biserica)
             else:
                 biserica = biserica[0]
-
-
-
-            # identificare = biserica.identificare
-            # identificare.judet = judet
-            # identificare.localitate, _ = nmodels.Localitate.objects.get_or_create(
-            #     nume=nume.replace('1', '').replace('2', ''),
-            #     judet=judet)
-            # identificare.save()
