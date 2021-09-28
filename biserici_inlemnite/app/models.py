@@ -1,6 +1,9 @@
 from app import blocks
 from django.db import models
 from django import forms
+
+from django.utils.html import format_html
+
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -14,7 +17,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.search import index
 
 from wagtail.core.models import Orderable, Page
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 
 from wagtail.core.fields import RichTextField, StreamField
@@ -25,16 +28,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtailmodelchooser.edit_handlers import ModelChooserPanel
 
 from wagtail.admin.edit_handlers import InlinePanel as BaseInlinePanel
-
-
-class InlinePanel(BaseInlinePanel):
-    def widget_overrides(self):
-        widgets = {}
-        child_edit_handler = self.get_child_edit_handler()
-        for handler_class in child_edit_handler.children:
-            widgets.update(handler_class.widget_overrides())
-        widget_overrides = {self.relation_name: widgets}
-        return widget_overrides
+from wagtail.admin.edit_handlers import EditHandler
+from wagtail.api import APIField
 
 
 IDENTIFICARE_DOC_CADASTRALE = (
@@ -72,6 +67,51 @@ ELEMENTE_BISERICA = (
 )
 
 
+class InlinePanel(BaseInlinePanel):
+    def widget_overrides(self):
+        widgets = {}
+        child_edit_handler = self.get_child_edit_handler()
+        for handler_class in child_edit_handler.children:
+            widgets.update(handler_class.widget_overrides())
+        widget_overrides = {self.relation_name: widgets}
+        return widget_overrides
+
+
+class ReadOnlyPanel(EditHandler):
+    def __init__(self, attr, *args, **kwargs):
+        self.attr = attr
+        super().__init__(*args, **kwargs)
+
+    def clone(self):
+        return self.__class__(
+            attr=self.attr,
+            heading=self.heading,
+            classname=self.classname,
+            help_text=self.help_text,
+        )
+
+    def render(self):
+        value = getattr(self.instance, self.attr)
+        if callable(value):
+            value = value()
+        return format_html('<div style="padding-top: 1.2em;">{}</div>', value)
+
+    def render_as_object(self):
+        return format_html(
+            '<fieldset><legend>{}</legend>'
+            '<ul class="fields"><li><div class="field">{}</div></li></ul>'
+            '</fieldset>',
+            self.heading, self.render())
+
+    def render_as_field(self):
+        return format_html(
+            '<div class="field">'
+            '<label>{}{}</label>'
+            '<div class="field-content">{}</div>'
+            '</div>',
+            self.heading, _(':'), self.render())
+
+
 class HomePage(Page):
     """Home page model."""
 
@@ -82,55 +122,6 @@ class HomePage(Page):
     parent_page_type = [
         'wagtailcore.Page'
     ]
-
-    # banner_title = models.CharField(max_length=100, blank=False, null=True)
-    # banner_subtitle = RichTextField(features=["bold", "italic"])
-    # banner_image = models.ForeignKey(
-    #     "wagtailimages.Image",
-    #     null=True,
-    #     blank=False,
-    #     on_delete=models.SET_NULL,
-    #     related_name="+",
-    # )
-    # banner_cta = models.ForeignKey(
-    #     "wagtailcore.Page",
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.SET_NULL,
-    #     related_name="+",
-    # )
-
-    # streamfields = StreamField([
-    #     ("cta", blocks.CTABlock()),
-    # ], null=True, blank=True)
-
-    # content_panels = Page.content_panels + [
-    #     StreamFieldPanel("streamfields"),
-    # ]
-
-    # # Custom list of panels. We'll put this in an ObjectList later.
-    # banner_panels = [
-    #     MultiFieldPanel(
-    #         [
-    #             FieldPanel("banner_title"),
-    #             FieldPanel("banner_subtitle"),
-    #             ImageChooserPanel("banner_image"),
-    #             PageChooserPanel("banner_cta"),
-    #         ],
-    #         heading="Banner Options",
-    #     ),
-    # ]
-
-    # # This is where all the tabs are created
-    # edit_handler = TabbedInterface(
-    #     [
-    #         ObjectList(content_panels, heading='Content'),
-    #         # This is our custom banner_panels. It's just a list, how easy!
-    #         ObjectList(banner_panels, heading="Banner Settings"),
-    #         ObjectList(Page.promote_panels, heading='Promotional Stuff'),
-    #         ObjectList(Page.settings_panels, heading='Settings Stuff'),
-    #     ]
-    # )
 
     class Meta:  # noqa
 
@@ -152,11 +143,28 @@ class BisericaPage(Page):
 
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
                               on_delete=models.SET_NULL, related_name='pp_biserici')
+    localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
+                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
+    adresa = models.CharField(max_length=250, null=True, blank=True)
+    latitudine = models.FloatField(null=True, blank=True)
+    longitudine = models.FloatField(null=True, blank=True)
+
+    valoare = models.CharField(max_length=5, null=True, blank=True)
+    conservare = models.IntegerField(null=True, blank=True)
+    prioritizare = models.IntegerField(null=True, blank=True)
 
     promote_panels = []
 
     content_panels = Page.content_panels + [
-        ModelChooserPanel("judet"),
+        # ModelChooserPanel("judet", disabled=True),
+        ReadOnlyPanel("judet", heading="Judet"),
+        ReadOnlyPanel("localitate", heading="localitate"),
+        ReadOnlyPanel("adresa", heading="adresa"),
+        ReadOnlyPanel("latitudine", heading="latitudine"),
+        ReadOnlyPanel("longitudine", heading="longitudine"),
+        ReadOnlyPanel("valoare", heading="Clasa valoare"),
+        ReadOnlyPanel("conservare", heading="Nota conservare"),
+        ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
     ]
 
     # def get_children(self):
@@ -176,7 +184,8 @@ class BisericaPage(Page):
 class IdentificarePage(Page):
     """Home page model."""
 
-    # judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
+    judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
+                              on_delete=models.SET_NULL, related_name='ppp_biserici')
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
                                    blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
     adresa = models.CharField(max_length=250, null=True, blank=True)
@@ -222,6 +231,7 @@ class IdentificarePage(Page):
     content_panels = [
         MultiFieldPanel(
             [
+                ModelChooserPanel("judet"),
                 ModelChooserPanel("localitate"),
                 FieldPanel("adresa"),
                 FieldPanel("latitudine"),
@@ -244,10 +254,10 @@ class IdentificarePage(Page):
             ],
             heading="Denumire",
             classname="collapsible collapsed ",
-        ),MultiFieldPanel(
+        ), MultiFieldPanel(
             [
                 FieldPanel("cult"),
-                ],
+            ],
             heading="Cult",
             classname="collapsible collapsed ",
         ),
@@ -289,7 +299,7 @@ class IdentificarePage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("inscriere_documente_cadastrale")
-                ],
+            ],
             heading="Înscriere documente cadastrale",
             classname="collapsible collapsed ",
         ),
@@ -306,15 +316,27 @@ class IdentificarePage(Page):
         verbose_name = "Identificare"
         verbose_name_plural = "Identificare"
 
+    def save(self, *args, **kwargs):
+        biserica = self.get_parent().specific
+        biserica.judet = self.judet
+        biserica.localitate = self.localitate
+        biserica.adresa = self.adresa
+        biserica.latitudine = self.latitudine
+        biserica.longitudine = self.longitudine
+        biserica.save_revision().publish()
+        return super().save(*args, **kwargs)
 
 class PozeElementAnsambluConstruit(Orderable):
     page = ParentalKey('ElementeAnsambluConstruit',
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
 
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
 
 
@@ -344,11 +366,13 @@ class PozeElementImportantAnsambluConstruit(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
 
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
-
 
 class ElementImportantAnsambluConstruit(ClusterableModel):
     element = models.ForeignKey(
@@ -377,9 +401,14 @@ class PozeClopot(Orderable):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
+
 
 
 class ClopotBiserica(ClusterableModel):
@@ -410,8 +439,12 @@ class PozeFinisajPortic(Orderable):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
 
 
@@ -439,8 +472,12 @@ class PozeFinisajPronaos(Orderable):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
 
 
@@ -468,8 +505,12 @@ class PozeFinisajNaos(Orderable):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
 
 
@@ -497,8 +538,12 @@ class PozeFinisajAltar(Orderable):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
 
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
     panels = [
-        ImageChooserPanel('poza')
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
     ]
 
 
@@ -531,6 +576,10 @@ class Poza(models.Model):
         FieldPanel('observatii')
     ]
 
+    api_fields = [
+        APIField('poza'),
+        APIField('observatii'),
+    ]
     class Meta:
         abstract = True
 
@@ -669,16 +718,16 @@ class DescrierePage(Page):
         features=[], null=True, blank=True, verbose_name='Sursă informații')
     relatia_cu_cimitirul = models.ForeignKey(
         'nomenclatoare.RelatieCimitir', null=True, blank=True, on_delete=models.SET_NULL)
-    peisagistica_sitului = models.ManyToManyField(
+    peisagistica_sitului = ParentalManyToManyField(
         'nomenclatoare.PeisagisticaSit', blank=True)
     observatii = RichTextField(features=[], null=True, blank=True)
 
     # Ansamblu construit
-    elemente = models.ManyToManyField(
+    elemente = ParentalManyToManyField(
         'nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit", blank=True)
     detalii_elemente = RichTextField(features=[], null=True, blank=True)
 
-    elemente_importante = models.ManyToManyField(
+    elemente_importante = ParentalManyToManyField(
         'nomenclatoare.ElementImportant', help_text="Elemente ansamblu construit", blank=True)
     detalii_elemente_importante = RichTextField(
         features=[], null=True, blank=True)
@@ -686,7 +735,7 @@ class DescrierePage(Page):
     # Arhitectura bisericii
     planimetria_bisericii = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-    materiale = models.ManyToManyField(
+    materiale = ParentalManyToManyField(
         'nomenclatoare.MaterialeStructura', help_text="Materiale folosite in construcția bisericii", blank=True)
     detalii_materiale = RichTextField(features=[], null=True, blank=True,
                                       help_text="Materialele care compun structura de rezistentă a bisericii")
@@ -720,7 +769,7 @@ class DescrierePage(Page):
     turn_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
-    sarpanta_tip = models.ManyToManyField(
+    sarpanta_tip = ParentalManyToManyField(
         'nomenclatoare.TipSarpanta', blank=True, verbose_name='Tip')
     sarpanta_veche_nefolosita = models.BooleanField(
         default=False, verbose_name='Veche nefolosită sub șarpanta actuală')
@@ -774,18 +823,18 @@ class DescrierePage(Page):
 
     bolta_peste_pronaos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True, on_delete=models.SET_NULL,
                                             verbose_name='Boltă peste pronaos', related_name='p_biserici_bolta_peste_pronaos')
-    bolta_peste_pronaos_material = models.ManyToManyField(
+    bolta_peste_pronaos_material = ParentalManyToManyField(
         'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_pronaos')
-    bolta_peste_pronaos_tipul_de_arc = models.ManyToManyField(
+    bolta_peste_pronaos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
-    bolta_peste_naos_material = models.ManyToManyField(
+    bolta_peste_naos_material = ParentalManyToManyField(
         'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_naos')
-    bolta_peste_naos_tipul_de_arc = models.ManyToManyField(
+    bolta_peste_naos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -794,15 +843,15 @@ class DescrierePage(Page):
                                           on_delete=models.SET_NULL, verbose_name='Boltă peste altar', related_name='p_biserici_bolta_peste_altar')
     bolta_peste_altar_tip = models.ForeignKey('nomenclatoare.TipBoltaPesteAltar', null=True,
                                               blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
-    bolta_peste_altar_material = models.ManyToManyField(
+    bolta_peste_altar_material = ParentalManyToManyField(
         'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Material')
-    bolta_peste_altar_tipul_de_arc = models.ManyToManyField(
+    bolta_peste_altar_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Tipul de arc')
     bolta_peste_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
     cor = models.BooleanField(default=False)
-    cor_material = models.ManyToManyField(
+    cor_material = ParentalManyToManyField(
         'nomenclatoare.Material', blank=True, related_name='p_biserici_cor')
     cor_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -821,7 +870,7 @@ class DescrierePage(Page):
     turle_exista = models.BooleanField(default=False, verbose_name='Există')
     turle_numar = models.IntegerField(
         null=True, blank=True, verbose_name='Număr')
-    turle_pozitionare = models.ManyToManyField(
+    turle_pozitionare = ParentalManyToManyField(
         'nomenclatoare.PozitionareTurle', blank=True, related_name='biserici', verbose_name='Poziționare')
     turle_numar_goluri = models.IntegerField(
         null=True, blank=True, verbose_name='Număr goluri')
@@ -854,7 +903,7 @@ class DescrierePage(Page):
         features=[], null=True, blank=True, verbose_name='Observații')
 
     # Finisaje
-    finisaj_exterior_tip = models.ManyToManyField(
+    finisaj_exterior_tip = ParentalManyToManyField(
         'nomenclatoare.FinisajExterior', blank=True, verbose_name='Tip')
     finisaj_exterior_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -959,7 +1008,7 @@ class DescrierePage(Page):
         features=[], null=True, blank=True, verbose_name='Observații')
 
     # Finisaje -  Învelitoare turle
-    invelitoare_turle_material = models.ManyToManyField(
+    invelitoare_turle_material = ParentalManyToManyField(
         'nomenclatoare.MaterialInvelitoareTurle', blank=True, verbose_name='Material')
     invelitoare_turle_sindrila_lungime = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
@@ -1018,6 +1067,10 @@ class DescrierePage(Page):
     interventii_invelitoare_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
+    api_fields = [
+        APIField('amplasament'),
+        APIField('poze_amplasament'),
+    ]
     localizare_panels = [
         MultiFieldPanel([
             FieldPanel("amplasament"),
@@ -1347,7 +1400,7 @@ class DescrierePage(Page):
                 FieldPanel('finisaj_exterior_observatii'),
             ],
             heading="Exterior corp biserică",
-            classname="collapsible collapsed ",
+            classname="collapsible ",
         ),
         MultiFieldPanel(
             [
@@ -1633,7 +1686,7 @@ class PovestiBiserica(Orderable, PovesteBiserica):
 
 
 class IstoricPage(Page):
-    sursa_datare = models.ManyToManyField(
+    sursa_datare = ParentalManyToManyField(
         'nomenclatoare.SursaDatare', related_name='p_biserici', blank=True)
     an_constructie = models.IntegerField(null=True, blank=True)
     datare_prin_interval_timp = models.CharField(
@@ -2585,7 +2638,7 @@ class PozePicturaInterioara(Orderable, Poza):
 class ComponentaArtisticaPage(Page):
     proscomidie = models.BooleanField(
         default=False, verbose_name="Proscomidie în exteriorul altarului")
-    suport_proscomidie = models.ManyToManyField(
+    suport_proscomidie = ParentalManyToManyField(
         'nomenclatoare.SuportPictura', blank=True)
 
     elemente_sculptate = models.BooleanField(
@@ -2598,12 +2651,12 @@ class ComponentaArtisticaPage(Page):
     alte_icoane_vechi_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
-    obiecte_de_cult = models.ManyToManyField(
+    obiecte_de_cult = ParentalManyToManyField(
         'nomenclatoare.ObiectCult', verbose_name="Obiecte de cult", blank=True)
     obiecte_de_cult_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
-    mobiliere = models.ManyToManyField(
+    mobiliere = ParentalManyToManyField(
         'nomenclatoare.Material', verbose_name="Mobilier", blank=True)
     mobiliere_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
@@ -2621,15 +2674,15 @@ class ComponentaArtisticaPage(Page):
                                                  null=True, blank=True, on_delete=models.SET_NULL, related_name='p_iconostasuri_naos_altar')
     iconostas_naos_altar_numar_intrari = models.IntegerField(
         verbose_name='Număr intrări', null=True, blank=True)
-    iconostas_naos_altar_tehnica = models.ManyToManyField(
+    iconostas_naos_altar_tehnica = ParentalManyToManyField(
         'nomenclatoare.FinisajIconostas', verbose_name='Tehnică', related_name='p_iconostasuri_naos_altar', blank=True)
-    iconostas_naos_altar_registre = models.ManyToManyField(
+    iconostas_naos_altar_registre = ParentalManyToManyField(
         'nomenclatoare.RegistruIconostas', verbose_name='Registru', related_name='p_iconostasuri_naos_altar', blank=True)
-    iconostas_naos_altar_tip_usi = models.ManyToManyField(
+    iconostas_naos_altar_tip_usi = ParentalManyToManyField(
         'nomenclatoare.TipUsiIconostas', verbose_name='Tip uși', related_name='p_iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
-    iconostas_naos_altar_materiale = models.ManyToManyField(
+    iconostas_naos_altar_materiale = ParentalManyToManyField(
         'nomenclatoare.Material', verbose_name='Material', blank=True, related_name='p_iconostasuri_naos_altar')
 
     # Iconostasul  (dintre pronaos și naos)
@@ -2639,15 +2692,15 @@ class ComponentaArtisticaPage(Page):
         'nomenclatoare.Material', verbose_name='Material', null=True, blank=True, on_delete=models.SET_NULL, related_name='p_iconostasuri_pronaos_naos')
     iconostas_pronaos_naos_numar_intrari = models.IntegerField(
         verbose_name='Număr intrări', null=True, blank=True)
-    iconostas_pronaos_naos_tehnica = models.ManyToManyField(
+    iconostas_pronaos_naos_tehnica = ParentalManyToManyField(
         'nomenclatoare.FinisajIconostas', verbose_name='Tehnica', related_name='p_iconostasuri_pronaos_naos', blank=True)
     iconostas_pronaos_naos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
     # Altar
-    altar_placa_mesei = models.ManyToManyField(
+    altar_placa_mesei = ParentalManyToManyField(
         'nomenclatoare.Material', verbose_name='Placa mesei', blank=True, related_name='p_placa_mesei')
-    altar_piciorul_mesei = models.ManyToManyField(
+    altar_piciorul_mesei = ParentalManyToManyField(
         'nomenclatoare.Material', verbose_name='Piciorul mesei', blank=True, related_name='p_piciorul_mesei')
     altar_decor = models.ForeignKey('nomenclatoare.FinisajIconostas', verbose_name="Decor",
                                     on_delete=models.SET_NULL, null=True, blank=True, related_name='p_decoruri_altar')
@@ -2661,12 +2714,12 @@ class ComponentaArtisticaPage(Page):
         features=[], null=True, blank=True, verbose_name="Observații")
     pictura_exterioara_tehnica = models.ForeignKey('nomenclatoare.TehnicaPictura', on_delete=models.SET_NULL,
                                                    null=True, blank=True, related_name='p_localizari_exterioare', verbose_name='Tehnică')
-    pictura_exterioara_suport = models.ManyToManyField(
+    pictura_exterioara_suport = ParentalManyToManyField(
         'nomenclatoare.SuportPictura', blank=True, related_name='p_localizari_exterioare', verbose_name='Suport')
     pictura_exterioara_numar_straturi_pictura = models.IntegerField(
         null=True, blank=True, verbose_name='Număr straturi')
 
-    pictura_exterioara_sursa_datare = models.ManyToManyField(
+    pictura_exterioara_sursa_datare = ParentalManyToManyField(
         'nomenclatoare.SursaDatare', related_name='p_componente_artistice_exterioare', blank=True, verbose_name='Sursa datare')
     pictura_exterioara_anul_picturii = models.IntegerField(
         null=True, blank=True, verbose_name='Anul picturii')
@@ -2684,12 +2737,12 @@ class ComponentaArtisticaPage(Page):
         features=[], null=True, blank=True, verbose_name="Observatii")
     pictura_interioara_tehnica_pictura = models.ForeignKey(
         'nomenclatoare.TehnicaPictura', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Tehnică')
-    pictura_interioara_suport = models.ManyToManyField(
+    pictura_interioara_suport = ParentalManyToManyField(
         'nomenclatoare.SuportPictura', blank=True, related_name='p_localizari_interioare', verbose_name='Suport')
     pictura_interioara_numar_straturi_pictura = models.IntegerField(
         null=True, blank=True, verbose_name='Număr straturi')
 
-    pictura_interioara_sursa_datare = models.ManyToManyField(
+    pictura_interioara_sursa_datare = ParentalManyToManyField(
         'nomenclatoare.SursaDatare', related_name='p_componente_artistice_interioare', blank=True, verbose_name='Sursa datare')
     pictura_interioara_anul_picturii = models.IntegerField(
         null=True, blank=True, verbose_name='Anul picturii')

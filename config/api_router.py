@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from biserici_inlemnite.users.api.views import UserViewSet
 from biserici_inlemnite.biserici.api.views import BisericaViewSet
-
+from app.api import views
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -27,8 +27,12 @@ if settings.DEBUG:
 else:
     router = SimpleRouter()
 
+# OLD
 router.register("users", UserViewSet)
 router.register("biserici", BisericaViewSet, basename='biserica')
+
+# NEW
+router.register("map", views.BisericaViewSet, basename='biserica-new')
 
 
 app_name = "api"
