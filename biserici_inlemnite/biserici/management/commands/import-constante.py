@@ -557,242 +557,407 @@ class Command(BaseCommand):
             Group.objects.get_or_create(name=nume)
         for nume in FUNCTIUNI:
             print(f"Import FUNCTIUNI: {nume}")
-            models.FunctiuneBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.FunctiuneBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in IDENTIFICARE_CULT:
             print(f"Import IDENTIFICARE_CULT: {nume}")
-            models.CultBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.CultBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in IDENTIFICARE_UTILIZARE:
             print(f"Import IDENTIFICARE_UTILIZARE: {nume}")
-            models.UtilizareBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.UtilizareBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in IDENTIFICARE_SINGULARITATE:
             print(f"Import IDENTIFICARE_SINGULARITATE: {nume}")
-            models.SingularitateBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.SingularitateBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in IDENTIFICARE_STATUT:
             print(f"Import IDENTIFICARE_STATUT: {nume}")
-            models.StatutBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.StatutBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in IDENTIFICARE_PROPRIETATE:
             print(f"Import IDENTIFICARE_PROPRIETATE: {nume}")
-            models.ProprietateBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.ProprietateBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in SURSA_DATARE:
             print(f"Import SURSA_DATARE: {nume}")
-            models.SursaDatare.objects.get_or_create(
-                nume=nume)
+            try:
+                models.SursaDatare.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in SECOL:
             print(f"Import SECOL: {nume}")
-            models.Secol.objects.get_or_create(
-                nume=nume)
+            try:
+                models.Secol.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in AMPLASAMENT:
             print(f"Import AMPLASAMENT: {nume}")
-            models.AmplasamentBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.AmplasamentBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in TOPOGRAFIE:
             print(f"Import TOPOGRAFIE: {nume}")
-            models.TopografieBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TopografieBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
 
         for nume in RELATIE_CIMITIR:
             print(f"Import RELATIE_CIMITIR: {nume} ")
-            models.RelatieCimitir.objects.get_or_create(
-                nume=nume)
+            try:
+                models.RelatieCimitir.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in PEISAGISTICA_SIT:
             print(f"Import PEISAGISTICA_SIT: {nume} ")
-            models.PeisagisticaSit.objects.get_or_create(
-                nume=nume)
+            try:
+                models.PeisagisticaSit.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in ELEMENT_ANSAMBLU_CONSTRUIT:
             print(f"Import ELEMENT_ANSAMBLU_CONSTRUIT: {nume} ")
-            models.ElementAnsambluConstruit.objects.get_or_create(
-                nume=nume)
+            try:
+                models.ElementAnsambluConstruit.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in ELEMENT_IMPORTANT:
             print(f"Import ELEMENT_IMPORTANT: {nume} ")
-            models.ElementImportant.objects.get_or_create(
-                nume=nume)
+            try:
+                models.ElementImportant.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in PLANIMETRIE:
             print(f"Import PLANIMETRIE: {nume} ")
-            models.Planimetrie.objects.get_or_create(
-                nume=nume)
+            try:
+                models.Planimetrie.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in MATERIAL:
             print(f"Import MATERIAL: {nume} ")
-            models.Material.objects.get_or_create(
-                nume=nume)
+            try:
+                models.Material.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in DIMENSIUNE_TURN:
             print(f"Import DIMENSIUNE_TURN: {nume} ")
-            models.DimensiuneTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.DimensiuneTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_TURN:
             print(f"Import TIP_TURN: {nume} ")
-            models.TipTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in DECOR_TURN:
             print(f"Import DECOR_TURN: {nume} ")
-            models.DecorTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.DecorTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in PLAN_TURN:
             print(f"Import PLAN_TURN: {nume} ")
-            models.PlanTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.PlanTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in AMPLASARE_TURN:
             print(f"Import AMPLASARE_TURN: {nume} ")
-            models.AmplasareTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.AmplasareTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in GALERIE_TURN:
             print(f"Import GALERIE_TURN: {nume} ")
-            models.GalerieTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.GalerieTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_SARPANTA:
             print(f"Import TIP_SARPANTA: {nume} ")
-            models.TipSarpanta.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipSarpanta.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in FINISAJ_EXTERIOR:
             print(f"Import FINISAJ_EXTERIOR: {nume} ")
-            models.FinisajExterior.objects.get_or_create(
-                nume=nume)
+            try:
+                models.FinisajExterior.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_BATERE_SINDRILA:
             print(f"Import TIP_BATERE_SINDRILA: {nume} ")
-            models.TipBatereSindrila.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipBatereSindrila.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_PRINDERE_SINDRILA:
             print(f"Import TIP_PRINDERE_SINDRILA: {nume} ")
-            models.TipPrindereSindrila.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipPrindereSindrila.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_BOT_SINDRILA:
             print(f"Import TIP_BOT_SINDRILA: {nume} ")
-            models.TipBotSindrila.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipBotSindrila.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_PRELUCRARE_SINDRILA:
             print(f"Import TIP_PRELUCRARE_SINDRILA: {nume} ")
-            models.TipPrelucrareSindrila.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipPrelucrareSindrila.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in ESENTA_LEMNOASA:
             print(f"Import ESENTA_LEMNOASA: {nume} ")
-            models.EsentaLemnoasa.objects.get_or_create(
-                nume=nume)
+            try:
+                models.EsentaLemnoasa.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in ELEMENT_BISERICA:
             print(f"Import ELEMENT_BISERICA: {nume} ")
-            models.ElementBiserica.objects.get_or_create(
-                nume=nume)
+            try:
+                models.ElementBiserica.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in MATERIAL_FINISAJ_PARDOSELI:
             print(f"Import MATERIAL_FINISAJ_PARDOSELI: {nume} ")
-            models.MaterialFinisajPardoseli.objects.get_or_create(
-                nume=nume)
+            try:
+                models.MaterialFinisajPardoseli.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in MATERIAL_FINISAJ_PERETI_INTERIORI:
             print(f"Import MATERIAL_FINISAJ_PERETI_INTERIORI: {nume} ")
-            models.MaterialFinisajPeretiInteriori.objects.get_or_create(
-                nume=nume)
+            try:
+                models.MaterialFinisajPeretiInteriori.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in FINISAJ:
             print(f"Import FINISAJ: {nume} ")
-            models.Finisaj.objects.get_or_create(
-                nume=nume)
+            try:
+                models.Finisaj.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_FUNDATIE:
             print(f"Import TIP_FUNDATIE: {nume} ")
-            models.TipFundatie.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipFundatie.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_STRUCTURA_CHEOTOARE:
             print(f"Import TIP_STRUCTURA_CHEOTOARE: {nume} ")
-            models.TipStructuraCheotoare.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipStructuraCheotoare.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_STRUCTURA_CATEI:
             print(f"Import TIP_STRUCTURA_CATEI: {nume} ")
-            models.TipStructuraCatei.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipStructuraCatei.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in LOCALIZARE_PICTURA:
             print(f"Import LOCALIZARE_PICTURA: {nume} ")
-            models.LocalizarePictura.objects.get_or_create(
-                nume=nume)
+            try:
+                models.LocalizarePictura.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TEHNICA_PICTURA:
             print(f"Import TEHNICA_PICTURA: {nume} ")
-            models.TehnicaPictura.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TehnicaPictura.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in SUPORT_PICTURA:
             print(f"Import SUPORT_PICTURA: {nume} ")
-            models.SuportPictura.objects.get_or_create(
-                nume=nume)
+            try:
+                models.SuportPictura.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in FINISAJ_ICONOSTAS:
             print(f"Import FINISAJ_ICONOSTAS: {nume} ")
-            models.FinisajIconostas.objects.get_or_create(
-                nume=nume)
+            try:
+                models.FinisajIconostas.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_ICONOSTAS:
             print(f"Import TIP_ICONOSTAS: {nume} ")
-            models.TipIconostas.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipIconostas.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
 
         for nume in TIPURI_USI:
             print(f"Import TIPURI_USI: {nume} ")
-            models.TipUsiIconostas.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipUsiIconostas.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in REGISTRU_ICONOSTAS:
             print(f"Import REGISTRU_ICONOSTAS: {nume} ")
-            models.RegistruIconostas.objects.get_or_create(
-                nume=nume)
+            try:
+                models.RegistruIconostas.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in DETALIU_POD_TURN:
             print(f"Import DETALIU_POD_TURN: {nume} ")
-            models.DetaliuPodTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.DetaliuPodTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in ASEZARE_TALPA_TURN:
             print(f"Import ASEZARE_TALPA_TURN: {nume} ")
-            models.AsezareTalpaTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.AsezareTalpaTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in RELATIE_TALPA_TURN:
             print(f"Import RELATIE_TALPA_TURN: {nume} ")
-            models.RelatieTalpaTurn.objects.get_or_create(
-                nume=nume)
+            try:
+                models.RelatieTalpaTurn.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in BOLTA_PESTE_ALTAR:
             print(f"Import BOLTA_PESTE_ALTAR: {nume} ")
-            models.BoltaPesteAltar.objects.get_or_create(
-                nume=nume)
+            try:
+                models.BoltaPesteAltar.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_BOLTA_PESTE_ALTAR:
             print(f"Import TIP_BOLTA_PESTE_ALTAR: {nume} ")
-            models.TipBoltaPesteAltar.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipBoltaPesteAltar.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
         for nume in TIP_BOLTA_PRONAOS:
             print(f"Import TIP_BOLTA_PRONAOS: {nume} ")
-            models.TipBoltaPronaos.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipBoltaPronaos.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in MOBILIER:
             print(f"Import MOBILIER: {nume} ")
-            models.Mobilier.objects.get_or_create(
-                nume=nume)
+            try:
+                models.Mobilier.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in OBIECTE_CULT:
             print(f"Import OBIECTE_CULT: {nume} ")
-            models.ObiectCult.objects.get_or_create(
-                nume=nume)
+            try:
+                models.ObiectCult.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in POZITIONARE_TURLE:
             print(f"Import POZITIONARE_TURLE: {nume} ")
-            models.PozitionareTurle.objects.get_or_create(
-                nume=nume)
+            try:
+                models.PozitionareTurle.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in FORMA_SARPANTE_TURLE:
             print(f"Import FORMA_SARPANTE_TURLE: {nume} ")
-            models.FormaSarpanteTurle.objects.get_or_create(
-                nume=nume)
+            try:
+                models.FormaSarpanteTurle.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
 
         for nume in TIP_TIRANTI:
             print(f"Import TIP_TIRANTI: {nume} ")
-            models.TipTiranti.objects.get_or_create(
-                nume=nume)
+            try:
+                models.TipTiranti.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
         for nume in MATERIAL_INVELITOARE_TURLE:
             print(f"Import MATERIAL_INVELITOARE_TURLE: {nume} ")
-            models.MaterialInvelitoareTurle.objects.get_or_create(
-                nume=nume)
+            try:
+                models.MaterialInvelitoareTurle.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
 
