@@ -34,6 +34,7 @@ class BisericaViewSet(ModelViewSet):
 
 def get_chapter_filters(model, filters_name):
     filters = {}
+    filters_list = []
     filters_values = model.objects.live().values(*filters_name)
     for item in filters_values:
         for field_name, field_value in item.items():
@@ -44,28 +45,28 @@ def get_chapter_filters(model, filters_name):
         if filters[field]:
             if model._meta.get_field(field).remote_field:
                 field_model = model._meta.get_field(field).remote_field.model
-                filters[field] = {
+                filters_list.append({
                     "title": model._meta.get_field(field).verbose_name.title(),
                     "key": field,
                     "values": field_model.objects.filter(id__in=filters[field]).values('id', 'nume')
-                }
+                })
             else:
                 if model._meta.get_field(field).choices:
                     choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
-                    filters[field] = {
+                    filters_list.append({
                         "title": field.replace('_', ' ').title(),
                         "key": field,
                         "values": [choices[x] for x in filters[field]]
-                    }
+                    })
                 else:
-                    filters[field] = {
+                    filters_list.append({
                         "title": field.replace('_', ' ').title(),
                         "key": field,
                         "values": filters[field]
-                    }
+                    })
         else:
             del filters[field]
-    return filters
+    return filters_list
 
 
 class FiltersView(ViewSet):
@@ -159,13 +160,37 @@ class FiltersView(ViewSet):
                 'judete': judete_filters,
                 'localitati': localitati_filters,
             },
-            'advanced': {
-                'identificare': identificare_filters,
-                'istoric': istoric_filters,
-                'descriere': descriere_filters,
-                'componenta_artistica': componenta_artistica_filters,
-                'conservare': conservare_filters,
-                'valoare': valoare_filters,
-            }
+            'advanced': [
+                {
+                    'title': 'Identificare',
+                    'key': 'identificare',
+                    'filters': identificare_filters,
+                },
+                {
+                    'title': 'Istoric',
+                    'key': 'istoric',
+                    'filters': istoric_filters,
+                },
+                {
+                    'title': 'Descriere Arhitectură / Peisaj',
+                    'key': 'descriere',
+                    'filters': descriere_filters,
+                },
+                {
+                    'title': 'Descriere Componenta Artistică',
+                    'key': 'componenta_artistica',
+                    'filters': componenta_artistica_filters,
+                },
+                {
+                    'title': 'Conservare',
+                    'key': 'conservare',
+                    'filters': conservare_filters,
+                },
+                {
+                    'title': 'Valoare',
+                    'key': 'valoare',
+                    'filters': valoare_filters,
+                },
+            ]
         }
         return Response(response)
