@@ -193,3 +193,4 @@ class BisericaListSerializer(serializers.HyperlinkedModelSerializer):
                     'url': reverse(f"api:biserica-{capitol}", args=[obj.pk], request=self.context['request'])
                     })
         return capitole
+

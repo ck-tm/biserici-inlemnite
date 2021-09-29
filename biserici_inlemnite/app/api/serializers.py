@@ -7,7 +7,7 @@ from wagtail.images.api.fields import ImageRenditionField
 from rest_framework.relations import PrimaryKeyRelatedField, ManyRelatedField
 from app import models
 from pprint import pprint
-
+from nomenclatoare import models as n_models
 
 class ReprMixin(object):
 
@@ -166,3 +166,40 @@ class BisericaListSerializer(serializers.ModelSerializer):
         model = models.BisericaPage
         fields = ["id", "title", "judet", "localitate", "latitudine",
                   "longitudine", "conservare", "valoare", "prioritizare"]
+
+class ContentObjectRelatedField(serializers.RelatedField):
+    """
+    A custom field to use for the `content_object` generic relationship.
+    """
+
+
+    def to_representation(self, value):
+        """
+        Serialize tagged objects to a simple textual representation.
+        """
+        print('value', value)
+        print('value', type(value))
+        print('self', self)
+        # if isinstance(value, Bookmark):
+        #     return 'Bookmark: ' + value.url
+        # elif isinstance(value, Note):
+        #     return 'Note: ' + value.text
+        return 'ssss'
+
+class IdentificareFiltersSerializer(serializers.ModelSerializer):
+
+
+
+    # judet = serializers.CharField()
+    # localitate
+    statut = ContentObjectRelatedField(queryset=n_models.StatutBiserica.objects.all())
+    # cult
+    # utilizare
+    # singularitate
+    # functiune
+    # functiune_initiala
+    # proprietate_actuala
+
+    class Meta:
+        model = models.IdentificarePage
+        fields = ["statut"]
