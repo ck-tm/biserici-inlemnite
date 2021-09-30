@@ -20,9 +20,11 @@ from app.api import serializers
 from app import models
 from pprint import pprint
 from itertools import chain
+from app import utils
+import json
 
 
-class BisericaViewSet(ModelViewSet):
+class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
     queryset = models.BisericaPage.objects.live()
 
@@ -31,43 +33,18 @@ class BisericaViewSet(ModelViewSet):
             return serializers.BisericaListSerializer
         return serializers.BisericaSerializer
 
-
-def get_chapter_filters(model, filters_name):
-    filters = {}
-    filters_list = []
-    filters_values = model.objects.live().values(*filters_name)
-    for item in filters_values:
-        for field_name, field_value in item.items():
-            filters.setdefault(field_name, [])
-            if field_value and field_value not in filters[field_name]:
-                filters[field_name].append(field_value)
-    for field in filters_name:
-        if filters[field]:
-            if model._meta.get_field(field).remote_field:
-                field_model = model._meta.get_field(field).remote_field.model
-                filters_list.append({
-                    "title": model._meta.get_field(field).verbose_name.title(),
-                    "key": field,
-                    "values": field_model.objects.filter(id__in=filters[field]).values('id', 'nume')
-                })
-            else:
-                if model._meta.get_field(field).choices:
-                    choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
-                    filters_list.append({
-                        "title": field.replace('_', ' ').title(),
-                        "key": field,
-                        "values": [choices[x] for x in filters[field]]
-                    })
-                else:
-                    filters_list.append({
-                        "title": field.replace('_', ' ').title(),
-                        "key": field,
-                        "values": filters[field]
-                    })
-        else:
-            del filters[field]
-    return filters_list
-
+    @action(
+        methods=["post"],
+        detail=False,
+        name="Map filter",
+        url_path="filter",
+    )
+    def map_filter(self, request):
+        biserici = utils.filter_biserici(request.data)
+        print(biserici)
+        # biserici = [x for x in biserici]
+        serializer = serializers.BisericaListSerializer(biserici, many=True)
+        return Response(serializer.data)
 
 class FiltersView(ViewSet):
 
@@ -77,11 +54,11 @@ class FiltersView(ViewSet):
         """
         identificare_filters_name = ['statut', 'cult', 'utilizare', 'singularitate', 'functiune',
                                      'functiune_initiala', 'proprietate_actuala']
-        identificare_filters = get_chapter_filters(
+        identificare_filters = utils.get_chapter_filters(
             models.IdentificarePage, identificare_filters_name)
 
         istoric_filters_name = ['datare_secol', 'sursa_datare']
-        istoric_filters = get_chapter_filters(
+        istoric_filters = utils.get_chapter_filters(
             models.IstoricPage, istoric_filters_name)
 
         descriere_filters_name = ["amplasament", "topografie", "relatia_cu_cimitirul",
@@ -109,7 +86,7 @@ class FiltersView(ViewSet):
                                   "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc",
                                   "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "cor_material", "turle_pozitionare",
                                   "finisaj_exterior_tip", "invelitoare_turle_material"]
-        descriere_filters = get_chapter_filters(
+        descriere_filters = utils.get_chapter_filters(
             models.DescrierePage, descriere_filters_name)
 
         componenta_artistica_name = [
@@ -120,20 +97,24 @@ class FiltersView(ViewSet):
                     "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_materiale",
                     "iconostas_pronaos_naos_tehnica", "altar_placa_mesei", "altar_piciorul_mesei", "pictura_exterioara_suport",
                     "pictura_exterioara_sursa_datare", "pictura_interioara_suport", "pictura_interioara_sursa_datare"]
-        componenta_artistica_filters = get_chapter_filters(
+        componenta_artistica_filters = utils.get_chapter_filters(
             models.ComponentaArtisticaPage, componenta_artistica_name)
 
 
         conservare_filters_name = ["sit", "elemente_arhitecturale", "alte_elemente_importante", "vegetatie", "teren", "fundatii", "talpi", "corp_biserica", "bolti", "cosoroabe", "sarpanta_peste_corp_biserica", "turn", "zona_din_jurul_biserici", "pardoseli_interioare", "finisaj_exterior", "finisaj_pereti_interiori", "finisaj_tavane_si_bolti", "tamplarii", "invelitoare_sarpanta_si_turn", "instalatie_electrica", "instalatie_termica", "paratraznet", "strat_pictural", "obiecte_de_cult", "mobilier"]
-        conservare_filters = get_chapter_filters(
+        conservare_filters = utils.get_chapter_filters(
             models.ConservarePage, conservare_filters_name)
 
         valoare_filters_name = ["vechime", "integritate", "unicitate", "valoare_memoriala", "peisaj_cultural", "valoare_sit", "estetica", "mestesug", "pictura", "folosinta_actuala", "relevanta_actuala", "potential"]
-        valoare_filters = get_chapter_filters(
+        valoare_filters = utils.get_chapter_filters(
             models.ValoarePage, valoare_filters_name)
 
         localitati_filters = []
         judete_filters = []
+        conservare_filters = []
+        valoare_filters = []
+        prioritizare_filters = []
+
         localitati_active = models.IdentificarePage.objects.live().values(
             'localitate__id', 'localitate__nume', 'localitate__judet__id' ,'localitate__judet__nume')
 
@@ -155,10 +136,38 @@ class FiltersView(ViewSet):
                     if judet_item not in judete_filters:
                         judete_filters.append(judet_item)
 
+        biserici = models.BisericaPage.objects.live().values('valoare', 'conservare', 'prioritizare')
+        for biserica in biserici:
+            if biserica['conservare']:
+                conservare_item = {
+                    'id': len(conservare_filters) + 1,
+                    'value': biserica['conservare'],
+                }
+                if conservare_item not in conservare_filters:
+                    conservare_filters.append(conservare_item)
+            if biserica['valoare']:
+                valoare_item = {
+                    'id': len(valoare_filters) + 1,
+                    'value': biserica['valoare'],
+                }
+                if valoare_item not in valoare_filters:
+                    valoare_filters.append(valoare_item)
+
+            if biserica['prioritizare']:
+                prioritizare_item = {
+                    'id': len(prioritizare_filters) + 1,
+                    'value': biserica['prioritizare'],
+                }
+                if prioritizare_item not in prioritizare_filters:
+                    prioritizare_filters.append(prioritizare_item)
+
         response = {
             'basic': {
                 'judete': judete_filters,
                 'localitati': localitati_filters,
+                'conservare': conservare_filters,
+                'valoare': valoare_filters,
+                'prioritizare': prioritizare_filters,
             },
             'advanced': [
                 {
@@ -192,5 +201,17 @@ class FiltersView(ViewSet):
                     'filters': valoare_filters,
                 },
             ]
+        }
+        return Response(response)
+
+    @action(
+        methods=["post"],
+        detail=False,
+        name="Filters preview",
+        url_path="preview",
+    )
+    def filters_preview(self, request):
+        response = {
+            'count': utils.filter_biserici(request.data).count()
         }
         return Response(response)
