@@ -326,6 +326,7 @@ class IdentificarePage(Page):
         biserica.save_revision().publish()
         return super().save(*args, **kwargs)
 
+
 class PozeElementAnsambluConstruit(Orderable):
     page = ParentalKey('ElementeAnsambluConstruit',
                        on_delete=models.CASCADE, related_name='poze')
@@ -345,9 +346,13 @@ class ElementAnsambluConstruit(ClusterableModel):
         'nomenclatoare.ElementAnsambluConstruit', on_delete=models.CASCADE)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    element_important  = models.BooleanField(default=False)
+    element_disonant  = models.BooleanField(default=False)
 
     panels = [
         FieldPanel('element'),
+        FieldPanel('element_important'),
+        FieldPanel('element_disonant'),
         FieldPanel('observatii'),
         InlinePanel('poze', label='Poză'),
     ]
@@ -374,14 +379,19 @@ class PozeElementImportantAnsambluConstruit(Orderable):
         FieldPanel('observatii'),
     ]
 
+
 class ElementImportantAnsambluConstruit(ClusterableModel):
     element = models.ForeignKey(
         'nomenclatoare.ElementImportant', on_delete=models.CASCADE)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    element_important  = models.BooleanField(default=False)
+    element_disonant  = models.BooleanField(default=False)
 
     panels = [
         FieldPanel('element'),
+        FieldPanel('element_important'),
+        FieldPanel('element_disonant'),
         FieldPanel('observatii'),
         InlinePanel('poze', label='Poză'),
     ]
@@ -408,7 +418,6 @@ class PozeClopot(Orderable):
         ImageChooserPanel('poza'),
         FieldPanel('observatii'),
     ]
-
 
 
 class ClopotBiserica(ClusterableModel):
@@ -580,6 +589,7 @@ class Poza(models.Model):
         APIField('poza'),
         APIField('observatii'),
     ]
+
     class Meta:
         abstract = True
 
@@ -678,6 +688,18 @@ class PozeTiranti(Orderable, Poza):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='poze_tiranti')
 
+class PozeEtapeIstoriceVizibile(Orderable):
+    page = ParentalKey('EtapeIstoriceVizibile',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
 
 class EtapeIstoriceVizibile(ClusterableModel, Orderable):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
@@ -699,6 +721,7 @@ class EtapeIstoriceVizibile(ClusterableModel, Orderable):
         FieldPanel('interventie_neconforma'),
         FieldPanel('sursa'),
         FieldPanel('observatii'),
+        InlinePanel('poze', label='Poză'),
     ]
 
 
@@ -1047,21 +1070,24 @@ class DescrierePage(Page):
         features=[], null=True, blank=True, verbose_name='Observații')
 
     interventii_invelitoare_etape_anterioare_vizibile = models.BooleanField(
-        default=False)
+        default=False, verbose_name='Vizibile')
     interventii_invelitoare_sindrila_pasul_latuirii = models.IntegerField(
-        null=True, blank=True)
+        null=True, blank=True, verbose_name='Pasul lățuirii')
     interventii_invelitoare_sindrila_numar_straturi = models.IntegerField(
-        null=True, blank=True)
+        null=True, blank=True, verbose_name='Număr straturi')
     interventii_invelitoare_sindrila_cu_horj = models.BooleanField(
-        default=False)
+        default=False, verbose_name='Cu horj')
     interventii_invelitoare_sindrlia_tipul_de_batere = models.ForeignKey(
-        'nomenclatoare.TipBatereSindrila', null=True, blank=True, on_delete=models.SET_NULL, related_name='interventii_invelitoare')
+        'nomenclatoare.TipBatereSindrila', null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='interventii_invelitoare', verbose_name='Tipul de batere')
     interventii_invelitoare_sindrlia_forma_botului = models.ForeignKey(
-        'nomenclatoare.TipBotSindrila', null=True, blank=True, on_delete=models.SET_NULL, related_name='interventii_invelitoare')
+        'nomenclatoare.TipBotSindrila', null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='interventii_invelitoare', verbose_name='Forma botului')
     interventii_invelitoare_sindrila_cu_tesitura = models.BooleanField(
-        default=False)
+        default=False, verbose_name='Cu teșitură')
     interventii_invelitoare_sindrlia_esenta_lemnoasa = models.ForeignKey(
-        'nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL, related_name='interventii_invelitoare')
+        'nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='interventii_invelitoare', verbose_name='Esența lemnoasă')
     interventii_invelitoare_alte_tipuri_invelitoare = RichTextField(
         features=[], null=True, blank=True, verbose_name='Alte tipuri')
     interventii_invelitoare_observatii = RichTextField(
@@ -1400,7 +1426,7 @@ class DescrierePage(Page):
                 FieldPanel('finisaj_exterior_observatii'),
             ],
             heading="Exterior corp biserică",
-            classname="collapsible ",
+            classname="collapsible collapsed",
         ),
         MultiFieldPanel(
             [
@@ -1421,7 +1447,7 @@ class DescrierePage(Page):
                 FieldPanel('invelitoare_corp_observatii'),
             ],
             heading="Învelitoare corp biserică",
-            classname="collapsible collapsed ",
+            classname="collapsible  collapsed",
         ),
         MultiFieldPanel(
             [
@@ -1525,7 +1551,7 @@ class DescrierePage(Page):
                 FieldPanel('invelitoare_actuala_an'),
                 FieldPanel('invelitoare_actuala_observatii'),
             ],
-            heading="Învelitoare actuală",
+            heading="Învelitoare actuală de lemn",
             classname="collapsible collapsed ",
         ),
         MultiFieldPanel(
@@ -2413,7 +2439,7 @@ class ConservarePage(Page):
                 FieldPanel('finisaj_exterior_observatii'),
                 InlinePanel('poze_finisaj_exterior', label="Poză")
             ],
-            heading="Finisaj exterior",
+            heading="Finisaj pereți exteriori",
             classname="collapsible collapsed ",
         ),
         MultiFieldPanel(
@@ -2556,6 +2582,19 @@ class ConservarePage(Page):
         verbose_name = "Conservare"
         verbose_name_plural = "Conservare"
 
+class PozeArtisticEtapeIstoriceVizibile(Orderable):
+    page = ParentalKey('ArtisticEtapeIstoriceVizibile',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
+
 
 class ArtisticEtapeIstoriceVizibile(ClusterableModel, Orderable):
     page = ParentalKey('ComponentaArtisticaPage', on_delete=models.CASCADE,
@@ -2577,6 +2616,7 @@ class ArtisticEtapeIstoriceVizibile(ClusterableModel, Orderable):
         FieldPanel('interventie_neconforma'),
         FieldPanel('sursa'),
         FieldPanel('observatii'),
+        InlinePanel('poze', label='Poză'),
     ]
 
 
