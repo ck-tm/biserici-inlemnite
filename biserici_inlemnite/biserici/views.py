@@ -42,11 +42,11 @@ class BisericiView(FilterView):
         return queryset
         return get_objects_for_user(user, 'biserici.change_biserica')
 
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        if 'editor' in user.groups.values_list('name', flat=True):
-            return redirect("admin:index")
-        return super().get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+        # user = self.request.user
+        # if 'editor' in user.groups.values_list('name', flat=True):
+            # return redirect("admin:index")
+        # return super().get(request, *args, **kwargs)
 
 @method_decorator(login_required, name='dispatch')
 class BisericaView(DetailView):
