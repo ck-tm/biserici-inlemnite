@@ -1,0 +1,10 @@
+.tag:not(body) {
+  height: 2rem;
+  padding: 6px 14px 7px;
+}
+
+.container-page {}
+
+.is-full-height {
+  height: calc(100vh - #{$navbar-height});
+}

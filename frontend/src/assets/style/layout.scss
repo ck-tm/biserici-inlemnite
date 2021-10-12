@@ -1,0 +1,32 @@
+html {
+  padding-top: $navbar-height-mobile;
+
+  @include desktop {
+    padding-top: $navbar-height;
+  }
+}
+
+body {
+}
+
+.container-page {
+  padding: 20px;
+
+  @include desktop {
+    padding: 80px;
+  }
+}
+
+.container-mobile {
+  padding: 20px;
+  color: $grey-dark;
+
+  &.is-spaced {
+    padding: 32px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 2px;
+  }
+}
+
