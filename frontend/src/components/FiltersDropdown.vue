@@ -1,5 +1,5 @@
 <template>
-  <v-field label="">
+  <b-field v-bind="{ label }" customClass="is-small">
     <b-dropdown
       v-model="model"
       aria-role="menu"
@@ -14,11 +14,12 @@
         <b-button
           :label="model ? model.value : 'Toate'"
           icon-right="arrow-down"
+          type="is-primary"
         />
       </template>
 
       <b-dropdown-item
-        v-for="item of filters"
+        v-for="item of options"
         :key="item.id"
         :value="item"
         aria-role="listitem"
@@ -26,7 +27,7 @@
         {{ item.value }}
       </b-dropdown-item>
     </b-dropdown>
-  </v-field>
+  </b-field>
 </template>
 
 <script>
@@ -35,7 +36,7 @@ export default {
   props: {
     value: null,
     label: String,
-    filters: Array,
+    options: Array,
   },
   data() {
     return {
