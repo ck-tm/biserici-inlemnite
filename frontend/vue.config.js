@@ -8,7 +8,7 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
-        '/Users/kenji/code/ck/biserici-inlemnite/frontend/src/assets/style/variables.scss',
+        'src/assets/style/variables.scss',
       ],
     },
   },
