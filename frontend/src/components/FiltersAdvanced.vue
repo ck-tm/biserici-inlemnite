@@ -2,12 +2,26 @@
   <div>
     <label class="label is-small has-text-grey-light">Filtrare avansată</label>
 
-    <b-tabs v-model="activeTab" vertical>
+    <b-tabs
+      v-model="activeTab"
+      animation="slide-prev slide-next"
+      animateInitially
+      vertical
+    >
+      <b-button
+        icon-left="close"
+        type="is-black"
+        class="close"
+        @click="toggleTab"
+        v-if="activeTab"
+      />
+
+      <b-tab-item key="tab-null" :visible="false"></b-tab-item>
+
       <b-tab-item
         v-for="item in filters"
-        :key="'filter-' + item.key"
+        :key="'tab-' + item.key"
         class="is-full-height"
-        @click="toggleTab"
       >
         <template #header>
           <span v-text="item.title" />
@@ -31,7 +45,7 @@ export default {
   },
   data() {
     return {
-      activeTab: null,
+      activeTab: 0,
       filterModel: {
         judet: null,
         localitate: null,
@@ -44,7 +58,7 @@ export default {
   mounted() {},
   methods: {
     toggleTab() {
-      if (this.activeTab) this.activeTab = null
+      if (this.activeTab) this.activeTab = 0
     },
     loadLocalities() {
       this.update()
