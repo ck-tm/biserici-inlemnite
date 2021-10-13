@@ -46,9 +46,9 @@ $link-hover: $grey-light;
 $text: $white;
 $text-strong: $grey-lighter;
 
-$radius: 6px;
-$radius-large: 24px;
-$radius-xl: 27px;
+$radius-small: 4px;
+$radius: 4px;
+$radius-large: 12px;
 
 $size-1: 3rem;      // 48px
 $size-2: 2rem;      // 32px
@@ -95,10 +95,10 @@ $dropdown-content-radius: 22px;
 // $column-gap: 15px;
 
 // ---------------------------------------------------- controls & buttons
-$control-padding-vertical: 17px;
-$control-padding-horizontal: 16px;
-$control-radius: $radius-large;
-$control-height: 54px;
+$control-padding-vertical: 14px;
+$control-padding-horizontal: 12px;
+$control-height: 44px;
+// $control-radius: $radius;
 // $control-line-height: inherit;
 
 $input-shadow: none;

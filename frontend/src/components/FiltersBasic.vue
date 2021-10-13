@@ -1,17 +1,42 @@
 <template>
-  <div class="columns is-gapless">
+  <div class="columns">
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.judet"
-        :filters="filters.basic.judete"
-        :label="Județ"
+        :options="filters.judete"
+        label="Județ"
         @input="loadLocalities"
       />
-
+    </div>
+    <div class="column">
       <FiltersDropdown
         v-model="filterModel.localitate"
-        :filters="filters.basic.localitati"
-        :label="Localitate"
+        :options="localities"
+        label="Localitate"
+        @input="update"
+      />
+    </div>
+    <div class="column">
+      <FiltersDropdown
+        v-model="filterModel.conservare"
+        :options="filters.localitati"
+        label="Localitate"
+        @input="update"
+      />
+    </div>
+    <div class="column">
+      <FiltersDropdown
+        v-model="filterModel.localitate"
+        :options="filters.localitati"
+        label="Localitate"
+        @input="update"
+      />
+    </div>
+    <div class="column">
+      <FiltersDropdown
+        v-model="filterModel.localitate"
+        :options="filters.localitati"
+        label="Localitate"
         @input="update"
       />
     </div>
@@ -19,8 +44,7 @@
 </template>
 
 <script>
-// import { EntityIcons } from '@/services/utils'
-import { FiltersDropdown } from '@/components/FiltersDropdown'
+import FiltersDropdown from '@/components/FiltersDropdown'
 
 export default {
   name: 'FiltersBasic',
@@ -30,6 +54,7 @@ export default {
   },
   data() {
     return {
+      localities: this.filters.localitati,
       filterModel: {
         judet: null,
         localitate: null,
@@ -42,6 +67,9 @@ export default {
   mounted() {},
   methods: {
     loadLocalities() {
+      this.localities = this.filters.localitati.filter(
+        (e) => e.judet == this.filterModel.judet.id
+      )
       this.update()
     },
     update() {

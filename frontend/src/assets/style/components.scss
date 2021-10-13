@@ -37,6 +37,10 @@ nav.navbar {
     .b-tabs {
       overflow: visible;
 
+      nav, ul {
+        width: 100%;
+      }
+
       &.is-vertical > .tabs {
         flex: 1;
 
@@ -54,6 +58,7 @@ nav.navbar {
         top: 0;
         border-right: 1px solid $grey;
         padding: 0;
+        z-index: 39;
 
         .close {
           position: absolute;
