@@ -6,7 +6,8 @@
       expanded
       scrollable
       v-bind="{
-        'max-height': $mq == 'mobile' ? 400 : 580,
+        // 'max-height': $mq == 'mobile' ? 400 : 580,
+        'max-height': 400,
       }"
       @input="$emit('input', model)"
     >
@@ -14,7 +15,8 @@
         <b-button
           :label="model ? model.value : 'Toate'"
           icon-right="arrow-down"
-          type="is-primary"
+          size="is-small"
+          expanded
         />
       </template>
 

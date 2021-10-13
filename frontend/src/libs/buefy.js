@@ -3,6 +3,7 @@ import Vue from 'vue'
 import {
   Button,
   Checkbox,
+  Collapse,
   Dropdown,
   Field,
   Icon,
@@ -40,6 +41,7 @@ ConfigProgrammatic.setOptions({
 // Components
 Vue.use(Button)
 Vue.use(Checkbox)
+Vue.use(Collapse)
 Vue.use(Dropdown)
 Vue.use(Field)
 Vue.use(Icon)

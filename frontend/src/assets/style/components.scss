@@ -25,27 +25,52 @@ nav.navbar {
 #main-interface {
   display: flex;
 
-  .filters-advanced {
+  .container-interface {
+    flex: 1;
+  }
+
+  #filters-basic {
+    padding: 22px 32px;
+    border-bottom: 1px solid $grey;
+
+    .columns {
+      width: 100%;
+      max-width: 1100px;
+      align-items: flex-end;
+    }
+  }
+
+  #filters-advanced {
     width: $navbar-side-width;
     border-right: 1px solid $grey;
     position: relative;
+    padding-top: 160px;
 
     .label {
-      padding: 160px 0 0 32px;
+      padding-left: 32px;
     }
 
     .b-tabs {
       overflow: visible;
 
-      nav, ul {
+      nav,
+      ul {
         width: 100%;
       }
 
       &.is-vertical > .tabs {
         flex: 1;
 
-        ul li a {
-          justify-content: space-between;
+        ul li {
+          a {
+            justify-content: space-between;
+          }
+
+          &.is-active a {
+            font-weight: 700;
+            color: $white;
+            border-color: $white;
+          }
         }
       }
 
@@ -54,26 +79,67 @@ nav.navbar {
         position: absolute;
         left: calc(100% + 1px);
         width: 528px;
-        overflow: hidden;
         top: 0;
         border-right: 1px solid $grey;
         padding: 0;
         z-index: 39;
+        overflow: hidden;
 
         .close {
           position: absolute;
-          font-size: 24px;
-          border: 0;
-          background: transparent;
           right: 24px;
           top: 24px;
+          z-index: 1;
+          font-size: 32px;
+          border: 0;
         }
 
-        div {
+        .container-scroll {
           padding: 24px;
+          overflow: auto;
+          max-height: 100%;
 
           h1 {
-            padding: 51px 34px 56px;
+            padding: 56px 34px 56px;
+          }
+
+          .label.is-sticky {
+            position: sticky;
+            top: 0;
+          }
+        }
+
+        .results {
+          position: absolute;
+          bottom: 0;
+          height: 80px;
+          padding: 16px 16px 16px 56px;
+          background-color: $grey;
+          width: 100%;
+
+          .button {
+            width: 170px;
+          }
+        }
+
+        .collapse {
+          .collapse-trigger .button {
+            justify-content: space-between;
+            padding: 20px 12px 20px 32px;
+            border-bottom: 1px solid $grey;
+          }
+
+          .collapse-content {
+            padding-left: 80px;
+
+            .field {
+              padding: 16px 0;
+              flex-direction: column;
+            }
+
+            .checkbox {
+              padding: 8px 0;
+            }
           }
         }
       }
@@ -83,10 +149,22 @@ nav.navbar {
 
 .filters {
   .dropdown {
+    font-size: $size-6;
+
     @include touch {
       &.is-mobile-modal > .dropdown-menu {
         // top: 230px !important;
       }
+    }
+
+    .dropdown-content {
+      border: 1px solid $grey-light;
+    }
+
+    a.dropdown-item {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
     }
 
     .icon.bullet {
@@ -100,17 +178,12 @@ nav.navbar {
 
     .button {
       @include desktop {
-        min-width: 210px;
+        // min-width: 210px;
       }
 
       .icon:last-child {
         margin-left: auto;
       }
-    }
-
-    a.dropdown-item {
-      display: inline-flex;
-      align-items: center;
     }
   }
 }

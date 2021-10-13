@@ -1,4 +1,4 @@
-// const path = require('path')
+const path = require('path')
 
 module.exports = {
   filenameHashing: process.env.NODE_ENV === 'production',
@@ -7,9 +7,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
-      patterns: [
-        'src/assets/style/variables.scss',
-      ],
+      patterns: [path.resolve(__dirname, 'src/assets/style/variables.scss')],
     },
   },
 }

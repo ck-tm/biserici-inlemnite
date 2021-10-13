@@ -3,7 +3,7 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.judet"
-        :options="filters.judete"
+        :options="filterData.judete"
         label="Județ"
         @input="loadLocalities"
       />
@@ -19,24 +19,24 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.conservare"
-        :options="filters.localitati"
-        label="Localitate"
+        :options="filterData.conservare"
+        label="Stare de conservare"
         @input="update"
       />
     </div>
     <div class="column">
       <FiltersDropdown
-        v-model="filterModel.localitate"
-        :options="filters.localitati"
-        label="Localitate"
+        v-model="filterModel.valoare"
+        :options="filterData.valoare"
+        label="Valoare patrimoniu"
         @input="update"
       />
     </div>
     <div class="column">
       <FiltersDropdown
-        v-model="filterModel.localitate"
-        :options="filters.localitati"
-        label="Localitate"
+        v-model="filterModel.prioritizare"
+        :options="filterData.prioritizare"
+        label="Prioritizare"
         @input="update"
       />
     </div>
@@ -50,11 +50,11 @@ export default {
   name: 'FiltersBasic',
   components: { FiltersDropdown },
   props: {
-    filters: Object,
+    filterData: Object,
   },
   data() {
     return {
-      localities: this.filters.localitati,
+      localities: this.filterData.localitati,
       filterModel: {
         judet: null,
         localitate: null,
@@ -67,9 +67,10 @@ export default {
   mounted() {},
   methods: {
     loadLocalities() {
-      this.localities = this.filters.localitati.filter(
+      this.localities = this.filterData.localitati.filter(
         (e) => e.judet == this.filterModel.judet.id
       )
+
       this.update()
     },
     update() {

@@ -3,7 +3,7 @@
     <label class="label is-small has-text-grey-light">Filtrare avansată</label>
 
     <b-tabs
-      v-model="activeTab"
+      v-model="active.tab"
       animation="slide-prev slide-next"
       animateInitially
       vertical
@@ -13,58 +13,99 @@
         type="is-black"
         class="close"
         @click="toggleTab"
-        v-if="activeTab"
+        v-if="active.tab"
       />
 
       <b-tab-item key="tab-null" :visible="false"></b-tab-item>
 
       <b-tab-item
-        v-for="item in filters"
-        :key="'tab-' + item.key"
+        v-for="section in filterData"
+        :key="'tab-' + section.key"
         class="is-full-height"
       >
         <template #header>
-          <span v-text="item.title" />
+          <span v-text="section.title" />
           <b-icon icon="arrow-forward" />
         </template>
 
-        <h1 v-text="item.title" />
+        <template #default>
+          <div class="container-scroll">
+            <h1 v-text="section.title" />
+
+            <FiltersAdvancedSection
+              v-model="filterModel[section.key]"
+              :filterData="section"
+              @input="update"
+            />
+          </div>
+        </template>
       </b-tab-item>
+
+      <div class="results" v-if="resultCount != null">
+        <b-button type="is-primary" class="has-text-weight-bold">
+          <span v-if="resultCount">
+            Vezi {{ resultCount }}
+            {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
+          </span>
+          <span v-else>Nu sunt rezultate</span>
+        </b-button>
+      </div>
     </b-tabs>
   </div>
 </template>
 
 <script>
-// import { FiltersDropdown } from '@/components/FiltersDropdown'
+import FiltersAdvancedSection from '@/components/FiltersAdvancedSection'
+import ApiService from '@/services/api'
 
 export default {
   name: 'FiltersAdvanced',
-  // components: { FiltersDropdown },
+  components: { FiltersAdvancedSection },
   props: {
-    filters: Array,
+    filterData: Array,
   },
   data() {
     return {
-      activeTab: 0,
-      filterModel: {
-        judet: null,
-        localitate: null,
-        conservare: null,
-        valoare: null,
-        prioritizare: null,
-      },
+      active: { tab: 0 },
+      filterModel: {},
+      resultCount: null,
     }
   },
   mounted() {},
   methods: {
     toggleTab() {
-      if (this.activeTab) this.activeTab = 0
+      if (this.active.tab) this.active.tab = 0
     },
     loadLocalities() {
       this.update()
     },
+    updateFilter() {
+      // if (this.filterModel) {}
+    },
     update() {
-      this.$store.commit('setFiltersBasic', this.filterModel)
+      this.$store.commit('setFiltersAdvanced', this.filterModel)
+
+      let postData = []
+
+      Object.keys(this.filterModel).forEach((key) => {
+        if (this.filterModel[key].length) {
+          let cleanFilters = this.filterModel[key].filter(
+            (e) => e != null && e.values.length
+          )
+
+          if (cleanFilters.length)
+            postData.push({
+              [key]: cleanFilters,
+            })
+        }
+      })
+
+      ApiService.post(
+        '/filters/preview/',
+        postData.length ? postData : undefined
+      ).then((response) => {
+        this.resultCount = postData.length ? response.count : null
+      })
     },
   },
   computed: {},
