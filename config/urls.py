@@ -23,8 +23,8 @@ urlpatterns = [
     path("", view=views.BisericiView.as_view(), name="home"),
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-    path('pages/<int:parent_page_id>/', app_views.wagtail_pages, name='wagtailadmin_explore'),
-    path('pages/', include(wagtail_urls)),
+    path('cms/pages/<int:parent_page_id>/', app_views.wagtail_pages, name='wagtailadmin_explore'),
+    path('cms/pages/', include(wagtail_urls)),
 
     path("biserici/", view=views.BisericiView.as_view(), name="biserici"),
     path('biserici/<int:pk>/', view=views.BisericaView.as_view(), name='biserica'),
