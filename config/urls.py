@@ -40,7 +40,8 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     # url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     # url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    path(settings.ADMIN_URL, admin.site.urls),
+    # path(settings.ADMIN_URL, admin.site.urls),
+    path('admin/', admin.site.urls),
     # User management
     path("users/", include("biserici_inlemnite.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
