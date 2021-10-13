@@ -355,7 +355,7 @@ REST_FRAMEWORK = {
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ALLOWED_ORIGINS = ['http://localhost']
+CORS_ALLOWED_ORIGINS = ['http://localhost:8080']
 # Your stuff...
 # ------------------------------------------------------------------------------
 
