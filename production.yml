@@ -20,6 +20,18 @@ services:
     command: /start
     volumes:
       - /mnt/HC_Volume_12351385/media:/app/biserici_inlemnite/media
+  media:
+    image: nginx:stable-alpine
+    volumes:
+      - /mnt/HC_Volume_12351385/media:/usr/share/nginx/html/media
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./compose/production/frontend/Dockerfile
+    image: oxigen_api_production_frontend
+    depends_on:
+      - django
   postgres:
     build:
       context: .
