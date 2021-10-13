@@ -1,0 +1,179 @@
+@import "~bulma/sass/utilities/initial-variables.sass";
+////////////////////////////////////////////////////////////// COLOURS
+
+$white: #FFFFFF;
+$black: #100F0F;
+
+$grey-darker: #272626;
+$grey-dark: #2A2828;
+$grey: #343232;
+$grey-light: #808080;
+$grey-lighter: #CCCCCC;
+
+// invert colour scheme
+
+$black-bis: $grey-dark;
+$black-ter: $grey-darker;
+
+$white-bis: $grey;
+$white-ter: $grey-light;
+
+$scheme-main: $black;
+$scheme-main-bis: $black-bis;
+$scheme-main-ter: $black-ter;
+$scheme-invert: $white;
+$scheme-invert-bis: $white-bis;
+$scheme-invert-ter: $white-ter;
+
+$background: $black;
+
+// $color-cat-edu: #287DFF;
+// $color-cat-cul: #EB28FF;
+// $color-cat-soc: #8228FF;
+// $color-cat-med: #4AD1A8;
+// $color-cat-san: #FF2828;
+// $color-cat-bus: #28C8FF;
+// $color-cat-dig: #FF8428;
+// $color-cat-adm: #5A28FF;
+
+////////////////////////////////////////////////////////////// BULMA OVERWRITE
+
+$primary: $grey;
+$dark: $grey-darker;
+$link: $grey-lighter;
+$link-hover: $grey-light;
+
+$text: $white;
+$text-strong: $grey-lighter;
+
+$radius: 6px;
+$radius-large: 24px;
+$radius-xl: 27px;
+
+$size-1: 3rem;      // 48px
+$size-2: 2rem;      // 32px
+$size-3: 1.25rem;   // 20px
+$size-4: 1.125rem;  // 18px
+$size-5: 1rem;      // 16px
+$size-6: 0.875rem;  // 14px
+$size-7: 0.75rem;   // 12px
+
+$size-small: $size-6;
+$size-normal: $size-5;
+$size-medium: $size-4;
+$size-large: $size-3;
+
+// $title-color: $blue;
+// $title-size: $size-2;
+// $subtitle-negative-margin: -14px;
+
+// ---------------------------------------------------- body
+$family-primary: 'IBM Plex Sans', sans-serif;
+$family-primary-bold: 'IBM Plex Sans', sans-serif;
+$family-primary-italic: 'IBM Plex Sans', sans-serif;
+$body-line-height: 1.3125;
+
+// ---------------------------------------------------- navbar + dropdown
+$navbar-background-color: $black;
+$navbar-item-color: $white;
+$navbar-item-hover-color: $white;
+$navbar-item-hover-background-color: transparent;
+$navbar-height: 5rem;
+$navbar-height-mobile: 62px;
+$navbar-breakpoint: 0;
+$navbar-side-width: 248px;
+
+$dropdown-item-color: $white;
+$dropdown-item-hover-background-color: transparent;
+$dropdown-item-active-color: $white;
+$dropdown-item-active-background-color: transparent;
+$dropdown-content-shadow: 0px 0px 30px #00000029;
+$dropdown-content-offset: 6px;
+$dropdown-content-radius: 22px;
+
+// columns
+// $column-gap: 15px;
+
+// ---------------------------------------------------- controls & buttons
+$control-padding-vertical: 17px;
+$control-padding-horizontal: 16px;
+$control-radius: $radius-large;
+$control-height: 54px;
+// $control-line-height: inherit;
+
+$input-shadow: none;
+$input-radius: $radius;
+$file-radius: $radius;
+$input-focus-box-shadow-size: 0;
+$input-focus-box-shadow-color: $grey-light;
+// $input-icon-color: $grey-darker;
+
+// $input-color: $blue;
+$input-background-color: $grey-darker;
+$input-placeholder-color: $grey-light;
+$input-border-color: $grey;
+$input-focus-border-color: $grey-lighter;
+$border: $grey;
+$border-hover: $grey-light;
+
+$input-arrow: $blue;
+$input-disabled-color: $grey-darker;
+$input-disabled-background-color: $grey;
+$input-disabled-border-color: $grey !important;
+
+$file-name-border-color: $input-border-color;
+
+$label-weight: normal;
+$label-color: $grey-lighter;
+
+$link-focus: $white;
+$link-focus-border: transparent;
+$link-hover-border: $grey-dark;
+
+$button-color: $grey;
+$button-padding-horizontal: 20px;
+$button-hover-color: $white;
+$button-active-color: $white;
+// $button-focus-box-shadow-size: 0;
+
+
+// ---------------------------------------------------- menu + tabs
+$menu-item-color: $white;
+$menu-list-line-height: 19px;
+$menu-item-hover-background-color: transparent;
+$menu-item-active-background-color: transparent;
+
+$tabs-link-padding: 22px 16px 22px 32px;
+
+// ---------------------------------------------------- modal
+// $modal-z: 1000;
+// $modal-background-background-color: rgba(0, 0, 0, 0.4);
+// $modal-content-width: auto;
+// $modal-card-title-color: inherit;
+// $modal-card-title-size: $size-4;
+// $modal-card-title-line-height: 1.4;
+// $modal-card-head-padding: 18px 24px;
+// $modal-card-head-background-color: $white;
+// $modal-card-head-border-bottom: none;
+// $modal-card-body-padding: 0 24px 6px;
+// $modal-card-foot-border-top: none;
+// $modal-close-dimensions: 30px;
+
+// ---------------------------------------------------- box
+$box-radius: 16px;
+$box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+$box-padding: 16px 18px 56px;
+$box-color: $black;
+$box-background-color: $grey-lighter;
+// $box-color: $white;
+
+// ---------------------------------------------------- tags
+$tag-radius: 100px;
+$tag-color: $grey-lighter;
+
+// ---------------------------------------------------- screen
+$desktop: 1080px;
+// $widescreen: 1440px;
+// $fullhd-disabled: true;
+
+@import '~bulma/sass/utilities/_all.sass';

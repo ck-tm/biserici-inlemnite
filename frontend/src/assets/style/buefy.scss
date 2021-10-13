@@ -1,0 +1,26 @@
+@import 'buefy/src/scss/utils/_all.scss';
+
+$loading-background: rgba(0, 0, 0, 0.5);
+$dropdown-background-color: $black;
+$loading-background-legacy: $black;
+
+@import 'buefy/src/scss/components/_checkbox.scss';
+@import 'buefy/src/scss/components/_dropdown.scss';
+// @import 'buefy/src/scss/components/_datepicker.scss';
+// @import 'buefy/src/scss/components/_dialog.scss';
+@import 'buefy/src/scss/components/_form.scss';
+@import 'buefy/src/scss/components/_icon.scss';
+@import 'buefy/src/scss/components/_loading.scss';
+// @import 'buefy/src/scss/components/_modal.scss';
+@import 'buefy/src/scss/components/_notices.scss';
+// @import 'buefy/src/scss/components/_pagination.scss';
+// @import 'buefy/src/scss/components/_upload.scss';
+// @import 'buefy/src/scss/components/_table.scss';
+// @import 'buefy/src/scss/components/_select.scss';
+@import 'buefy/src/scss/components/_radio.scss';
+// @import 'buefy/src/scss/components/_switch.scss';
+@import 'buefy/src/scss/components/_tabs.scss';
+// @import 'buefy/src/scss/components/_tag.scss';
+// @import 'buefy/src/scss/components/_taginput.scss';
+// @import 'buefy/src/scss/components/_tooltip.scss';
+// @import 'buefy/src/scss/components/_upload.scss';

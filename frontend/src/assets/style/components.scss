@@ -1,0 +1,111 @@
+nav.navbar {
+  min-height: $navbar-height-mobile;
+  height: $navbar-height-mobile;
+  border-bottom: 1px solid $grey;
+
+  @include desktop {
+    min-height: $navbar-height;
+    height: $navbar-height;
+  }
+
+  .navbar-brand {
+    min-height: $navbar-height-mobile;
+
+    @include touch {
+    }
+
+    @include desktop {
+      min-height: $navbar-height;
+      border-right: 1px solid $grey;
+      width: $navbar-side-width;
+    }
+  }
+}
+
+#main-interface {
+  display: flex;
+
+  .filters-advanced {
+    width: $navbar-side-width;
+    border-right: 1px solid $grey;
+    position: relative;
+
+    .label {
+      padding: 160px 0 0 32px;
+    }
+
+    .b-tabs {
+      overflow: visible;
+
+      &.is-vertical > .tabs {
+        flex: 1;
+
+        ul li a {
+          justify-content: space-between;
+        }
+      }
+
+      .tab-content {
+        background: $black;
+        position: absolute;
+        left: calc(100% + 1px);
+        width: 528px;
+        overflow: hidden;
+        top: 0;
+        border-right: 1px solid $grey;
+        padding: 0;
+
+        .close {
+          position: absolute;
+          font-size: 24px;
+          border: 0;
+          background: transparent;
+          right: 24px;
+          top: 24px;
+        }
+
+        div {
+          padding: 24px;
+
+          h1 {
+            padding: 51px 34px 56px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.filters {
+  .dropdown {
+    @include touch {
+      &.is-mobile-modal > .dropdown-menu {
+        // top: 230px !important;
+      }
+    }
+
+    .icon.bullet {
+      border-radius: 100%;
+      border: 2px solid $grey;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    .button {
+      @include desktop {
+        min-width: 210px;
+      }
+
+      .icon:last-child {
+        margin-left: auto;
+      }
+    }
+
+    a.dropdown-item {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+}
