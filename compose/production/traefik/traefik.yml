@@ -80,7 +80,7 @@ http:
       service: django
 
     api-secure-router:
-      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/static`))"
+      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web-secure
       middlewares:
