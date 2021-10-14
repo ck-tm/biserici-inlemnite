@@ -54,70 +54,131 @@ class FiltersView(ViewSet):
         """
         Return a list of all users.
         """
-        identificare_filters_name = [{
-            '': ['statut', 'cult', 'utilizare', 'singularitate', 'functiune',
-                                     'functiune_initiala', 'proprietate_actuala']
-             }]
+        identificare_filters_name = {
+            '': ['statut', 'hram', 'cult', 'utilizare', 'singularitate', 'functiune',
+                'functiune_initiala', 'proprietate_actuala', 'inscriere_documente_cadastrale']
+             }
         identificare_filters = utils.get_chapter_filters(
             models.IdentificarePage, identificare_filters_name)
 
-        istoric_filters_name = [{
-            'Section 1': ['datare_secol', 'sursa_datare']}]
+        istoric_filters_name = {
+            '': ['datare_prin_interval_timp', 'datare_secol', 'are_pisanie', 'are_studiu_dendro',
+                'are_mutari', 'lista_ctitori', 'lista_mesteri', 'lista_zugravi', 'lista_personalitati']
+            }
         istoric_filters = utils.get_chapter_filters(
             models.IstoricPage, istoric_filters_name)
 
-        descriere_filters_name = [{
-            'Section 1': ["amplasament", "topografie", "relatia_cu_cimitirul",
-                                  "turn_dimensiune", "turn_tip", "turn_plan", "turn_amplasare",
-                                  "turn_galerie", "turn_asezare_talpi", "turn_relatie_talpi", "sarpanta_material_cruci",
-                                  "bolta_peste_pronaos", "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_altar_tip",
-                                  "masa_altar_material_picior", "masa_altar_material_blat", "turle_forma_sarpanta",
-                                  "fundatia", "sistem_in_cheotoare", "sistem_in_catei", "tiranti_tip",
-                                  "invelitoare_corp_material", "invelitoare_corp_sindrlia_tipul_de_batere",
-                                  "invelitoare_corp_sindrlia_tipul_prindere", "invelitoare_corp_sindrlia_forma_botului",
-                                  "invelitoare_corp_sindrlia_prelucrare", "invelitoare_corp_sindrlia_esenta_lemnoasa",
-                                  "invelitoare_turn_material", "invelitoare_turn_sindrlia_tipul_de_batere",
-                                  "invelitoare_turn_sindrlia_tipul_prindere", "invelitoare_turn_sindrlia_forma_botului",
-                                  "invelitoare_turn_sindrlia_prelucrare", "invelitoare_turn_sindrlia_esenta_lemnoasa",
-                                  "inchidere_tambur_turn_material", "inchidere_tambur_turn_sindrlia_tipul_de_batere",
-                                  "inchidere_tambur_turn_sindrlia_tipul_prindere", "inchidere_tambur_turn_sindrlia_forma_botului",
-                                  "inchidere_tambur_turn_sindrlia_prelucrare", "inchidere_tambur_turn_sindrlia_esenta_lemnoasa",
-                                  "invelitoare_turle_sindrlia_tipul_de_batere", "invelitoare_turle_sindrlia_tipul_prindere",
-                                  "invelitoare_turle_sindrlia_forma_botului", "invelitoare_turle_sindrlia_prelucrare",
-                                  "invelitoare_turle_sindrlia_esenta_lemnoasa",
-                                  "interventii_invelitoare_sindrlia_tipul_de_batere",
-                                  "interventii_invelitoare_sindrlia_forma_botului",
-                                  "interventii_invelitoare_sindrlia_esenta_lemnoasa", "peisagistica_sitului", "elemente",
-                                  "elemente_importante", "materiale", "sarpanta_tip", "bolta_peste_pronaos_material",
-                                  "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc",
-                                  "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "cor_material", "turle_pozitionare",
-                                  "finisaj_exterior_tip", "invelitoare_turle_material"]
-                      }]
+        descriere_filters_name = {
+            'Tip scanare': [
+                'are_scanare_laser', 'are_model_fotogrametric'
+            ],
+            'Localizare/Peisaj': [
+                "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului"
+            ],
+            'Arhitectura bisericii': [
+                "materiale", "numar_accese_pridvor", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
+                "numar_ochiesi", "solee", "masa_altar_material_picior", "masa_altar_material_blat", "bolta_peste_pronaos",
+                "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
+                "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia", "sistem_in_cheotoare", "sistem_in_catei",
+                "tiranti_tip", "finisaj_exterior_tip"
+            ],
+        }
         descriere_filters = utils.get_chapter_filters(
             models.DescrierePage, descriere_filters_name)
 
-        componenta_artistica_name = [{
-            'Section 1': [
-                    "iconostas_naos_altar_tip", "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_material",
-                    "altar_decor", "pictura_exterioara_localizare", "pictura_exterioara_tehnica", "pictura_exterioara_datare_secol",
-                    "pictura_interioara_localizare", "pictura_interioara_tehnica_pictura", "pictura_interioara_datare_secol",
-                    "suport_proscomidie", "obiecte_de_cult", "mobiliere", "iconostas_naos_altar_tehnica",
-                    "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_materiale",
-                    "iconostas_pronaos_naos_tehnica", "altar_placa_mesei", "altar_piciorul_mesei", "pictura_exterioara_suport",
-                    "pictura_exterioara_sursa_datare", "pictura_interioara_suport", "pictura_interioara_sursa_datare"]
-                     }]
+        componenta_artistica_name = {
+            '': [
+
+                    "suport_proscomidie", "obiecte_de_cult", "mobiliere", "obiecte_instrainate"
+                ],
+            'Iconostasul': [
+                    "iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi"
+            ],
+            'Perete despărțitor': [
+                    "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
+            ],
+            'Altar': [
+                'altar_placa_mesei', 'altar_piciorul_mesei', 'altar_decor'
+            ],
+            'Pictură exterioară': [
+                'pictura_exterioara_localizare', 'pictura_exterioara_suport', 'pictura_exterioara_tehnica', 'pictura_exterioara_numar_straturi_pictura',
+                'pictura_exterioara_datare_secol', 'pictura_exterioara_sursa_datare'
+            ],
+            'Pictură interioară': [
+                'pictura_interioara_localizare', 'pictura_interioara_suport', 'pictura_interioara_tehnica_pictura', 'pictura_interioara_numar_straturi_pictura',
+                'pictura_interioara_datare_secol', 'pictura_interioara_sursa_datare'
+            ],
+            'Intervenții': [
+                'elemente_interventii'
+            ]
+         }
         componenta_artistica_filters = utils.get_chapter_filters(
             models.ComponentaArtisticaPage, componenta_artistica_name)
 
 
-        conservare_filters_name = [{
-            'Section 1': ["sit", "elemente_arhitecturale", "alte_elemente_importante", "vegetatie", "teren", "fundatii", "talpi", "corp_biserica", "bolti", "cosoroabe", "sarpanta_peste_corp_biserica", "turn", "zona_din_jurul_biserici", "pardoseli_interioare", "finisaj_exterior", "finisaj_pereti_interiori", "finisaj_tavane_si_bolti", "tamplarii", "invelitoare_sarpanta_si_turn", "instalatie_electrica", "instalatie_termica", "paratraznet", "strat_pictural", "obiecte_de_cult", "mobilier"]}]
-        conservare_filters = utils.get_chapter_filters(
+        conservare_filters_name = {
+            'Sit': [
+                "sit",
+                "elemente_arhitecturale",
+                "alte_elemente_importante",
+                "vegetatie",
+                "vegetatie_pericol",
+            ],
+            'Strucutra bisericii': [
+                "teren",
+                "teren_pericol",
+                "fundatii",
+                "fundatii_pericol",
+                "talpi",
+                "talpi_pericol",
+                "corp_biserica",
+                "corp_biserica_pericol",
+                "bolti",
+                "bolti_pericol",
+                "cosoroabe",
+                "cosoroabe_pericol",
+                "sarpanta_peste_corp_biserica",
+                "sarpanta_peste_corp_biserica_pericol",
+                "turn",
+                "turn_pericol",
+            ],
+            'Finisaje biserică': [
+                "zona_din_jurul_biserici",
+                "zona_din_jurul_biserici_pericol",
+                "pardoseli_interioare",
+                "pardoseli_interioare_pericol",
+                "finisaj_exterior",
+                "finisaj_exterior_pericol",
+                "finisaj_pereti_interiori",
+                "finisaj_pereti_interiori_pericol",
+                "finisaj_tavane_si_bolti",
+                "finisaj_tavane_si_bolti_pericol",
+                "tamplarii",
+                "tamplarii_pericol",
+                "invelitoare_sarpanta_si_turn",
+                "invelitoare_sarpanta_si_turn_pericol",
+                "instalatie_electrica",
+                "instalatie_electrica_pericol",
+                "instalatie_termica",
+                "instalatie_termica_pericol",
+                "paratraznet",
+                "paratraznet_pericol",
+            ],
+            'Componenta Artistică': [
+                "strat_pictural",
+                "strat_pictural_pericol",
+                "obiecte_de_cult",
+                "obiecte_de_cult_pericol",
+                "mobilier",
+                "mobilier_pericol",
+            ]
+            }
+        advanced_conservare_filters = utils.get_chapter_filters(
             models.ConservarePage, conservare_filters_name)
 
-        valoare_filters_name =  [{
-            'Section 1': ["vechime", "integritate", "unicitate", "valoare_memoriala", "peisaj_cultural", "valoare_sit", "estetica", "mestesug", "pictura", "folosinta_actuala", "relevanta_actuala", "potential"]}]
-        valoare_filters = utils.get_chapter_filters(
+        valoare_filters_name =  {
+            '': ["vechime", "integritate", "unicitate", "valoare_memoriala", "peisaj_cultural", "valoare_sit", "estetica", "mestesug", "pictura", "folosinta_actuala", "relevanta_actuala", "potential"]}
+        advanced_valoare_filters = utils.get_chapter_filters(
             models.ValoarePage, valoare_filters_name)
 
         localitati_filters = []
@@ -204,12 +265,12 @@ class FiltersView(ViewSet):
                 {
                     'title': 'Conservare',
                     'key': 'conservare',
-                    'sections': conservare_filters,
+                    'sections': advanced_conservare_filters,
                 },
                 {
                     'title': 'Valoare',
                     'key': 'valoare',
-                    'sections': valoare_filters,
+                    'sections': advanced_valoare_filters,
                 },
             ]
         }

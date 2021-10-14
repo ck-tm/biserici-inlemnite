@@ -3,7 +3,7 @@ from django.db import models
 from django import forms
 
 from django.utils.html import format_html
-
+from django.contrib.postgres.fields import ArrayField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -193,6 +193,8 @@ class IdentificarePage(Page):
     longitudine = models.FloatField(null=True, blank=True)
     statut = models.ForeignKey('nomenclatoare.StatutBiserica', null=True,
                                blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
+    hram = models.ForeignKey('nomenclatoare.Hram', null=True,
+                               blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
     denumire_actuala = models.CharField(
         max_length=150, null=True, blank=True, verbose_name="Actuală")
     denumire_precedenta = models.CharField(
@@ -243,6 +245,12 @@ class IdentificarePage(Page):
             [
                 FieldPanel("statut")],
             heading="Statut",
+            classname="collapsible collapsed ",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("hram")],
+            heading="Hram",
             classname="collapsible collapsed ",
         ),
         MultiFieldPanel(
@@ -841,6 +849,7 @@ class DescrierePage(Page):
 
     ochiesi_aerisitoare = models.BooleanField(
         default=False, verbose_name='Ochieși / Aerisitoare ')
+    numar_ochiesi = models.IntegerField(default=0)
     ochiesi_aerisitoare_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -852,6 +861,8 @@ class DescrierePage(Page):
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    bolta_peste_pronaos_structura = ParentalManyToManyField(
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă pronaos", related_name='p_pronaos')
 
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
@@ -861,6 +872,8 @@ class DescrierePage(Page):
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    bolta_peste_naos_structura = ParentalManyToManyField(
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă naos", related_name='p_naos')
 
     bolta_peste_altar = models.ForeignKey('nomenclatoare.BoltaPesteAltar', null=True, blank=True,
                                           on_delete=models.SET_NULL, verbose_name='Boltă peste altar', related_name='p_biserici_bolta_peste_altar')
@@ -872,7 +885,8 @@ class DescrierePage(Page):
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Tipul de arc')
     bolta_peste_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
-
+    bolta_peste_altar_structura = ParentalManyToManyField(
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă altar", related_name='p_altar')
     cor = models.BooleanField(default=False)
     cor_material = ParentalManyToManyField(
         'nomenclatoare.Material', blank=True, related_name='p_biserici_cor')
@@ -904,7 +918,7 @@ class DescrierePage(Page):
 
     # Structura
     fundatia = models.ForeignKey('nomenclatoare.TipFundatie', null=True, blank=True,
-                                 on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
+                                 on_delete=models.SET_NULL, verbose_name='Structura fundației', related_name='p_biserici')
     fundatia_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
     sistem_in_cheotoare = models.ForeignKey('nomenclatoare.TipStructuraCheotoare', null=True,
@@ -921,13 +935,13 @@ class DescrierePage(Page):
     tiranti_numar = models.IntegerField(
         null=True, blank=True, verbose_name='Număr')
     tiranti_tip = models.ForeignKey('nomenclatoare.TipTiranti', null=True, blank=True,
-                                    on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
+                                    on_delete=models.SET_NULL, verbose_name='Tip Tiranți', related_name='p_biserici')
     tiranti_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
     # Finisaje
     finisaj_exterior_tip = ParentalManyToManyField(
-        'nomenclatoare.FinisajExterior', blank=True, verbose_name='Tip')
+        'nomenclatoare.FinisajExterior', blank=True, verbose_name='Finisaj exterior corp')
     finisaj_exterior_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1093,6 +1107,18 @@ class DescrierePage(Page):
     interventii_invelitoare_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
+
+    # Invisible fields
+    are_scanare_laser = models.BooleanField(default=False)
+    are_model_fotogrametric = models.BooleanField(default=False)
+    ansamblu_construit = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True
+        )
+    numar_clopote = models.IntegerField(default=0)
+
     api_fields = [
         APIField('amplasament'),
         APIField('poze_amplasament'),
@@ -1202,6 +1228,7 @@ class DescrierePage(Page):
         MultiFieldPanel(
             [
                 FieldPanel('ochiesi_aerisitoare'),
+                FieldPanel('numar_ochiesi'),
                 FieldPanel('ochiesi_aerisitoare_observatii'),
                 MultiFieldPanel(
                     [
@@ -1245,11 +1272,15 @@ class DescrierePage(Page):
                 FieldPanel('bolta_peste_pronaos'),
                 FieldPanel('bolta_peste_pronaos_material',
                            widget=forms.CheckboxSelectMultiple),
+                FieldPanel('bolta_peste_pronaos_structura',
+                           widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_pronaos_tipul_de_arc',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_pronaos_observatii'),
                 FieldPanel('bolta_peste_naos'),
                 FieldPanel('bolta_peste_naos_material',
+                           widget=forms.CheckboxSelectMultiple),
+                FieldPanel('bolta_peste_naos_structura',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_naos_tipul_de_arc',
                            widget=forms.CheckboxSelectMultiple),
@@ -1257,6 +1288,8 @@ class DescrierePage(Page):
                 FieldPanel('bolta_peste_altar'),
                 FieldPanel('bolta_peste_altar_tip'),
                 FieldPanel('bolta_peste_altar_material',
+                           widget=forms.CheckboxSelectMultiple),
+                FieldPanel('bolta_peste_altar_structura',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_altar_tipul_de_arc',
                            widget=forms.CheckboxSelectMultiple),
@@ -1605,6 +1638,20 @@ class DescrierePage(Page):
         return 2
 
 
+
+    def save(self, *args, **kwargs):
+
+        self.are_scanare_laser = False
+        self.are_model_fotogrametric = False
+
+        self.ansamblu_construit = [x.element.nume for x in self.elemente_ansamblu_construit.all()]
+        self.numar_clopote = len(self.clopote.all())
+
+        return super().save(*args, **kwargs)
+
+
+
+
 class Persoana(models.Model):
     nume = models.CharField(max_length=250)
     observatii = RichTextField(
@@ -1740,6 +1787,37 @@ class IstoricPage(Page):
     pisanie_secol_sursa = RichTextField(
         features=[], null=True, blank=True, verbose_name='Sursa')
 
+    are_pisanie = models.BooleanField(default=False, verbose_name='Pisanie')
+    are_studiu_dendro = models.BooleanField(default=False, verbose_name='Studiu Dendrocronologic')
+    are_mutari = models.BooleanField(default=False, verbose_name='Mutări')
+    lista_ctitori = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True,
+            verbose_name='Ctitori'
+        )
+    lista_mesteri = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True,
+            verbose_name='Meșteri'
+        )
+    lista_zugravi = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True,
+            verbose_name='Zugravi'
+        )
+    lista_personalitati = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True,
+            verbose_name='Personalități'
+        )
     istoric_panels = [
         MultiFieldPanel([
             FieldPanel('sursa_datare', widget=forms.CheckboxSelectMultiple),
@@ -1815,6 +1893,18 @@ class IstoricPage(Page):
 
         verbose_name = "Istoric"
         verbose_name_plural = "Istoric"
+
+
+    def save(self, *args, **kwargs):
+        self.are_pisanie = True if self.pisanie_traducere else False
+        self.are_studiu_dendro = True if self.studiu_dendocronologic_fisier else False
+        self.are_mutari = True if self.mutari.all() else False
+        self.lista_ctitori = [x.nume for x in self.ctitori.all()]
+        self.lista_mesteri = [x.nume for x in self.mesteri.all()]
+        self.lista_zugravi = [x.nume for x in self.zugravi.all()]
+        self.lista_personalitati = [x.nume for x in self.personalitati.all()]
+        return super().save(*args, **kwargs)
+
 
 
 class ValoarePage(Page):
@@ -2793,6 +2883,16 @@ class ComponentaArtisticaPage(Page):
     pictura_interioara_datare_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
+
+    # Invisible fields
+    elemente_interventii = ArrayField(
+            models.CharField(max_length=100, blank=True),
+            size=20,
+            null=True,
+            blank=True,
+            verbose_name='Element'
+        )
+
     general_panels = [
         MultiFieldPanel(
             [
@@ -2990,3 +3090,9 @@ class ComponentaArtisticaPage(Page):
 
         verbose_name = "Componenta Artistică"
         verbose_name_plural = "Componenta Artistică"
+
+    def save(self, *args, **kwargs):
+        self.elemente_interventii = [x.element.nume for x in self.etape_istorice_vizibile.all()]
+
+        return super().save(*args, **kwargs)
+

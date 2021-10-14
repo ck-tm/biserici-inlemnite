@@ -546,6 +546,61 @@ MATERIAL_INVELITOARE_TURLE = [
     "tencuială",
 
 ]
+
+HRAMURI = [
+    "Sfântul Andrei‎",
+    "Sfânta Ana‎",
+    "Sfântul Anton de Padova‎",
+    "Sfânta Barbara‎",
+    "Sfântul Bartolomeu‎",
+    "Buna Vestire‎",
+    "Sfântul Clement‎",
+    "Sfânta Cruce‎",
+    "Sfântul Dumitru‎",
+    "Sfântul Egidiu‎",
+    "Sfântul Francisc de Assisi‎",
+    "Sfântul Francisc Xavier‎",
+    "Sfântul Gheorghe‎",
+    "Sfântul Iacob‎",
+    "Sfântul Ilarie‎",
+    "Sfântul Ilie‎",
+    "Sfânta Inimă a lui Isus‎",
+    "Sfântul Ioan Botezătorul‎",
+    "Sfântul Ioan Evanghelistul‎",
+    "Sfântul Ioan Nepomuk‎",
+    "Sfântul Iosif‎",
+    "Înălțarea Domnului‎",
+    "Învierea Domnului‎",
+    "Sfântul Kilian‎",
+    "Sfântul Ladislau‎",
+    "Sfântul Laurențiu‎",
+    "Sfântul Lazăr‎",
+    "Sfântul Martin‎",
+    "Sfânta Maria‎",
+    "Sfânta Maria Magdalena‎",
+    "Sfântul Mauriciu‎",
+    "Sfântul Mihail‎",
+    "Sfântul Nicolae‎",
+    "Sfântul Petru‎",
+    "Sfântul Pavel‎",
+    "Sfântul Servatius‎",
+    "Toți Sfinții‎",
+    "Trei Ierarhi‎",
+    "Sfânta Treime‎",
+    "Sfântul Vasile‎",
+    "Sfântul Virgil‎",
+]
+
+
+MATERIALE_STRUCTURA_BOLTA = [
+    "metal", 
+    "lambriu", 
+    "blăni", 
+    "scândură", 
+    "scândură pe arce", 
+
+]
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
@@ -957,6 +1012,22 @@ class Command(BaseCommand):
             print(f"Import MATERIAL_INVELITOARE_TURLE: {nume} ")
             try:
                 models.MaterialInvelitoareTurle.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
+
+        for nume in HRAMURI:
+            print(f"Import HRAMURI: {nume} ")
+            try:
+                models.Hram.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
+
+        for nume in MATERIALE_STRUCTURA_BOLTA:
+            print(f"Import MATERIALE_STRUCTURA_BOLTA: {nume} ")
+            try:
+                models.MaterialeStructuraBolta.objects.get_or_create(
                     nume=nume)
             except:
                 pass

@@ -641,6 +641,23 @@ class MaterialeStructura(index.Indexed, models.Model):
 
 @register_snippet
 @register_model_chooser
+class MaterialeStructuraBolta(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale Structură Boltă"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
 class DimensiuneTurn(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -1354,6 +1371,23 @@ class MaterialInvelitoareTurle(models.Model):
 
     class Meta:
         verbose_name_plural = "Material învelitoare turle"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class Hram(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Hramuri"
         ordering = ['nume']
 
     def __str__(self):
