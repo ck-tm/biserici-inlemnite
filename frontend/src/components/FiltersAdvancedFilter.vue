@@ -5,22 +5,22 @@
         icon-right="add"
         type="is-black"
         :active="props.open"
-        :selected="model.values.length > 0"
+        :selected="model.length > 0"
         expanded
       >
         {{ filterData.title }}
 
-        <span class="tag" v-if="model.values.length">
-          ({{ model.values.length }})
+        <span class="tag" v-if="model.length">
+          ({{ model.length }})
         </span>
       </b-button>
     </template>
 
     <b-field>
       <b-checkbox
-        v-for="option in filterData.values"
-        :key="'option_' + filterData.key + option.id"
-        v-model="model.values"
+        v-for="(option, index) in filterData.values"
+        :key="'option_' + filterData.key + (option.id || index)"
+        v-model="model"
         :native-value="option.id"
         @input="update"
       >
@@ -34,7 +34,7 @@
 export default {
   name: 'FiltersAdvancedFilter',
   props: {
-    value: Object,
+    value: Array,
     filterData: Object,
   },
   data() {
@@ -46,12 +46,7 @@ export default {
   mounted() {},
   methods: {
     computeValue() {
-      return this.value
-        ? Object.assign({}, this.value)
-        : {
-            key: this.filterData.key,
-            values: [],
-          }
+      return this.value ? [...this.value] : []
     },
     update() {
       this.$emit('input', this.model)
