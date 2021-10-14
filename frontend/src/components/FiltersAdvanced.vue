@@ -65,7 +65,12 @@
         <b>{{ filterTotalCount }}</b> filtre active
       </div>
 
-      <b-button type="is-black" icon-left="trash" expanded @click="clearFilters">
+      <b-button
+        type="is-black"
+        icon-left="trash"
+        expanded
+        @click="clearFilters"
+      >
         Șterge filtrele
       </b-button>
     </div>
@@ -101,7 +106,7 @@ export default {
       let count = 0
 
       this.filterModel[key].forEach((e) => {
-        if (e) count += e.values.length
+        if (e) count += e.values.length ? 1 : 0
       })
 
       return count
