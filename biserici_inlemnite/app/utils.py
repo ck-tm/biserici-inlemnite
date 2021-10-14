@@ -115,7 +115,7 @@ def get_chapter_filters(model, filters_dict):
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
                     filters_list.append({
-                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.title(),
+                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name,
                         "key": field,
                         "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
                     })
@@ -123,13 +123,13 @@ def get_chapter_filters(model, filters_dict):
                     if model._meta.get_field(field).choices:
                         choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
                         filters_list.append({
-                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.title(),
+                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name,
                             "key": field,
                             "values": [choices[x] for x in section_filters[field]]
                         })
                     else:
                         filters_list.append({
-                            "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.title(),
+                            "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name,
                             "key": field,
                             "values": section_filters[field]
                         })
