@@ -1,14 +1,19 @@
 <template>
   <div>
-    <section v-for="(filter, index) in filterData.filters" :key="filter.key">
-      <label class="label is-small is-hidden">
-        {{ filter.title }}
+    <section
+      v-for="(section, index) in filterData.sections"
+      :key="'section_' + filterData.key + index"
+    >
+      <label class="label is-small is-sticky" v-if="section.title.length">
+        {{ section.title }}
       </label>
 
       <FiltersAdvancedFilter
-        v-model="model[index]"
+        v-for="filter in section.filters"
+        :key="filter.key"
+        v-model="model[filter.key]"
         :filterData="filter"
-        @input="update"
+        @input="update(filter.key)"
       />
     </section>
   </div>
@@ -16,32 +21,29 @@
 
 <script>
 import FiltersAdvancedFilter from '@/components/FiltersAdvancedFilter'
+
 export default {
   name: 'FiltersAdvancedSection',
   components: { FiltersAdvancedFilter },
   props: {
     filterData: null,
-    value: Array,
+    value: Object,
   },
   data() {
     return {
       model: this.computeValue(),
-      active: {},
     }
   },
   mounted() {},
   methods: {
     computeValue() {
-      return this.value ? [...this.value] : []
+      return this.value ? { ...this.value } : {}
     },
-    update() {
-      // console.log('[update]', event, key, this.model)
+    update(key) {
+      if (!this.model[key].length) this.$delete(this.model, key)
+
       this.$emit('input', this.model)
     },
-    toggleFilter(key) {
-      this.$set(this.active, key, true)
-    },
-    submit() {},
   },
   watch: {
     value() {

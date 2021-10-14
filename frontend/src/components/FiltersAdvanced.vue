@@ -26,11 +26,8 @@
         <template #header>
           <p>
             <span v-text="section.title" />
-            <span
-              class="tag"
-              v-if="filterModel[section.key] && getFilterCount(section.key)"
-            >
-              ({{ getFilterCount(section.key) }})
+            <span class="tag" v-if="filterModel[section.key]">
+              ({{ counters[section.key] }})
             </span>
           </p>
           <b-icon icon="arrow-forward" />
@@ -43,7 +40,7 @@
             <FiltersAdvancedSection
               v-model="filterModel[section.key]"
               :filterData="section"
-              @input="update"
+              @input="update(section.key)"
             />
           </div>
         </template>
@@ -79,7 +76,7 @@
 
 <script>
 import FiltersAdvancedSection from '@/components/FiltersAdvancedSection'
-import ApiService from '@/services/api'
+// import ApiService from '@/services/api'
 
 export default {
   name: 'FiltersAdvanced',
@@ -92,6 +89,7 @@ export default {
       active: { tab: 0 },
       filterModel: {},
       resultCount: null,
+      counters: {},
     }
   },
   mounted() {},
@@ -99,61 +97,23 @@ export default {
     toggleTab() {
       if (this.active.tab) this.active.tab = 0
     },
-    loadLocalities() {
-      this.update()
-    },
-    getFilterCount(key) {
-      let count = 0
-
-      this.filterModel[key].forEach((e) => {
-        if (e) count += e.values.length ? 1 : 0
-      })
-
-      return count
-    },
     clearFilters() {
       this.filterModel = {}
     },
-    updateFilter() {
-      // if (this.filterModel) {}
-    },
-    update() {
+    update(key) {
+      if (!Object.keys(this.filterModel[key]).length) {
+        this.$delete(this.filterModel, key)
+        this.$delete(this.counters, key)
+      } else {
+        this.$set(this.counters, key, Object.keys(this.filterModel[key]).length)
+      }
+
       this.$store.commit('setFiltersAdvanced', this.filterModel)
-
-      let postData = []
-
-      Object.keys(this.filterModel).forEach((key) => {
-        if (this.filterModel[key].length) {
-          let cleanFilters = this.filterModel[key].filter(
-            (e) => e != null && e.values.length
-          )
-
-          if (cleanFilters.length)
-            postData.push({
-              [key]: cleanFilters,
-            })
-        }
-      })
-
-      ApiService.post(
-        '/filters/preview/',
-        postData.length ? postData : undefined
-      ).then((response) => {
-        this.resultCount = postData.length ? response.count : null
-      })
     },
   },
   computed: {
     filterTotalCount() {
-      let count = 0
-
-      Object.keys(this.filterModel).forEach((key) => {
-        if (this.filterModel[key].length) {
-          count += this.getFilterCount(key)
-        }
-      })
-
-      return count
+      return Object.keys(this.counters).reduce((sum, e) => sum + this.counters[e], 0)
     },
   },
 }

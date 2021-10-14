@@ -4,6 +4,12 @@ $loading-background: rgba(0, 0, 0, 0.5);
 $dropdown-background-color: $black;
 $loading-background-legacy: $black;
 
+$checkbox-background-color: $grey;
+$checkbox-border-color: $grey-light;
+$checkbox-border-radius: $size-3;
+$checkbox-border-width: 1px;
+$checkbox-size: $size-3;
+
 @import 'buefy/src/scss/components/_checkbox.scss';
 @import 'buefy/src/scss/components/_dropdown.scss';
 // @import 'buefy/src/scss/components/_datepicker.scss';
@@ -26,8 +32,6 @@ $loading-background-legacy: $black;
 // @import 'buefy/src/scss/components/_upload.scss';
 
 
-.b-checkbox.checkbox input[type=checkbox] + .check {
-  border-radius: $size-3;
-  width: $size-3;
-  height: $size-3;
+.b-checkbox.checkbox input[type=checkbox]:checked + .check {
+  background-size: 16px !important;
 }
