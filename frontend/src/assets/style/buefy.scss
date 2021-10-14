@@ -24,3 +24,10 @@ $loading-background-legacy: $black;
 // @import 'buefy/src/scss/components/_taginput.scss';
 // @import 'buefy/src/scss/components/_tooltip.scss';
 // @import 'buefy/src/scss/components/_upload.scss';
+
+
+.b-checkbox.checkbox input[type=checkbox] + .check {
+  border-radius: $size-3;
+  width: $size-3;
+  height: $size-3;
+}
