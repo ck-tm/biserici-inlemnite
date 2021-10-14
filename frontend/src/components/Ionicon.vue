@@ -18,6 +18,7 @@ const componentList = {
   People: 'md-people',
   Person: 'md-person',
   Search: 'md-search',
+  Trash: 'md-trash',
   Warning: 'ios-warning',
 }
 

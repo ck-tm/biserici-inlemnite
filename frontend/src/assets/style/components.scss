@@ -50,6 +50,31 @@ nav.navbar {
       padding-left: 32px;
     }
 
+    .filter-actions {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 24px 32px;
+      background: $black;
+
+      .results {
+        background: $white;
+        color: $black;
+        border-radius: $radius-large;
+        padding: 9px 0 7px 0;
+        text-align: center;
+        font-size: $size-6;
+      }
+
+      .button {
+        font-size: $size-7;
+
+        .icon {
+          font-size: $size-4;
+        }
+      }
+    }
+
     .b-tabs {
       overflow: visible;
 
@@ -62,8 +87,11 @@ nav.navbar {
         flex: 1;
 
         ul li {
+          white-space: normal;
+
           a {
             justify-content: space-between;
+            text-align: left;
           }
 
           &.is-active a {
@@ -128,6 +156,8 @@ nav.navbar {
             border-bottom: 1px solid $grey;
             height: 60px;
             transition: border-color .2s;
+            white-space: normal;
+            text-align: left;
 
             .icon {
               font-size: 24px;

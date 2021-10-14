@@ -24,7 +24,15 @@
         class="is-full-height"
       >
         <template #header>
-          <span v-text="section.title" />
+          <p>
+            <span v-text="section.title" />
+            <span
+              class="tag"
+              v-if="filterModel[section.key] && getFilterCount(section.key)"
+            >
+              ({{ getFilterCount(section.key) }})
+            </span>
+          </p>
           <b-icon icon="arrow-forward" />
         </template>
 
@@ -51,6 +59,16 @@
         </b-button>
       </div>
     </b-tabs>
+
+    <div class="filter-actions" v-if="filterTotalCount">
+      <div class="results">
+        <b>{{ filterTotalCount }}</b> filtre active
+      </div>
+
+      <b-button type="is-black" icon-left="trash" expanded @click="clearFilters">
+        Șterge filtrele
+      </b-button>
+    </div>
   </div>
 </template>
 
@@ -78,6 +96,18 @@ export default {
     },
     loadLocalities() {
       this.update()
+    },
+    getFilterCount(key) {
+      let count = 0
+
+      this.filterModel[key].forEach((e) => {
+        if (e) count += e.values.length
+      })
+
+      return count
+    },
+    clearFilters() {
+      this.filterModel = {}
     },
     updateFilter() {
       // if (this.filterModel) {}
@@ -108,7 +138,19 @@ export default {
       })
     },
   },
-  computed: {},
+  computed: {
+    filterTotalCount() {
+      let count = 0
+
+      Object.keys(this.filterModel).forEach((key) => {
+        if (this.filterModel[key].length) {
+          count += this.getFilterCount(key)
+        }
+      })
+
+      return count
+    },
+  },
 }
 </script>
 
