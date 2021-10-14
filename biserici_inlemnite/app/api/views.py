@@ -235,8 +235,8 @@ class FiltersView(ViewSet):
 
         response = {
             'basic': {
-                'judete': judete_filters,
-                'localitati': localitati_filters,
+                'judet': judete_filters,
+                'localitate': localitati_filters,
                 'conservare': conservare_filters,
                 'valoare': valoare_filters,
                 'prioritizare': prioritizare_filters,

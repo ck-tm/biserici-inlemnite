@@ -142,21 +142,48 @@ def get_chapter_filters(model, filters_dict):
                 })
     return sections_list
 
-
+# "advanced": {
+#     "descriere": {
+#         "amplasament": [1]
+#     },
+#     "conservare": {
+#         "sit": [3,5]
+#     }
+# }, 
+# "basic": {
+#     "judete": [1],
+#     "localitati": [1],
+#     "conservare": [1],
+#     "valoare": [1],
+#     "prioritizare": [1],
+# }
 
 def filter_biserici(data):
+
     biserici_paths = []
     i = 0
-    for item in data:
-        for nume_capitol, capitol_filters in item.items():
-            filters = {}
-            for indicator in capitol_filters:
-                filters[f"{indicator['key']}__in"] = indicator['values']
-            capitole_pages = map_capitole[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
-            if i < 1:
-                biserici_paths = set([x[:12] for x in capitole_pages])
-            else:
-                biserici_paths = biserici_paths.intersection(set([x[:12] for x in capitole_pages]))
-            i += 1
-    biserici = models.BisericaPage.objects.filter(path__in=biserici_paths)
+
+    for nume_capitol, capitol_filters in data.get('advanced', {}).items():
+        filters = {}
+        for indicator, indicator_values in capitol_filters.items():
+            filters[f"{indicator}__in"] = indicator_values
+        capitole_pages = map_capitole[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
+        if i < 1:
+            biserici_paths = set([x[:12] for x in capitole_pages])
+        else:
+            biserici_paths = biserici_paths.intersection(set([x[:12] for x in capitole_pages]))
+        i += 1
+    if data.get('advanced', {}):
+        filters = {
+            'path__in': biserici_paths
+        }
+    else:
+        filters = {}
+    for indicator, indicator_values in data['basic'].items():
+        filters[f"{indicator}__in"] = indicator_values
+    pprint(filters)
+    if filters:
+        biserici = models.BisericaPage.objects.filter(**filters)
+
+    biserici = models.BisericaPage.objects.filter(**filters)
     return biserici
