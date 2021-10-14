@@ -46,22 +46,28 @@ class BisericaViewSet(ModelViewSet):
         serializer = serializers.BisericaListSerializer(biserici, many=True)
         return Response(serializer.data)
 
+
+
 class FiltersView(ViewSet):
 
     def list(self, request):
         """
         Return a list of all users.
         """
-        identificare_filters_name = ['statut', 'cult', 'utilizare', 'singularitate', 'functiune',
+        identificare_filters_name = [{
+            '': ['statut', 'cult', 'utilizare', 'singularitate', 'functiune',
                                      'functiune_initiala', 'proprietate_actuala']
+             }]
         identificare_filters = utils.get_chapter_filters(
             models.IdentificarePage, identificare_filters_name)
 
-        istoric_filters_name = ['datare_secol', 'sursa_datare']
+        istoric_filters_name = [{
+            'Section 1': ['datare_secol', 'sursa_datare']}]
         istoric_filters = utils.get_chapter_filters(
             models.IstoricPage, istoric_filters_name)
 
-        descriere_filters_name = ["amplasament", "topografie", "relatia_cu_cimitirul",
+        descriere_filters_name = [{
+            'Section 1': ["amplasament", "topografie", "relatia_cu_cimitirul",
                                   "turn_dimensiune", "turn_tip", "turn_plan", "turn_amplasare",
                                   "turn_galerie", "turn_asezare_talpi", "turn_relatie_talpi", "sarpanta_material_cruci",
                                   "bolta_peste_pronaos", "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_altar_tip",
@@ -86,10 +92,12 @@ class FiltersView(ViewSet):
                                   "bolta_peste_pronaos_tipul_de_arc", "bolta_peste_naos_material", "bolta_peste_naos_tipul_de_arc",
                                   "bolta_peste_altar_material", "bolta_peste_altar_tipul_de_arc", "cor_material", "turle_pozitionare",
                                   "finisaj_exterior_tip", "invelitoare_turle_material"]
+                      }]
         descriere_filters = utils.get_chapter_filters(
             models.DescrierePage, descriere_filters_name)
 
-        componenta_artistica_name = [
+        componenta_artistica_name = [{
+            'Section 1': [
                     "iconostas_naos_altar_tip", "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_material",
                     "altar_decor", "pictura_exterioara_localizare", "pictura_exterioara_tehnica", "pictura_exterioara_datare_secol",
                     "pictura_interioara_localizare", "pictura_interioara_tehnica_pictura", "pictura_interioara_datare_secol",
@@ -97,15 +105,18 @@ class FiltersView(ViewSet):
                     "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi", "iconostas_naos_altar_materiale",
                     "iconostas_pronaos_naos_tehnica", "altar_placa_mesei", "altar_piciorul_mesei", "pictura_exterioara_suport",
                     "pictura_exterioara_sursa_datare", "pictura_interioara_suport", "pictura_interioara_sursa_datare"]
+                     }]
         componenta_artistica_filters = utils.get_chapter_filters(
             models.ComponentaArtisticaPage, componenta_artistica_name)
 
 
-        conservare_filters_name = ["sit", "elemente_arhitecturale", "alte_elemente_importante", "vegetatie", "teren", "fundatii", "talpi", "corp_biserica", "bolti", "cosoroabe", "sarpanta_peste_corp_biserica", "turn", "zona_din_jurul_biserici", "pardoseli_interioare", "finisaj_exterior", "finisaj_pereti_interiori", "finisaj_tavane_si_bolti", "tamplarii", "invelitoare_sarpanta_si_turn", "instalatie_electrica", "instalatie_termica", "paratraznet", "strat_pictural", "obiecte_de_cult", "mobilier"]
+        conservare_filters_name = [{
+            'Section 1': ["sit", "elemente_arhitecturale", "alte_elemente_importante", "vegetatie", "teren", "fundatii", "talpi", "corp_biserica", "bolti", "cosoroabe", "sarpanta_peste_corp_biserica", "turn", "zona_din_jurul_biserici", "pardoseli_interioare", "finisaj_exterior", "finisaj_pereti_interiori", "finisaj_tavane_si_bolti", "tamplarii", "invelitoare_sarpanta_si_turn", "instalatie_electrica", "instalatie_termica", "paratraznet", "strat_pictural", "obiecte_de_cult", "mobilier"]}]
         conservare_filters = utils.get_chapter_filters(
             models.ConservarePage, conservare_filters_name)
 
-        valoare_filters_name = ["vechime", "integritate", "unicitate", "valoare_memoriala", "peisaj_cultural", "valoare_sit", "estetica", "mestesug", "pictura", "folosinta_actuala", "relevanta_actuala", "potential"]
+        valoare_filters_name =  [{
+            'Section 1': ["vechime", "integritate", "unicitate", "valoare_memoriala", "peisaj_cultural", "valoare_sit", "estetica", "mestesug", "pictura", "folosinta_actuala", "relevanta_actuala", "potential"]}]
         valoare_filters = utils.get_chapter_filters(
             models.ValoarePage, valoare_filters_name)
 
@@ -173,32 +184,32 @@ class FiltersView(ViewSet):
                 {
                     'title': 'Identificare',
                     'key': 'identificare',
-                    'filters': identificare_filters,
+                    'sections': identificare_filters,
                 },
                 {
                     'title': 'Istoric',
                     'key': 'istoric',
-                    'filters': istoric_filters,
+                    'sections': istoric_filters,
                 },
                 {
                     'title': 'Descriere Arhitectură / Peisaj',
                     'key': 'descriere',
-                    'filters': descriere_filters,
+                    'sections': descriere_filters,
                 },
                 {
                     'title': 'Descriere Componenta Artistică',
                     'key': 'componenta_artistica',
-                    'filters': componenta_artistica_filters,
+                    'sections': componenta_artistica_filters,
                 },
                 {
                     'title': 'Conservare',
                     'key': 'conservare',
-                    'filters': conservare_filters,
+                    'sections': conservare_filters,
                 },
                 {
                     'title': 'Valoare',
                     'key': 'valoare',
-                    'filters': valoare_filters,
+                    'sections': valoare_filters,
                 },
             ]
         }
