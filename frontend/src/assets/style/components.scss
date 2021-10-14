@@ -95,7 +95,7 @@ nav.navbar {
         }
 
         .container-scroll {
-          padding: 24px;
+          padding: 24px 24px 80px 24px;
           overflow: auto;
           max-height: 100%;
 
@@ -112,7 +112,6 @@ nav.navbar {
         .results {
           position: absolute;
           bottom: 0;
-          height: 80px;
           padding: 16px 16px 16px 56px;
           background-color: $grey;
           width: 100%;
@@ -125,8 +124,30 @@ nav.navbar {
         .collapse {
           .collapse-trigger .button {
             justify-content: space-between;
-            padding: 20px 12px 20px 32px;
+            padding: 0 12px 0 32px;
             border-bottom: 1px solid $grey;
+            height: 60px;
+            transition: border-color .2s;
+
+            .icon {
+              font-size: 24px;
+              transition: transform 0.15s;
+            }
+
+            &.is-active {
+              .icon {
+                transform: rotate(45deg);
+              }
+            }
+
+            &.is-selected {
+              font-weight: 700;
+              border-bottom: 1px solid $grey-lighter;
+
+              .icon {
+                color: $primary;
+              }
+            }
           }
 
           .collapse-content {

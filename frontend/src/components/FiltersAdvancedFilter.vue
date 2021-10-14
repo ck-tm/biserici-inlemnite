@@ -1,14 +1,19 @@
 <template>
-  <b-collapse animation="slide" @click="active = !active">
-    <template #trigger>
+  <b-collapse animation="slide" @click="active = !active" :open="active">
+    <template #trigger="props">
       <b-button
         icon-right="add"
-        :label="
-          filterData.title + (model.values ? ` (${model.values.length})` : '')
-        "
         type="is-black"
+        :active="props.open"
+        :selected="model.values.length > 0"
         expanded
-      />
+      >
+        {{ filterData.title }}
+
+        <span class="tag" v-if="model.values.length">
+          ({{ model.values.length }})
+        </span>
+      </b-button>
     </template>
 
     <b-field>
