@@ -115,7 +115,7 @@ def get_chapter_filters(model, filters_dict):
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
                     filters_list.append({
-                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name,
+                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
                         "key": field,
                         "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
                     })
