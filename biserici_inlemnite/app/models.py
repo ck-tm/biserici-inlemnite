@@ -109,7 +109,7 @@ class ReadOnlyPanel(EditHandler):
             '<label>{}{}</label>'
             '<div class="field-content">{}</div>'
             '</div>',
-            self.heading, _(':'), self.render())
+            self.heading, ':', self.render())
 
 
 class HomePage(Page):
@@ -127,6 +127,20 @@ class HomePage(Page):
 
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"
+
+
+class PozeBiserica(Orderable):
+    page = ParentalKey('BisericaPage',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
 
 
 class BisericaPage(Page):
@@ -153,18 +167,35 @@ class BisericaPage(Page):
     conservare = models.IntegerField(null=True, blank=True)
     prioritizare = models.IntegerField(null=True, blank=True)
 
+    datare_prin_interval_timp = models.CharField(
+        max_length=50, null=True, blank=True)
+    datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True,
+                                     blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
     promote_panels = []
 
     content_panels = Page.content_panels + [
         # ModelChooserPanel("judet", disabled=True),
-        ReadOnlyPanel("judet", heading="Judet"),
-        ReadOnlyPanel("localitate", heading="localitate"),
-        ReadOnlyPanel("adresa", heading="adresa"),
-        ReadOnlyPanel("latitudine", heading="latitudine"),
-        ReadOnlyPanel("longitudine", heading="longitudine"),
-        ReadOnlyPanel("valoare", heading="Clasa valoare"),
-        ReadOnlyPanel("conservare", heading="Nota conservare"),
-        ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
+        MultiFieldPanel([
+            InlinePanel("poze", label="Poză")
+        ],
+            heading='Poze',
+            classname='collapsible'
+        ),
+        MultiFieldPanel([
+            ReadOnlyPanel("judet", heading="Judet"),
+            ReadOnlyPanel("localitate", heading="localitate"),
+            ReadOnlyPanel("adresa", heading="adresa"),
+            ReadOnlyPanel("latitudine", heading="latitudine"),
+            ReadOnlyPanel("longitudine", heading="longitudine"),
+            ReadOnlyPanel("datare_prin_interval_timp", heading="Interval Datare"),
+            ReadOnlyPanel("datare_secol", heading="Secol Datare"),
+            ReadOnlyPanel("valoare", heading="Clasa valoare"),
+            ReadOnlyPanel("conservare", heading="Nota conservare"),
+            ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
+        ],
+            heading='Hidden',
+            classname='collapsible'
+        ),
     ]
 
     # def get_children(self):
@@ -1896,6 +1927,15 @@ class IstoricPage(Page):
 
 
     def save(self, *args, **kwargs):
+
+        biserica = self.get_parent().specific
+        biserica.datare_secol = self.datare_secol
+        biserica.datare_prin_interval_timp = self.datare_prin_interval_timp
+        biserica.save_revision().publish()
+
+
+
+
         self.are_pisanie = True if self.pisanie_traducere else False
         self.are_studiu_dendro = True if self.studiu_dendocronologic_fisier else False
         self.are_mutari = True if self.mutari.all() else False
