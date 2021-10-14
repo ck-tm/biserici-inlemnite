@@ -1,8 +1,8 @@
 <template>
   <div>
     <section
-      v-for="(section, index) in filterData.sections"
-      :key="'section_' + filterData.key + index"
+      v-for="(section, index) in filters.sections"
+      :key="'section_' + filters.key + index"
     >
       <label class="label is-small is-sticky" v-if="section.title.length">
         {{ section.title }}
@@ -12,7 +12,7 @@
         v-for="filter in section.filters"
         :key="filter.key"
         v-model="model[filter.key]"
-        :filterData="filter"
+        :filter="filter"
         @input="update(filter.key)"
       />
     </section>
@@ -26,7 +26,7 @@ export default {
   name: 'FiltersAdvancedSection',
   components: { FiltersAdvancedFilter },
   props: {
-    filterData: null,
+    filters: null,
     value: Object,
   },
   data() {

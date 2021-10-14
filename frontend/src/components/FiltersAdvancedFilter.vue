@@ -8,7 +8,7 @@
         :selected="model.length > 0"
         expanded
       >
-        {{ filterData.title }}
+        {{ filter.title }}
 
         <span class="tag" v-if="model.length">
           ({{ model.length }})
@@ -18,8 +18,8 @@
 
     <b-field>
       <b-checkbox
-        v-for="(option, index) in filterData.values"
-        :key="'option_' + filterData.key + (option.id || index)"
+        v-for="(option, index) in filter.values"
+        :key="'option_' + filter.key + (option.id || index)"
         v-model="model"
         :native-value="option.id"
         @input="update"
@@ -35,7 +35,7 @@ export default {
   name: 'FiltersAdvancedFilter',
   props: {
     value: Array,
-    filterData: Object,
+    filter: Object,
   },
   data() {
     return {

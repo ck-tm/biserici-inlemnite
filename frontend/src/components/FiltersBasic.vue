@@ -3,9 +3,9 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.judet"
-        :options="filterData.judete"
+        :options="filters.judet"
         label="Județ"
-        @input="loadLocalities"
+        @input="filterLocalities"
       />
     </div>
     <div class="column">
@@ -19,7 +19,7 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.conservare"
-        :options="filterData.conservare"
+        :options="filters.conservare"
         label="Stare de conservare"
         @input="update"
       />
@@ -27,7 +27,7 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.valoare"
-        :options="filterData.valoare"
+        :options="filters.valoare"
         label="Valoare patrimoniu"
         @input="update"
       />
@@ -35,7 +35,7 @@
     <div class="column">
       <FiltersDropdown
         v-model="filterModel.prioritizare"
-        :options="filterData.prioritizare"
+        :options="filters.prioritizare"
         label="Prioritizare"
         @input="update"
       />
@@ -50,31 +50,32 @@ export default {
   name: 'FiltersBasic',
   components: { FiltersDropdown },
   props: {
-    filterData: Object,
+    filters: Object,
   },
   data() {
     return {
-      localities: this.filterData.localitati,
+      localities: this.filters.localitate,
       filterModel: {
-        judet: null,
-        localitate: null,
-        conservare: null,
-        valoare: null,
-        prioritizare: null,
+        // judet: [],
+        // localitate: [],
+        // conservare: [],
+        // valoare: [],
+        // prioritizare: [],
       },
     }
   },
   mounted() {},
   methods: {
-    loadLocalities() {
-      this.localities = this.filterData.localitati.filter(
-        (e) => e.judet == this.filterModel.judet.id
+    filterLocalities() {
+      this.localities = this.filters.localitate.filter(
+        (e) => e.judet == this.filterModel.judet[0]
       )
 
       this.update()
     },
     update() {
       this.$store.commit('setFiltersBasic', this.filterModel)
+      this.$store.dispatch('getMapData')
     },
   },
   computed: {},

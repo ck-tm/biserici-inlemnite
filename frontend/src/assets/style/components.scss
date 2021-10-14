@@ -27,11 +27,14 @@ nav.navbar {
 
   .container-interface {
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   #filters-basic {
     padding: 22px 32px;
     border-bottom: 1px solid $grey;
+    z-index: 38;
 
     .columns {
       width: 100%;
@@ -144,6 +147,7 @@ nav.navbar {
             border-bottom: 1px solid $grey;
             font-weight: 700;
             margin-bottom: 0;
+            margin-top: 24px;
           }
         }
 
@@ -153,6 +157,7 @@ nav.navbar {
           padding: 16px 16px 16px 56px;
           background-color: $grey;
           width: 100%;
+          z-index: 3;
 
           .button {
             width: 170px;
@@ -252,6 +257,25 @@ nav.navbar {
       .icon:last-child {
         margin-left: auto;
       }
+    }
+  }
+}
+
+#map {
+  flex: 1;
+
+  .leaflet-container {
+    .leaflet-pane {
+      z-index: 36;
+    }
+
+    .leaflet-top,
+    .leaflet-bottom {
+      z-index: 37;
+    }
+
+    .leaflet-tile {
+      filter: hue-rotate(10deg) brightness(0.75) !important;
     }
   }
 }

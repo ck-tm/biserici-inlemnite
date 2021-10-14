@@ -19,7 +19,7 @@
       <b-tab-item key="tab-null" :visible="false"></b-tab-item>
 
       <b-tab-item
-        v-for="section in filterData"
+        v-for="section in filters"
         :key="'tab-' + section.key"
         class="is-full-height"
       >
@@ -39,7 +39,7 @@
 
             <FiltersAdvancedSection
               v-model="filterModel[section.key]"
-              :filterData="section"
+              :filters="section"
               @input="update(section.key)"
             />
           </div>
@@ -47,7 +47,12 @@
       </b-tab-item>
 
       <div class="results" v-if="resultCount != null">
-        <b-button type="is-primary" class="has-text-weight-bold">
+        <b-button
+          type="is-primary"
+          class="has-text-weight-bold"
+          :loading="loading"
+          @click="applyFilters"
+        >
           <span v-if="resultCount">
             Vezi {{ resultCount }}
             {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
@@ -76,13 +81,14 @@
 
 <script>
 import FiltersAdvancedSection from '@/components/FiltersAdvancedSection'
-// import ApiService from '@/services/api'
+import ApiService from '@/services/api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'FiltersAdvanced',
   components: { FiltersAdvancedSection },
   props: {
-    filterData: Array,
+    filters: Array,
   },
   data() {
     return {
@@ -90,6 +96,7 @@ export default {
       filterModel: {},
       resultCount: null,
       counters: {},
+      loading: false,
     }
   },
   mounted() {},
@@ -101,19 +108,37 @@ export default {
       this.filterModel = {}
     },
     update(key) {
+      // remove empty keys / create non-existent
       if (!Object.keys(this.filterModel[key]).length) {
         this.$delete(this.filterModel, key)
         this.$delete(this.counters, key)
-      } else {
+      } else
         this.$set(this.counters, key, Object.keys(this.filterModel[key]).length)
-      }
 
+      this.loading = true
+
+      ApiService.post('/filters/preview/', {
+        advanced: this.filterModel,
+        basic: this.filterBasic,
+      }).then((response) => {
+        this.resultCount = response.count
+        this.loading = false
+      })
+    },
+    applyFilters() {
       this.$store.commit('setFiltersAdvanced', this.filterModel)
+      this.$store.dispatch('getMapData')
+
+      this.active.tab = 0
     },
   },
   computed: {
+    ...mapState({ filterBasic: (state) => state.filterData.basic }),
     filterTotalCount() {
-      return Object.keys(this.counters).reduce((sum, e) => sum + this.counters[e], 0)
+      return Object.keys(this.counters).reduce(
+        (sum, e) => sum + this.counters[e],
+        0
+      )
     },
   },
 }

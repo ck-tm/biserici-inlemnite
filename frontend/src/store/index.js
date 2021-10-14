@@ -7,14 +7,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    data: null,
     profileId: null,
     filters: null,
-    filterData: { basic: null, advanced: null },
+    filterData: { basic: {}, advanced: {} },
+    mapData: null,
   },
   mutations: {
-    setData(state, data) {
-      state.data = data
+    setMapData(state, data) {
+      state.mapData = data
     },
     setProfileId(state, data) {
       state.profileId = data
@@ -36,15 +36,19 @@ export default new Vuex.Store({
       })
     },
 
-    getData({ commit }) {
-      return ApiService.get('/map/').then((response) => {
-        commit('setData', response)
-      })
+    getMapData({ commit, state }) {
+      return Object.keys(state.filterData.basic).length ||
+        Object.keys(state.filterData.advanced).length
+        ? ApiService.post('/map/', state.filterData).then((response) => {
+            commit('setMapData', response)
+          })
+        : ApiService.get('/map/').then((response) => {
+            commit('setMapData', response)
+          })
     },
   },
   modules: {},
   getters: {
-    profile: (state) =>
-      state.grid.profiles.find((e) => e.id == state.profileId),
+    profile: (state) => state.mapData.find((e) => e.id == state.profileId),
   },
 })

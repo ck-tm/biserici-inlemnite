@@ -13,7 +13,7 @@
     >
       <template #trigger>
         <b-button
-          :label="model ? model.value : 'Toate'"
+          :label="model ? options.find((e) => e.id == model[0]).value : 'Toate'"
           icon-right="arrow-down"
           size="is-small"
           expanded
@@ -23,7 +23,7 @@
       <b-dropdown-item
         v-for="item of options"
         :key="item.id"
-        :value="item"
+        :value="[item.id]"
         aria-role="listitem"
       >
         {{ item.value }}

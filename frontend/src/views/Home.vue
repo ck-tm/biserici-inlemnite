@@ -1,15 +1,15 @@
 <template>
   <div id="main-interface" class="is-full-height">
     <div id="filters-advanced" class="filters">
-      <FiltersAdvanced v-if="filters" :filterData="filters.advanced" />
+      <FiltersAdvanced v-if="filters" :filters="filters.advanced" />
     </div>
 
     <div class="container-interface">
       <div id="filters-basic" class="filters">
-        <FiltersBasic v-if="filters" :filterData="filters.basic" />
+        <FiltersBasic v-if="filters" :filters="filters.basic" />
       </div>
 
-      // MAP
+      <Map />
     </div>
 
     <b-loading :is-full-page="false" v-model="loading" />
@@ -19,16 +19,17 @@
 <script>
 import FiltersBasic from '@/components/FiltersBasic'
 import FiltersAdvanced from '@/components/FiltersAdvanced'
-import { DummyFilters } from '@/services/utils'
+import Map from '@/components/Map'
+
 import ApiService from '@/services/api'
 // import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { FiltersBasic, FiltersAdvanced },
+  components: { FiltersBasic, FiltersAdvanced, Map },
   data() {
     return {
-      filters: DummyFilters,
+      filters: null,
       loading: true,
     }
   },
@@ -38,6 +39,8 @@ export default {
       .then((response) => {
         this.filters = response
         this.loading = false
+
+        this.$store.dispatch('getMapData')
       })
       .catch(() => {
         this.loading = false
