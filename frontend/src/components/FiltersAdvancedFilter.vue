@@ -10,27 +10,27 @@
       >
         {{ filter.title }}
 
-        <span class="tag" v-if="model.length">
-          ({{ model.length }})
-        </span>
+        <span class="tag" v-if="model.length"> ({{ model.length }}) </span>
       </b-button>
     </template>
 
     <b-field>
       <b-checkbox
         v-for="(option, index) in filter.values"
-        :key="'option_' + filter.key + (option.id || index)"
+        :key="'option_' + filter.key + index"
         v-model="model"
         :native-value="option.id"
         @input="update"
       >
-        {{ option.nume }}
+        {{ displayValue(option.nume) }}
       </b-checkbox>
     </b-field>
   </b-collapse>
 </template>
 
 <script>
+import { BooleanOptions } from '@/services/utils'
+
 export default {
   name: 'FiltersAdvancedFilter',
   props: {
@@ -47,6 +47,11 @@ export default {
   methods: {
     computeValue() {
       return this.value ? [...this.value] : []
+    },
+    displayValue(value) {
+      if (typeof value == 'boolean') return BooleanOptions[value.toString()]
+
+      return value
     },
     update() {
       this.$emit('input', this.model)

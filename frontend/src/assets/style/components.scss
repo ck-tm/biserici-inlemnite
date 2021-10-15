@@ -275,7 +275,7 @@ nav.navbar {
     }
 
     .leaflet-tile {
-      filter: hue-rotate(10deg) brightness(0.65) !important;
+      filter: hue-rotate(30deg) saturate(2) brightness(0.85)  !important;
     }
   }
 }

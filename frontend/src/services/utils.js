@@ -1,87 +1,12 @@
-const Colors = {}
-
-const DummyFilters = {
-  basic: {
-    judete: [
-      {
-        id: 3,
-        value: 'Arad',
-      },
-    ],
-    localitati: [
-      {
-        id: 8,
-        value: 'Corbesti',
-        judet: 3,
-      },
-    ],
-    conservare: [],
-    valoare: [],
-    prioritizare: [],
-  },
-  advanced: [
-    {
-      title: 'Identificare',
-      key: 'identificare',
-      filters: [],
-    },
-    {
-      title: 'Istoric',
-      key: 'istoric',
-      filters: [],
-    },
-    {
-      title: 'Descriere Arhitectură / Peisaj',
-      key: 'descriere',
-      filters: [
-        {
-          title: 'Amplasament',
-          key: 'amplasament',
-          values: [
-            {
-              id: 1,
-              nume: 'În cadrul așezării',
-            },
-          ],
-        },
-        {
-          title: 'Topografie',
-          key: 'topografie',
-          values: [
-            {
-              id: 2,
-              nume: 'La înălțime',
-            },
-          ],
-        },
-        {
-          title: 'Relatia Cu Cimitirul',
-          key: 'relatia_cu_cimitirul',
-          values: [
-            {
-              id: 1,
-              nume: 'În cadrul cimitirului',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Descriere Componenta Artistică',
-      key: 'componenta_artistica',
-      filters: [],
-    },
-    {
-      title: 'Conservare',
-      key: 'conservare',
-      filters: [],
-    },
-    {
-      title: 'Valoare',
-      key: 'valoare',
-      filters: [],
-    },
-  ],
+const Colors = {
+  conservare: ['#25E2E2', '#85D634', '#F6D52B', '#FF7E06', '#FB5D5D'],
 }
 
-export { Colors, DummyFilters }
+const Sizes = {}
+
+const BooleanOptions = {
+  true: 'Da',
+  false: 'Nu',
+}
+
+export { Colors, Sizes, BooleanOptions }
