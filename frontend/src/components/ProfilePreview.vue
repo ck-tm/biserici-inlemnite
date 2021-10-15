@@ -9,6 +9,7 @@
     />
 
     <div class="container-profile">
+      <pre>{{ profilePreview }}</pre>
       <div class="images columns is-variable is-2">
         <div
           class="column"
@@ -93,7 +94,6 @@ export default {
   width: 500px;
 
   .close {
-    position: absolute;
     top: 12px;
     right: 12px;
   }

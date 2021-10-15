@@ -107,6 +107,7 @@ export default {
     clearFilters() {
       this.filterModel = {}
       this.counters = {}
+
       this.update()
     },
     update(key) {
@@ -135,9 +136,9 @@ export default {
     },
     applyFilters() {
       this.$store.commit('setFiltersAdvanced', this.filterModel)
-      this.$store.dispatch('getMapData')
-
       this.active.tab = 0
+
+      this.$emit('update')
     },
   },
   computed: {
@@ -228,13 +229,11 @@ export default {
       overflow: hidden;
 
       .close {
-        position: absolute;
         right: 19px;
         top: 4px;
         z-index: 2;
         font-size: 32px;
         border: 0;
-        padding: 12px 5px;
         color: $grey-lighter;
       }
 

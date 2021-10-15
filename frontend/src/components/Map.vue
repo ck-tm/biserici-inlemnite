@@ -60,11 +60,11 @@ export default {
       profileId: (state) => state.profile.id,
     }),
     bounds() {
-      if (this.mapData) {
+      if (this.mapData && this.mapData.length) {
         const bounds = new latLngBounds(
           this.mapData
             .map((e) => [e.latitudine, e.longitudine])
-            .filter((e) => e[0] != null && e[1] != null)
+            .filter((e) => e[0] && e[1])
         )
         return bounds.pad(0.25)
       }
@@ -77,6 +77,7 @@ export default {
     getLatLng(latlng) {
       return new latLng(latlng)
     },
+
     getMarkerIcon(color) {
       return (
         'data:image/svg+xml;base64,' +
@@ -85,6 +86,7 @@ export default {
         )
       )
     },
+
     getIcon(marker) {
       return icon({
         iconUrl: this.getMarkerIcon(
@@ -94,10 +96,6 @@ export default {
         iconAnchor: this.icon.anchor,
       })
     },
-    // getZoomActive() {
-    //   const zoom = this.$refs.map.mapObject.getZoom()
-    //   return zoom < 12 ? zoom + 1 : zoom
-    // },
 
     openProfile(marker) {
       this.$store.commit('setProfileId', marker.id)

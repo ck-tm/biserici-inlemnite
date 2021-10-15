@@ -35,18 +35,23 @@ nav.navbar {
     }
 
     a.dropdown-item {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       padding: 8px 12px;
+      // white-space: normal;
     }
 
-    .icon.bullet {
+    .icon-circle {
       border-radius: 100%;
-      border: 2px solid $grey;
-      width: 16px;
-      height: 16px;
+      border: 1px solid $grey-lighter;
+      width: 24px;
+      height: 24px;
+      font-weight: 700;
+      margin-right: 12px;
       flex-shrink: 0;
-      margin-right: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .button {

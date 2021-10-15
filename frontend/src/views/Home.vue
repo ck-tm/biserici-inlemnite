@@ -1,9 +1,17 @@
 <template>
   <div id="main-interface" class="is-full-height">
-    <FiltersAdvanced v-if="filters" :filters="filters.advanced" />
+    <FiltersAdvanced
+      v-if="filters"
+      :filters="filters.advanced"
+      @update="updateMap"
+    />
 
     <div class="container-interface">
-      <FiltersBasic v-if="filters" :filters="filters.basic" />
+      <FiltersBasic
+        v-if="filters"
+        :filters="filters.basic"
+        @update="updateMap"
+      />
 
       <div class="container-map-profile">
         <Map />
@@ -56,6 +64,19 @@ export default {
     updateProfile() {
       this.active.profilePreview = true
       this.$store.dispatch('getProfile', this.$route.params.id)
+    },
+    updateMap() {
+      this.loading = true
+      this.$store.commit('setProfileId', null)
+
+      this.$store
+        .dispatch('getMapData')
+        .then(() => {
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
   },
   beforeRouteUpdate(to, from, next) {
