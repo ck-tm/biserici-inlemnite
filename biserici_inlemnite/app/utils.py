@@ -125,13 +125,19 @@ def get_chapter_filters(model, filters_dict):
                         filters_list.append({
                             "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
                             "key": field,
-                            "values": [choices[x] for x in section_filters[field]]
+                            "values": [{'id': choices[x], 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
+                        print('---')
+                        print(section_filters[field])
+                        if type(section_filters[field][0]) == list:
+                            values = [{'id': x, 'nume': x} for x in section_filters[field][0]]
+                        else:
+                            values = [{'id': x, 'nume': x} for x in section_filters[field]]
                         filters_list.append({
                             "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
                             "key": field,
-                            "values": section_filters[field]
+                            "values": values
                         })
             # else:
                 # del section_filters[field]
@@ -166,7 +172,21 @@ def filter_biserici(data):
     for nume_capitol, capitol_filters in data.get('advanced', {}).items():
         filters = {}
         for indicator, indicator_values in capitol_filters.items():
-            filters[f"{indicator}__in"] = indicator_values
+            if map_capitole[nume_capitol]._meta.get_field(indicator).get_internal_type() == 'ArrayField':
+                filters[f"{indicator}__contains"] = indicator_values
+            else:
+                filters[f"{indicator}__in"] = indicator_values
+        print(filters)
+        print('----')
+        print('----')
+        print('----')
+        print('----')
+        print('----')
+
+
+
+
+
         capitole_pages = map_capitole[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
         if i < 1:
             biserici_paths = set([x[:12] for x in capitole_pages])

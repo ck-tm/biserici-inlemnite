@@ -30,7 +30,7 @@ class BisericaViewSet(ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return serializers.BisericaListSerializer
+            return serializers.BisericaListSerializer 
         return serializers.BisericaSerializer
 
     @action(
