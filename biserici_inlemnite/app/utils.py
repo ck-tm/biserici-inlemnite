@@ -128,8 +128,6 @@ def get_chapter_filters(model, filters_dict):
                             "values": [{'id': choices[x], 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
-                        print('---')
-                        print(section_filters[field])
                         if type(section_filters[field][0]) == list:
                             values = [{'id': x, 'nume': x} for x in section_filters[field][0]]
                         else:
@@ -148,21 +146,6 @@ def get_chapter_filters(model, filters_dict):
                 })
     return sections_list
 
-# "advanced": {
-#     "descriere": {
-#         "amplasament": [1]
-#     },
-#     "conservare": {
-#         "sit": [3,5]
-#     }
-# }, 
-# "basic": {
-#     "judete": [1],
-#     "localitati": [1],
-#     "conservare": [1],
-#     "valoare": [1],
-#     "prioritizare": [1],
-# }
 
 def filter_biserici(data):
 
@@ -176,16 +159,6 @@ def filter_biserici(data):
                 filters[f"{indicator}__contains"] = indicator_values
             else:
                 filters[f"{indicator}__in"] = indicator_values
-        print(filters)
-        print('----')
-        print('----')
-        print('----')
-        print('----')
-        print('----')
-
-
-
-
 
         capitole_pages = map_capitole[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
         if i < 1:
@@ -201,7 +174,7 @@ def filter_biserici(data):
         filters = {}
     for indicator, indicator_values in data['basic'].items():
         filters[f"{indicator}__in"] = indicator_values
-    pprint(filters)
+
     if filters:
         biserici = models.BisericaPage.objects.filter(**filters)
 
