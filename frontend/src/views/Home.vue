@@ -1,19 +1,16 @@
 <template>
   <div id="main-interface" class="is-full-height">
-    <div id="filters-advanced" class="filters">
-      <FiltersAdvanced v-if="filters" :filters="filters.advanced" />
-    </div>
+    <FiltersAdvanced v-if="filters" :filters="filters.advanced" />
 
     <div class="container-interface">
-      <div id="filters-basic" class="filters">
-        <FiltersBasic v-if="filters" :filters="filters.basic" />
-      </div>
+      <FiltersBasic v-if="filters" :filters="filters.basic" />
 
       <div class="container-map-profile">
         <Map />
-        <Profile
-          :active="active.profileShort"
-          @close="active.profileShort = false"
+
+        <ProfilePreview
+          :active="active.profilePreview"
+          @close="active.profilePreview = false"
         />
       </div>
     </div>
@@ -26,30 +23,29 @@
 import FiltersBasic from '@/components/FiltersBasic'
 import FiltersAdvanced from '@/components/FiltersAdvanced'
 import Map from '@/components/Map'
-import Profile from '@/components/Profile'
+import ProfilePreview from '@/components/ProfilePreview'
 
-import ApiService from '@/services/api'
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { FiltersBasic, FiltersAdvanced, Map, Profile },
+  components: { FiltersBasic, FiltersAdvanced, Map, ProfilePreview },
   data() {
     return {
-      filters: null,
       active: {
-        profileShort: false,
+        profilePreview: false,
       },
       loading: true,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['filters']),
+  },
   mounted() {
-    ApiService.get('/filters/')
-      .then((response) => {
-        this.filters = response
+    this.$store
+      .dispatch('getFilters')
+      .then(() => {
         this.loading = false
-
         this.$store.dispatch('getMapData')
       })
       .catch(() => {
@@ -58,7 +54,7 @@ export default {
   },
   methods: {
     updateProfile() {
-      this.active.profileShort = true
+      this.active.profilePreview = true
       this.$store.dispatch('getProfile', this.$route.params.id)
     },
   },

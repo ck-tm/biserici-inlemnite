@@ -9,6 +9,22 @@ html {
 body {
 }
 
+#main-interface {
+  display: flex;
+
+  .container-interface {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .container-map-profile {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+  }
+}
+
 .container-page {
   padding: 20px;
 
@@ -29,4 +45,3 @@ body {
     margin-top: 2px;
   }
 }
-

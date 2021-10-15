@@ -124,4 +124,33 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#map {
+  flex: 1;
+
+  /deep/.leaflet-container {
+    .leaflet-pane {
+      z-index: 36;
+    }
+
+    .leaflet-top,
+    .leaflet-bottom {
+      z-index: 37;
+    }
+
+    .leaflet-tile {
+      filter: hue-rotate(30deg) saturate(2) brightness(0.85) !important;
+    }
+
+    .leaflet-control-zoom {
+      a {
+        background-color: $black;
+        color: $white;
+        width: 56px;
+        height: 56px;
+        line-height: 52px;
+      }
+    }
+  }
+}
+</style>

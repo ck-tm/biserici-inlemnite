@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="filters-advanced">
     <label class="label is-small has-text-grey-light">Filtrare avansată</label>
 
     <b-tabs
@@ -152,4 +152,181 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#filters-advanced {
+  width: $navbar-side-width;
+  border-right: 1px solid $grey;
+  position: relative;
+  padding-top: 160px;
+  height: 100%;
+
+  .label {
+    padding-left: 32px;
+  }
+
+  .filter-actions {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 24px 32px;
+    background: $black;
+
+    .results {
+      background: $white;
+      color: $black;
+      border-radius: $radius-large;
+      padding: 9px 0 7px 0;
+      text-align: center;
+      font-size: $size-6;
+    }
+
+    .button {
+      font-size: $size-7;
+
+      .icon {
+        font-size: $size-4;
+      }
+    }
+  }
+
+  /deep/.b-tabs {
+    overflow: visible;
+
+    nav,
+    ul {
+      width: 100%;
+    }
+
+    &.is-vertical > .tabs {
+      flex: 1;
+
+      ul li {
+        white-space: normal;
+
+        a {
+          justify-content: space-between;
+          text-align: left;
+        }
+
+        &.is-active a {
+          font-weight: 700;
+          color: $white;
+          border-color: $white;
+        }
+      }
+    }
+
+    .tab-content {
+      background: $black;
+      position: absolute;
+      left: calc(100% + 1px);
+      width: 528px;
+      top: 0;
+      border-right: 1px solid $grey;
+      padding: 0;
+      z-index: 39;
+      overflow: hidden;
+
+      .close {
+        position: absolute;
+        right: 19px;
+        top: 4px;
+        z-index: 2;
+        font-size: 32px;
+        border: 0;
+        padding: 12px 5px;
+        color: $grey-lighter;
+      }
+
+      .container-scroll {
+        padding: 24px 24px 80px 24px;
+        overflow: auto;
+        max-height: 100%;
+
+        h1 {
+          padding: 56px 34px 56px;
+        }
+
+        .label.is-sticky {
+          background: $black;
+          position: sticky;
+          top: -24px;
+          z-index: 1;
+          padding-top: 16px;
+          padding-left: 0;
+          padding-bottom: 16px;
+          border-bottom: 1px solid $grey;
+          font-weight: 700;
+          margin-bottom: 0;
+          margin-top: 24px;
+        }
+      }
+
+      .results {
+        position: absolute;
+        bottom: 0;
+        padding: 16px 16px 16px 56px;
+        background-color: $grey;
+        width: 100%;
+        z-index: 3;
+
+        .button {
+          width: 176px;
+        }
+      }
+
+      .collapse {
+        .collapse-trigger .button {
+          justify-content: space-between;
+          padding: 16px 6px 16px 32px;
+          border-bottom: 1px solid $grey;
+          min-height: 60px;
+          height: auto;
+          transition: border-color 0.2s;
+          white-space: normal;
+          text-align: left;
+          border-radius: 0;
+          position: sticky;
+
+          .icon {
+            font-size: 24px;
+            transition: transform 0.15s;
+          }
+
+          &.is-active {
+            .icon {
+              transform: rotate(45deg);
+            }
+          }
+
+          &.is-selected {
+            font-weight: 700;
+            border-bottom: 1px solid $grey-lighter;
+
+            .icon {
+              color: $primary;
+            }
+          }
+        }
+
+        .collapse-content {
+          padding-left: 80px;
+
+          .field {
+            padding: 16px 0;
+
+            &.has-addons {
+              padding: 0;
+              flex-direction: column;
+            }
+          }
+
+          .checkbox {
+            padding: 8px 0;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
