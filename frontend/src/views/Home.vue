@@ -10,6 +10,7 @@
       </div>
 
       <Map />
+      <Profile />
     </div>
 
     <b-loading :is-full-page="false" v-model="loading" />
@@ -20,13 +21,14 @@
 import FiltersBasic from '@/components/FiltersBasic'
 import FiltersAdvanced from '@/components/FiltersAdvanced'
 import Map from '@/components/Map'
+import Profile from '@/components/Profile'
 
 import ApiService from '@/services/api'
 // import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { FiltersBasic, FiltersAdvanced, Map },
+  components: { FiltersBasic, FiltersAdvanced, Map, Profile },
   data() {
     return {
       filters: null,

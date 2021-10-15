@@ -18,7 +18,6 @@ import './components/globals'
 
 // Styles
 import './assets/style/base.scss'
-import 'leaflet/dist/leaflet.css'
 
 ApiService.init(process.env.VUE_APP_ROOT_API)
 
