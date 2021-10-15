@@ -7,7 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    profileId: null,
+    profile: {
+      id: null,
+      data: null,
+    },
     filters: null,
     filterData: { basic: {}, advanced: {} },
     mapData: null,
@@ -17,7 +20,7 @@ export default new Vuex.Store({
       state.mapData = data
     },
     setProfileId(state, data) {
-      state.profileId = data
+      state.profile.id = data
     },
     setFilters(state, data) {
       state.filters = data
@@ -49,6 +52,7 @@ export default new Vuex.Store({
   },
   modules: {},
   getters: {
-    profile: (state) => state.mapData.find((e) => e.id == state.profileId),
+    profileShort: (state) =>
+      state.mapData && state.mapData.find((e) => e.id == state.profile.id),
   },
 })

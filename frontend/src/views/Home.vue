@@ -9,8 +9,13 @@
         <FiltersBasic v-if="filters" :filters="filters.basic" />
       </div>
 
-      <Map />
-      <Profile />
+      <div class="container-map-profile">
+        <Map />
+        <Profile
+          :active="active.profileShort"
+          @close="active.profileShort = false"
+        />
+      </div>
     </div>
 
     <b-loading :is-full-page="false" v-model="loading" />
@@ -32,6 +37,9 @@ export default {
   data() {
     return {
       filters: null,
+      active: {
+        profileShort: false,
+      },
       loading: true,
     }
   },
@@ -49,15 +57,15 @@ export default {
       })
   },
   methods: {
-    // updateProfileId() {
-    //   // console.log('[updateProfileId]', this.$route.params.id)
-    //   this.$store.commit('setProfileId', this.$route.params.id)
-    // },
+    updateProfile() {
+      this.active.profileShort = true
+      this.$store.dispatch('getProfile', this.$route.params.id)
+    },
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   next()
-  //   this.updateProfileId()
-  // },
+  beforeRouteUpdate(to, from, next) {
+    next()
+    this.updateProfile()
+  },
 }
 </script>
 

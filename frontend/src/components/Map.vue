@@ -1,10 +1,9 @@
 <template>
   <div id="map">
     <l-map
+      ref="map"
       v-if="bounds"
       v-bind="{ options, bounds, maxBounds: bounds }"
-      @update:center="centerUpdate"
-      @update:zoom="zoomUpdate"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-control-zoom position="bottomright" />
@@ -15,6 +14,7 @@
           :key="'marker-' + marker.id"
           :icon="getIcon(marker)"
           :lat-lng="getLatLng([marker.latitudine, marker.longitudine])"
+          @click="openProfile(marker)"
         />
       </template>
     </l-map>
@@ -55,7 +55,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['mapData']),
+    ...mapState({
+      mapData: (state) => state.mapData,
+      profileId: (state) => state.profile.id,
+    }),
     bounds() {
       if (this.mapData) {
         const bounds = new latLngBounds(
@@ -74,27 +77,48 @@ export default {
     getLatLng(latlng) {
       return new latLng(latlng)
     },
-    getMarkerSvg(color) {
-      return `<svg xmlns="http://www.w3.org/2000/svg"><mask id="a" fill="#fff"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.44 28.87c.111-.291.353-.513.65-.611C24.848 26.339 29 20.904 29 14.5 29 6.492 22.508 0 14.5 0S0 6.492 0 14.5c0 6.404 4.152 11.838 9.91 13.759.297.098.538.32.65.612l3.005 7.917c.327.86 1.543.86 1.87 0l3.005-7.917z"/></mask><path fill-rule="evenodd" clip-rule="evenodd" d="M18.44 28.87c.111-.291.353-.513.65-.611C24.848 26.339 29 20.904 29 14.5 29 6.492 22.508 0 14.5 0S0 6.492 0 14.5c0 6.404 4.152 11.838 9.91 13.759.297.098.538.32.65.612l3.005 7.917c.327.86 1.543.86 1.87 0l3.005-7.917z" fill="${color}"/><path d="M13.565 36.788l1.87-.71-1.87.71zM10.56 28.87l1.87-.71-1.87.71zm7.882 0l-1.87-.71 1.87.71zM27 14.5c0 5.518-3.576 10.205-8.543 11.861l1.265 3.795C26.273 27.972 31 21.79 31 14.5h-4zM14.5 2C21.404 2 27 7.596 27 14.5h4C31 5.387 23.613-2 14.5-2v4zM2 14.5C2 7.596 7.596 2 14.5 2v-4C5.387-2-2 5.387-2 14.5h4zm8.543 11.861C5.576 24.705 2 20.018 2 14.5h-4c0 7.29 4.727 13.472 11.278 15.656l1.265-3.795zm4.892 9.717l-3.006-7.917-3.74 1.42 3.006 7.917 3.74-1.42zm1.136-7.917l-3.006 7.917 3.74 1.42 3.005-7.917-3.74-1.42zm-4.876 9.337c.98 2.58 4.63 2.58 5.61 0l-3.74-1.42c.327-.86 1.543-.86 1.87 0l-3.74 1.42zm-2.417-7.342a.96.96 0 01-.588-.575l3.74-1.42a3.041 3.041 0 00-1.887-1.8l-1.265 3.795zm9.18-3.795a3.04 3.04 0 00-1.887 1.8l3.74 1.42a.96.96 0 01-.589.575l-1.265-3.795z" fill="#fff" mask="url(#a)"/></svg>`
+    getMarkerIcon(color) {
+      return (
+        'data:image/svg+xml;base64,' +
+        btoa(
+          `<svg xmlns="http://www.w3.org/2000/svg"><mask id="a" fill="#fff"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.44 28.87c.111-.291.353-.513.65-.611C24.848 26.339 29 20.904 29 14.5 29 6.492 22.508 0 14.5 0S0 6.492 0 14.5c0 6.404 4.152 11.838 9.91 13.759.297.098.538.32.65.612l3.005 7.917c.327.86 1.543.86 1.87 0l3.005-7.917z"/></mask><path fill-rule="evenodd" clip-rule="evenodd" d="M18.44 28.87c.111-.291.353-.513.65-.611C24.848 26.339 29 20.904 29 14.5 29 6.492 22.508 0 14.5 0S0 6.492 0 14.5c0 6.404 4.152 11.838 9.91 13.759.297.098.538.32.65.612l3.005 7.917c.327.86 1.543.86 1.87 0l3.005-7.917z" fill="${color}"/><path d="M13.565 36.788l1.87-.71-1.87.71zM10.56 28.87l1.87-.71-1.87.71zm7.882 0l-1.87-.71 1.87.71zM27 14.5c0 5.518-3.576 10.205-8.543 11.861l1.265 3.795C26.273 27.972 31 21.79 31 14.5h-4zM14.5 2C21.404 2 27 7.596 27 14.5h4C31 5.387 23.613-2 14.5-2v4zM2 14.5C2 7.596 7.596 2 14.5 2v-4C5.387-2-2 5.387-2 14.5h4zm8.543 11.861C5.576 24.705 2 20.018 2 14.5h-4c0 7.29 4.727 13.472 11.278 15.656l1.265-3.795zm4.892 9.717l-3.006-7.917-3.74 1.42 3.006 7.917 3.74-1.42zm1.136-7.917l-3.006 7.917 3.74 1.42 3.005-7.917-3.74-1.42zm-4.876 9.337c.98 2.58 4.63 2.58 5.61 0l-3.74-1.42c.327-.86 1.543-.86 1.87 0l-3.74 1.42zm-2.417-7.342a.96.96 0 01-.588-.575l3.74-1.42a3.041 3.041 0 00-1.887-1.8l-1.265 3.795zm9.18-3.795a3.04 3.04 0 00-1.887 1.8l3.74 1.42a.96.96 0 01-.589.575l-1.265-3.795z" fill="#fff" mask="url(#a)"/></svg>`
+        )
+      )
     },
     getIcon(marker) {
       return icon({
-        iconUrl:
-          'data:image/svg+xml;base64,' +
-          btoa(
-            this.getMarkerSvg(
-              Colors.conservare[marker.conservare] || Colors.conservare[0]
-            )
-          ),
+        iconUrl: this.getMarkerIcon(
+          Colors.conservare[marker.conservare] || Colors.conservare[0]
+        ),
         iconSize: this.icon.size,
         iconAnchor: this.icon.anchor,
       })
     },
-    zoomUpdate(zoom) {
-      this.currentZoom = zoom
+    // getZoomActive() {
+    //   const zoom = this.$refs.map.mapObject.getZoom()
+    //   return zoom < 12 ? zoom + 1 : zoom
+    // },
+
+    openProfile(marker) {
+      this.$store.commit('setProfileId', marker.id)
     },
-    centerUpdate(center) {
-      this.currentCenter = center
+  },
+  watch: {
+    profileId(vNew, vOld) {
+      if (!vOld || !vNew)
+        this.$nextTick(() => {
+          this.$refs.map.mapObject.invalidateSize()
+
+          if (vNew) {
+            const marker = this.mapData.find((e) => e.id == vNew)
+
+            this.$refs.map.mapObject.setView(
+              this.getLatLng([marker.latitudine, marker.longitudine])
+            )
+          } else {
+            this.$refs.map.mapObject.flyToBounds(this.bounds)
+          }
+        })
     },
   },
 }

@@ -29,6 +29,11 @@ nav.navbar {
     flex: 1;
     display: flex;
     flex-direction: column;
+
+    .container-map-profile {
+      flex: 1;
+      display: flex;
+    }
   }
 
   #filters-basic {
@@ -276,6 +281,16 @@ nav.navbar {
 
     .leaflet-tile {
       filter: hue-rotate(30deg) saturate(2) brightness(0.85)  !important;
+    }
+
+    .leaflet-control-zoom {
+      a {
+        background-color: $black;
+        color: $white;
+        width: 56px;
+        height: 56px;
+        line-height: 52px;
+      }
     }
   }
 }

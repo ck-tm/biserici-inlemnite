@@ -1,33 +1,47 @@
 <template>
-  <div id="profile">
-    <pre>{{ profile }}</pre>
+  <div id="profile" v-if="profileShort">
+    <b-button
+      icon-left="close"
+      type="is-black"
+      class="close"
+      @click="close"
+    />
+
+    <pre>{{ profileShort }}</pre>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Profile',
-  props: {
-    profile: Object,
-  },
+  props: { active: Boolean },
   data() {
     return {}
   },
   computed: {
-    ...mapState(['filters', 'grid']),
+    ...mapGetters(['profileShort']),
   },
   mounted() {},
-  methods: {},
+  methods: {
+    close() {
+      this.$store.commit('setProfileId', null)
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 #profile {
-  right: 100%;
+  position: relative;
+  width: 500px;
+  // right: 100%;
 
   &.is-active {
+  }
+
+  /deep/.close {
   }
 }
 </style>
