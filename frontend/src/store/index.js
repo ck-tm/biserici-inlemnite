@@ -39,7 +39,7 @@ export default new Vuex.Store({
     getMapData({ commit, state }) {
       return Object.keys(state.filterData.basic).length ||
         Object.keys(state.filterData.advanced).length
-        ? ApiService.post('/map/', state.filterData).then((response) => {
+        ? ApiService.post('/map/filter', state.filterData).then((response) => {
             commit('setMapData', response)
           })
         : ApiService.get('/map/').then((response) => {
