@@ -116,7 +116,7 @@ export default {
               this.getLatLng([marker.latitudine, marker.longitudine])
             )
           } else {
-            this.$refs.map.mapObject.flyToBounds(this.bounds)
+            this.$refs.map.mapObject.fitBounds(this.bounds)
           }
         })
     },

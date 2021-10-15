@@ -46,7 +46,7 @@
         </template>
       </b-tab-item>
 
-      <div class="results" v-if="resultCount != null">
+      <div class="results" v-if="resultCount || loading">
         <b-button
           type="is-primary"
           class="has-text-weight-bold"
@@ -107,15 +107,21 @@ export default {
     clearFilters() {
       this.filterModel = {}
       this.counters = {}
-      this.resultCount = null
+      this.update()
     },
     update(key) {
       // remove empty keys / create non-existent
-      if (!Object.keys(this.filterModel[key]).length) {
-        this.$delete(this.filterModel, key)
-        this.$delete(this.counters, key)
-      } else
-        this.$set(this.counters, key, Object.keys(this.filterModel[key]).length)
+      if (key) {
+        if (!Object.keys(this.filterModel[key]).length) {
+          this.$delete(this.filterModel, key)
+          this.$delete(this.counters, key)
+        } else
+          this.$set(
+            this.counters,
+            key,
+            Object.keys(this.filterModel[key]).length
+          )
+      }
 
       this.loading = true
 
