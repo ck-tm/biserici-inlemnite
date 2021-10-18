@@ -156,12 +156,12 @@ class BisericaPage(Page):
     ]
 
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
-                              on_delete=models.SET_NULL, related_name='pp_biserici')
+                              on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
-                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
-    adresa = models.CharField(max_length=250, null=True, blank=True)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
+                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
+    latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
+    longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
 
     valoare = models.CharField(max_length=5, null=True, blank=True)
     conservare = models.IntegerField(null=True, blank=True)
@@ -216,12 +216,12 @@ class IdentificarePage(Page):
     """Home page model."""
 
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
-                              on_delete=models.SET_NULL, related_name='ppp_biserici')
+                              on_delete=models.SET_NULL, related_name='ppp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
-                                   blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
-    adresa = models.CharField(max_length=250, null=True, blank=True)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
+                                   blank=True, on_delete=models.SET_NULL, related_name='p_biserici', verbose_name="Localitate")
+    adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
+    latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
+    longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
     statut = models.ForeignKey('nomenclatoare.StatutBiserica', null=True,
                                blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
     hram = models.ForeignKey('nomenclatoare.Hram', null=True,
@@ -399,6 +399,8 @@ class ElementAnsambluConstruit(ClusterableModel):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.element)
 
 class ElementeAnsambluConstruit(Orderable, ElementAnsambluConstruit):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
@@ -438,6 +440,8 @@ class ElementImportantAnsambluConstruit(ClusterableModel):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.element)
 
 class ElementeImportanteAnsambluConstruit(Orderable, ElementImportantAnsambluConstruit):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
@@ -476,6 +480,9 @@ class ClopotBiserica(ClusterableModel):
         abstract = True
 
 
+    def __str__(self):
+        return str(self.an)
+
 class ClopoteBiserica(Orderable, ClopotBiserica):
     page = ParentalKey(
         'DescrierePage', on_delete=models.CASCADE, related_name='clopote')
@@ -513,6 +520,8 @@ class FinisajePortic(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajPronaos(Orderable):
     page_pronaos = ParentalKey(
@@ -546,6 +555,8 @@ class FinisajePronaos(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajNaos(Orderable):
     page_naos = ParentalKey(
@@ -579,6 +590,8 @@ class FinisajeNaos(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajAltar(Orderable):
     page_altar = ParentalKey(
@@ -612,6 +625,8 @@ class FinisajeAltar(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class Poza(models.Model):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
@@ -632,6 +647,8 @@ class Poza(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.poza)
 
 class PozeAccese(Orderable, Poza):
     page = ParentalKey(
@@ -763,6 +780,8 @@ class EtapeIstoriceVizibile(ClusterableModel, Orderable):
         InlinePanel('poze', label='Poză'),
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class DescrierePage(Page):
     """
@@ -1169,18 +1188,16 @@ class DescrierePage(Page):
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
-            FieldPanel("toponim"), ],
+            FieldPanel("toponim"),
+            FieldPanel("toponim_sursa"), 
+            ],
             heading='toponim',
             classname='collapsible collapsed'
         ),
-        MultiFieldPanel([
-            FieldPanel("toponim_sursa"), ],
-            heading='toponim_sursa',
-            classname='collapsible collapsed'
-        ),
+        
         MultiFieldPanel([
             FieldPanel("relatia_cu_cimitirul"), ],
-            heading='relatia_cu_cimitirul',
+            heading='relatia cu cimitirul',
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
@@ -1188,7 +1205,7 @@ class DescrierePage(Page):
                        widget=forms.CheckboxSelectMultiple),
             InlinePanel("poze_peisagistica_sitului", label="Poză")
         ],
-            heading='peisagistica_sitului',
+            heading='peisagistica sitului',
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
@@ -1700,6 +1717,9 @@ class Persoana(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.nume
+
 
 class Ctitori(Orderable, Persoana):
     page = ParentalKey(
@@ -1734,6 +1754,9 @@ class Eveniment(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.nume
+
 
 class Evenimente(Orderable, Eveniment):
     page = ParentalKey('IstoricPage', on_delete=models.CASCADE,
@@ -1764,6 +1787,9 @@ class MutareBiserica(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.localitate)
+
 
 class MutariBiserica(Orderable, MutareBiserica):
     page = ParentalKey(
@@ -1784,6 +1810,8 @@ class PovesteBiserica(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.sursa
 
 class PovestiBiserica(Orderable, PovesteBiserica):
     page = ParentalKey(
@@ -2750,6 +2778,8 @@ class ArtisticEtapeIstoriceVizibile(ClusterableModel, Orderable):
         InlinePanel('poze', label='Poză'),
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeProscomidie(Orderable, Poza):
     page = ParentalKey('ComponentaArtisticaPage',
