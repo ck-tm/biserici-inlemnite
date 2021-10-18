@@ -163,9 +163,9 @@ class BisericaPage(Page):
     latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
     longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
 
-    valoare = models.CharField(max_length=5, null=True, blank=True)
-    conservare = models.IntegerField(null=True, blank=True)
-    prioritizare = models.IntegerField(null=True, blank=True)
+    valoare = models.FloatField(max_length=5, null=True, blank=True)
+    conservare = models.FloatField(null=True, blank=True)
+    prioritizare = models.FloatField(null=True, blank=True)
 
     datare_prin_interval_timp = models.CharField(
         max_length=50, null=True, blank=True)
@@ -2146,6 +2146,66 @@ class ValoarePage(Page):
         verbose_name = "Valoare"
         verbose_name_plural = "Valoare"
 
+
+
+    def save(self, *args, **kwargs):
+        nota_valoare = 0
+        active_fields = 0
+
+        fields = [
+            "vechime",
+            "integritate",
+            "unicitate",
+            "valoare_memoriala",
+            "peisaj_cultural",
+            "valoare_sit",
+            "estetica",
+            "mestesug",
+            "pictura",
+            "folosinta_actuala",
+            "relevanta_actuala",
+            "potential",
+        ]
+
+        important_fields = [
+            "vechime",
+            "integritate",
+            "unicitate",
+            "folosinta_actuala",
+            "relevanta_actuala",
+            "potential",
+        ]
+
+        for field in fields:
+            field_value = getattr(self, field)
+            if field_value:
+                if field in important_fields:
+                    nota_valoare += 2 * field_value
+                    active_fields += 2
+                else:
+                    nota_valoare += field_value
+                    active_fields += 1
+
+        if active_fields:
+            nota_valoare = nota_valoare / active_fields
+        print('******')
+        print('******')
+        print('******')
+        print(nota_valoare)
+        print('******')
+        print('******')
+        print('******')
+        biserica = self.get_parent().specific
+        biserica.valoare = nota_valoare
+
+        if biserica.conservare:
+            biserica.prioritizare = biserica.valoare * biserica.conservare
+        biserica.save_revision().publish()
+
+        return super().save(*args, **kwargs)
+
+
+
     class PozeSit(Orderable, Poza):
         page = ParentalKey(
             'ConservarePage', on_delete=models.CASCADE, related_name='poze_sit')
@@ -2740,6 +2800,78 @@ class ConservarePage(Page):
 
         verbose_name = "Conservare"
         verbose_name_plural = "Conservare"
+
+    def save(self, *args, **kwargs):
+
+        nota_conservare = 0
+        active_fields = 0
+        has_pericol = False
+        min_pericol = 15
+
+        fields = [
+            "sit",
+            "elemente_arhitecturale",
+            "alte_elemente_importante",
+            "vegetatie",
+            "teren",
+            "fundatii",
+            "talpi",
+            "corp_biserica",
+            "bolti",
+            "cosoroabe",
+            "sarpanta_peste_corp_biserica",
+            "turn",
+            "zona_din_jurul_biserici",
+            "pardoseli_interioare",
+            "finisaj_exterior",
+            "finisaj_pereti_interiori",
+            "finisaj_tavane_si_bolti",
+            "tamplarii",
+            "invelitoare_sarpanta_si_turn",
+            "instalatie_electrica",
+            "instalatie_termica",
+            "paratraznet",
+            "strat_pictural",
+            "obiecte_de_cult",
+            "mobilier",
+        ]
+
+        for field in fields:
+            field_value = getattr(self, field)
+            if field_value:
+                try:
+                    pericol_field = getattr(self, field + '_pericol')
+                    if pericol_field:
+                        has_pericol = True
+                        if min_pericol > field_value:
+                            min_pericol = field_value
+                except:
+                    pass
+
+                nota_conservare += field_value
+                active_fields += 1
+
+
+        if has_pericol:
+            nota_conservare = min_pericol
+        else:
+            nota_conservare = nota_conservare / active_fields
+        print('******')
+        print('******')
+        print('******')
+        print(nota_conservare)
+        print('******')
+        print('******')
+        print('******')
+        biserica = self.get_parent().specific
+        biserica.conservare = nota_conservare
+
+        if biserica.valoare:
+            biserica.prioritizare = biserica.valoare * biserica.conservare
+        biserica.save_revision().publish()
+
+        return super().save(*args, **kwargs)
+
 
 class PozeArtisticEtapeIstoriceVizibile(Orderable):
     page = ParentalKey('ArtisticEtapeIstoriceVizibile',

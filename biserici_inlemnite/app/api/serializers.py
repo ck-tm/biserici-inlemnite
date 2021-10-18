@@ -67,7 +67,10 @@ def get_nested_model_data(elements):
         for field in meta_fields:
             field_value = getattr(obj, field.name)
             if field_value and field.name not in ['page', 'id', 'sort_order']:
-                obj_serializer[field.verbose_name.capitalize()] = str(field_value)
+                if type(field_value) in [str, float, type(None), int, bool]:
+                    obj_serializer[field.verbose_name.capitalize()] = field_value
+                else:
+                    obj_serializer[field.verbose_name.capitalize()] = str(field_value)
 
         try:
             if obj.poze.exists():
