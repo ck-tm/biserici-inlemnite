@@ -697,8 +697,8 @@ class BisericaSerializer(serializers.ModelSerializer):
             models.ValoarePage)[0].specific
 
         tabs = [
-            # IdentificareSerializer(identificare_page).data,
-            # IstoricSerializer(istoric_page).data,
+            IdentificareSerializer(identificare_page).data,
+            IstoricSerializer(istoric_page).data,
             DescriereSerializer(descriere_page).data,
             # ComponentaArtisticaSerializer(componenta_artistica_page).data,
             # ValoareSerializer(valoare_page).data,
