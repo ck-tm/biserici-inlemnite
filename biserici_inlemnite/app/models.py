@@ -1207,7 +1207,7 @@ class DescrierePage(Page):
 
     arhitectura_panels = [
         MultiFieldPanel([
-            FieldPanel('materiale', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('materiale'),
             FieldPanel('detalii_materiale'),
         ],
             heading="Materiale",
