@@ -545,7 +545,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     {
                     'title': 'Clopote',
                     'fields': [
-                        ("clopote", ""),
+                        ("clopote", "An"),
                         ("poze_clopote", "Poze"),
                         ]
                     },
