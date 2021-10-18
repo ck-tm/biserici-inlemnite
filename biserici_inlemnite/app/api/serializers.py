@@ -438,7 +438,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("numar_accese_naos_observatii", ""),
                         ("numar_accese_altar", ""),
                         ("numar_accese_altar_observatii", ""),
-                        ("poze_accese", ""),
+                        ("poze_accese", "Poze"),
                         ]
                     },
                     {
@@ -452,7 +452,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("numar_ferestre_naos_observatii", ""),
                         ("numar_ferestre_altar", ""),
                         ("numar_ferestre_altar_observatii", ""),
-                        ("poze_ferestre", ""),
+                        ("poze_ferestre", "Poze"),
                         ]
                     },
                     {
@@ -461,7 +461,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("ochiesi_aerisitoare", ""),
                         ("numar_ochiesi", ""),
                         ("ochiesi_aerisitoare_observatii", ""),
-                        ("poze_ochiesi", ""),
+                        ("poze_ochiesi", "Poze"),
                         ]
                     },
                     {
@@ -469,7 +469,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'fields': [
                         ("solee", ""),
                         ("solee_observatii", ""),
-                        ("poze_solee", ""),
+                        ("poze_solee", "Poze"),
                         ]
                     },
                     {
@@ -478,7 +478,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("masa_altar_material_picior", ""),
                         ("masa_altar_material_blat", ""),
                         ("masa_altar_observatii", ""),
-                        ("poze_masa_atlar", ""),
+                        ("poze_masa_atlar", "Poze"),
                         ]
                     },
                     {
@@ -508,7 +508,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("cor", ""),
                         ("cor_material", ""),
                         ("cor_observatii", ""),
-                        ("poze_cor", ""),
+                        ("poze_cor", "Poze"),
                         ]
                     },
                     {
@@ -520,7 +520,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("sarpanta_numar_cruci", ""),
                         ("sarpanta_material_cruci", ""),
                         ("sarpanta_observatii", ""),
-                        ("poze_sarpanta", ""),
+                        ("poze_sarpanta", "Poze"),
                         ]
                     },
                     {
@@ -539,14 +539,14 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("turn_relatie_talpi", ""),
                         ("turn_numar_talpi", ""),
                         ("turn_observatii", ""),
-                        ("poze_turn", ""),
+                        ("poze_turn", "Poze"),
                         ]
                     },
                     {
                     'title': 'Clopote',
                     'fields': [
                         ("clopote", ""),
-                        ("poze_clopote", ""),
+                        ("poze_clopote", "Poze"),
                         ]
                     },
                     {
@@ -558,19 +558,19 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("turle_numar_goluri", ""),
                         ("turle_forma_sarpanta", ""),
                         ("turle_observatii", ""),
-                        ("poze_turle", ""),
+                        ("poze_turle", "Poze"),
                         ]
                     },
                     {
                     'title': 'Poze Generale Exterior',
                     'fields': [
-                        ("poze_generale_exterior", ""),
+                        ("poze_generale_exterior", "Poze"),
                         ]
                     },
                     {
                     'title': 'Poze Generale Interior',
                     'fields': [
-                        ("poze_generale_interior", ""),
+                        ("poze_generale_interior", "Poze"),
                         ]
                     }
 
