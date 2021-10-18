@@ -797,8 +797,9 @@ class DescrierePage(Page):
     # Arhitectura bisericii
     planimetria_bisericii = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-    materiale = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructura', help_text="Materiale folosite in construcția bisericii", blank=True)
+    materiale = models.ForeignKey(
+        'nomenclatoare.MaterialeStructura', help_text="Materiale folosite in construcția bisericii", null=True, blank=True,
+        on_delete=models.SET_NULL)
     detalii_materiale = RichTextField(features=[], null=True, blank=True,
                                       help_text="Materialele care compun structura de rezistentă a bisericii")
 
