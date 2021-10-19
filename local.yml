@@ -36,6 +36,15 @@ services:
     env_file:
       - ./.envs/.local/.postgres
 
+  frontend:
+    build:
+      context: .
+      dockerfile: ./compose/production/frontend/Dockerfile
+    image: oxigen_api_production_frontend
+    depends_on:
+      - django-bi
+    ports:
+      - "8099:80"
   # docs-bi:
   #   image: biserici_inlemnite_local_docs
   #   container_name: docs-bi
