@@ -31,21 +31,66 @@ CLASE_EVALUARE = {
 }
 
 CLASE_PRIORITIZARE = {
-    1: '1-5',
-    2: '1-5',
-    3: '1-5',
-    4: '1-5',
-    5: '1-5',
-    6: '6-10',
-    7: '6-10',
-    8: '6-10',
-    9: '6-10',
-    10: '6-10',
-    11: '11-15',
-    12: '11-15',
-    13: '11-15',
-    14: '11-15',
-    15: '11-15',
+    1: {
+        'id': 1,
+        'value': '1-5'
+        },
+    2: {
+        'id': 1,
+        'value': '1-5'
+        },
+    3: {
+        'id': 1,
+        'value': '1-5'
+        },
+    4: {
+        'id': 1,
+        'value': '1-5'
+        },
+    5: {
+        'id': 1,
+        'value': '1-5'
+        },
+    6: {
+        'id': 2,
+        'value': '6-10'
+        },
+    7: {
+        'id': 2,
+        'value': '6-10'
+        },
+    8: {
+        'id': 2,
+        'value': '6-10'
+        },
+    9: {
+        'id': 2,
+        'value': '6-10'
+        },
+    10: {
+        'id': 2,
+        'value': '6-10'
+        },
+    11: {
+        'id': 3,
+        'value': '11-15'
+        },
+    12: {
+        'id': 3,
+        'value': '11-15'
+        },
+    13: {
+        'id': 3,
+        'value': '11-15'
+        },
+    14: {
+        'id': 3,
+        'value': '11-15'
+        },
+    15: {
+        'id': 3,
+        'value': '11-15'
+        },
 }
 
 class BisericaViewSet(ModelViewSet): 
@@ -250,8 +295,8 @@ class FiltersView(ViewSet):
 
             if biserica['prioritizare']:
                 prioritizare_item = {
-                    'id': CLASE_PRIORITIZARE[round(biserica['prioritizare'])],
-                    'value': CLASE_PRIORITIZARE[round(biserica['prioritizare'])],
+                    'id': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['id'],
+                    'value': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['value'],
                 }
                 if prioritizare_item not in prioritizare_filters:
                     prioritizare_filters.append(prioritizare_item)
