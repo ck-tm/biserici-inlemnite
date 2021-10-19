@@ -19,11 +19,17 @@
         <ProfilePreview
           :active="active.profilePreview"
           @close="active.profilePreview = false"
+          @openProfileModal="openProfileModal"
         />
       </div>
     </div>
 
-    <b-loading :is-full-page="false" v-model="loading" />
+    <ProfileModal
+      :active="active.profileModal"
+      @close="active.profileModal = false"
+    />
+
+    <b-loading v-model="loading" />
   </div>
 </template>
 
@@ -32,16 +38,24 @@ import FiltersBasic from '@/components/FiltersBasic'
 import FiltersAdvanced from '@/components/FiltersAdvanced'
 import Map from '@/components/Map'
 import ProfilePreview from '@/components/ProfilePreview'
+import ProfileModal from '@/components/ProfileModal'
 
 import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { FiltersBasic, FiltersAdvanced, Map, ProfilePreview },
+  components: {
+    FiltersBasic,
+    FiltersAdvanced,
+    Map,
+    ProfilePreview,
+    ProfileModal,
+  },
   data() {
     return {
       active: {
         profilePreview: false,
+        profileModal: false,
       },
       loading: true,
     }
@@ -59,11 +73,15 @@ export default {
       .catch(() => {
         this.loading = false
       })
+
+    if (this.$route.params.id) this.openProfilePreview()
   },
   methods: {
-    updateProfile() {
-      this.active.profilePreview = true
-      this.$store.dispatch('getProfile', this.$route.params.id)
+    openProfileModal() {
+      this.active.profileModal = true
+    },
+    openProfilePreview() {
+      this.$store.commit('setProfileId', this.$route.params.id)
     },
     updateMap() {
       this.loading = true
@@ -81,7 +99,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     next()
-    this.updateProfile()
+    this.openProfilePreview()
   },
 }
 </script>

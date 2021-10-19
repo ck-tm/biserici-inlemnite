@@ -1,19 +1,11 @@
 <template>
   <div>
-    <b-dropdown-item
-        v-for="item of options"
-        :key="item.id"
-        :value="[item.id]"
-        aria-role="listitem"
-      >
-        {{ item.value }}
-      </b-dropdown-item>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'FiltersDropdown',
+  name: 'FiltersDropdownCircle',
   props: {
     value: null,
     label: String,

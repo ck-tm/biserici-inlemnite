@@ -9,6 +9,7 @@ import {
   Icon,
   Input,
   Loading,
+  Modal,
   Radio,
   Tabs,
   Toast,
@@ -47,6 +48,7 @@ Vue.use(Field)
 Vue.use(Icon)
 Vue.use(Input)
 Vue.use(Loading)
+Vue.use(Modal)
 Vue.use(Radio)
 Vue.use(Tabs)
 Vue.use(Toast)

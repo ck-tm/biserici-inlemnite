@@ -98,13 +98,17 @@ export default {
     },
 
     openProfile(marker) {
-      this.$store.commit('setProfileId', marker.id)
+      this.$router
+        .push({ name: 'Home', params: { id: marker.id } })
+        .catch(() => {})
     },
   },
   watch: {
     profileId(vNew, vOld) {
       if (!vOld || !vNew)
         this.$nextTick(() => {
+          if (!this.$refs.map) return
+
           this.$refs.map.mapObject.invalidateSize()
 
           if (vNew) {

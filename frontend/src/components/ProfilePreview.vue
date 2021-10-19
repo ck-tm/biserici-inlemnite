@@ -9,7 +9,6 @@
     />
 
     <div class="container-profile">
-      <pre>{{ profilePreview }}</pre>
       <div class="images columns is-variable is-2">
         <div
           class="column"
@@ -47,31 +46,47 @@
 
       <div class="columns">
         <div class="column">
-          <label class="label is-small">Stare de conservare</label>
-          {{ profilePreview.conservare }}
+          <FilterDisplayItem
+            :value="1 || profilePreview.conservare"
+            index="conservare"
+            is-large
+            is-multiline
+          />
         </div>
         <div class="column">
-          <label class="label is-small">Valoare patrimoniu</label>
-          {{ profilePreview.valoare }}
+          <FilterDisplayItem
+            :value="'B' || profilePreview.valoare"
+            index="valoare"
+            is-large
+            is-multiline
+          />
         </div>
         <div class="column">
-          <label class="label is-small">Prioritizare</label>
-          {{ profilePreview.prioritizare }}
+          <FilterDisplayItem
+            :value="7 || profilePreview.prioritizare"
+            index="prioritizare"
+            is-large
+            is-multiline
+          />
         </div>
       </div>
     </div>
 
     <div class="bottom">
-      <b-button type="is-primary">Află mai multe</b-button>
+      <b-button type="is-primary" @click="$emit('openProfileModal')">
+        Află mai multe
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
+import FilterDisplayItem from '@/components/FilterDisplayItem'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProfilePreview',
+  components: { FilterDisplayItem },
   props: { active: Boolean },
   data() {
     return {}
@@ -82,7 +97,7 @@ export default {
   mounted() {},
   methods: {
     close() {
-      this.$store.commit('setProfileId', null)
+      this.$router.push({ name: 'Home', params: { id: null } })
     },
   },
 }

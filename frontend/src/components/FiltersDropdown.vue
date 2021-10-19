@@ -15,42 +15,42 @@
         <b-button icon-right="arrow-down" size="is-small" expanded>
           {{
             model && model.length
-              ? (options || basicDropdowns[index].options).find(
+              ? (options || basicFilters[index].options).find(
                   (e) => e.id == model[0]
                 ).value
-              : basicDropdowns[index]
-              ? basicDropdowns[index].default.value
+              : basicFilters[index]
+              ? basicFilters[index].default.value
               : 'Toate'
           }}
         </b-button>
       </template>
 
       <b-dropdown-item :value="[]">
-        <template v-if="basicDropdowns[index]">
+        <template v-if="basicFilters[index]">
           <span
             class="icon-circle"
             v-bind="{ style: computeStyle() }"
-            v-text="basicDropdowns[index].default.id"
+            v-text="basicFilters[index].default.id"
           />
-          <span v-text="basicDropdowns[index].default.value" />
+          <span v-text="basicFilters[index].default.value" />
         </template>
 
         <span v-else>Toate</span>
       </b-dropdown-item>
 
       <b-dropdown-item
-        v-for="(item, i) of options || basicDropdowns[index].options"
+        v-for="(item, i) of options || basicFilters[index].options"
         :key="item.id"
         :value="[item.id]"
         aria-role="listitem"
       >
-        <template v-if="basicDropdowns[index]">
+        <template v-if="basicFilters[index]">
           <span
             class="icon-circle"
             v-bind="{ style: computeStyle(i) }"
-            v-text="basicDropdowns[index].options[i].id"
+            v-text="basicFilters[index].options[i].id"
           />
-          <span v-text="basicDropdowns[index].options[i].value" />
+          <span v-text="basicFilters[index].options[i].value" />
         </template>
 
         <span v-else>{{ item.value }}</span>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { Colors, BasicDropdowns } from '@/services/utils'
+import { Colors, BasicFilters } from '@/services/utils'
 
 export default {
   name: 'FiltersDropdown',
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       model: this.value,
-      basicDropdowns: BasicDropdowns,
+      basicFilters: BasicFilters,
       colors: Colors,
     }
   },
@@ -82,7 +82,7 @@ export default {
     computeStyle(i) {
       if (i == null) {
         return {
-          background: BasicDropdowns[this.index].default.background,
+          background: BasicFilters[this.index].default.background,
         }
       }
 
@@ -94,18 +94,18 @@ export default {
         }
 
       if (
-        BasicDropdowns[this.index] &&
-        BasicDropdowns[this.index].options[i].size
+        BasicFilters[this.index] &&
+        BasicFilters[this.index].options[i].size
       )
         return {
           'background-color': '#CCCCCC',
           'font-size': 0,
-          width: BasicDropdowns[this.index].options[i].size + 'px',
-          height: BasicDropdowns[this.index].options[i].size + 'px',
+          width: BasicFilters[this.index].options[i].size + 'px',
+          height: BasicFilters[this.index].options[i].size + 'px',
           'margin-left':
-            (24 - BasicDropdowns[this.index].options[i].size) / 2 + 'px',
+            (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
           'margin-right':
-            12 + (24 - BasicDropdowns[this.index].options[i].size) / 2 + 'px',
+            12 + (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
         }
 
       return null

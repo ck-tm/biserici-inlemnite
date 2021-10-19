@@ -53,7 +53,7 @@ export default new Vuex.Store({
   modules: {},
   getters: {
     profilePreview: (state) =>
-      state.mapData
+      state.mapData && state.profile.id
         ? state.mapData.find((e) => e.id == state.profile.id)
         : null,
     filterValue: (state) => (filter, value) =>

@@ -30,6 +30,11 @@ nav.navbar {
       }
     }
 
+    &.is-expanded .dropdown-menu {
+      max-width: none;
+      width: auto;
+    }
+
     .dropdown-content {
       border: 1px solid $grey-light;
     }
@@ -38,7 +43,7 @@ nav.navbar {
       display: flex;
       align-items: center;
       padding: 8px 12px;
-      // white-space: normal;
+      white-space: normal;
     }
 
     .icon-circle {

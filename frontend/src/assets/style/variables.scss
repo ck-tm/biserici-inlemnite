@@ -150,7 +150,7 @@ $tabs-link-padding: 22px 16px 22px 32px;
 
 // ---------------------------------------------------- modal
 // $modal-z: 1000;
-// $modal-background-background-color: rgba(0, 0, 0, 0.4);
+$modal-background-background-color: rgba(0, 0, 0, 0.4);
 // $modal-content-width: auto;
 // $modal-card-title-color: inherit;
 // $modal-card-title-size: $size-4;
@@ -171,8 +171,9 @@ $box-background-color: $grey-lighter;
 // $box-color: $white;
 
 // ---------------------------------------------------- misc
-$tag-radius: 100px;
-$tag-color: $grey-lighter;
+$tag-radius: 100%;
+$tag-background-color: $white;
+$tag-color: $black;
 
 $hr-background-color: $grey;
 $hr-height: 1px;
