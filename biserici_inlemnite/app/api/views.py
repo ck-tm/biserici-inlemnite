@@ -53,45 +53,46 @@ CLASE_PRIORITIZARE = {
         },
     6: {
         'id': 2,
-        'value': '6-10'
+        'value': '5-10'
         },
     7: {
         'id': 2,
-        'value': '6-10'
+        'value': '5-10'
         },
     8: {
         'id': 2,
-        'value': '6-10'
+        'value': '5-10'
         },
     9: {
         'id': 2,
-        'value': '6-10'
+        'value': '5-10'
         },
     10: {
         'id': 2,
-        'value': '6-10'
+        'value': '5-10'
         },
     11: {
         'id': 3,
-        'value': '11-15'
+        'value': '10-15'
         },
     12: {
         'id': 3,
-        'value': '11-15'
+        'value': '10-15'
         },
     13: {
         'id': 3,
-        'value': '11-15'
+        'value': '10-15'
         },
     14: {
         'id': 3,
-        'value': '11-15'
+        'value': '10-15'
         },
     15: {
         'id': 3,
-        'value': '11-15'
+        'value': '10-15'
         },
 }
+
 
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer

@@ -2,20 +2,26 @@ import requests
 from pprint import pprint
 
 body = {
-    "advanced": {
-    #     "descriere": {
-    #         "amplasament": [1]
-    #     },
-        "conservare": {
-            "sit": [2,3,5]
-        }
-    }, 
+    # "advanced": {
+    # #     "descriere": {
+    # #         "amplasament": [1]
+    # #     },
+    #     "conservare": {
+    #         "sit": [2,3,5]
+    #     }
+    # }, 
     "basic": {
-        "judet": [3],
-        "localitate": [1],
-        "conservare": [1],
-        "valoare": [1],
-        "prioritizare": [1],
+        # "judet": [3],
+        # "localitate": [1],
+        "conservare": [
+            3
+        ],
+        "valoare": [
+            2
+        ],
+        "prioritizare": [
+            2,
+        ]
     }
 }
 

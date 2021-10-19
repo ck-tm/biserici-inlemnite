@@ -2,7 +2,7 @@ from app import models
 from pprint import pprint
 
 
-map_capitole = {
+MAP_CAPITOLE = {
     'identificare': models.IdentificarePage,
     'istoric': models.IstoricPage,
     'descriere': models.DescrierePage,
@@ -12,7 +12,7 @@ map_capitole = {
 }
 
 
-map_field_verbose_name = {
+MAP_FIELD_VERBOSE_NAME = {
     'Sit': {
         "sit": "Sit",
         "elemente_arhitecturale": "Elemente arhitecturale",
@@ -85,6 +85,13 @@ map_field_verbose_name = {
     }
 }
 
+MAP_CLASE_PRIORITIZARE = {
+    1: (1, 5),
+    2: (5, 10),
+    1: (10, 15),
+}
+
+
 def get_chapter_filters(model, filters_dict):
     filters = {}
     sections_list = []
@@ -111,7 +118,7 @@ def get_chapter_filters(model, filters_dict):
         filters_list = []
         for field in section_filters:
             if section_filters[field]:
-                field_verbose = map_field_verbose_name.get(section, {}).get(field, None)
+                field_verbose = MAP_FIELD_VERBOSE_NAME.get(section, {}).get(field, None)
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
                     filters_list.append({
@@ -148,19 +155,18 @@ def get_chapter_filters(model, filters_dict):
 
 
 def filter_biserici(data):
-
     biserici_paths = []
     i = 0
 
     for nume_capitol, capitol_filters in data.get('advanced', {}).items():
         filters = {}
         for indicator, indicator_values in capitol_filters.items():
-            if map_capitole[nume_capitol]._meta.get_field(indicator).get_internal_type() == 'ArrayField':
+            if MAP_CAPITOLE[nume_capitol]._meta.get_field(indicator).get_internal_type() == 'ArrayField':
                 filters[f"{indicator}__contains"] = indicator_values
             else:
                 filters[f"{indicator}__in"] = indicator_values
 
-        capitole_pages = map_capitole[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
+        capitole_pages = MAP_CAPITOLE[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
         if i < 1:
             biserici_paths = set([x[:12] for x in capitole_pages])
         else:
@@ -173,7 +179,13 @@ def filter_biserici(data):
     else:
         filters = {}
     for indicator, indicator_values in data['basic'].items():
-        filters[f"{indicator}__in"] = indicator_values
+        if indicator in ['conservare', 'valoare']:
+
+            filters[f"{indicator}__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
+        elif indicator == 'prioritizare':
+            filters[f"{indicator}__range"] = MAP_CLASE_PRIORITIZARE[indicator_values[0]]
+        else:
+            filters[f"{indicator}__in"] = indicator_values
 
     if filters:
         biserici = models.BisericaPage.objects.filter(**filters)
