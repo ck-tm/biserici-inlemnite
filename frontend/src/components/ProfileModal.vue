@@ -10,10 +10,34 @@
 
     <div class="profile-container" v-if="profile">
       <header class="columns">
-        <div class="column">
+        <div class="column is-5">
           <h2 v-text="profile.title" />
         </div>
-        <div class="column"></div>
+        <div class="column is-5">
+          <div class="columns">
+            <div class="column">
+              <FilterDisplayItem
+                :value="1 || profile.conservare"
+                index="conservare"
+                size="is-large"
+              />
+            </div>
+            <div class="column">
+              <FilterDisplayItem
+                :value="'B' || profile.valoare"
+                index="valoare"
+                size="is-large"
+              />
+            </div>
+            <div class="column">
+              <FilterDisplayItem
+                :value="1 || profile.prioritizare"
+                index="prioritizare"
+                size="is-large"
+              />
+            </div>
+          </div>
+        </div>
       </header>
     </div>
 
@@ -22,12 +46,13 @@
 </template>
 
 <script>
+import FilterDisplayItem from '@/components/FilterDisplayItem'
 import { mapState } from 'vuex'
 import ApiService from '@/services/api'
 
 export default {
   name: 'ProfileModal',
-  components: {},
+  components: { FilterDisplayItem },
   props: { active: Boolean },
   data() {
     return {
@@ -73,6 +98,9 @@ export default {
   background-color: $black;
 
   .profile-container {
+    header {
+      padding: 32px;
+    }
   }
 }
 </style>

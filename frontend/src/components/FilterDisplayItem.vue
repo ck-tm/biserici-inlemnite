@@ -27,8 +27,8 @@ export default {
   props: {
     value: null,
     index: String,
-    isLarge: Boolean,
-    isMultiline: Boolean,
+    size: String,
+    isMultiline: { type: Boolean, default: false },
     hasLabel: { type: Boolean, default: true },
     hasCaption: { type: Boolean, default: true },
     hasSizeVariation: { type: Boolean, default: false },
@@ -52,7 +52,7 @@ export default {
     },
     classTag() {
       return {
-        'is-large': this.isLarge,
+        [this.size]: true
       }
     },
     tagStyle() {
@@ -81,10 +81,8 @@ export default {
             'font-size': 0,
             width: this.activeOption.size + 'px',
             height: this.activeOption.size + 'px',
-            // 'margin-left':
-            //   (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
-            // 'margin-right':
-            //   12 + (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
+            'margin-left': (24 - this.activeOption.size) / 2 + 'px',
+            'margin-right': 12 + (24 - this.activeOption.size) / 2 + 'px',
           }
         else return { 'background-color': '#FFFFFF', color: '#000000' }
       }
@@ -118,9 +116,5 @@ export default {
       }
     }
   }
-
-  // &.is-valoare {}
-  // &.is-conservare {}
-  // &.is-prioritizare {}
 }
 </style>
