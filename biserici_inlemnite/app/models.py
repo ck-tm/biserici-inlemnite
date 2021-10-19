@@ -156,16 +156,16 @@ class BisericaPage(Page):
     ]
 
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
-                              on_delete=models.SET_NULL, related_name='pp_biserici')
+                              on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
-                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
-    adresa = models.CharField(max_length=250, null=True, blank=True)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
+                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
+    latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
+    longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
 
-    valoare = models.CharField(max_length=5, null=True, blank=True)
-    conservare = models.IntegerField(null=True, blank=True)
-    prioritizare = models.IntegerField(null=True, blank=True)
+    valoare = models.FloatField(max_length=5, null=True, blank=True)
+    conservare = models.FloatField(null=True, blank=True)
+    prioritizare = models.FloatField(null=True, blank=True)
 
     datare_prin_interval_timp = models.CharField(
         max_length=50, null=True, blank=True)
@@ -216,12 +216,12 @@ class IdentificarePage(Page):
     """Home page model."""
 
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
-                              on_delete=models.SET_NULL, related_name='ppp_biserici')
+                              on_delete=models.SET_NULL, related_name='ppp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
-                                   blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
-    adresa = models.CharField(max_length=250, null=True, blank=True)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
+                                   blank=True, on_delete=models.SET_NULL, related_name='p_biserici', verbose_name="Localitate")
+    adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
+    latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
+    longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
     statut = models.ForeignKey('nomenclatoare.StatutBiserica', null=True,
                                blank=True, on_delete=models.SET_NULL, related_name='p_biserici')
     hram = models.ForeignKey('nomenclatoare.Hram', null=True,
@@ -399,6 +399,8 @@ class ElementAnsambluConstruit(ClusterableModel):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.element)
 
 class ElementeAnsambluConstruit(Orderable, ElementAnsambluConstruit):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
@@ -438,6 +440,8 @@ class ElementImportantAnsambluConstruit(ClusterableModel):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.element)
 
 class ElementeImportanteAnsambluConstruit(Orderable, ElementImportantAnsambluConstruit):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
@@ -476,6 +480,9 @@ class ClopotBiserica(ClusterableModel):
         abstract = True
 
 
+    def __str__(self):
+        return str(self.an)
+
 class ClopoteBiserica(Orderable, ClopotBiserica):
     page = ParentalKey(
         'DescrierePage', on_delete=models.CASCADE, related_name='clopote')
@@ -513,6 +520,8 @@ class FinisajePortic(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajPronaos(Orderable):
     page_pronaos = ParentalKey(
@@ -546,6 +555,8 @@ class FinisajePronaos(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajNaos(Orderable):
     page_naos = ParentalKey(
@@ -579,6 +590,8 @@ class FinisajeNaos(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeFinisajAltar(Orderable):
     page_altar = ParentalKey(
@@ -612,6 +625,8 @@ class FinisajeAltar(ClusterableModel, Orderable):
         InlinePanel('poze_finisaj', label='Poze')
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class Poza(models.Model):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
@@ -632,6 +647,8 @@ class Poza(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.poza)
 
 class PozeAccese(Orderable, Poza):
     page = ParentalKey(
@@ -763,6 +780,8 @@ class EtapeIstoriceVizibile(ClusterableModel, Orderable):
         InlinePanel('poze', label='Poză'),
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class DescrierePage(Page):
     """
@@ -797,8 +816,9 @@ class DescrierePage(Page):
     # Arhitectura bisericii
     planimetria_bisericii = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
-    materiale = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructura', help_text="Materiale folosite in construcția bisericii", blank=True)
+    materiale = models.ForeignKey(
+        'nomenclatoare.MaterialeStructura', help_text="Materiale folosite in construcția bisericii", null=True, blank=True,
+        on_delete=models.SET_NULL)
     detalii_materiale = RichTextField(features=[], null=True, blank=True,
                                       help_text="Materialele care compun structura de rezistentă a bisericii")
 
@@ -1168,18 +1188,16 @@ class DescrierePage(Page):
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
-            FieldPanel("toponim"), ],
+            FieldPanel("toponim"),
+            FieldPanel("toponim_sursa"), 
+            ],
             heading='toponim',
             classname='collapsible collapsed'
         ),
-        MultiFieldPanel([
-            FieldPanel("toponim_sursa"), ],
-            heading='toponim_sursa',
-            classname='collapsible collapsed'
-        ),
+        
         MultiFieldPanel([
             FieldPanel("relatia_cu_cimitirul"), ],
-            heading='relatia_cu_cimitirul',
+            heading='relatia cu cimitirul',
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
@@ -1187,7 +1205,7 @@ class DescrierePage(Page):
                        widget=forms.CheckboxSelectMultiple),
             InlinePanel("poze_peisagistica_sitului", label="Poză")
         ],
-            heading='peisagistica_sitului',
+            heading='peisagistica sitului',
             classname='collapsible collapsed'
         ),
         MultiFieldPanel([
@@ -1206,7 +1224,7 @@ class DescrierePage(Page):
 
     arhitectura_panels = [
         MultiFieldPanel([
-            FieldPanel('materiale', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('materiale'),
             FieldPanel('detalii_materiale'),
         ],
             heading="Materiale",
@@ -1699,6 +1717,9 @@ class Persoana(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.nume
+
 
 class Ctitori(Orderable, Persoana):
     page = ParentalKey(
@@ -1733,6 +1754,9 @@ class Eveniment(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.nume
+
 
 class Evenimente(Orderable, Eveniment):
     page = ParentalKey('IstoricPage', on_delete=models.CASCADE,
@@ -1763,6 +1787,9 @@ class MutareBiserica(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return str(self.localitate)
+
 
 class MutariBiserica(Orderable, MutareBiserica):
     page = ParentalKey(
@@ -1783,6 +1810,8 @@ class PovesteBiserica(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.sursa
 
 class PovestiBiserica(Orderable, PovesteBiserica):
     page = ParentalKey(
@@ -2116,6 +2145,66 @@ class ValoarePage(Page):
 
         verbose_name = "Valoare"
         verbose_name_plural = "Valoare"
+
+
+
+    def save(self, *args, **kwargs):
+        nota_valoare = 0
+        active_fields = 0
+
+        fields = [
+            "vechime",
+            "integritate",
+            "unicitate",
+            "valoare_memoriala",
+            "peisaj_cultural",
+            "valoare_sit",
+            "estetica",
+            "mestesug",
+            "pictura",
+            "folosinta_actuala",
+            "relevanta_actuala",
+            "potential",
+        ]
+
+        important_fields = [
+            "vechime",
+            "integritate",
+            "unicitate",
+            "folosinta_actuala",
+            "relevanta_actuala",
+            "potential",
+        ]
+
+        for field in fields:
+            field_value = getattr(self, field)
+            if field_value:
+                if field in important_fields:
+                    nota_valoare += 2 * field_value
+                    active_fields += 2
+                else:
+                    nota_valoare += field_value
+                    active_fields += 1
+
+        if active_fields:
+            nota_valoare = nota_valoare / active_fields
+        print('******')
+        print('******')
+        print('******')
+        print(nota_valoare)
+        print('******')
+        print('******')
+        print('******')
+        biserica = self.get_parent().specific
+        biserica.valoare = nota_valoare
+
+        if biserica.conservare:
+            biserica.prioritizare = biserica.valoare * biserica.conservare
+        biserica.save_revision().publish()
+
+        return super().save(*args, **kwargs)
+
+
 
     class PozeSit(Orderable, Poza):
         page = ParentalKey(
@@ -2712,6 +2801,78 @@ class ConservarePage(Page):
         verbose_name = "Conservare"
         verbose_name_plural = "Conservare"
 
+    def save(self, *args, **kwargs):
+
+        nota_conservare = 0
+        active_fields = 0
+        has_pericol = False
+        min_pericol = 15
+
+        fields = [
+            "sit",
+            "elemente_arhitecturale",
+            "alte_elemente_importante",
+            "vegetatie",
+            "teren",
+            "fundatii",
+            "talpi",
+            "corp_biserica",
+            "bolti",
+            "cosoroabe",
+            "sarpanta_peste_corp_biserica",
+            "turn",
+            "zona_din_jurul_biserici",
+            "pardoseli_interioare",
+            "finisaj_exterior",
+            "finisaj_pereti_interiori",
+            "finisaj_tavane_si_bolti",
+            "tamplarii",
+            "invelitoare_sarpanta_si_turn",
+            "instalatie_electrica",
+            "instalatie_termica",
+            "paratraznet",
+            "strat_pictural",
+            "obiecte_de_cult",
+            "mobilier",
+        ]
+
+        for field in fields:
+            field_value = getattr(self, field)
+            if field_value:
+                try:
+                    pericol_field = getattr(self, field + '_pericol')
+                    if pericol_field:
+                        has_pericol = True
+                        if min_pericol > field_value:
+                            min_pericol = field_value
+                except:
+                    pass
+
+                nota_conservare += field_value
+                active_fields += 1
+
+
+        if has_pericol:
+            nota_conservare = min_pericol
+        else:
+            nota_conservare = nota_conservare / active_fields
+        print('******')
+        print('******')
+        print('******')
+        print(nota_conservare)
+        print('******')
+        print('******')
+        print('******')
+        biserica = self.get_parent().specific
+        biserica.conservare = nota_conservare
+
+        if biserica.valoare:
+            biserica.prioritizare = biserica.valoare * biserica.conservare
+        biserica.save_revision().publish()
+
+        return super().save(*args, **kwargs)
+
+
 class PozeArtisticEtapeIstoriceVizibile(Orderable):
     page = ParentalKey('ArtisticEtapeIstoriceVizibile',
                        on_delete=models.CASCADE, related_name='poze')
@@ -2749,6 +2910,8 @@ class ArtisticEtapeIstoriceVizibile(ClusterableModel, Orderable):
         InlinePanel('poze', label='Poză'),
     ]
 
+    def __str__(self):
+        return str(self.element)
 
 class PozeProscomidie(Orderable, Poza):
     page = ParentalKey('ComponentaArtisticaPage',

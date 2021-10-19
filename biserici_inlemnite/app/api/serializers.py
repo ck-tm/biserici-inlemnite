@@ -55,63 +55,89 @@ class PozaSerializer(serializers.Serializer):
     class Meta:
         fields = ['poza', 'observatii']
 
-class ElementSerializer(serializers.Serializer):
-    element = serializers.CharField()
-    observatii = serializers.CharField()
-    poze = PozaSerializer(many=True)
 
-    class Meta:
-        fields = ['poza', 'observatii']
+def get_nested_model_data(elements):
+    print('------')
+    print(elements)
+    print('------')
+    serializer_list = []
+    meta_fields = type(elements[0])._meta.fields
+    for obj in elements:
+        obj_serializer = {}
+        for field in meta_fields:
+            field_value = getattr(obj, field.name)
+            if field_value and field.name not in ['page', 'id', 'sort_order']:
+                if type(field_value) in [str, float, type(None), int, bool]:
+                    obj_serializer[field.verbose_name.capitalize()] = field_value
+                else:
+                    obj_serializer[field.verbose_name.capitalize()] = str(field_value)
+
+        try:
+            if obj.poze.exists():
+                obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
+        except Exception as e:
+            print('******======', e)
+        if obj_serializer:
+            serializer_list.append(obj_serializer)
+
+    return serializer_list
 
 
-
-def generic_serializer_data(field):
-    try:
-        values = field.all()
-        if values:
-            print(values)
-            if type(values[0]).__module__.startswith('nomenclatoare'):
-                return ', '.join([str(x) for x in values])
-
-            serializer_list = []
-            meta_fields = type(values[0])._meta.fields
-            for obj in values:
-                obj_serializer = {}
-                for field in meta_fields:
-                    field_value = getattr(obj, field.name)
-                    if field_value and field.name not in ['page', 'id', 'sort_order']:
-                        obj_serializer[field.verbose_name.capitalize()] = str(field_value)
-                if obj_serializer:
-                    print('=======')
-                    pprint(obj_serializer)
-                    serializer_list.append(obj_serializer)
-
-            return serializer_list
-        return None
-    except:
-        if type(field) in [str, float, type(None)]:
-            return field
-        return str(field)
-
+def get_section_fields(obj, section):
+    fields = []
+    for field in section['fields']:
+        field_obj = getattr(obj, field[0])
+        elements = []
+        value = None
+        try:
+            if 'poze_' in field[0]:
+                value = PozaSerializer(field_obj.all(), many=True).data
+            else:
+                all_elements = field_obj.all()
+                if all_elements:
+                    if type(all_elements[0]).__module__.startswith('nomenclatoare'):
+                        value = ' \n'.join([str(x) for x in all_elements])
+                    else:
+                        value = ', '.join([str(x) for x in all_elements])
+                        elements = get_nested_model_data(all_elements)
+        except Exception as e:
+            print('****', type(e), obj, e)
+            if type(field_obj) in [str, float, type(None), int, bool]:
+                value = field_obj
+            else:
+                value = str(field_obj)
+        if value :
+            field_serializer = {
+                'key': field[0] if 'poze_' not in field[0] else '_poze',
+                'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name.capitalize(),
+                'value': value,
+                'elements': elements
+            }
+            fields.append(field_serializer)
+    return fields
 
 def get_sections_serialized(obj, sections):
     sections_serializer = []
     for section in sections:
         section_serializer = {
             'title': section['title'],
-            'fields': []
+            'subsections': [],
+            'fields': [],
             }
-        for field in section['fields']:
-            value = generic_serializer_data(getattr(obj, field[0]))
-            if value:
-                field_serializer = {
-                    'key': field[0],
-                    'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name,
-                    'value': value
+        if 'subsections' in section.keys():
+            for subsection in section['subsections']:
+                subsection_serializer = {
+                    'title': subsection['title'],
+                    'fields': get_section_fields(obj, subsection)
                 }
-                section_serializer['fields'].append(field_serializer)
-        if section_serializer['fields']:
-            sections_serializer.append(section_serializer)
+                if subsection_serializer['fields']:
+                    section_serializer['subsections'].append(subsection_serializer)
+            if section_serializer['subsections']:
+                sections_serializer.append(section_serializer)
+        else:
+            section_serializer['fields'] = get_section_fields(obj, section)
+            if section_serializer['fields']:
+                sections_serializer.append(section_serializer)
     return sections_serializer
 
 
@@ -128,75 +154,75 @@ class IdentificareSerializer(serializers.ModelSerializer):
             {
             'title': 'Localizare',
             'fields': [
-                ("judet", "Jude"),
-                ("localitate", "Localitate"),
-                ("adresa", "Adresa"),
-                ("latitudine", "Latitudine"),
-                ("longitudine", "Longitudine"),
+                ("judet", ""),
+                ("localitate", ""),
+                ("adresa", ""),
+                ("latitudine", ""),
+                ("longitudine", ""),
                 ]
             },
             {
             'title': 'Statut',
             'fields': [
-                ("statut", "Statut"),
+                ("statut", ""),
                 ]
             },
             {
             'title': 'Hram',
             'fields': [
-                ("hram", "Hram"),
+                ("hram", ""),
                 ]
             },
             {
             'title': 'Denumire',
             'fields': [
-                ("denumire_actuala", "Denumire actuala"),
-                ("denumire_precedenta", "Denumire precedenta"),
-                ("denumire_locala", "Denumire locala"),
-                ("denumire_oberservatii", "Denumire oberservatii"),
+                ("denumire_actuala", ""),
+                ("denumire_precedenta", ""),
+                ("denumire_locala", ""),
+                ("denumire_oberservatii", ""),
                 ]
             },
             {
             'title': 'Cult',
             'fields': [
-                ("cult", "Cult"),
+                ("cult", ""),
                 ]
             },
             {
             'title': 'Utilizare',
             'fields': [
-                ("utilizare", "Utilizare"),
-                ("utilizare_observatii", "Utilizare observatii"),
+                ("utilizare", ""),
+                ("utilizare_observatii", ""),
                 ]
             },
             {
             'title': 'Singularitate',
             'fields': [
-                ("singularitate", "Singularitate"),
-                ("singularitate_observatii", "Singularitate observatii"),
+                ("singularitate", ""),
+                ("singularitate_observatii", ""),
                 ]
             },
             {
             'title': 'Funcțiune',
             'fields': [
-                ("functiune", "Functiune"),
-                ("functiune_observatii", "Functiune observatii"),
-                ("functiune_initiala", "Functiune initiala"),
-                ("functiune_initiala_observatii", "Functiune initiala observatii"),
+                ("functiune", ""),
+                ("functiune_observatii", ""),
+                ("functiune_initiala", ""),
+                ("functiune_initiala_observatii", ""),
                 ]
             },
             {
             'title': 'Proprietate',
             'fields': [
-                ("proprietate_actuala", "Proprietate actuala"),
-                ("proprietate_observatii", "Proprietate observatii"),
-                ("proprietar_actual", "Proprietar actual"),
+                ("proprietate_actuala", ""),
+                ("proprietate_observatii", ""),
+                ("proprietar_actual", ""),
                 ]
             },
             {
             'title': 'Înscriere documente cadastrale',
             'fields': [
-                ("inscriere_documente_cadastrale", "Inscriere documente cadastrale"),
+                ("inscriere_documente_cadastrale", ""),
                 ]
             },
         ]
@@ -218,59 +244,93 @@ class IstoricSerializer(serializers.ModelSerializer):
     def get_sections(self, obj):
         sections =  [
             {
-            'title': 'Datare',
-            'fields': [
-                ("sursa_datare", "Sursa datare"),
-                ("an_constructie", "An constructie"),
-                ("datare_prin_interval_timp", "Datare prin interval timp"),
-                ("datare_secol", "Datare secol"),
-                ("datare_secol_observatii", "Datare secol observatii"),
-                ("datare_secol_sursa", "Datare secol sursa"),
-                ]
-            },
-            {
-            'title': 'Studiu dendrocronologic',
-            'fields': [
-                ("studiu_dendocronologic_fisier", "Studiu dendocronologic fisier"),
-                ("studiu_dendocronologic_autor", "Studiu dendocronologic autor"),
-                ("studiu_dendocronologic_an", "Studiu dendocronologic an"),
-                ("studiu_dendocronologic_observatii", "Studiu dendocronologic observatii"),
-                ]
-            },
-            {
-            'title': 'Pisanie',
-            'fields': [
-                ("pisanie_traducere", "Pisanie traducere"),
-                ("pisanie_secol_observatii", "Pisanie secol observatii"),
-                ("pisanie_secol_sursa", "Pisanie secol sursa"),
-                ]
-            },
+            'title': 'Istoric',
+            'subsections':[
+                {
+                'title': 'Datare',
+                'fields': [
+                    ("sursa_datare", ""),
+                    ("an_constructie", ""),
+                    ("datare_prin_interval_timp", ""),
+                    ("datare_secol", ""),
+                    ("datare_secol_observatii", ""),
+                    ("datare_secol_sursa", ""),
+                    ]
+                },
+                {
+                'title': 'Studiu dendrocronologic',
+                'fields': [
+                    ("studiu_dendocronologic_an", ""),
+                    ("studiu_dendocronologic_autor", ""),
+                    ("studiu_dendocronologic_fisier", ""),
+                    ("studiu_dendocronologic_observatii", ""),
+                    ]
+                },
+                {
+                'title': 'Pisanie',
+                'fields': [
+                    ("pisanie_traducere", ""),
+                    ("pisanie_secol_observatii", ""),
+                    ("pisanie_secol_sursa", ""),
+                    ]
+                }
+            ]},
             {
             'title': 'Persoane',
-            'fields': [
-                ("ctitori", "Ctitori"),
-                ("mesteri", "Mesteri"),
-                ("zugravi", "Zugravi"),
-                ("personalitati", "Personalitati"),
-                ]
-            },
+            'subsections':[
+                {
+                    'title': 'Ctitori',
+                    'fields': [
+                        ("ctitori", "Nume")
+                    ]
+                },
+                {
+                    'title': 'Meșteri',
+                    'fields': [
+                        ("mesteri", "Nume")
+                    ]
+                },
+                {
+                    'title': 'Zugravi',
+                    'fields': [
+                        ("zugravi", "Nume")
+                    ]
+                },
+                {
+                    'title': 'Personalități',
+                    'fields': [
+                        ("personalitati", "Nume")
+                    ]
+                }
+            ]},
             {
             'title': 'Evenimente',
-            'fields': [
-                ("evenimente", "Evenimente"),
+            'subsections': [{
+                'title': '',
+                'fields': [
+                    ("evenimente", "Evenimente"),
                 ]
-            },
+                }
+            ]},
+
             {
             'title': 'Mutări',
-            'fields': [
-                ("mutari", "Mutari"),
-                ]
+            'subsections': [{
+                'title': '',
+                'fields': [
+                    ("mutari", "Mutări"),
+                    ]
+                }
+            ]
             },
             {
             'title': 'Povești',
-            'fields': [
-                ("povesti", "Povesti"),
-                ]
+            'subsections': [{
+                'title': '',
+                'fields': [
+                    ("povesti", "Povești"),
+                    ]
+                }]
             },
             
         ]
@@ -289,14 +349,236 @@ class DescriereSerializer(serializers.ModelSerializer):
         model = models.DescrierePage
         fields = ['title', 'sections']
 
+
     def get_sections(self, obj):
         sections =  [
             {
-            'title': 'Ansamblu construit',
-            'fields': [
-                ("elemente_ansamblu_construit", "Elemente arhitecturale"),
+                'title': 'Localizare/Peisaj',
+                'subsections': [
+                    {
+                    'title': 'Amplasament',
+                    'fields': [
+                        ("amplasament", ""),
+                        ("poze_amplasament", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Topografie',
+                    'fields': [
+                        ("topografie", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Toponim',
+                    'fields': [
+                        ("toponim", ""),
+                        ("toponim_sursa", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Relația cu cimitirul',
+                    'fields': [
+                        ("relatia_cu_cimitirul", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Peisagistica sitului',
+                    'fields': [
+                        ("peisagistica_sitului", ""),
+                        ("poze_peisagistica_sitului", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Observații',
+                    'fields': [
+                        ("observatii", ""),
+                        ]
+                    },
                 ]
-            }
+            },
+            {
+                'title': 'Ansamblu construit',
+                'subsections': [
+                    {
+                    'title': 'Elemente arhitecturale',
+                    'fields': [
+                        ("elemente_ansamblu_construit", "Elemente"),
+                        ]
+                    },
+                    {
+                    'title': 'Alte componente importante ale sitului',
+                    'fields': [
+                        ("elemente_importante", "Elemente"),
+                        ]
+                    }
+
+                ]
+            },
+            {
+                'title': 'Arhitectura bisericii',
+                'subsections': [
+                    {
+                    'title': 'Materiale',
+                    'fields': [
+                        ("materiale", ""),
+                        ("detalii_materiale", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Planimetria bisericii',
+                    'fields': [
+                        ("planimetria_bisericii", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Accese',
+                    'fields': [
+                        ("numar_accese_pridvor", ""),
+                        ("numar_accese_pridvor_observatii", ""),
+                        ("numar_accese_pronaos", ""),
+                        ("numar_accese_pronaos_observatii", ""),
+                        ("numar_accese_naos", ""),
+                        ("numar_accese_naos_observatii", ""),
+                        ("numar_accese_altar", ""),
+                        ("numar_accese_altar_observatii", ""),
+                        ("poze_accese", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Ferestre',
+                    'fields': [
+                        ("numar_ferestre_pridvor", ""),
+                        ("numar_ferestre_pridvor_observatii", ""),
+                        ("numar_ferestre_pronaos", ""),
+                        ("numar_ferestre_pronaos_observatii", ""),
+                        ("numar_ferestre_naos", ""),
+                        ("numar_ferestre_naos_observatii", ""),
+                        ("numar_ferestre_altar", ""),
+                        ("numar_ferestre_altar_observatii", ""),
+                        ("poze_ferestre", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Ochieși / Aerisitoare',
+                    'fields': [
+                        ("ochiesi_aerisitoare", ""),
+                        ("numar_ochiesi", ""),
+                        ("ochiesi_aerisitoare_observatii", ""),
+                        ("poze_ochiesi", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Solee',
+                    'fields': [
+                        ("solee", ""),
+                        ("solee_observatii", ""),
+                        ("poze_solee", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Masă altar',
+                    'fields': [
+                        ("masa_altar_material_picior", ""),
+                        ("masa_altar_material_blat", ""),
+                        ("masa_altar_observatii", ""),
+                        ("poze_masa_atlar", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Bolți',
+                    'fields': [
+                        ("bolta_peste_pronaos", ""),
+                        ("bolta_peste_pronaos_material", ""),
+                        ("bolta_peste_pronaos_structura", ""),
+                        ("bolta_peste_pronaos_tipul_de_arc", ""),
+                        ("bolta_peste_pronaos_observatii", ""),
+                        ("bolta_peste_naos", ""),
+                        ("bolta_peste_naos_material", ""),
+                        ("bolta_peste_naos_structura", ""),
+                        ("bolta_peste_naos_tipul_de_arc", ""),
+                        ("bolta_peste_naos_observatii", ""),
+                        ("bolta_peste_altar", ""),
+                        ("bolta_peste_altar_tip", ""),
+                        ("bolta_peste_altar_material", ""),
+                        ("bolta_peste_altar_structura", ""),
+                        ("bolta_peste_altar_tipul_de_arc", ""),
+                        ("bolta_peste_altar_observatii", ""),
+                        ]
+                    },
+                    {
+                    'title': 'Cor',
+                    'fields': [
+                        ("cor", ""),
+                        ("cor_material", ""),
+                        ("cor_observatii", ""),
+                        ("poze_cor", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Șarpantă corp',
+                    'fields': [
+                        ("sarpanta_tip", ""),
+                        ("sarpanta_veche_nefolosita", ""),
+                        ("sarpanta_numar_turnulete", ""),
+                        ("sarpanta_numar_cruci", ""),
+                        ("sarpanta_material_cruci", ""),
+                        ("sarpanta_observatii", ""),
+                        ("poze_sarpanta", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Turn',
+                    'fields': [
+                        ("turn_dimensiune", ""),
+                        ("turn_tip", ""),
+                        ("turn_numar", ""),
+                        ("turn_numar_stalpi", ""),
+                        ("turn_plan", ""),
+                        ("turn_amplasare", ""),
+                        ("turn_galerie", ""),
+                        ("turn_numar_arcade", ""),
+                        ("turn_numar_arcade_observatii", ""),
+                        ("turn_asezare_talpi", ""),
+                        ("turn_relatie_talpi", ""),
+                        ("turn_numar_talpi", ""),
+                        ("turn_observatii", ""),
+                        ("poze_turn", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Clopote',
+                    'fields': [
+                        ("clopote", "An"),
+                        ("poze_clopote", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Turle',
+                    'fields': [
+                        ("turle_exista", ""),
+                        ("turle_numar", ""),
+                        ("turle_pozitionare", ""),
+                        ("turle_numar_goluri", ""),
+                        ("turle_forma_sarpanta", ""),
+                        ("turle_observatii", ""),
+                        ("poze_turle", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Poze Generale Exterior',
+                    'fields': [
+                        ("poze_generale_exterior", "Poze"),
+                        ]
+                    },
+                    {
+                    'title': 'Poze Generale Interior',
+                    'fields': [
+                        ("poze_generale_interior", "Poze"),
+                        ]
+                    }
+
+                ]
+            },
             
         ]
 
@@ -389,7 +671,6 @@ class ValoareSerializer(serializers.ModelSerializer):
         return obj.title.split('. ')[-1]
 
 
-
 class BisericaSerializer(serializers.ModelSerializer):
     # identificare = serializers.SerializerMethodField()
     # descriere = serializers.SerializerMethodField()
@@ -420,11 +701,11 @@ class BisericaSerializer(serializers.ModelSerializer):
 
         tabs = [
             IdentificareSerializer(identificare_page).data,
-            DescriereSerializer(descriere_page).data,
-            ComponentaArtisticaSerializer(componenta_artistica_page).data,
             IstoricSerializer(istoric_page).data,
-            ValoareSerializer(valoare_page).data,
-            ConservareSerializer(conservare_page).data,
+            DescriereSerializer(descriere_page).data,
+            # ComponentaArtisticaSerializer(componenta_artistica_page).data,
+            # ValoareSerializer(valoare_page).data,
+            # ConservareSerializer(conservare_page).data,
             ]
         return tabs
 
