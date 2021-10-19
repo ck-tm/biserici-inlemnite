@@ -24,6 +24,30 @@ from app import utils
 import json
 
 
+CLASE_EVALUARE = {
+    1: 'A',
+    2: 'B',
+    3: 'C',
+}
+
+CLASE_PRIORITIZARE = {
+    1: '1-5',
+    2: '1-5',
+    3: '1-5',
+    4: '1-5',
+    5: '1-5',
+    6: '6-10',
+    7: '6-10',
+    8: '6-10',
+    9: '6-10',
+    10: '6-10',
+    11: '11-15',
+    12: '11-15',
+    13: '11-15',
+    14: '11-15',
+    15: '11-15',
+}
+
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
     queryset = models.BisericaPage.objects.live()
@@ -88,7 +112,6 @@ class FiltersView(ViewSet):
 
         componenta_artistica_name = {
             '': [
-
                     "suport_proscomidie", "obiecte_de_cult", "mobiliere", "obiecte_instrainate"
                 ],
             'Iconostasul': [
@@ -212,23 +235,23 @@ class FiltersView(ViewSet):
         for biserica in biserici:
             if biserica['conservare']:
                 conservare_item = {
-                    'id': len(conservare_filters) + 1,
-                    'value': biserica['conservare'],
+                    'id': round(biserica['conservare']),
+                    'value': round(biserica['conservare']),
                 }
                 if conservare_item not in conservare_filters:
                     conservare_filters.append(conservare_item)
             if biserica['valoare']:
                 valoare_item = {
-                    'id': len(valoare_filters) + 1,
-                    'value': biserica['valoare'],
+                    'id': round(biserica['valoare']),
+                    'value': CLASE_EVALUARE[round(biserica['valoare'])],
                 }
                 if valoare_item not in valoare_filters:
                     valoare_filters.append(valoare_item)
 
             if biserica['prioritizare']:
                 prioritizare_item = {
-                    'id': len(prioritizare_filters) + 1,
-                    'value': biserica['prioritizare'],
+                    'id': CLASE_PRIORITIZARE[round(biserica['prioritizare'])],
+                    'value': CLASE_PRIORITIZARE[round(biserica['prioritizare'])],
                 }
                 if prioritizare_item not in prioritizare_filters:
                     prioritizare_filters.append(prioritizare_item)

@@ -125,7 +125,7 @@ def get_chapter_filters(model, filters_dict):
                         filters_list.append({
                             "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
                             "key": field,
-                            "values": [{'id': choices[x], 'nume': choices[x]} for x in section_filters[field]]
+                            "values": [{'id': x, 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
                         if type(section_filters[field][0]) == list:
