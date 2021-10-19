@@ -4,6 +4,9 @@ const Colors = {
 }
 
 const BasicFilters = {
+  tagStyle: (borderColor, background, color) => {
+    borderColor, background, color
+  },
   conservare: {
     label: 'Stare de conservare',
     default: {

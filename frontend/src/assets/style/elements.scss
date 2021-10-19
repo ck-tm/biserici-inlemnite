@@ -4,6 +4,8 @@
     width: 32px;
     height: 32px;
     border: 1px solid $white;
+    background: transparent;
+    color: $white;
 
     &.is-small {
       width: 32px;
