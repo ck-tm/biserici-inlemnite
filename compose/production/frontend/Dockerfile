@@ -11,7 +11,9 @@ COPY frontend/ .
 RUN yarn build
 
 FROM nginx:stable-alpine as production-stage
-COPY /app/compose/production/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY /app/compose/production/nginx/nginx.conf /etc/nginx/conf.d
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
