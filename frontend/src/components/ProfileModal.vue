@@ -39,6 +39,27 @@
           </div>
         </div>
       </header>
+
+      <b-tabs
+        v-model="tab"
+        animation="slide-prev slide-next"
+        animateInitially
+      >
+        <b-tab-item
+          v-for="(tab, index) in profile.tabs"
+          :key="'profile-tab-' + index"
+        >
+          <template #header>
+            {{ tab.title }}
+          </template>
+
+          <template #default>
+            <div class="container-scroll">
+              <pre>{{ tab }}</pre>
+            </div>
+          </template>
+        </b-tab-item>
+      </b-tabs>
     </div>
 
     <b-loading v-model="loading" />
@@ -58,6 +79,7 @@ export default {
     return {
       loading: false,
       profile: null,
+      tab: 0
     }
   },
   computed: {

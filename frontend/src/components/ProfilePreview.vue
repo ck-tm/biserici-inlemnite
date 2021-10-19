@@ -49,7 +49,7 @@
           <FilterDisplayItem
             :value="1 || profilePreview.conservare"
             index="conservare"
-            is-large
+            size="is-large"
             is-multiline
           />
         </div>
@@ -57,7 +57,7 @@
           <FilterDisplayItem
             :value="'B' || profilePreview.valoare"
             index="valoare"
-            is-large
+            size="is-large"
             is-multiline
           />
         </div>
@@ -65,7 +65,7 @@
           <FilterDisplayItem
             :value="7 || profilePreview.prioritizare"
             index="prioritizare"
-            is-large
+            size="is-large"
             is-multiline
           />
         </div>
