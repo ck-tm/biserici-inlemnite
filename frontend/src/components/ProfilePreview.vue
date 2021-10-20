@@ -47,7 +47,7 @@
       <div class="columns">
         <div class="column">
           <FilterDisplayItem
-            :value="1 || profilePreview.conservare"
+            :value="Math.round(profilePreview.conservare)"
             index="conservare"
             size="is-large"
             is-multiline
@@ -55,7 +55,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="'B' || profilePreview.valoare"
+            :value="Math.round(profilePreview.valoare)"
             index="valoare"
             size="is-large"
             is-multiline
@@ -63,7 +63,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="7 || profilePreview.prioritizare"
+            :value="Math.round(profilePreview.prioritizare)"
             index="prioritizare"
             size="is-large"
             is-multiline

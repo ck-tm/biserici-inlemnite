@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-item" :class="{ [`is-${index}`]: true }">
+  <div class="filter-item" :class="{ [`is-${index}`]: true }" v-if="activeOption">
     <div
       class="label is-small"
       v-text="basicFilters[index].label"
