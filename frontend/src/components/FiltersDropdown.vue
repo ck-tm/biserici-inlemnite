@@ -93,10 +93,7 @@ export default {
           color: '#000000',
         }
 
-      if (
-        BasicFilters[this.index] &&
-        BasicFilters[this.index].options[i].size
-      )
+      if (BasicFilters[this.index] && BasicFilters[this.index].options[i].size)
         return {
           'background-color': '#CCCCCC',
           'font-size': 0,

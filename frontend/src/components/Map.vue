@@ -90,7 +90,8 @@ export default {
     getIcon(marker) {
       return icon({
         iconUrl: this.getMarkerIcon(
-          Colors.conservare[marker.conservare] || Colors.conservare[0]
+          Colors.conservare[Math.round(marker.conservare) - 1] ||
+            Colors.conservare[0]
         ),
         iconSize: this.icon.size,
         iconAnchor: this.icon.anchor,

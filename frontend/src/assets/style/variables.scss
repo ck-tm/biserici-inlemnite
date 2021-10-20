@@ -53,7 +53,7 @@ $radius-large: 40px;
 $size-1: 3rem;      // 48px
 $size-2: 2rem;      // 32px
 $size-3: 1.5rem;    // 24px
-$size-4: 1.125rem;  // 18px
+$size-4: 1.25rem;   // 20px
 $size-5: 1rem;      // 16px
 $size-6: 0.875rem;  // 14px
 $size-7: 0.75rem;   // 12px
@@ -146,7 +146,7 @@ $menu-list-line-height: 19px;
 $menu-item-hover-background-color: transparent;
 $menu-item-active-background-color: transparent;
 
-$tabs-link-padding: 22px 16px 22px 32px;
+$tabs-link-padding: 22px 16px;
 
 // ---------------------------------------------------- modal
 // $modal-z: 1000;
@@ -180,8 +180,10 @@ $hr-height: 1px;
 $hr-margin: 1rem 0;
 
 // ---------------------------------------------------- screen
+$container-max-width: 1660px;
 $desktop: 1080px;
 // $widescreen: 1440px;
-// $fullhd-disabled: true;
+// $container-offset: 0;
+$fullhd: 1660px;
 
 @import '~bulma/sass/utilities/_all.sass';

@@ -26,7 +26,7 @@
         <template #header>
           <p>
             <span v-text="section.title" />
-            <span class="tag" v-if="filterModel[section.key]">
+            <span class="tag is-black" v-if="filterModel[section.key]">
               ({{ counters[section.key] }})
             </span>
           </p>
@@ -207,6 +207,7 @@ export default {
         a {
           justify-content: space-between;
           text-align: left;
+          padding-left: 32px;
         }
 
         &.is-active a {
@@ -239,8 +240,6 @@ export default {
 
       .container-scroll {
         padding: 24px 24px 80px 24px;
-        overflow: auto;
-        max-height: 100%;
 
         h1 {
           padding: 56px 34px 56px;

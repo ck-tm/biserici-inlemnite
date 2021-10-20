@@ -1,33 +1,35 @@
 <template>
   <div id="main-interface" class="is-full-height">
-    <FiltersAdvanced
-      v-if="filters"
-      :filters="filters.advanced"
-      @update="updateMap"
-    />
-
-    <div class="container-interface">
-      <FiltersBasic
+    <div class="container is-fullhd">
+      <FiltersAdvanced
         v-if="filters"
-        :filters="filters.basic"
+        :filters="filters.advanced"
         @update="updateMap"
       />
 
-      <div class="container-map-profile">
-        <Map />
+      <div class="container-interface">
+        <FiltersBasic
+          v-if="filters"
+          :filters="filters.basic"
+          @update="updateMap"
+        />
 
-        <ProfilePreview
-          :active="active.profilePreview"
-          @close="active.profilePreview = false"
-          @openProfileModal="openProfileModal"
+        <div class="container-map-profile">
+          <Map />
+
+          <ProfilePreview
+            :active="active.profilePreview"
+            @close="active.profilePreview = false"
+            @openProfileModal="openProfileModal"
+          />
+        </div>
+
+        <ProfileModal
+          :active="active.profileModal"
+          @close="active.profileModal = false"
         />
       </div>
     </div>
-
-    <ProfileModal
-      :active="active.profileModal"
-      @close="active.profileModal = false"
-    />
 
     <b-loading v-model="loading" />
   </div>
@@ -85,7 +87,7 @@ export default {
     },
     updateMap() {
       this.loading = true
-      this.$store.commit('setProfileId', null)
+      this.$router.push({ name: 'Home', params: { id: null } })
 
       this.$store
         .dispatch('getMapData')

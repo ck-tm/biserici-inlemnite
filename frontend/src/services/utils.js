@@ -72,9 +72,9 @@ const BasicFilters = {
       value: 'Toate',
     },
     options: [
-      { id: 'A', value: 'Națională/Internațională' },
-      { id: 'B', value: 'Regională' },
-      { id: 'C', value: 'Locală' },
+      { id: 1, value: 'Națională/Internațională' },
+      { id: 2, value: 'Regională' },
+      { id: 3, value: 'Locală' },
     ],
   },
 }

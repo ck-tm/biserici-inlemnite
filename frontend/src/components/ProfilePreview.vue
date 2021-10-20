@@ -8,7 +8,7 @@
       @click="close"
     />
 
-    <div class="container-profile">
+    <div class="container-profile container-scroll">
       <div class="images columns is-variable is-2">
         <div
           class="column"
@@ -47,7 +47,7 @@
       <div class="columns">
         <div class="column">
           <FilterDisplayItem
-            :value="1 || profilePreview.conservare"
+            :value="Math.round(profilePreview.conservare)"
             index="conservare"
             size="is-large"
             is-multiline
@@ -55,7 +55,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="'B' || profilePreview.valoare"
+            :value="Math.round(profilePreview.valoare)"
             index="valoare"
             size="is-large"
             is-multiline
@@ -63,7 +63,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="7 || profilePreview.prioritizare"
+            :value="Math.round(profilePreview.prioritizare)"
             index="prioritizare"
             size="is-large"
             is-multiline
@@ -126,8 +126,6 @@ export default {
 
   .container-profile {
     padding: 64px 24px 104px 24px;
-    overflow: auto;
-    height: 100%;
   }
 
   .bottom {

@@ -8,16 +8,22 @@ nav.navbar {
     height: $navbar-height;
   }
 
-  .navbar-brand {
-    min-height: $navbar-height-mobile;
+  > .container {
+    padding: 0 32px 0 0;
 
-    @include touch {
-    }
+    .navbar-brand {
+      min-height: $navbar-height-mobile;
+      padding-left: 20px;
+      margin-left: 0;
 
-    @include desktop {
-      min-height: $navbar-height;
-      border-right: 1px solid $grey;
-      width: $navbar-side-width;
+      @include touch {
+      }
+
+      @include desktop {
+        min-height: $navbar-height;
+        border-right: 1px solid $grey;
+        width: $navbar-side-width;
+      }
     }
   }
 }
