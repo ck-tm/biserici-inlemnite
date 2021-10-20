@@ -83,7 +83,8 @@ def get_nested_model_data(elements):
         try:
             if obj.poze.exists():
                 obj_serializer.append({
-                    'label': '_poze',
+                    'label': 'Poze',
+                    'type': 'poze',
                     'value':PozaSerializer(obj.poze.all(), many=True).data
                     })
                 # obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
@@ -120,7 +121,8 @@ def get_section_fields(obj, section):
                 value = str(field_obj)
         if value :
             field_serializer = {
-                'key': field[0] if 'poze_' not in field[0] else '_poze',
+                'key': field[0] if 'poze_' not in field[0] else 'Poze',
+                'type': 'poze' if 'poze_' in field[0] else 'normal',
                 'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name.capitalize(),
                 'value': value,
                 'elements': elements
