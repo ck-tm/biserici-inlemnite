@@ -9,9 +9,23 @@ html {
 body {
 }
 
+.container {
+  border-left: 1px solid $border;
+  border-right: 1px solid $border;
+}
+
+.is-full-height {
+  height: calc(100vh - #{$navbar-height});
+}
+
 #main-interface {
-  display: flex;
   position: relative;
+  display: flex;
+
+  .container {
+    display: flex;
+    flex: 1;
+  }
 
   .container-interface {
     flex: 1;
@@ -24,6 +38,11 @@ body {
       overflow: hidden;
     }
   }
+}
+
+.container-scroll {
+  overflow: auto;
+  height: 100%;
 }
 
 .container-page {

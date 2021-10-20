@@ -98,7 +98,6 @@ export default {
 
   .columns {
     width: 100%;
-    max-width: 1100px;
     align-items: flex-end;
   }
 }

@@ -9,54 +9,50 @@
     />
 
     <div class="profile-container" v-if="profile">
-      <header class="columns">
-        <div class="column is-5">
-          <h2 v-text="profile.title" />
-        </div>
-        <div class="column is-5">
-          <div class="columns">
-            <div class="column">
-              <FilterDisplayItem
-                :value="1 || profile.conservare"
-                index="conservare"
-                size="is-large"
-              />
-            </div>
-            <div class="column">
-              <FilterDisplayItem
-                :value="'B' || profile.valoare"
-                index="valoare"
-                size="is-large"
-              />
-            </div>
-            <div class="column">
-              <FilterDisplayItem
-                :value="1 || profile.prioritizare"
-                index="prioritizare"
-                size="is-large"
-              />
+      <header>
+        <div class="columns">
+          <div class="column is-5">
+            <h2 v-text="profile.title" />
+          </div>
+          <div class="column is-5">
+            <div class="columns">
+              <div class="column">
+                <FilterDisplayItem
+                  :value="1 || profile.conservare"
+                  index="conservare"
+                  size="is-large"
+                />
+              </div>
+              <div class="column">
+                <FilterDisplayItem
+                  :value="'B' || profile.valoare"
+                  index="valoare"
+                  size="is-large"
+                />
+              </div>
+              <div class="column">
+                <FilterDisplayItem
+                  :value="1 || profile.prioritizare"
+                  index="prioritizare"
+                  size="is-large"
+                />
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      <b-tabs
-        v-model="tab"
-        animation="slide-prev slide-next"
-        animateInitially
-      >
+      <b-tabs v-model="tab" animation="slide-prev slide-next" animateInitially>
         <b-tab-item
           v-for="(tab, index) in profile.tabs"
           :key="'profile-tab-' + index"
         >
           <template #header>
-            {{ tab.title }}
+            <b>{{ tab.title }}</b>
           </template>
 
           <template #default>
-            <div class="container-scroll">
-              <pre>{{ tab }}</pre>
-            </div>
+            <ProfileModalTab :sections="tab.sections" />
           </template>
         </b-tab-item>
       </b-tabs>
@@ -67,19 +63,20 @@
 </template>
 
 <script>
+import ProfileModalTab from '@/components/ProfileModalTab'
 import FilterDisplayItem from '@/components/FilterDisplayItem'
 import { mapState } from 'vuex'
 import ApiService from '@/services/api'
 
 export default {
   name: 'ProfileModal',
-  components: { FilterDisplayItem },
+  components: { FilterDisplayItem, ProfileModalTab },
   props: { active: Boolean },
   data() {
     return {
       loading: false,
       profile: null,
-      tab: 0
+      tab: 0,
     }
   },
   computed: {
@@ -89,6 +86,7 @@ export default {
   methods: {
     getProfile() {
       this.profile = null
+      this.tab = 0
       this.loading = true
 
       ApiService.get(`/map/${this.profileId}/`).then((response) => {
@@ -120,8 +118,67 @@ export default {
   background-color: $black;
 
   .profile-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
     header {
       padding: 32px;
+      border-bottom: 1px solid $border;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    /deep/.b-tabs {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+
+      ul {
+        padding-left: 32px;
+
+        li {
+          font-size: $size-6;
+          white-space: normal;
+
+          &.is-active {
+            a {
+              color: $primary;
+              border-bottom: 4px solid $primary;
+
+              // background: $primary;
+            }
+          }
+
+          a {
+            padding: 24px 2px 20px;
+            margin-right: 20px;
+            border-bottom: 4px solid $black;
+            margin-bottom: 0;
+            line-height: $size-5;
+
+            &:hover {
+              border-bottom: 4px solid $primary;
+            }
+          }
+        }
+      }
+
+      .tab-content {
+        flex: 1;
+        overflow: hidden;
+        background-color: #0F0F0F;
+        padding: 0;
+
+        .tab-item {
+          height: 100%;
+          overflow: hidden;
+        }
+      }
     }
   }
 }

@@ -8,7 +8,7 @@
       @click="close"
     />
 
-    <div class="container-profile">
+    <div class="container-profile container-scroll">
       <div class="images columns is-variable is-2">
         <div
           class="column"
@@ -126,8 +126,6 @@ export default {
 
   .container-profile {
     padding: 64px 24px 104px 24px;
-    overflow: auto;
-    height: 100%;
   }
 
   .bottom {
