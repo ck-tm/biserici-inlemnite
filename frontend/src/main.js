@@ -14,7 +14,7 @@ import './libs/buefy'
 // import './libs/form-validation'
 
 import './components/globals'
-// import './utils/filters'
+import './services/filters'
 
 // Styles
 import './assets/style/base.scss'

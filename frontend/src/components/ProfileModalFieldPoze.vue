@@ -29,11 +29,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/.image {
-  img {
-    // width: 900px;
-    height: 80vh;
-    border: 4px solid $primary;
+/deep/.carousel {
+  .image {
+    img {
+      // width: 900px;
+      // background: $black;
+      // max-height: 80vh;
+      // width: auto;
+    }
   }
 }
 </style>

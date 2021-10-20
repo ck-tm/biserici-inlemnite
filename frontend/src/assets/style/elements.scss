@@ -28,6 +28,9 @@
   z-index: 1;
 }
 
-.label {
-  // line-height: 1;
+.modal-close {
+  &:after,
+  &:before {
+    background-color: $white;
+  }
 }

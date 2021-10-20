@@ -75,7 +75,6 @@ export default {
 
   /deep/.label {
     color: #b8b8b8;
-    margin-bottom: 4px;
 
     &.is-marginless {
       padding: 12px 0 12px 30px;

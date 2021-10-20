@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label v-if="field.label" class="label is-small" v-text="field.label" />
+    <label v-if="field.label" class="label" v-text="field.label" />
 
     <template v-if="getType == 'poze'">
       <b-button
@@ -15,20 +15,27 @@
     </template>
 
     <template v-else>
-      <div class="content has-text-weight-bold" v-html="field.value" />
+      <div
+        class="content has-text-weight-bold"
+        v-html="$options.filters.formatFieldValue(field.value)"
+      />
     </template>
   </div>
 </template>
 
 <script>
 import ProfileModalFieldPoze from '@/components/ProfileModalFieldPoze'
+import { BooleanOptions } from '@/services/utils'
 
 export default {
   name: 'ProfileModalFieldComponent',
   components: {},
   props: { field: Object },
   data() {
-    return { getType: this.field.type || 'normal', active: { gallery: false } }
+    return {
+      getType: this.field.type || 'normal',
+      booleanOptions: BooleanOptions,
+    }
   },
   computed: {},
   mounted() {},
@@ -39,6 +46,7 @@ export default {
         component: ProfileModalFieldPoze,
         customClass: 'modal-poze',
         trapFocus: true,
+        // width: '40vw',
         props: {
           field: this.field,
         },
@@ -59,6 +67,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.label {
+  font-size: $size-7;
+
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+}
+
 .content {
   color: #f6f6f6;
 
@@ -78,6 +94,7 @@ export default {
   background: $black;
   border: 0;
   padding: 0;
+  height: auto;
 
   .icon {
     color: $white;

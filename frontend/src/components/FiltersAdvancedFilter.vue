@@ -24,15 +24,13 @@
         :native-value="option.id"
         @input="update"
       >
-        {{ displayValue(option.nume) }}
+        {{ option.nume | formatFieldValue }}
       </b-checkbox>
     </b-field>
   </b-collapse>
 </template>
 
 <script>
-import { BooleanOptions } from '@/services/utils'
-
 export default {
   name: 'FiltersAdvancedFilter',
   props: {
@@ -49,11 +47,6 @@ export default {
   methods: {
     computeValue() {
       return this.value ? [...this.value] : []
-    },
-    displayValue(value) {
-      if (typeof value == 'boolean') return BooleanOptions[value.toString()]
-
-      return value
     },
     update() {
       this.$emit('input', this.model)
