@@ -39,6 +39,8 @@ export default {
       //   '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
       // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      // url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+      // url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 
@@ -116,7 +118,8 @@ export default {
             const marker = this.mapData.find((e) => e.id == vNew)
 
             this.$refs.map.mapObject.setView(
-              this.getLatLng([marker.latitudine, marker.longitudine])
+              this.getLatLng([marker.latitudine, marker.longitudine]),
+              12
             )
           } else {
             this.$refs.map.mapObject.fitBounds(this.bounds)
@@ -142,7 +145,7 @@ export default {
     }
 
     .leaflet-tile {
-      filter: hue-rotate(30deg) saturate(2) brightness(0.85) !important;
+      // filter: hue-rotate(30deg) saturate(2) brightness(0.85) !important;
     }
 
     .leaflet-control-zoom {

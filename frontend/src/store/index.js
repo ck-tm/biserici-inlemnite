@@ -56,9 +56,13 @@ export default new Vuex.Store({
       state.mapData && state.profile.id
         ? state.mapData.find((e) => e.id == state.profile.id)
         : null,
-    filterValue: (state) => (filter, value) =>
-      state.filters
-        ? state.filters.basic[filter].find((e) => e.id == value).value
-        : null,
+    filterValue: (state) => (filter, value) => {
+      if (state.filters && value) {
+        const result = state.filters.basic[filter].find((e) => e.id == value)
+        return result && result.value
+      }
+
+      return null
+    }
   },
 })

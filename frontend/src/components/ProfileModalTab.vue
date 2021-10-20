@@ -1,31 +1,33 @@
 <template>
   <div class="container-scroll">
-    <div class="columns is-multiline">
-      <template v-for="(section, index) in sections">
-        <div class="column is-3 is-label" :key="'tab_section_' + index">
-          <h4>{{ section.title }}</h4>
-        </div>
+    <div
+      class="columns"
+      v-for="(section, index) in sections"
+      :key="'tab_section_' + index"
+    >
+      <div class="column is-3 has-label">
+        <h4>{{ section.title }}</h4>
+      </div>
 
-        <div class="column is-9" :key="'tab_section_content_' + index">
-          <template v-if="section.subsections.length">
-            <ProfileModalField
-              v-for="(subsection, sIndex) in section.subsections"
-              :key="'profile_collapse_' + sIndex"
-              :label="subsection.title"
-              :fields="subsection.fields"
-            />
-          </template>
+      <div class="column is-9">
+        <template v-if="section.subsections.length">
+          <ProfileModalField
+            v-for="(subsection, sIndex) in section.subsections"
+            :key="'profile-section-field-' + sIndex"
+            :label="subsection.title"
+            :fields="subsection.fields"
+          />
+        </template>
 
-          <template v-else>
-            <ProfileModalField
-              v-for="field in section.fields"
-              :key="'profile_collapse_' + field.key"
-              :label="field.label"
-              :fields="field"
-            />
-          </template>
-        </div>
-      </template>
+        <template v-else>
+          <ProfileModalField
+            v-for="field in section.fields"
+            :key="'profile-section-field-' + field.key"
+            :label="field.label"
+            :fields="field"
+          />
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -58,14 +60,11 @@ export default {
   .column {
     border-bottom: 1px solid $grey;
 
-    &.is-label {
+    &.has-label {
       border-right: 1px solid $grey;
-      padding: 0;
 
       h4 {
-        padding-left: 32px;
-        padding-top: 21px;
-        padding-bottom: 21px;
+        padding: 10px 0 9px 32px;
         position: sticky;
         top: 0;
       }

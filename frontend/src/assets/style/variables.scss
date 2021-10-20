@@ -26,6 +26,7 @@ $scheme-invert-bis: $white-bis;
 $scheme-invert-ter: $white-ter;
 
 $background: $black;
+$body-background-color: $black;
 
 // $color-cat-edu: #287DFF;
 // $color-cat-cul: #EB28FF;
@@ -150,7 +151,7 @@ $tabs-link-padding: 22px 16px;
 
 // ---------------------------------------------------- modal
 // $modal-z: 1000;
-$modal-background-background-color: rgba(0, 0, 0, 0.4);
+$modal-background-background-color: rgba(0, 0, 0, 1);
 // $modal-content-width: auto;
 // $modal-card-title-color: inherit;
 // $modal-card-title-size: $size-4;

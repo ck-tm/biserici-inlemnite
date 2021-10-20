@@ -87,7 +87,8 @@ export default {
     },
     updateMap() {
       this.loading = true
-      this.$router.push({ name: 'Home', params: { id: null } })
+      if (this.$route.params.id)
+        this.$router.push({ name: 'Home', params: { id: null } })
 
       this.$store
         .dispatch('getMapData')

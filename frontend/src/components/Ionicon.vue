@@ -14,6 +14,7 @@ const componentList = {
   Burger: 'md-menu',
   Close: 'md-close',
   Cube: 'md-cube',
+  Images: 'md-images',
   Options: 'md-options',
   People: 'md-people',
   Person: 'md-person',

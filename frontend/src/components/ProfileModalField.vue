@@ -3,45 +3,65 @@
     <div class="column is-3">
       <label class="label is-marginless">{{ label }}</label>
     </div>
-    <div class="column">
-      <template v-if="fields.length">
-        <div
-          v-for="field in fields"
-          :key="'tab_subsection_field_' + field.key"
-          class="subsection"
-        >
-          <label class="label is-small" v-text="field.label" />
-          <div class="content has-text-weight-bold" v-html="field.value" />
-          <pre
-            class="has-background-primary has-text-black"
-            v-if="field.elements.length"
-            >{{ field.elements }}</pre
-          >
-        </div>
-      </template>
 
-      <template v-else>
-        <div class="content" v-html="fields.value" />
-        <pre
-          class="has-background-primary has-text-black"
-          v-if="fields.elements.length"
-          >{{ fields.elements }}</pre
-        >
-      </template>
+    <div class="column">
+      <div class="columns toggle-trigger">
+        <div class="column">
+          <ProfileModalFieldElement
+            :label="fields.length > 1 ? fields[0].label : null"
+            :value="fields.value || fields[0].value"
+            :fieldElements="fields.length ? fields[0] : fields"
+          />
+        </div>
+        <div class="column is-narrow" v-if="fieldList.length">
+          <b-button
+            type="is-black"
+            size="is-small"
+            icon-right="arrow-down"
+            :class="{ 'is-active': active }"
+            @click="active = !active"
+          >
+            Detalii
+          </b-button>
+        </div>
+      </div>
+
+      <div class="toggle-body" v-if="active">
+        <ProfileModalFieldElement
+          v-for="(field, index) in fieldList"
+          :key="'profile-toggled-' + index"
+          :label="field.label"
+          :value="field.value"
+          :fieldElements="field"
+          class="subsection"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ProfileModalFieldElement from '@/components/ProfileModalFieldElement'
+
 export default {
   name: 'ProfileModalField',
-  components: {},
+  components: { ProfileModalFieldElement },
   props: { label: String, fields: [Object, Array] },
   data() {
-    return {}
+    return {
+      active: false,
+      fieldList: [],
+    }
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    // if (!this.fields.length) console.log(this.fields)
+
+    this.fieldList =
+      this.fields.length > 1
+        ? this.fields.slice(1)
+        : this.fields.elements || this.fields[0].elements
+  },
   methods: {},
   watch: {},
 }
@@ -49,41 +69,46 @@ export default {
 
 <style lang="scss" scoped>
 .profile-field {
-  padding: 0.75rem 30px;
-
   &:not(:last-child) {
     border-bottom: 1px solid #1f1f1f;
   }
 
-  /deep/.content {
-    color: #f6f6f6;
-
-    p:not(:last-child) {
-      margin-bottom: 8px;
-    }
-
-    p {
-      font-size: $size-6;
-      font-weight: normal;
-    }
-  }
-
-  .subsection:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-
-  .label {
+  /deep/.label {
     color: #b8b8b8;
     margin-bottom: 4px;
 
     &.is-marginless {
+      padding: 12px 0 12px 30px;
       position: sticky;
       top: 0;
     }
   }
 
-  pre {
-    white-space: normal;
+  .toggle-trigger {
+    padding: 12px 0;
+    // margin-bottom: 0;
+
+    /deep/.button {
+      padding: 0 12px;
+      height: auto;
+      color: $primary;
+      background: transparent;
+
+      &.is-active {
+        .icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .toggle-body {
+    margin-bottom: 12px;
+    margin-top: -12px;
+  }
+
+  .subsection:not(:last-child) {
+    margin-bottom: 1rem;
   }
 }
 </style>

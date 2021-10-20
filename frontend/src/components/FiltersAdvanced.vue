@@ -46,19 +46,21 @@
         </template>
       </b-tab-item>
 
-      <div class="results" v-if="resultCount || loading">
+      <div class="results" v-if="resultCount != null || loading">
         <b-button
+          v-if="resultCount"
           type="is-primary"
           class="has-text-weight-bold"
           :loading="loading"
           @click="applyFilters"
         >
-          <span v-if="resultCount">
-            Vezi {{ resultCount }}
-            {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
-          </span>
-          <span v-else>Nu sunt rezultate</span>
+          Vezi {{ resultCount }}
+          {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
         </b-button>
+
+        <div class="message is-primary is-inverted is-inline-flex" v-else>
+          <div class="message-body">Nu sunt rezultate</div>
+        </div>
       </div>
     </b-tabs>
 

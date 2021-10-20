@@ -3,6 +3,7 @@ import Vue from 'vue'
 import {
   Button,
   Checkbox,
+  Carousel,
   Collapse,
   Dropdown,
   Field,
@@ -25,6 +26,8 @@ ConfigProgrammatic.setOptions({
       iconPrefix: '',
       internalIcons: {
         'alert-circle': 'alert',
+        'chevron-left': 'arrow-back',
+        'chevron-right': 'arrow-forward',
       },
     },
   },
@@ -42,6 +45,7 @@ ConfigProgrammatic.setOptions({
 // Components
 Vue.use(Button)
 Vue.use(Checkbox)
+Vue.use(Carousel)
 Vue.use(Collapse)
 Vue.use(Dropdown)
 Vue.use(Field)
