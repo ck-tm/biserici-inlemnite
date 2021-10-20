@@ -10,7 +10,9 @@
       >
         {{ filter.title }}
 
-        <span class="tag is-black" v-if="model.length"> ({{ model.length }}) </span>
+        <span class="tag is-black" v-if="model.length">
+          ({{ model.length }})
+        </span>
       </b-button>
     </template>
 

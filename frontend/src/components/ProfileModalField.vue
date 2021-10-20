@@ -12,13 +12,21 @@
         >
           <label class="label is-small" v-text="field.label" />
           <div class="content has-text-weight-bold" v-html="field.value" />
-          <pre class="has-background-primary has-text-black" v-if="field.elements.length">{{ field.elements}}</pre>
+          <pre
+            class="has-background-primary has-text-black"
+            v-if="field.elements.length"
+            >{{ field.elements }}</pre
+          >
         </div>
       </template>
 
       <template v-else>
         <div class="content" v-html="fields.value" />
-        <pre class="has-background-primary has-text-black" v-if="fields.elements.length">{{ fields.elements}}</pre>
+        <pre
+          class="has-background-primary has-text-black"
+          v-if="fields.elements.length"
+          >{{ fields.elements }}</pre
+        >
       </template>
     </div>
   </div>

@@ -64,8 +64,8 @@ export default {
 
       h4 {
         padding-left: 32px;
-        padding-top: 22px;
-        padding-bottom: 22px;
+        padding-top: 21px;
+        padding-bottom: 21px;
         position: sticky;
         top: 0;
       }

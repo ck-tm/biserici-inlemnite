@@ -87,7 +87,7 @@ export default {
     },
     updateMap() {
       this.loading = true
-      this.$store.commit('setProfileId', null)
+      this.$router.push({ name: 'Home', params: { id: null } })
 
       this.$store
         .dispatch('getMapData')

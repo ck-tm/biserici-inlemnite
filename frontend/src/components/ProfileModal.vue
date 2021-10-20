@@ -171,7 +171,7 @@ export default {
       .tab-content {
         flex: 1;
         overflow: hidden;
-        background-color: #0F0F0F;
+        background-color: #0f0f0f;
         padding: 0;
 
         .tab-item {
