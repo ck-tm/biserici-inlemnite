@@ -24,6 +24,76 @@ from app import utils
 import json
 
 
+CLASE_EVALUARE = {
+    1: 'A',
+    2: 'B',
+    3: 'C',
+}
+
+CLASE_PRIORITIZARE = {
+    1: {
+        'id': 1,
+        'value': '1-5'
+        },
+    2: {
+        'id': 1,
+        'value': '1-5'
+        },
+    3: {
+        'id': 1,
+        'value': '1-5'
+        },
+    4: {
+        'id': 1,
+        'value': '1-5'
+        },
+    5: {
+        'id': 1,
+        'value': '1-5'
+        },
+    6: {
+        'id': 2,
+        'value': '5-10'
+        },
+    7: {
+        'id': 2,
+        'value': '5-10'
+        },
+    8: {
+        'id': 2,
+        'value': '5-10'
+        },
+    9: {
+        'id': 2,
+        'value': '5-10'
+        },
+    10: {
+        'id': 2,
+        'value': '5-10'
+        },
+    11: {
+        'id': 3,
+        'value': '10-15'
+        },
+    12: {
+        'id': 3,
+        'value': '10-15'
+        },
+    13: {
+        'id': 3,
+        'value': '10-15'
+        },
+    14: {
+        'id': 3,
+        'value': '10-15'
+        },
+    15: {
+        'id': 3,
+        'value': '10-15'
+        },
+}
+
+
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
     queryset = models.BisericaPage.objects.live()
@@ -88,7 +158,6 @@ class FiltersView(ViewSet):
 
         componenta_artistica_name = {
             '': [
-
                     "suport_proscomidie", "obiecte_de_cult", "mobiliere", "obiecte_instrainate"
                 ],
             'Iconostasul': [
@@ -212,23 +281,23 @@ class FiltersView(ViewSet):
         for biserica in biserici:
             if biserica['conservare']:
                 conservare_item = {
-                    'id': len(conservare_filters) + 1,
-                    'value': biserica['conservare'],
+                    'id': round(biserica['conservare']),
+                    'value': round(biserica['conservare']),
                 }
                 if conservare_item not in conservare_filters:
                     conservare_filters.append(conservare_item)
             if biserica['valoare']:
                 valoare_item = {
-                    'id': len(valoare_filters) + 1,
-                    'value': biserica['valoare'],
+                    'id': round(biserica['valoare']),
+                    'value': CLASE_EVALUARE[round(biserica['valoare'])],
                 }
                 if valoare_item not in valoare_filters:
                     valoare_filters.append(valoare_item)
 
             if biserica['prioritizare']:
                 prioritizare_item = {
-                    'id': len(prioritizare_filters) + 1,
-                    'value': biserica['prioritizare'],
+                    'id': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['id'],
+                    'value': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['value'],
                 }
                 if prioritizare_item not in prioritizare_filters:
                     prioritizare_filters.append(prioritizare_item)
