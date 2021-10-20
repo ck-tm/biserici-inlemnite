@@ -63,18 +63,31 @@ def get_nested_model_data(elements):
     serializer_list = []
     meta_fields = type(elements[0])._meta.fields
     for obj in elements:
-        obj_serializer = {}
+        obj_serializer = []
         for field in meta_fields:
             field_value = getattr(obj, field.name)
             if field_value and field.name not in ['page', 'id', 'sort_order']:
                 if type(field_value) in [str, float, type(None), int, bool]:
-                    obj_serializer[field.verbose_name.capitalize()] = field_value
+                    obj_serializer.append({
+                        'label': field.verbose_name.capitalize(),
+                        'value': field_value
+                    })
+                    # obj_serializer[field.verbose_name.capitalize()] = field_value
                 else:
-                    obj_serializer[field.verbose_name.capitalize()] = str(field_value)
+                    obj_serializer.append({
+                        'label': field.verbose_name.capitalize(),
+                        'value': str(field_value)
+                    })
+                    # obj_serializer[field.verbose_name.capitalize()] = str(field_value)
 
         try:
             if obj.poze.exists():
-                obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
+                obj_serializer.append({
+                    'label': 'Poze',
+                    'type': 'poze',
+                    'value':PozaSerializer(obj.poze.all(), many=True).data
+                    })
+                # obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
         except Exception as e:
             print('******======', e)
         if obj_serializer:
@@ -108,7 +121,8 @@ def get_section_fields(obj, section):
                 value = str(field_obj)
         if value :
             field_serializer = {
-                'key': field[0] if 'poze_' not in field[0] else '_poze',
+                'key': field[0] if 'poze_' not in field[0] else 'Poze',
+                'type': 'poze' if 'poze_' in field[0] else 'normal',
                 'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name.capitalize(),
                 'value': value,
                 'elements': elements

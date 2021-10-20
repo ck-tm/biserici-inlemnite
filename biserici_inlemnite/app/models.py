@@ -3295,7 +3295,11 @@ class ComponentaArtisticaPage(Page):
         verbose_name_plural = "Componenta Artistică"
 
     def save(self, *args, **kwargs):
-        self.elemente_interventii = [x.element.nume for x in self.etape_istorice_vizibile.all()]
+        elemente_interventii = []
+        for x in self.etape_istorice_vizibile.all():
+            if x.element:
+                elemente_interventii.append(x.element.nume)
+        self.elemente_interventii = elemente_interventii
 
         return super().save(*args, **kwargs)
 
