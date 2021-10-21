@@ -5,7 +5,7 @@
     </div>
 
     <div class="column">
-      <div class="columns toggle-trigger">
+      <div class="columns toggle-header">
         <div class="column">
           <ProfileModalFieldElement
             :label="fields.length > 1 ? fields[0].label : null"
@@ -19,6 +19,7 @@
             size="is-small"
             icon-right="arrow-down"
             :class="{ 'is-active': active }"
+            class="toggle-trigger"
             @click="active = !active"
           >
             Detalii
@@ -83,11 +84,11 @@ export default {
     }
   }
 
-  .toggle-trigger {
+  .toggle-header {
     padding: 12px 0;
     // margin-bottom: 0;
 
-    /deep/.button {
+    /deep/.toggle-trigger {
       padding: 0 12px;
       height: auto;
       color: $primary;

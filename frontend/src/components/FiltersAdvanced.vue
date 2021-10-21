@@ -58,15 +58,14 @@
           {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
         </b-button>
 
-        <div class="message is-primary is-inverted is-inline-flex" v-else>
-          <div class="message-body">Nu sunt rezultate</div>
-        </div>
+        <div class="is-inline-flex" v-else>Nu există niciun rezultat</div>
       </div>
     </b-tabs>
 
     <div class="filter-actions" v-if="filterTotalCount">
       <div class="results">
-        <b>{{ filterTotalCount }}</b> filtre active
+        <b>{{ filterTotalCount }}</b>
+        {{ filterTotalCount > 1 ? 'filtre active' : 'filtru activ' }}
       </div>
 
       <b-button
