@@ -675,6 +675,11 @@ class PozeMasaAtlar(Orderable, Poza):
                        related_name='poze_masa_atlar')
 
 
+class PozeDescriereBolti(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_bolti')
+
+
 class PozeCor(Orderable, Poza):
     page = ParentalKey(
         'DescrierePage', on_delete=models.CASCADE, related_name='poze_cor')
@@ -743,6 +748,31 @@ class PozeStructuraMixt(Orderable, Poza):
 class PozeTiranti(Orderable, Poza):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='poze_tiranti')
+
+
+
+class PozeFinisajeInvelitoare(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_invelitoare')
+
+class PozeFinisajeInvelitoareTurle(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_invelitoare_turle')
+
+
+class PozeFinisajeInchidereTambur(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_inchidere_tambur')
+
+class PozeFinisajeInvelitoareTurn(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_invelitoare_turn')
+
+class PozeFinisajeExteriorCorp(Orderable, Poza):
+    page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
+                       related_name='poze_exterior_corp')
+
+
 
 class PozeEtapeIstoriceVizibile(Orderable):
     page = ParentalKey('EtapeIstoriceVizibile',
@@ -1347,6 +1377,7 @@ class DescrierePage(Page):
                 FieldPanel('bolta_peste_altar_tipul_de_arc',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_altar_observatii'),
+                InlinePanel('poze_bolti', label='Poza')
             ],
             heading="Bolți",
             classname="collapsible collapsed ",
@@ -1517,6 +1548,7 @@ class DescrierePage(Page):
                 FieldPanel('finisaj_exterior_tip',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('finisaj_exterior_observatii'),
+                InlinePanel('poze_exterior_corp', label='Poză'),
             ],
             heading="Exterior corp biserică",
             classname="collapsible collapsed",
@@ -1538,6 +1570,7 @@ class DescrierePage(Page):
                 FieldPanel('invelitoare_corp_sindrlia_prelucrare'),
                 FieldPanel('invelitoare_corp_sindrlia_esenta_lemnoasa'),
                 FieldPanel('invelitoare_corp_observatii'),
+                InlinePanel('poze_invelitoare', label='Poză'),
             ],
             heading="Învelitoare corp biserică",
             classname="collapsible  collapsed",
@@ -1559,6 +1592,7 @@ class DescrierePage(Page):
                 FieldPanel('invelitoare_turn_sindrlia_prelucrare'),
                 FieldPanel('invelitoare_turn_sindrlia_esenta_lemnoasa'),
                 FieldPanel('invelitoare_turn_observatii'),
+                InlinePanel('poze_invelitoare_turn', label='Poză'),
             ],
             heading="Învelitoare turn",
             classname="collapsible collapsed ",
@@ -1580,6 +1614,7 @@ class DescrierePage(Page):
                 FieldPanel('inchidere_tambur_turn_sindrlia_prelucrare'),
                 FieldPanel('inchidere_tambur_turn_sindrlia_esenta_lemnoasa'),
                 FieldPanel('inchidere_tambur_turn_observatii'),
+                InlinePanel('poze_inchidere_tambur', label='Poză'),
             ],
             heading="Închidere tambur turn",
             classname="collapsible collapsed ",
@@ -1602,6 +1637,7 @@ class DescrierePage(Page):
                 FieldPanel('invelitoare_turle_sindrlia_prelucrare'),
                 FieldPanel('invelitoare_turle_sindrlia_esenta_lemnoasa'),
                 FieldPanel('invelitoare_turle_observatii'),
+                InlinePanel('poze_invelitoare_turle', label='Poză'),
             ],
             heading="Învelitoare turle",
             classname="collapsible collapsed ",
@@ -2394,16 +2430,22 @@ class ConservarePage(Page):
                               blank=True, verbose_name='Stare')
     sit_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    sit_pericol = models.BooleanField(
+        default=False, verbose_name='Pericol')
 
     elemente_arhitecturale = models.IntegerField(
         choices=NR15, null=True, blank=True, verbose_name='Stare')
     elemente_arhitecturale_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    elemente_arhitecturale_pericol = models.BooleanField(
+        default=False, verbose_name='Pericol')
 
     alte_elemente_importante = models.IntegerField(
         choices=NR15, null=True, blank=True, verbose_name='Stare')
     alte_elemente_importante_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+    alte_elemente_importante_pericol = models.BooleanField(
+        default=False, verbose_name='Pericol')
 
     vegetatie = models.IntegerField(
         choices=NR15, null=True, blank=True, verbose_name='Stare')
@@ -2563,7 +2605,10 @@ class ConservarePage(Page):
     sit_panels = [
         MultiFieldPanel(
             [
-                FieldPanel('sit'),
+                FieldRowPanel([
+                    FieldPanel('sit'),
+                    FieldPanel('sit_pericol'),
+                ]),
                 FieldPanel('sit_observatii'),
                 InlinePanel('poze_sit', label="Poză")
             ],
@@ -2573,7 +2618,11 @@ class ConservarePage(Page):
 
         MultiFieldPanel(
             [
-                FieldPanel('elemente_arhitecturale'),
+                FieldRowPanel([
+                    FieldPanel('elemente_arhitecturale'),
+                    FieldPanel('elemente_arhitecturale_pericol'),
+                ]),
+
                 FieldPanel('elemente_arhitecturale_observatii'),
                 InlinePanel('poze_elemente_arhitecturale', label="Poză")
             ],
@@ -2583,7 +2632,10 @@ class ConservarePage(Page):
 
         MultiFieldPanel(
             [
-                FieldPanel('alte_elemente_importante'),
+                FieldRowPanel([
+                    FieldPanel('alte_elemente_importante'),
+                    FieldPanel('alte_elemente_importante_pericol'),
+                ]),
                 FieldPanel('alte_elemente_importante_observatii'),
                 InlinePanel('poze_alte_elemente_importante', label="Poză")
             ],
