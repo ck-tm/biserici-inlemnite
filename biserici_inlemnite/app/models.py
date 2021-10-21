@@ -972,6 +972,10 @@ class DescrierePage(Page):
                                  on_delete=models.SET_NULL, verbose_name='Structura fundației', related_name='p_biserici')
     fundatia_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
+
+    sistem_structural = models.ForeignKey('nomenclatoare.TipSistemStructural', null=True,
+                                            blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
+
     sistem_in_cheotoare = models.ForeignKey('nomenclatoare.TipStructuraCheotoare', null=True,
                                             blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
     sistem_in_cheotoare_observatii = RichTextField(
@@ -1464,6 +1468,13 @@ class DescrierePage(Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel('sistem_structural'),
+            ],
+            heading="SISTEM STRUCTURAL AL CORPULUI BISERICII",
+            classname="collapsible collapsed ",
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel('sistem_in_cheotoare'),
                 FieldPanel('sistem_in_cheotoare_observatii'),
                 InlinePanel("poze_structura_cheotoare", label="Poză")
@@ -1721,25 +1732,89 @@ class Persoana(models.Model):
         return self.nume
 
 
-class Ctitori(Orderable, Persoana):
+class PozeCtitori(Orderable):
+    page = ParentalKey('Ctitori',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
+
+class Ctitori(ClusterableModel, Orderable, Persoana):
     page = ParentalKey(
         'IstoricPage', on_delete=models.PROTECT, related_name='ctitori')
 
+    panels = Persoana.panels + [
+        InlinePanel('poze', label='Poză')
+    ]
 
-class Mesteri(Orderable, Persoana):
+class PozeMesteri(Orderable):
+    page = ParentalKey('Mesteri',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
+
+class Mesteri(ClusterableModel, Orderable, Persoana):
     page = ParentalKey(
         'IstoricPage', on_delete=models.PROTECT, related_name='mesteri')
 
+    panels = Persoana.panels + [
+        InlinePanel('poze', label='Poză')
+    ]
 
-class Zugravi(Orderable, Persoana):
+class PozeZugravi(Orderable):
+    page = ParentalKey('Zugravi',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
+
+class Zugravi(ClusterableModel, Orderable, Persoana):
     page = ParentalKey(
         'IstoricPage', on_delete=models.PROTECT, related_name='zugravi')
 
+    panels = Persoana.panels + [
+        InlinePanel('poze', label='Poză')
+    ]
 
-class Personalitati(Orderable, Persoana):
+class PozePersonalitati(Orderable):
+    page = ParentalKey('Personalitati',
+                       on_delete=models.CASCADE, related_name='poze')
+    poza = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
+
+    panels = [
+        ImageChooserPanel('poza'),
+        FieldPanel('observatii'),
+    ]
+
+class Personalitati(ClusterableModel, Orderable, Persoana):
     page = ParentalKey('IstoricPage', on_delete=models.PROTECT,
                        related_name='personalitati')
 
+    panels = Persoana.panels + [
+        InlinePanel('poze', label='Poză')
+    ]
 
 class Eveniment(models.Model):
     nume = models.CharField(max_length=250)
@@ -1817,6 +1892,11 @@ class PovestiBiserica(Orderable, PovesteBiserica):
     page = ParentalKey(
         'IstoricPage', on_delete=models.CASCADE, related_name='povesti')
 
+
+
+class PozePisanie(Orderable, Poza):
+        page = ParentalKey(
+            'IstoricPage', on_delete=models.CASCADE, related_name='poze_pisanie')
 
 class IstoricPage(Page):
     sursa_datare = ParentalManyToManyField(
@@ -1903,6 +1983,7 @@ class IstoricPage(Page):
             FieldPanel('pisanie_traducere'),
             FieldPanel('pisanie_secol_observatii'),
             FieldPanel('pisanie_secol_sursa'),
+            InlinePanel("poze_pisanie", label="Poză")
         ],
             heading="Pisanie",
             classname="collapsible collapsed ",

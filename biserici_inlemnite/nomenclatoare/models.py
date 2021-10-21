@@ -1392,3 +1392,21 @@ class Hram(models.Model):
 
     def __str__(self):
         return self.nume
+
+
+@register_snippet
+@register_model_chooser
+class TipSistemStructural(models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Tipuri sisteme structurale"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume

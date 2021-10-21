@@ -601,6 +601,12 @@ MATERIALE_STRUCTURA_BOLTA = [
 
 ]
 
+
+TIP_SISTEM_STRUCTURAL = [
+    "În cheotoare",
+    "În căței",
+    "Mixt",
+]
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
@@ -1028,6 +1034,14 @@ class Command(BaseCommand):
             print(f"Import MATERIALE_STRUCTURA_BOLTA: {nume} ")
             try:
                 models.MaterialeStructuraBolta.objects.get_or_create(
+                    nume=nume)
+            except:
+                pass
+
+        for nume in TIP_SISTEM_STRUCTURAL:
+            print(f"Import TIP_SISTEM_STRUCTURAL: {nume} ")
+            try:
+                models.TipSistemStructural.objects.get_or_create(
                     nume=nume)
             except:
                 pass
