@@ -2988,7 +2988,9 @@ class ConservarePage(Page):
         if has_pericol:
             nota_conservare = min_pericol
         else:
-            nota_conservare = nota_conservare / active_fields
+            if active_fields:
+                nota_conservare = nota_conservare / active_fields
+
         print('******')
         print('******')
         print('******')
