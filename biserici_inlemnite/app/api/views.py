@@ -147,7 +147,7 @@ class FiltersView(ViewSet):
             ],
             'Arhitectura bisericii': [
                 "materiale", "numar_accese_pridvor", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
-                "numar_ochiesi", "solee", "masa_altar_material_picior", "masa_altar_material_blat", "bolta_peste_pronaos",
+                "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
                 "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia", "sistem_in_cheotoare", "sistem_in_catei",
                 "tiranti_tip", "finisaj_exterior_tip"
@@ -167,7 +167,7 @@ class FiltersView(ViewSet):
                     "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
             ],
             'Altar': [
-                'altar_placa_mesei', 'altar_piciorul_mesei', 'altar_decor'
+                'altar_placa_mesei', 'altar_piciorul_mesei'
             ],
             'Pictură exterioară': [
                 'pictura_exterioara_localizare', 'pictura_exterioara_suport', 'pictura_exterioara_tehnica', 'pictura_exterioara_numar_straturi_pictura',
