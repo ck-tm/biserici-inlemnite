@@ -252,7 +252,7 @@ class IdentificarePage(Page):
                                            blank=True, on_delete=models.SET_NULL, related_name='p_biserici_initiale')
     functiune_initiala_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
-    proprietate_actuala = models.ForeignKey('nomenclatoare.ProprietateBiserica', null=True,
+    proprietate_actuala = models.ForeignKey('nomenclatoare.RegimProprietate', null=True,
                                             blank=True, on_delete=models.SET_NULL, related_name='p_biserici_initiale')
     proprietate_observatii = RichTextField(features=[], null=True, blank=True)
     proprietar_actual = RichTextField(features=[], null=True, blank=True)
@@ -507,7 +507,7 @@ class FinisajePortic(ClusterableModel, Orderable):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='finisaje_portic')
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     material = models.ForeignKey(
         'nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
     observatii = RichTextField(
@@ -542,7 +542,7 @@ class FinisajePronaos(ClusterableModel, Orderable):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='finisaje_pronaos')
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     material = models.ForeignKey(
         'nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
     observatii = RichTextField(
@@ -577,7 +577,7 @@ class FinisajeNaos(ClusterableModel, Orderable):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='finisaje_naos')
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     material = models.ForeignKey(
         'nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
     observatii = RichTextField(
@@ -612,7 +612,7 @@ class FinisajeAltar(ClusterableModel, Orderable):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='finisaje_altar')
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     material = models.ForeignKey(
         'nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
     observatii = RichTextField(
@@ -792,7 +792,7 @@ class EtapeIstoriceVizibile(ClusterableModel, Orderable):
                        related_name='etape_istorice_vizibile')
 
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     datat = models.BooleanField(default=False)
     an = models.IntegerField(null=True, blank=True)
     interventie_neconforma = models.BooleanField(default=False)
@@ -835,7 +835,7 @@ class DescrierePage(Page):
 
     # Ansamblu construit
     elemente = ParentalManyToManyField(
-        'nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit", blank=True)
+        'nomenclatoare.ElementInteriorBiserica', help_text="Elemente ansamblu construit", blank=True)
     detalii_elemente = RichTextField(features=[], null=True, blank=True)
 
     elemente_importante = ParentalManyToManyField(
@@ -889,7 +889,7 @@ class DescrierePage(Page):
         null=True, blank=True, verbose_name='Număr turnulețe decorative')
     sarpanta_numar_cruci = models.IntegerField(
         null=True, blank=True, verbose_name='Număr cruci')
-    sarpanta_material_cruci = models.ForeignKey('nomenclatoare.Material', null=True, blank=True,
+    sarpanta_material_cruci = models.ForeignKey('nomenclatoare.MaterialCruci', null=True, blank=True,
                                                 on_delete=models.SET_NULL, verbose_name='Material cruci', related_name="p_material_cruci")
     sarpanta_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -937,7 +937,7 @@ class DescrierePage(Page):
     bolta_peste_pronaos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True, on_delete=models.SET_NULL,
                                             verbose_name='Boltă peste pronaos', related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_material = ParentalManyToManyField(
-        'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_pronaos')
+        'nomenclatoare.MaterialBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_observatii = RichTextField(
@@ -948,7 +948,7 @@ class DescrierePage(Page):
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_material = ParentalManyToManyField(
-        'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_naos')
+        'nomenclatoare.MaterialBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_observatii = RichTextField(
@@ -961,7 +961,7 @@ class DescrierePage(Page):
     bolta_peste_altar_tip = models.ForeignKey('nomenclatoare.TipBoltaPesteAltar', null=True,
                                               blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
     bolta_peste_altar_material = ParentalManyToManyField(
-        'nomenclatoare.Material', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Material')
+        'nomenclatoare.MaterialBolta', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Material')
     bolta_peste_altar_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_altar', verbose_name='Tipul de arc')
     bolta_peste_altar_observatii = RichTextField(
@@ -970,7 +970,7 @@ class DescrierePage(Page):
         'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă altar", related_name='p_altar')
     cor = models.BooleanField(default=False)
     cor_material = ParentalManyToManyField(
-        'nomenclatoare.Material', blank=True, related_name='p_biserici_cor')
+        'nomenclatoare.MaterialCor', blank=True, related_name='p_biserici_cor')
     cor_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -978,10 +978,6 @@ class DescrierePage(Page):
     solee_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
-    masa_altar_material_picior = models.ForeignKey('nomenclatoare.Material', null=True, blank=True,
-                                                   on_delete=models.SET_NULL, verbose_name='Materialul piciorului', related_name='p_masa_altar_picior')
-    masa_altar_material_blat = models.ForeignKey('nomenclatoare.Material', null=True, blank=True,
-                                                 on_delete=models.SET_NULL, verbose_name='Materialul blatului', related_name='p_masa_altar_blat')
     masa_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -992,8 +988,8 @@ class DescrierePage(Page):
         'nomenclatoare.PozitionareTurle', blank=True, related_name='biserici', verbose_name='Poziționare')
     turle_numar_goluri = models.IntegerField(
         null=True, blank=True, verbose_name='Număr goluri')
-    turle_forma_sarpanta = models.ForeignKey('nomenclatoare.FormaSarpanteTurle', null=True, blank=True,
-                                             on_delete=models.SET_NULL, related_name='biserici', verbose_name='Formă șarpantă')
+    turle_stil = models.ForeignKey('nomenclatoare.StilTurle', null=True, blank=True,
+                                             on_delete=models.SET_NULL, related_name='biserici', verbose_name='Stilul turlelor')
     turle_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1033,7 +1029,7 @@ class DescrierePage(Page):
     # Finisaje - Învelitoare corp biserică
 
     invelitoare_corp_material = models.ForeignKey(
-        'nomenclatoare.FinisajExterior', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_corp')
+        'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_corp')
     invelitoare_corp_sindrila_lungime = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
     invelitoare_corp_sindrila_latime_medie = models.IntegerField(
@@ -1066,7 +1062,7 @@ class DescrierePage(Page):
     # Finisaje -  Învelitoare turn
 
     invelitoare_turn_material = models.ForeignKey(
-        'nomenclatoare.FinisajExterior', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_turn')
+        'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_turn')
     invelitoare_turn_sindrila_lungime = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
     invelitoare_turn_sindrila_latime_medie = models.IntegerField(
@@ -1099,7 +1095,7 @@ class DescrierePage(Page):
     # Finisaje -  Închidere tambur turn
 
     inchidere_tambur_turn_material = models.ForeignKey(
-        'nomenclatoare.FinisajExterior', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='inchidere_tambur')
+        'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='inchidere_tambur')
     inchidere_tambur_turn_sindrila_lungime = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
     inchidere_tambur_turn_sindrila_latime_medie = models.IntegerField(
@@ -1131,7 +1127,7 @@ class DescrierePage(Page):
 
     # Finisaje -  Învelitoare turle
     invelitoare_turle_material = ParentalManyToManyField(
-        'nomenclatoare.MaterialInvelitoareTurle', blank=True, verbose_name='Material')
+        'nomenclatoare.FinisajInvelitoare', blank=True, verbose_name='Material')
     invelitoare_turle_sindrila_lungime = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
     invelitoare_turle_sindrila_latime_medie = models.IntegerField(
@@ -1337,8 +1333,6 @@ class DescrierePage(Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel('masa_altar_material_picior'),
-                FieldPanel('masa_altar_material_blat'),
                 FieldPanel('masa_altar_observatii'),
                 MultiFieldPanel(
                     [
@@ -1458,7 +1452,7 @@ class DescrierePage(Page):
                 FieldPanel('turle_pozitionare',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('turle_numar_goluri'),
-                FieldPanel('turle_forma_sarpanta'),
+                FieldPanel('turle_stil'),
                 FieldPanel('turle_observatii'),
 
 
@@ -2505,7 +2499,7 @@ class ConservarePage(Page):
         choices=NR15, null=True, blank=True, verbose_name='Stare')
     turn_pericol = models.BooleanField(default=False, verbose_name='Pericol')
     turn_observatii = RichTextField(features=[], null=True, blank=True,
-                                    help_text="tarea structurii turnului, inclusiv a tălpilor și a coifului", verbose_name='Observații')
+                                    help_text="Starea structurii turnului, inclusiv a tălpilor și a coifului", verbose_name='Observații')
 
     # Finisaje biserică
     zona_din_jurul_biserici = models.IntegerField(
@@ -3027,7 +3021,7 @@ class ArtisticEtapeIstoriceVizibile(ClusterableModel, Orderable):
                        related_name='etape_istorice_vizibile')
 
     element = models.ForeignKey(
-        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     datat = models.BooleanField(default=False)
     an = models.IntegerField(null=True, blank=True)
     interventie_neconforma = models.BooleanField(default=False)
@@ -3125,7 +3119,7 @@ class ComponentaArtisticaPage(Page):
         features=[], null=True, blank=True, verbose_name="Observații")
 
     mobiliere = ParentalManyToManyField(
-        'nomenclatoare.Material', verbose_name="Mobilier", blank=True)
+        'nomenclatoare.MaterialMobilier', verbose_name="Mobilier", blank=True)
     mobiliere_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
@@ -3143,7 +3137,7 @@ class ComponentaArtisticaPage(Page):
     iconostas_naos_altar_numar_intrari = models.IntegerField(
         verbose_name='Număr intrări', null=True, blank=True)
     iconostas_naos_altar_tehnica = ParentalManyToManyField(
-        'nomenclatoare.FinisajIconostas', verbose_name='Tehnică', related_name='p_iconostasuri_naos_altar', blank=True)
+        'nomenclatoare.TehnicaIconostas', verbose_name='Tehnică', related_name='p_iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_registre = ParentalManyToManyField(
         'nomenclatoare.RegistruIconostas', verbose_name='Registru', related_name='p_iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_tip_usi = ParentalManyToManyField(
@@ -3151,27 +3145,25 @@ class ComponentaArtisticaPage(Page):
     iconostas_naos_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
     iconostas_naos_altar_materiale = ParentalManyToManyField(
-        'nomenclatoare.Material', verbose_name='Material', blank=True, related_name='p_iconostasuri_naos_altar')
+        'nomenclatoare.MaterialIconostas', verbose_name='Material', blank=True, related_name='p_iconostasuri_naos_altar')
 
     # Iconostasul  (dintre pronaos și naos)
     iconostas_pronaos_naos_tip = models.ForeignKey('nomenclatoare.TipIconostas', verbose_name='Tip',
                                                    null=True, blank=True, on_delete=models.SET_NULL, related_name='p_iconostasuri_pronaos_naos')
-    iconostas_pronaos_naos_material = models.ForeignKey(
-        'nomenclatoare.Material', verbose_name='Material', null=True, blank=True, on_delete=models.SET_NULL, related_name='p_iconostasuri_pronaos_naos')
+    iconostas_pronaos_naos_materiale = models.ForeignKey(
+        'nomenclatoare.MaterialIconostas', verbose_name='Material', null=True, blank=True, on_delete=models.SET_NULL, related_name='p_iconostasuri_pronaos_naos')
     iconostas_pronaos_naos_numar_intrari = models.IntegerField(
         verbose_name='Număr intrări', null=True, blank=True)
     iconostas_pronaos_naos_tehnica = ParentalManyToManyField(
-        'nomenclatoare.FinisajIconostas', verbose_name='Tehnica', related_name='p_iconostasuri_pronaos_naos', blank=True)
+        'nomenclatoare.TehnicaIconostas', verbose_name='Tehnica', related_name='p_iconostasuri_pronaos_naos', blank=True)
     iconostas_pronaos_naos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
     # Altar
     altar_placa_mesei = ParentalManyToManyField(
-        'nomenclatoare.Material', verbose_name='Placa mesei', blank=True, related_name='p_placa_mesei')
+        'nomenclatoare.MaterialMasaAltar', verbose_name='Placa mesei', blank=True, related_name='p_placa_mesei')
     altar_piciorul_mesei = ParentalManyToManyField(
-        'nomenclatoare.Material', verbose_name='Piciorul mesei', blank=True, related_name='p_piciorul_mesei')
-    altar_decor = models.ForeignKey('nomenclatoare.FinisajIconostas', verbose_name="Decor",
-                                    on_delete=models.SET_NULL, null=True, blank=True, related_name='p_decoruri_altar')
+        'nomenclatoare.MaterialMasaAltar', verbose_name='Piciorul mesei', blank=True, related_name='p_piciorul_mesei')
     altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name="Observații")
 
@@ -3316,7 +3308,7 @@ class ComponentaArtisticaPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel('iconostas_pronaos_naos_tip'),
-                FieldPanel('iconostas_pronaos_naos_material'),
+                FieldPanel('iconostas_pronaos_naos_materiale'),
                 FieldPanel('iconostas_pronaos_naos_numar_intrari'),
                 FieldPanel('iconostas_pronaos_naos_tehnica',
                            widget=forms.CheckboxSelectMultiple),
@@ -3335,7 +3327,6 @@ class ComponentaArtisticaPage(Page):
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('altar_piciorul_mesei',
                            widget=forms.CheckboxSelectMultiple),
-                FieldPanel('altar_decor'),
                 FieldPanel('altar_observatii'),
                 InlinePanel('poze_altar', label="Poză")
             ],

@@ -125,7 +125,7 @@ class Identificare(models.Model):
     functiune_detalii = models.TextField(null=True, blank=True)
     functiune_initiala = models.ForeignKey('nomenclatoare.FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
     functiune_initiala_detalii = models.TextField(null=True, blank=True)
-    proprietate_actuala = models.ForeignKey('nomenclatoare.ProprietateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
+    proprietate_actuala = models.ForeignKey('nomenclatoare.RegimProprietate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
     proprietate_detalii = models.TextField(null=True, blank=True)
     proprietar_actual = models.TextField(null=True, blank=True)
     inscriere_documente_cadastrale = models.IntegerField(choices=IDENTIFICARE_DOC_CADASTRALE, null=True, blank=True)
@@ -196,7 +196,7 @@ class Descriere(models.Model):
     observatii = models.TextField(null=True, blank=True)
 
     # Ansamblu construit
-    elemente = models.ManyToManyField('nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit", blank=True)
+    elemente = models.ManyToManyField('nomenclatoare.ElementInteriorBiserica', help_text="Elemente ansamblu construit", blank=True)
     detalii_elemente = models.TextField(null=True, blank=True)
 
     elemente_importante = models.ManyToManyField('nomenclatoare.ElementImportant', help_text="Elemente ansamblu construit", blank=True)
@@ -296,7 +296,7 @@ class Descriere(models.Model):
     # amplasament = models.ForeignKey('nomenclatoare.AmplasamentBiserica', null=True, blank=True, on_delete=models.SET_NULL)
     # toponim = models.CharField(max_length=150, null=True, blank=True, help_text="denumirea locului")
     # toponim_sursa  = models.TextField(null=True, blank=True)
-    # elemente = models.ManyToManyField('nomenclatoare.ElementBiserica', help_text="Elemente ansamblu construit", blank=True)
+    # elemente = models.ManyToManyField('nomenclatoare.ElementInteriorBiserica', help_text="Elemente ansamblu construit", blank=True)
     # datat = models.BooleanField(default=False)
 
     completare = models.FloatField(default=0)
@@ -339,7 +339,7 @@ class InterventieBiserica(models.Model):
     Description: Model Description
     """
     istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     datat = models.BooleanField(default=False)
     an = models.IntegerField(null=True, blank=True)
     observatii = models.TextField(null=True, blank=True)
@@ -1014,7 +1014,7 @@ class FinisajPardosea(models.Model):
     Description: Model Description
     """
     finisaj = models.ForeignKey('Finisaj', on_delete=models.CASCADE, related_name='finisaje_pardosea')
-    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.MaterialFinisajPardoseli', on_delete=models.CASCADE)
 
     observatii = models.TextField(null=True, blank=True)
@@ -1028,7 +1028,7 @@ class FinisajPeretiInterior(models.Model):
     Description: Model Description
     """
     finisaj = models.ForeignKey('Finisaj', on_delete=models.CASCADE, related_name='finisaje_pereti_interiori')
-    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.MaterialFinisajPeretiInteriori', on_delete=models.CASCADE)
 
     observatii = models.TextField(null=True, blank=True)
@@ -1042,7 +1042,7 @@ class FinisajBolti(models.Model):
     Description: Model Description
     """
     finisaj = models.ForeignKey('Finisaj', on_delete=models.CASCADE, related_name='finisaje_bolti')
-    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.Finisaj', on_delete=models.CASCADE)
 
     observatii = models.TextField(null=True, blank=True)
@@ -1056,7 +1056,7 @@ class FinisajTavan(models.Model):
     Description: Model Description
     """
     finisaj = models.ForeignKey('Finisaj', on_delete=models.CASCADE, related_name='finisaje_tavan')
-    element = models.ForeignKey('nomenclatoare.ElementBiserica', on_delete=models.CASCADE)
+    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.Finisaj', on_delete=models.CASCADE)
 
     observatii = models.TextField(null=True, blank=True)
@@ -1236,7 +1236,7 @@ class ComponentaArtistica(models.Model):
     # Iconostasul  (dintre naos și altar)
     iconostas_naos_altar_tip = models.ForeignKey('nomenclatoare.TipIconostas',verbose_name='Tip', null=True, blank=True, on_delete=models.SET_NULL, related_name='iconostasuri_naos_altar')
     iconostas_naos_altar_numar_intrari =  models.IntegerField(verbose_name='Număr intrări',null=True, blank=True)
-    iconostas_naos_altar_tehnica = models.ManyToManyField('nomenclatoare.FinisajIconostas',verbose_name='Tehnică', related_name='iconostasuri_naos_altar', blank=True)
+    iconostas_naos_altar_tehnica = models.ManyToManyField('nomenclatoare.TehnicaIconostas',verbose_name='Tehnică', related_name='iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_registre = models.ManyToManyField('nomenclatoare.RegistruIconostas',verbose_name='Registru', related_name='iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_tip_usi = models.ManyToManyField('nomenclatoare.TipUsiIconostas',verbose_name='Tip uși', related_name='iconostasuri_naos_altar', blank=True)
     iconostas_naos_altar_detalii = models.TextField(verbose_name='Detalii', null=True, blank=True, help_text="Particularități ale iconostasului ce merită a fi precizate (de urmărit care este standardul de iconostas în zonă și care sunt eventualele deviații de la standard")
@@ -1247,13 +1247,13 @@ class ComponentaArtistica(models.Model):
     iconostas_pronaos_naos_tip = models.ForeignKey('nomenclatoare.TipIconostas',verbose_name='Tip', null=True, blank=True, on_delete=models.SET_NULL, related_name='iconostasuri_pronaos_naos')
     iconostas_pronaos_naos_material = models.ForeignKey('nomenclatoare.Material',verbose_name='Material', null=True, blank=True, on_delete=models.SET_NULL, related_name='iconostasuri_pronaos_naos')
     iconostas_pronaos_naos_numar_intrari =  models.IntegerField(verbose_name='Număr intrări',null=True, blank=True)
-    iconostas_pronaos_naos_tehnica = models.ManyToManyField('nomenclatoare.FinisajIconostas', verbose_name='Tehnica',related_name='iconostasuri_pronaos_naos', blank=True)
+    iconostas_pronaos_naos_tehnica = models.ManyToManyField('nomenclatoare.TehnicaIconostas', verbose_name='Tehnica',related_name='iconostasuri_pronaos_naos', blank=True)
     iconostas_pronaos_naos_detalii = models.TextField(verbose_name='Detalii',null=True, blank=True, help_text="Particularități ale iconostasului ce merită a fi precizate (de urmărit care este standardul de iconostas în zonă și care sunt eventualele deviații de la standard")
 
     # Altar
     altar_placa_mesei = models.ManyToManyField('nomenclatoare.Material',verbose_name='Placa mesei', blank=True, related_name='placa_mesei')
     altar_piciorul_mesei = models.ManyToManyField('nomenclatoare.Material',verbose_name='Piciorul mesei', blank=True, related_name='piciorul_mesei')
-    altar_decor = models.ForeignKey('nomenclatoare.FinisajIconostas', verbose_name = "Decor", on_delete=models.SET_NULL, null=True, blank=True, related_name='decoruri_altar')
+    altar_decor = models.ForeignKey('nomenclatoare.TehnicaIconostas', verbose_name = "Decor", on_delete=models.SET_NULL, null=True, blank=True, related_name='decoruri_altar')
     altar_detalii = models.TextField(null=True, blank=True, verbose_name='Detalii')
 
     completare = models.FloatField(default=0)

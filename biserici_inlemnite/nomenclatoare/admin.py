@@ -87,8 +87,8 @@ class SingularitateBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return 'N.A.'
 
 
-@admin.register(models.ProprietateBiserica)
-class ProprietateBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+@admin.register(models.RegimProprietate)
+class RegimProprietateAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ['nume', 'nr_biserici']
     search_fields = ["nume"]
 
@@ -459,8 +459,8 @@ class EsentaLemnoasaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return 'N.A.'
 
 
-@admin.register(models.ElementBiserica)
-class ElementBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+@admin.register(models.ElementInteriorBiserica)
+class ElementInteriorBisericaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ["nume", "nr_biserici"]
     search_fields = ["nume"]
 
@@ -600,8 +600,8 @@ class SuportPicturaAdmin(HistoryChangedFields, SimpleHistoryAdmin):
             return 'N.A.'
 
 
-@admin.register(models.FinisajIconostas)
-class FinisajIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
+@admin.register(models.TehnicaIconostas)
+class TehnicaIconostasAdmin(HistoryChangedFields, SimpleHistoryAdmin):
     list_display = ["nume", "nr_biserici"]
     search_fields = ["nume"]
 

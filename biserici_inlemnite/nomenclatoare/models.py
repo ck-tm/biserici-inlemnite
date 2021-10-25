@@ -131,7 +131,7 @@ class CultBiserica(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Culturi Biserică"
+        verbose_name_plural = "Culte biserică"
         ordering = ['nume']
 
     def __str__(self):
@@ -180,7 +180,7 @@ class SingularitateBiserica(index.Indexed, models.Model):
 
 @register_snippet
 @register_model_chooser
-class ProprietateBiserica(index.Indexed, models.Model):
+class RegimProprietate(index.Indexed, models.Model):
     """
     Description: Model Description
     """
@@ -191,7 +191,7 @@ class ProprietateBiserica(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Proprietăți Biserică"
+        verbose_name_plural = "Regimul de proprietate"
         ordering = ['nume']
 
     def __str__(self):
@@ -501,7 +501,7 @@ class RelatieCimitir(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Relație Cimitir"
+        verbose_name_plural = "Relația cu cimitirul"
         ordering = ['nume']
 
     def __str__(self):
@@ -519,7 +519,7 @@ class PeisagisticaSit(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Peisagistică Sit"
+        verbose_name_plural = "Peisagistica sitului"
         ordering = ['nume']
 
     def __str__(self):
@@ -590,6 +590,108 @@ class Material(index.Indexed, models.Model):
 
     class Meta:
         verbose_name_plural = "Materiale"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialMobilier(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale mobilier"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialMasaAltar(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale masă altar"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialIconostas(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale Iconostas"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialCruci(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale Cruci"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialBolta(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale Boltă"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+@register_snippet
+@register_model_chooser
+class MaterialCor(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Materiale Cor"
         ordering = ['nume']
 
     def __str__(self):
@@ -766,8 +868,25 @@ class FinisajExterior(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Finisaj Exterior"
+        verbose_name_plural = "Finisaje Exterioare"
         ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
+
+@register_snippet
+@register_model_chooser
+class FinisajInvelitoare(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Finisaj Învelitore"
         ordering = ['nume']
 
     def __str__(self):
@@ -803,7 +922,7 @@ class TipPrindereSindrila(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Tipuri Prindere Sindrila"
+        verbose_name_plural = "Tipuri montaj șindrilă"
         ordering = ['nume']
 
     def __str__(self):
@@ -866,7 +985,7 @@ class EsentaLemnoasa(index.Indexed, models.Model):
 
 @register_snippet
 @register_model_chooser
-class ElementBiserica(index.Indexed, models.Model):
+class ElementInteriorBiserica(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
     history = HistoricalRecords()
@@ -875,7 +994,7 @@ class ElementBiserica(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Elemente Biserica"
+        verbose_name_plural = "Elemente interior Biserica"
         ordering = ['nume']
 
     def __str__(self):
@@ -925,7 +1044,7 @@ class Finisaj(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Finisaj"
+        verbose_name_plural = "Finisaje biserică"
         ordering = ['nume']
 
     def __str__(self):
@@ -1042,7 +1161,7 @@ class SuportPictura(index.Indexed, models.Model):
 
 @register_snippet
 @register_model_chooser
-class FinisajIconostas(index.Indexed, models.Model):
+class TehnicaIconostas(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
     history = HistoricalRecords()
@@ -1051,7 +1170,7 @@ class FinisajIconostas(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Finisaje Iconostas"
+        verbose_name_plural = "Tehnici Iconostas"
         ordering = ['nume']
 
     def __str__(self):
@@ -1175,7 +1294,7 @@ class BoltaPesteAltar(index.Indexed, models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Bolți peste altar"
+        verbose_name_plural = "Boltă peste altar"
         ordering = ['nume']
 
     def __str__(self):
@@ -1245,7 +1364,7 @@ class ObiectCult(models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Obiecte Cult"
+        verbose_name_plural = "Obiecte de Cult"
         ordering = ['nume']
 
     def __str__(self):
@@ -1290,7 +1409,7 @@ class PozitionareTurle(models.Model):
 
 @register_snippet
 @register_model_chooser
-class FormaSarpanteTurle(models.Model):
+class StilTurle(models.Model):
     nume = models.CharField(max_length=150)
 
     history = HistoricalRecords()
@@ -1299,7 +1418,7 @@ class FormaSarpanteTurle(models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Forme șarpante turle"
+        verbose_name_plural = "Stilul turlelor"
         ordering = ['nume']
 
     def __str__(self):
@@ -1352,7 +1471,7 @@ class Hram(models.Model):
     ]
 
     class Meta:
-        verbose_name_plural = "Hramuri"
+        verbose_name_plural = "Hram Biserică"
         ordering = ['nume']
 
     def __str__(self):
