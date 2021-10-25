@@ -35,8 +35,6 @@ class Judet(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class Comuna(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -200,8 +198,6 @@ class ProprietateBiserica(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class MutareBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -240,8 +236,6 @@ class SursaDatare(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class StudiuDendocronologic(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -265,8 +259,6 @@ class StudiuDendocronologic(index.Indexed, models.Model):
         return f"{self.nume} - {self.autor} ({self.an})"
 
 
-@register_snippet
-@register_model_chooser
 class Persoana(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -285,8 +277,6 @@ class Persoana(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class Eveniment(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -305,8 +295,6 @@ class Eveniment(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class CtitorBiserica(models.Model):
     """
     Description: Model Description
@@ -325,8 +313,6 @@ class CtitorBiserica(models.Model):
         return self.persoana
 
 
-@register_snippet
-@register_model_chooser
 class ZugravBiserica(models.Model):
     """
     Description: Model Description
@@ -345,8 +331,7 @@ class ZugravBiserica(models.Model):
         return self.persoana
 
 
-@register_snippet
-@register_model_chooser
+
 class MesterBiserica(models.Model):
     """
     Description: Model Description
@@ -365,8 +350,6 @@ class MesterBiserica(models.Model):
         return self.persoana
 
 
-@register_snippet
-@register_model_chooser
 class PersonalitateBiserica(models.Model):
     """
     Description: Model Description
@@ -385,8 +368,6 @@ class PersonalitateBiserica(models.Model):
         return self.persoana
 
 
-@register_snippet
-@register_model_chooser
 class EvenimentBiserica(models.Model):
     """
     Description: Model Description
@@ -405,8 +386,6 @@ class EvenimentBiserica(models.Model):
         return self.eveniment.nume
 
 
-@register_snippet
-@register_model_chooser
 class Studiu(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -446,8 +425,6 @@ class Secol(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class StudiuIstoric(index.Indexed, models.Model):
     """
     Description: Model Description
@@ -585,8 +562,6 @@ class ElementImportant(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class Planimetrie(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -692,8 +667,6 @@ class TipTurn(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class DecorTurn(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -909,8 +882,6 @@ class ElementBiserica(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class MaterialFinisajPardoseli(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -927,8 +898,6 @@ class MaterialFinisajPardoseli(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class MaterialFinisajPeretiInteriori(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -1143,8 +1112,6 @@ class TipUsiIconostas(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class DetaliuPodTurn(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
 
@@ -1251,8 +1218,6 @@ class TipBoltaPronaos(index.Indexed, models.Model):
         return self.nume
 
 
-@register_snippet
-@register_model_chooser
 class Mobilier(models.Model):
     nume = models.CharField(max_length=150)
 
