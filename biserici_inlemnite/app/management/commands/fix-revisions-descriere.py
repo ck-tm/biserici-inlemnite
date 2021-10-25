@@ -10,10 +10,27 @@ import json
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        # 42
-        for page in 
 
-        for descriere_page in Page.objects.filter(pk__in=[231]):
+        for descriere_page in models.DescrierePage.objects.all():
+            print(descriere_page)
+            for revision in descriere_page.revisions.all():
+                print(revision)
+                j = json.loads(revision.content_json)
+                if 'materiale' in j.keys():
+                    j['materiale'] = None
+                    pprint(j['materiale'])
+                    revision.content_json = json.dumps(j)
+                    revision.save()
+
+
+
+# x = Page.objects.get(pk=231).specific
+# xx =x.revisions.last()
+# j['materiale'] = None
+# xx.content_json = json.dumps(j)
+# xx.save()
+# xx.publish()
+
 
         #     print(descriere_page.get_parent())
 
