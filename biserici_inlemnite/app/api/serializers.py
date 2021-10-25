@@ -49,7 +49,7 @@ class ReprMixin(object):
 
 class PozaSerializer(serializers.Serializer):
     observatii = serializers.CharField()
-    poza = ImageRenditionField('width-480')
+    poza = ImageRenditionField('width-1280')
 
 
     class Meta:
