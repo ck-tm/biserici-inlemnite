@@ -15,10 +15,46 @@ MAP_CAPITOLE = {
 MAP_FIELD_VERBOSE_NAME = {
     'Sit': {
         "sit": "Sit",
+        "sit_pericol": "Pericol sit",
         "elemente_arhitecturale": "Elemente arhitecturale",
+        "elemente_arhitecturale_pericol": "Pericol elemente arhitecturale",
         "alte_elemente_importante": "Alte elemente importante",
+        "alte_elemente_importante_pericol": "Pericol alte elemente importante",
         "vegetatie": "Vegetație",
         "vegetatie_pericol": "Pericol vegetație",
+    },
+    'Arhitectura bisericii': {
+        'sarpanta_tip': "Șarpantă corp",
+        "turn_tip": "Turn",
+        "sistem_in_cheotoare": "Sistem structural al corpului bisericii în cheotoare",
+        "sistem_in_catei": "Sistem structural al corpului bisericii în căței",
+        # "invelitoare_corp_sindrila_numar_straturi": "Număr straturi șindrilă peste corp biserică",
+        # "invelitoare_corp_sindrlia_tipul_de_batere": "Tip batere șindrilă peste corp biserică",
+        # "invelitoare_corp_sindrlia_forma_botului": "Forma botului șindrilă peste corp biserică",
+
+        "invelitoare_corp_material": "Învelitoare corp",
+        "invelitoare_corp_sindrila_numar_straturi": "Șindrilă peste corp (număr straturi)",
+        "invelitoare_corp_sindrlia_tipul_de_batere": "Șindrilă peste corp (tipul de batere)",
+        "invelitoare_corp_sindrlia_forma_botului": "Șindrilă peste corp (forma botului)",
+        "invelitoare_corp_sindrila_cu_tesitura": "Șindrilă peste corp (cu teșitură)",
+        "invelitoare_corp_sindrlia_prelucrare": "Șindrilă peste corp (prelucrare)",
+        "invelitoare_corp_sindrlia_esenta_lemnoasa": "Șindrilă peste corp (esență lemnoasă)",
+
+        "invelitoare_turn_material": "Învelitoare turn",
+        "invelitoare_turn_sindrila_numar_straturi": "Șindrilă peste turn (număr straturi)",
+        "invelitoare_turn_sindrlia_tipul_de_batere": "Șindrilă peste turn (tipul de batere)",
+        "invelitoare_turn_sindrlia_forma_botului": "Șindrilă peste turn (forma botului)",
+        "invelitoare_turn_sindrila_cu_tesitura": "Șindrilă peste turn (cu teșitură)",
+        "invelitoare_turn_sindrlia_prelucrare": "Șindrilă peste turn (prelucrare)",
+        "invelitoare_turn_sindrlia_esenta_lemnoasa": "Șindrilă peste turn (esență lemnoasă)",
+
+        "inchidere_tambur_turn_material": "închidere tambur turn",
+        "inchidere_tambur_turn_sindrila_numar_straturi": "Șindrilă închidere turn (număr straturi)",
+        "inchidere_tambur_turn_sindrlia_tipul_de_batere": "Șindrilă închidere turn (tipul de batere)",
+        "inchidere_tambur_turn_sindrlia_forma_botului": "Șindrilă închidere turn (forma botului)",
+        "inchidere_tambur_turn_sindrila_cu_tesitura": "Șindrilă închidere turn (cu teșitură)",
+        "inchidere_tambur_turn_sindrlia_prelucrare": "Șindrilă închidere turn (prelucrare)",
+        "inchidere_tambur_turn_sindrlia_esenta_lemnoasa": "Șindrilă închidere turn (esență lemnoasă)",
     },
     'Strucutra bisericii': {
         "teren": "Teren",
@@ -135,10 +171,18 @@ def get_chapter_filters(model, filters_dict):
                             "values": [{'id': x, 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
+                        values = []
                         if type(section_filters[field][0]) == list:
-                            values = [{'id': x, 'nume': x} for x in section_filters[field][0]]
+                            for x in section_filters[field][0]:
+                                value = {'id': x, 'nume': x}
+                                if value not in values:
+                                    values.append(value)
                         else:
-                            values = [{'id': x, 'nume': x} for x in section_filters[field]]
+                            for x in section_filters[field]:
+                                value = {'id': x, 'nume': x}
+                                if value not in values:
+                                    values.append(value)
+                            # values = [{'id': x, 'nume': x} for x in section_filters[field]]
                         filters_list.append({
                             "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
                             "key": field,

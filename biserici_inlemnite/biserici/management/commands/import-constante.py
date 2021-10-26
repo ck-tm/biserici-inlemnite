@@ -659,7 +659,7 @@ class Command(BaseCommand):
         for nume in IDENTIFICARE_PROPRIETATE:
             print(f"Import IDENTIFICARE_PROPRIETATE: {nume}")
             try:
-                models.ProprietateBiserica.objects.get_or_create(
+                models.RegimProprietate.objects.get_or_create(
                     nume=nume)
             except:
                 pass
@@ -833,7 +833,7 @@ class Command(BaseCommand):
         for nume in ELEMENT_BISERICA:
             print(f"Import ELEMENT_BISERICA: {nume} ")
             try:
-                models.ElementBiserica.objects.get_or_create(
+                models.ElementInteriorBiserica.objects.get_or_create(
                     nume=nume)
             except:
                 pass
@@ -903,7 +903,7 @@ class Command(BaseCommand):
         for nume in FINISAJ_ICONOSTAS:
             print(f"Import FINISAJ_ICONOSTAS: {nume} ")
             try:
-                models.FinisajIconostas.objects.get_or_create(
+                models.TehnicaIconostas.objects.get_or_create(
                     nume=nume)
             except:
                 pass
@@ -1000,7 +1000,7 @@ class Command(BaseCommand):
         for nume in FORMA_SARPANTE_TURLE:
             print(f"Import FORMA_SARPANTE_TURLE: {nume} ")
             try:
-                models.FormaSarpanteTurle.objects.get_or_create(
+                models.StilTurle.objects.get_or_create(
                     nume=nume)
             except:
                 pass

@@ -111,7 +111,6 @@ class BisericaViewSet(ModelViewSet):
     )
     def map_filter(self, request):
         biserici = utils.filter_biserici(request.data)
-        print(biserici)
         # biserici = [x for x in biserici]
         serializer = serializers.BisericaListSerializer(biserici, many=True)
         return Response(serializer.data)
@@ -143,14 +142,17 @@ class FiltersView(ViewSet):
                 'are_scanare_laser', 'are_model_fotogrametric'
             ],
             'Localizare/Peisaj': [
-                "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului"
+                "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului", "ansamblu_construit"
             ],
             'Arhitectura bisericii': [
                 "materiale", "numar_accese_pridvor", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
-                "numar_ochiesi", "solee", "masa_altar_material_picior", "masa_altar_material_blat", "bolta_peste_pronaos",
+                "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
-                "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia", "sistem_in_cheotoare", "sistem_in_catei",
-                "tiranti_tip", "finisaj_exterior_tip"
+                "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia","sistem_structural", "sistem_in_cheotoare", "sistem_in_catei",
+                "tiranti_tip", "finisaj_exterior_tip", "invelitoare_corp_material", "invelitoare_corp_sindrila_numar_straturi", "invelitoare_corp_sindrlia_tipul_de_batere",
+                "invelitoare_corp_sindrlia_forma_botului", "invelitoare_corp_sindrila_cu_tesitura", "invelitoare_corp_sindrlia_prelucrare", "invelitoare_corp_sindrlia_esenta_lemnoasa",
+                "invelitoare_turn_material", "invelitoare_turn_sindrila_numar_straturi", "invelitoare_turn_sindrlia_tipul_de_batere",
+                "invelitoare_turn_sindrlia_forma_botului", "invelitoare_turn_sindrila_cu_tesitura", "invelitoare_turn_sindrlia_prelucrare", "invelitoare_turn_sindrlia_esenta_lemnoasa"
             ],
         }
         descriere_filters = utils.get_chapter_filters(
@@ -167,7 +169,7 @@ class FiltersView(ViewSet):
                     "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
             ],
             'Altar': [
-                'altar_placa_mesei', 'altar_piciorul_mesei', 'altar_decor'
+                'altar_placa_mesei', 'altar_piciorul_mesei'
             ],
             'Pictură exterioară': [
                 'pictura_exterioara_localizare', 'pictura_exterioara_suport', 'pictura_exterioara_tehnica', 'pictura_exterioara_numar_straturi_pictura',
@@ -188,8 +190,11 @@ class FiltersView(ViewSet):
         conservare_filters_name = {
             'Sit': [
                 "sit",
+                "sit_pericol",
                 "elemente_arhitecturale",
+                "elemente_arhitecturale_pericol",
                 "alte_elemente_importante",
+                "alte_elemente_importante_pericol",
                 "vegetatie",
                 "vegetatie_pericol",
             ],

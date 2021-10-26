@@ -10,29 +10,14 @@ import json
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        # 42
-        for page in 
 
-        for descriere_page in Page.objects.filter(pk__in=[231]):
-
-        #     print(descriere_page.get_parent())
-
-        #     for revision in descriere_page.revisions.all().order_by('-created_at'):
-        #         if revision.user == None:
-        #             revision.delete()
-        #         # print(revision.user, revision.created_at)
-        #         # last_revision = descriere_page.revisions.last()
-        #         # while last_revision.user == None:
-        #         #     last_revision.
-
-        #         # print(last_revision, last_revision.user)
-        #         # previous_revision = last_revision.get_previous()
-        #         # print(previous_revision, previous_revision.user)
-        #         # print(previous_revision.content_json)
-        #         j = json.loads(revision.content_json)
-        #         j['materiale'] = None
-        #         revision.content_json = json.dumps(j)
-        #         revision.save()
-        #         revision.publish()
-        #         break
-        #         # print(descriere_page.revisions.all()[0].user)
+        for descriere_page in models.DescrierePage.objects.all():
+            print(descriere_page)
+            for revision in descriere_page.revisions.all():
+                print(revision)
+                j = json.loads(revision.content_json)
+                if 'materiale' in j.keys():
+                    j['materiale'] = None
+                    pprint(j['materiale'])
+                    revision.content_json = json.dumps(j)
+                    revision.save()

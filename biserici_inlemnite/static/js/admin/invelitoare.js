@@ -72,7 +72,7 @@ $( document ).ready(function() {
     for (let i = 0; i < groups.length; i++) {
         material = $(`#id_${groups[i]}_material`).val();
         console.log(groups[i], material)
-        if (material == 4){
+        if (material == 1){
             show(groups[i])
         }
         else {
@@ -83,7 +83,7 @@ $( document ).ready(function() {
         $(`#id_${groups[i]}_material`).change(function() {
             material = $(`#id_${groups[i]}_material`).val();
             console.log(groups[i], material)
-            if (material == 4)
+            if (material == 1)
                 show(groups[i])
             else 
                 hide(groups[i])
