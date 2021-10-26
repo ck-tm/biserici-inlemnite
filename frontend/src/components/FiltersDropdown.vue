@@ -13,45 +13,52 @@
     >
       <template #trigger>
         <b-button icon-right="arrow-down" size="is-small" expanded>
-          {{
-            model && model.length
-              ? (options || basicFilters[index].options).find(
-                  (e) => e.id == model[0]
-                ).value
-              : basicFilters[index]
-              ? basicFilters[index].default.value
-              : 'Toate'
-          }}
+          <FilterDisplayItem
+            v-if="basicFilters[index]"
+            :index="index"
+            :value="model && model.length ? model[0] : null"
+            :has-label="false"
+            :has-size-variation="true"
+            size="is-small"
+          />
+
+          <span
+            v-text="
+              model && model.length
+                ? options.find((e) => e.id == model[0]).value
+                : 'Toate'
+            "
+            v-else
+          />
         </b-button>
       </template>
 
       <b-dropdown-item :value="[]">
-        <template v-if="basicFilters[index]">
-          <span
-            class="icon-circle"
-            v-bind="{ style: computeStyle() }"
-            v-text="basicFilters[index].default.id"
-          />
-          <span v-text="basicFilters[index].default.value" />
-        </template>
+        <FilterDisplayItem
+          v-if="basicFilters[index]"
+          :index="index"
+          :value="null"
+          :has-label="false"
+          size="is-small"
+        />
 
         <span v-else>Toate</span>
       </b-dropdown-item>
 
       <b-dropdown-item
-        v-for="(item, i) of options || basicFilters[index].options"
+        v-for="item of options"
         :key="item.id"
         :value="[item.id]"
         aria-role="listitem"
       >
-        <template v-if="basicFilters[index]">
-          <span
-            class="icon-circle"
-            v-bind="{ style: computeStyle(i) }"
-            v-text="basicFilters[index].options[i].id"
-          />
-          <span v-text="basicFilters[index].options[i].value" />
-        </template>
+        <FilterDisplayItem
+          v-if="basicFilters[index]"
+          :index="index"
+          :value="item.id"
+          :has-label="false"
+          :has-size-variation="true"
+          size="is-small"
+        />
 
         <span v-else>{{ item.value }}</span>
       </b-dropdown-item>
@@ -60,10 +67,13 @@
 </template>
 
 <script>
-import { Colors, BasicFilters } from '@/services/utils'
+import FilterDisplayItem from '@/components/FilterDisplayItem'
+
+import { BasicFilters } from '@/services/utils'
 
 export default {
   name: 'FiltersDropdown',
+  components: { FilterDisplayItem },
   props: {
     value: null,
     label: String,
@@ -74,40 +84,10 @@ export default {
     return {
       model: this.value,
       basicFilters: BasicFilters,
-      colors: Colors,
     }
   },
   mounted() {},
-  methods: {
-    computeStyle(i) {
-      if (i == null) {
-        return {
-          background: BasicFilters[this.index].default.background,
-        }
-      }
-
-      if (Colors[this.index])
-        return {
-          'background-color': Colors[this.index][i],
-          'border-color': Colors[this.index][i],
-          color: '#000000',
-        }
-
-      if (BasicFilters[this.index] && BasicFilters[this.index].options[i].size)
-        return {
-          'background-color': '#CCCCCC',
-          'font-size': 0,
-          width: BasicFilters[this.index].options[i].size + 'px',
-          height: BasicFilters[this.index].options[i].size + 'px',
-          'margin-left':
-            (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
-          'margin-right':
-            12 + (24 - BasicFilters[this.index].options[i].size) / 2 + 'px',
-        }
-
-      return null
-    },
-  },
+  methods: {},
   watch: {
     value(val) {
       this.model = val
@@ -116,7 +96,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.icon-circle {
-}
-</style>
+<style lang="scss" scoped></style>

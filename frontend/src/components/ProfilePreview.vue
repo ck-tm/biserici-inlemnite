@@ -11,7 +11,7 @@
     <div class="container-profile container-scroll">
       <div class="images columns is-variable is-2">
         <div
-          class="column"
+          class="column is-6"
           v-for="(image, index) in profilePreview.poze"
           :key="'images_' + index"
         >
@@ -47,7 +47,7 @@
       <div class="columns">
         <div class="column">
           <FilterDisplayItem
-            :value="Math.round(profilePreview.conservare)"
+            :value="profilePreview.conservare"
             index="conservare"
             size="is-large"
             is-multiline
@@ -55,7 +55,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="Math.round(profilePreview.valoare)"
+            :value="profilePreview.valoare"
             index="valoare"
             size="is-large"
             is-multiline
@@ -63,7 +63,7 @@
         </div>
         <div class="column">
           <FilterDisplayItem
-            :value="Math.round(profilePreview.prioritizare)"
+            :value="profilePreview.prioritizare"
             index="prioritizare"
             size="is-large"
             is-multiline
@@ -107,6 +107,8 @@ export default {
 #profilePreview {
   position: relative;
   width: 500px;
+  z-index: 37;
+  background-color: $black;
 
   .close {
     top: 12px;

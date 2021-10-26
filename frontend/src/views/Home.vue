@@ -14,8 +14,26 @@
           @update="updateMap"
         />
 
+        <div class="buttons buttons-toggle">
+          <b-button
+            :type="active.mapList ? 'is-dark' : 'is-primary'"
+            icon-left="pin"
+            @click="active.mapList = false"
+          >
+            Hartă
+          </b-button>
+          <b-button
+            :type="active.mapList ? 'is-primary' : 'is-dark'"
+            icon-left="list"
+            @click="active.mapList = true"
+          >
+            Listă
+          </b-button>
+        </div>
+
         <div class="container-map-profile">
           <Map />
+          <MapList v-if="active.mapList" />
 
           <ProfilePreview
             :active="active.profilePreview"
@@ -39,6 +57,7 @@
 import FiltersBasic from '@/components/FiltersBasic'
 import FiltersAdvanced from '@/components/FiltersAdvanced'
 import Map from '@/components/Map'
+import MapList from '@/components/MapList'
 import ProfilePreview from '@/components/ProfilePreview'
 import ProfileModal from '@/components/ProfileModal'
 
@@ -50,6 +69,7 @@ export default {
     FiltersBasic,
     FiltersAdvanced,
     Map,
+    MapList,
     ProfilePreview,
     ProfileModal,
   },
@@ -58,8 +78,10 @@ export default {
       active: {
         profilePreview: false,
         profileModal: false,
+        mapList: false
       },
       loading: true,
+      viewType: 0,
     }
   },
   computed: {
@@ -99,6 +121,9 @@ export default {
           this.loading = false
         })
     },
+    // setViewType(type) {
+    //   this.viewType = type
+    // },
   },
   beforeRouteUpdate(to, from, next) {
     next()
@@ -107,4 +132,36 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.buttons-toggle {
+  position: absolute;
+  top: 130px;
+  right: 16px;
+  z-index: 37;
+  background: $grey-dark;
+  border: 1px solid $grey;
+  border-radius: $radius;
+  padding: 4px;
+
+  /deep/.button {
+    font-size: $size-7;
+    height: 48px;
+    width: 48px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+
+    &:not(:last-child):not(.is-fullwidth) {
+      margin-right: 4px;
+    }
+
+    .icon {
+      font-size: $size-3;
+
+      &:first-child:not(:last-child) {
+        margin: 0;
+      }
+    }
+  }
+}
+</style>

@@ -1,22 +1,4 @@
 .tag:not(body) {
-  &.bullet {
-    font-weight: $weight-bold;
-    width: 32px;
-    height: 32px;
-    border: 1px solid $white;
-    background: transparent;
-    color: $white;
-
-    &.is-small {
-      width: 32px;
-      height: 32px;
-    }
-
-    &.is-large {
-      width: 48px;
-      height: 48px;
-    }
-  }
 }
 
 .button.close {
