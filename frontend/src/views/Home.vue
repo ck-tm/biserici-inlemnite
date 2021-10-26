@@ -32,8 +32,8 @@
         </div>
 
         <div class="container-map-profile">
-          <Map />
           <MapList v-if="active.mapList" />
+          <Map />
 
           <ProfilePreview
             :active="active.profilePreview"

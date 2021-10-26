@@ -140,7 +140,7 @@ export default {
 
     .leaflet-top,
     .leaflet-bottom {
-      z-index: 36;
+      z-index: 35;
     }
 
     .leaflet-tile {
