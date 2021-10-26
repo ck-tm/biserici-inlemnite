@@ -111,7 +111,6 @@ class BisericaViewSet(ModelViewSet):
     )
     def map_filter(self, request):
         biserici = utils.filter_biserici(request.data)
-        print(biserici)
         # biserici = [x for x in biserici]
         serializer = serializers.BisericaListSerializer(biserici, many=True)
         return Response(serializer.data)
@@ -158,7 +157,6 @@ class FiltersView(ViewSet):
         }
         descriere_filters = utils.get_chapter_filters(
             models.DescrierePage, descriere_filters_name)
-        pprint(descriere_filters)
 
         componenta_artistica_name = {
             '': [

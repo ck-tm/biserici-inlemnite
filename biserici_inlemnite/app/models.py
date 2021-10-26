@@ -481,7 +481,7 @@ class ClopotBiserica(ClusterableModel):
 
 
     def __str__(self):
-        return str(self.an)
+        return str(self.an) if self.an else 'Fără datare'
 
 class ClopoteBiserica(Orderable, ClopotBiserica):
     page = ParentalKey(

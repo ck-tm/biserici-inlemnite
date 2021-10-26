@@ -57,9 +57,6 @@ class PozaSerializer(serializers.Serializer):
 
 
 def get_nested_model_data(elements):
-    print('------')
-    print(elements)
-    print('------')
     serializer_list = []
     meta_fields = type(elements[0])._meta.fields
     for obj in elements:
@@ -89,7 +86,8 @@ def get_nested_model_data(elements):
                     })
                 # obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
         except Exception as e:
-            print('******======', e)
+            # print('******======', e)
+            pass
         if obj_serializer:
             serializer_list.append(obj_serializer)
 
@@ -114,10 +112,17 @@ def get_section_fields(obj, section):
                         value = ', '.join([str(x) for x in all_elements])
                         elements = get_nested_model_data(all_elements)
         except Exception as e:
-            print('****', type(e), obj, e)
+            # print('****', field,  type(e), obj, e)
+
+
             if type(field_obj) in [str, float, type(None), int, bool]:
-                value = field_obj
+                if obj._meta.get_field(field[0]).choices:
+                    value = getattr(obj, f'get_{field[0]}_display')()
+                else:
+                    value = field_obj
             else:
+                if field[0] == 'inscriere_documente_cadastrale':
+                    print('not in str')
                 value = str(field_obj)
         if value :
             field_serializer = {
@@ -448,13 +453,13 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'title': 'Accese',
                     'fields': [
                         ("numar_accese_pridvor", ""),
-                        ("numar_accese_pridvor_observatii", ""),
+                        ("numar_accese_pridvor_observatii", "Observații accese pridvor"),
                         ("numar_accese_pronaos", ""),
-                        ("numar_accese_pronaos_observatii", ""),
+                        ("numar_accese_pronaos_observatii", "Observații accese pronaos"),
                         ("numar_accese_naos", ""),
-                        ("numar_accese_naos_observatii", ""),
+                        ("numar_accese_naos_observatii", "Observații accese naos"),
                         ("numar_accese_altar", ""),
-                        ("numar_accese_altar_observatii", ""),
+                        ("numar_accese_altar_observatii", "Observații accese altar"),
                         ("poze_accese", "Poze"),
                         ]
                     },
@@ -882,7 +887,7 @@ class ComponentaArtisticaSerializer(serializers.ModelSerializer):
                 ]
             },
             {
-            'title': 'Peretele despărțitor',
+            'title': 'Peretele despărțitor pronaos-naos',
             'fields': [
                 ("iconostas_pronaos_naos_tip", ""),
                 ("iconostas_pronaos_naos_materiale", ""),
