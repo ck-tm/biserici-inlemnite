@@ -749,6 +749,9 @@ class PozeTiranti(Orderable, Poza):
     page = ParentalKey('DescrierePage', on_delete=models.CASCADE,
                        related_name='poze_tiranti')
 
+class PozeEtapeAnterioareInvelitoare(Orderable, Poza):
+        page = ParentalKey(
+            'DescrierePage', on_delete=models.CASCADE, related_name='poze_interventii_invelitoare')
 
 
 class PozeFinisajeInvelitoare(Orderable, Poza):
@@ -936,8 +939,6 @@ class DescrierePage(Page):
 
     bolta_peste_pronaos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True, on_delete=models.SET_NULL,
                                             verbose_name='Boltă peste pronaos', related_name='p_biserici_bolta_peste_pronaos')
-    bolta_peste_pronaos_material = ParentalManyToManyField(
-        'nomenclatoare.MaterialBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_observatii = RichTextField(
@@ -947,8 +948,6 @@ class DescrierePage(Page):
 
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
-    bolta_peste_naos_material = ParentalManyToManyField(
-        'nomenclatoare.MaterialBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_tipul_de_arc = ParentalManyToManyField(
         'nomenclatoare.TipArcBolta', blank=True, related_name='p_biserici_bolta_peste_naos')
     bolta_peste_naos_observatii = RichTextField(
@@ -1347,16 +1346,12 @@ class DescrierePage(Page):
         MultiFieldPanel(
             [
                 FieldPanel('bolta_peste_pronaos'),
-                FieldPanel('bolta_peste_pronaos_material',
-                           widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_pronaos_structura',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_pronaos_tipul_de_arc',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_pronaos_observatii'),
                 FieldPanel('bolta_peste_naos'),
-                FieldPanel('bolta_peste_naos_material',
-                           widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_naos_structura',
                            widget=forms.CheckboxSelectMultiple),
                 FieldPanel('bolta_peste_naos_tipul_de_arc',
@@ -1690,6 +1685,8 @@ class DescrierePage(Page):
                 FieldPanel('interventii_invelitoare_sindrlia_esenta_lemnoasa'),
                 FieldPanel('interventii_invelitoare_alte_tipuri_invelitoare'),
                 FieldPanel('interventii_invelitoare_observatii'),
+                InlinePanel('poze_interventii_invelitoare', label="Poză")
+
             ],
             heading="Etape anterioare vizibile ale învelitorii",
             classname="collapsible collapsed ",
@@ -1927,6 +1924,8 @@ class PovestiBiserica(Orderable, PovesteBiserica):
 class PozePisanie(Orderable, Poza):
         page = ParentalKey(
             'IstoricPage', on_delete=models.CASCADE, related_name='poze_pisanie')
+
+
 
 class IstoricPage(Page):
     sursa_datare = ParentalManyToManyField(

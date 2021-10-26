@@ -505,7 +505,6 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'title': 'Bolți',
                     'fields': [
                         ("bolta_peste_pronaos", ""),
-                        ("bolta_peste_pronaos_material", ""),
                         ("bolta_peste_pronaos_structura", ""),
                         ("bolta_peste_pronaos_tipul_de_arc", ""),
                         ("bolta_peste_pronaos_observatii", ""),
