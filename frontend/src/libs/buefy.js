@@ -12,6 +12,7 @@ import {
   Loading,
   Modal,
   Radio,
+  Table,
   Tabs,
   Toast,
   ConfigProgrammatic,
@@ -54,5 +55,6 @@ Vue.use(Input)
 Vue.use(Loading)
 Vue.use(Modal)
 Vue.use(Radio)
+Vue.use(Table)
 Vue.use(Tabs)
 Vue.use(Toast)

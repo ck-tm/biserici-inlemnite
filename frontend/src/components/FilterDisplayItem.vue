@@ -1,7 +1,7 @@
 <template>
   <div
     class="filter-item"
-    :class="{ [`is-${index}`]: true }"
+    :class="{ [`is-${index}`]: true, ...classTag }"
     v-if="activeOption"
   >
     <div
@@ -11,13 +11,7 @@
     />
 
     <div class="item" :class="{ 'is-flex': !isMultiline }">
-      <div
-        class="tag bullet"
-        :class="classTag"
-        v-text="activeOption.id"
-        :style="tagStyle"
-      />
-
+      <div class="tag" v-text="displayValue" :style="tagStyle" />
       <p class="caption" v-if="hasCaption" v-text="activeOption.value" />
     </div>
   </div>
@@ -47,12 +41,20 @@ export default {
     compFunc(e) {
       return e.interval
         ? this.value >= e.interval[0] && this.value <= e.interval[1]
-        : this.value == e.id
+        : Math.round(this.value) == e.id
     },
   },
   computed: {
+    displayValue() {
+      return this.value
+        ? Math.round(this.value * 10) / 10
+        : BasicFilters[this.index].default.id
+    },
     activeOption() {
-      return this.basicFilters[this.index].options.find((e) => this.compFunc(e))
+      return (
+        BasicFilters[this.index].options.find((e) => this.compFunc(e)) ||
+        BasicFilters[this.index].default
+      )
     },
     classTag() {
       return {
@@ -64,7 +66,7 @@ export default {
         this.compFunc(e)
       )
 
-      if (i == null) {
+      if (i == -1) {
         return {
           background: BasicFilters[this.index].default.background,
         }
@@ -81,7 +83,7 @@ export default {
         if (this.hasSizeVariation)
           return {
             'background-color': '#CCCCCC',
-            color: '#FFFFFF',
+            'border-color': '#CCCCCC',
             'font-size': 0,
             width: this.activeOption.size + 'px',
             height: this.activeOption.size + 'px',
@@ -91,7 +93,9 @@ export default {
         else return { 'background-color': '#FFFFFF', color: '#000000' }
       }
 
-      return null
+      return {
+        // 'border-color': '#FFFFFF',
+      }
     },
   },
 }
@@ -104,7 +108,16 @@ export default {
   }
 
   .tag {
-    margin-right: 16px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid $white;
+    background: transparent;
+    color: $white;
+    margin-right: 8px;
+    font-weight: $weight-bold;
+    font-size: $size-5;
+    padding: 0;
+    flex-shrink: 0;
   }
 
   .caption {
@@ -115,9 +128,36 @@ export default {
     align-items: center;
 
     &:not(.is-flex) {
+      // display: inline-block;
+      // text-align: center;
+
       .tag {
+        margin-right: 0;
         margin-bottom: 8px;
       }
+    }
+  }
+
+  // sizes
+
+  &.is-small {
+    .tag {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      // border-color: transparent;
+    }
+
+    .caption {
+      font-size: $size-6;
+    }
+  }
+
+  &.is-large {
+    .tag {
+      width: 48px;
+      height: 48px;
+      margin-right: 16px;
     }
   }
 }

@@ -37,8 +37,8 @@ export default {
       // url: 'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
       // attribution:
       //   '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-      // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      // url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       // url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
       // url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
       attribution:
@@ -66,7 +66,7 @@ export default {
         const bounds = new latLngBounds(
           this.mapData
             .map((e) => [e.latitudine, e.longitudine])
-            .filter((e) => e[0] && e[1])
+            .filter((e) => e[0] < 90 && e[0] > -90 && e[1] < 180 && e[1] > -180)
         )
         return bounds.pad(0.25)
       }
@@ -92,8 +92,7 @@ export default {
     getIcon(marker) {
       return icon({
         iconUrl: this.getMarkerIcon(
-          Colors.conservare[Math.round(marker.conservare) - 1] ||
-            Colors.conservare[0]
+          Colors.conservare[Math.round(marker.conservare) - 1] || '#343232'
         ),
         iconSize: this.icon.size,
         iconAnchor: this.icon.anchor,
@@ -136,16 +135,16 @@ export default {
 
   /deep/.leaflet-container {
     .leaflet-pane {
-      z-index: 36;
+      z-index: 35;
     }
 
     .leaflet-top,
     .leaflet-bottom {
-      z-index: 37;
+      z-index: 35;
     }
 
     .leaflet-tile {
-      // filter: hue-rotate(30deg) saturate(2) brightness(0.85) !important;
+      filter: hue-rotate(30deg) saturate(2) brightness(0.75) !important;
     }
 
     .leaflet-control-zoom {

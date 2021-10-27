@@ -33,6 +33,7 @@ body {
     flex-direction: column;
 
     .container-map-profile {
+      position: relative;
       display: flex;
       flex: 1;
       overflow: hidden;

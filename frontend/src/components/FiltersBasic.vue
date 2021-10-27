@@ -22,7 +22,7 @@
       <div class="column">
         <FiltersDropdown
           v-model="filterModel.conservare"
-          :options="null"
+          :options="filters.conservare"
           index="conservare"
           label="Stare de conservare"
           @input="update"
@@ -31,7 +31,7 @@
       <div class="column">
         <FiltersDropdown
           v-model="filterModel.valoare"
-          :options="null"
+          :options="filters.valoare"
           index="valoare"
           label="Valoare patrimoniu"
           @input="update"
@@ -40,7 +40,7 @@
       <div class="column">
         <FiltersDropdown
           v-model="filterModel.prioritizare"
-          :options="null"
+          :options="filters.prioritizare"
           index="prioritizare"
           label="Prioritizare"
           @input="update"

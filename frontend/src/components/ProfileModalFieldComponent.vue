@@ -96,9 +96,10 @@ export default {
   padding: 0;
   height: auto;
 
-  .icon {
+  .icon.is-small {
     color: $white;
     font-size: $size-3;
+    height: $size-6;
   }
 }
 </style>
