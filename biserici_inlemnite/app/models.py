@@ -2134,8 +2134,8 @@ class ValoarePage(Page):
 
     valoare_sit = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True,
                                       help_text="Valoarea sitului împreună cu toate componentele ansamblului din care face parte, ținând cont de integritate, autenticitate, estetică peisageră, biodiversitate, etc. SUBIECTIV", verbose_name='Clasa')
-    valoare_sit_observatii = models.TextField(
-        null=True, blank=True, help_text="Descriere a elementelor valoroase, particulare", verbose_name='Observații')
+    valoare_sit_observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
 
     estetica = models.IntegerField(choices=CLASE_EVALUARE, null=True,
                                    blank=True, help_text="Estetică / Arhitectură", verbose_name='Clasa')
