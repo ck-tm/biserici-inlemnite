@@ -1391,3 +1391,13 @@ class BisericaListSerializer(serializers.ModelSerializer):
                   "longitudine", "datare_prin_interval_timp", "datare_secol",
                    "conservare", "valoare", "prioritizare", "poze"]
 
+
+
+class AboutSerializer(serializers.ModelSerializer):
+    # image = ImageRenditionField('width-1280')
+    # partners = PartnerSerializer(many=True)
+
+    class Meta:
+        model = models.AboutPage
+        fields = ["title", "body"]
+

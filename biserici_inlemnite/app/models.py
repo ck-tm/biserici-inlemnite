@@ -129,6 +129,26 @@ class HomePage(Page):
         verbose_name_plural = "Home Pages"
 
 
+class AboutPage(Page):
+    """Home page model."""
+    body = RichTextField(
+        features=["h1", "h2", "bold"], null=True, blank=True, verbose_name="Observații")
+
+    subpage_types = []
+    parent_page_type = [
+        'wagtailcore.Page'
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body')
+    ]
+
+    class Meta:  # noqa
+        verbose_name_plural = "About Pages"
+
+
+
+
 class PozeBiserica(Orderable):
     page = ParentalKey('BisericaPage',
                        on_delete=models.CASCADE, related_name='poze')

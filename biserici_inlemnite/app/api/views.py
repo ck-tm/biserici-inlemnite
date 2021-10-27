@@ -1,4 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
@@ -119,6 +122,7 @@ class BisericaViewSet(ModelViewSet):
 
 class FiltersView(ViewSet):
 
+    
     def list(self, request):
         """
         Return a list of all users.
@@ -361,3 +365,14 @@ class FiltersView(ViewSet):
             'count': utils.filter_biserici(request.data).count()
         }
         return Response(response)
+
+
+
+
+
+class AboutViewSet(ViewSet):
+
+    def list(self, request):
+        about_page = models.AboutPage.objects.last()
+        about_serializer = serializers.AboutSerializer(about_page)
+        return Response(about_serializer.data)

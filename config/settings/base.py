@@ -503,3 +503,11 @@ JWT_AUTH_COOKIE = 'JWT'
 WAGTAIL_SITE_NAME = 'Biserici Înlemnite'
 WAGTAILADMIN_COMMENTS_ENABLED = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': 'cache-bi:11211',
+        'TIMEOUT': 60 * 60 * 24 * 30,
+    }
+}

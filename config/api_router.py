@@ -31,6 +31,7 @@ else:
 
 # NEW
 router.register("map", views.BisericaViewSet, basename='biserica')
+router.register("about", views.AboutViewSet, basename='about')
 router.register("filters", views.FiltersView, basename='filters')
 
 
