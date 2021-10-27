@@ -132,7 +132,7 @@ class HomePage(Page):
 class AboutPage(Page):
     """Home page model."""
     body = RichTextField(
-        features=["h1", "h2", "bold"], null=True, blank=True, verbose_name="Observații")
+        features=["h1", "h2", "bold"], null=True, blank=True)
 
     subpage_types = []
     parent_page_type = [
@@ -1049,15 +1049,15 @@ class DescrierePage(Page):
 
     invelitoare_corp_material = models.ForeignKey(
         'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_corp')
-    invelitoare_corp_sindrila_lungime = models.IntegerField(
+    invelitoare_corp_sindrila_lungime = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
-    invelitoare_corp_sindrila_latime_medie = models.IntegerField(
+    invelitoare_corp_sindrila_latime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lățime medie)')
-    invelitoare_corp_sindrila_grosime_medie = models.IntegerField(
+    invelitoare_corp_sindrila_grosime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (grosime medie)')
-    invelitoare_corp_sindrila_pasul_latuirii = models.IntegerField(
+    invelitoare_corp_sindrila_pasul_latuirii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul lățuirii)')
-    invelitoare_corp_sindrila_pasul_baterii = models.IntegerField(
+    invelitoare_corp_sindrila_pasul_baterii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul baterii)')
     invelitoare_corp_sindrila_numar_straturi = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (număr straturi)')
@@ -1082,15 +1082,15 @@ class DescrierePage(Page):
 
     invelitoare_turn_material = models.ForeignKey(
         'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='invelitoare_turn')
-    invelitoare_turn_sindrila_lungime = models.IntegerField(
+    invelitoare_turn_sindrila_lungime = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
-    invelitoare_turn_sindrila_latime_medie = models.IntegerField(
+    invelitoare_turn_sindrila_latime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lățime medie)')
-    invelitoare_turn_sindrila_grosime_medie = models.IntegerField(
+    invelitoare_turn_sindrila_grosime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (grosime medie)')
-    invelitoare_turn_sindrila_pasul_latuirii = models.IntegerField(
+    invelitoare_turn_sindrila_pasul_latuirii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul lățuirii)')
-    invelitoare_turn_sindrila_pasul_baterii = models.IntegerField(
+    invelitoare_turn_sindrila_pasul_baterii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul baterii)')
     invelitoare_turn_sindrila_numar_straturi = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (număr straturi)')
@@ -1115,15 +1115,15 @@ class DescrierePage(Page):
 
     inchidere_tambur_turn_material = models.ForeignKey(
         'nomenclatoare.FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Material', related_name='inchidere_tambur')
-    inchidere_tambur_turn_sindrila_lungime = models.IntegerField(
+    inchidere_tambur_turn_sindrila_lungime = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
-    inchidere_tambur_turn_sindrila_latime_medie = models.IntegerField(
+    inchidere_tambur_turn_sindrila_latime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lățime medie)')
-    inchidere_tambur_turn_sindrila_grosime_medie = models.IntegerField(
+    inchidere_tambur_turn_sindrila_grosime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (grosime medie)')
-    inchidere_tambur_turn_sindrila_pasul_latuirii = models.IntegerField(
+    inchidere_tambur_turn_sindrila_pasul_latuirii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul lățuirii)')
-    inchidere_tambur_turn_sindrila_pasul_baterii = models.IntegerField(
+    inchidere_tambur_turn_sindrila_pasul_baterii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul baterii)')
     inchidere_tambur_turn_sindrila_numar_straturi = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (număr straturi)')
@@ -1147,15 +1147,15 @@ class DescrierePage(Page):
     # Finisaje -  Învelitoare turle
     invelitoare_turle_material = ParentalManyToManyField(
         'nomenclatoare.FinisajInvelitoare', blank=True, verbose_name='Material')
-    invelitoare_turle_sindrila_lungime = models.IntegerField(
+    invelitoare_turle_sindrila_lungime = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lungime)')
-    invelitoare_turle_sindrila_latime_medie = models.IntegerField(
+    invelitoare_turle_sindrila_latime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (lățime medie)')
-    invelitoare_turle_sindrila_grosime_medie = models.IntegerField(
+    invelitoare_turle_sindrila_grosime_medie = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (grosime medie)')
-    invelitoare_turle_sindrila_pasul_latuirii = models.IntegerField(
+    invelitoare_turle_sindrila_pasul_latuirii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul lățuirii)')
-    invelitoare_turle_sindrila_pasul_baterii = models.IntegerField(
+    invelitoare_turle_sindrila_pasul_baterii = models.FloatField(
         null=True, blank=True, verbose_name='Șindrila (pasul baterii)')
     invelitoare_turle_sindrila_numar_straturi = models.IntegerField(
         null=True, blank=True, verbose_name='Șindrila (număr straturi)')

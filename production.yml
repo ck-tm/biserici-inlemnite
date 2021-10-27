@@ -56,7 +56,13 @@ services:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
       - "0.0.0.0:5555:5555"
-
+  cache-bi:
+   image: memcached
+   ports:
+     - "11211:11211"
+   entrypoint:
+    - memcached
+    - -m 64
   # redis:
   #   image: redis:5.0
 

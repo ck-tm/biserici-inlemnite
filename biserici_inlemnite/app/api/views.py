@@ -122,7 +122,7 @@ class BisericaViewSet(ModelViewSet):
 
 class FiltersView(ViewSet):
 
-    
+    @method_decorator(cache_page(60 * 60 * 24 * 31))
     def list(self, request):
         """
         Return a list of all users.
