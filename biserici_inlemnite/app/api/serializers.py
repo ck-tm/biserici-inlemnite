@@ -509,7 +509,6 @@ class DescriereSerializer(serializers.ModelSerializer):
                         ("bolta_peste_pronaos_tipul_de_arc", ""),
                         ("bolta_peste_pronaos_observatii", ""),
                         ("bolta_peste_naos", ""),
-                        ("bolta_peste_naos_material", ""),
                         ("bolta_peste_naos_structura", ""),
                         ("bolta_peste_naos_tipul_de_arc", ""),
                         ("bolta_peste_naos_observatii", ""),
