@@ -795,7 +795,7 @@ class EtapeIstoriceVizibile(ClusterableModel, Orderable):
                        related_name='etape_istorice_vizibile')
 
     element = models.ForeignKey(
-        'nomenclatoare.ElementInteriorBiserica', on_delete=models.SET_NULL, null=True, blank=True)
+        'nomenclatoare.ElementBiserica', on_delete=models.SET_NULL, null=True, blank=True)
     datat = models.BooleanField(default=False)
     an = models.IntegerField(null=True, blank=True)
     interventie_neconforma = models.BooleanField(default=False)

@@ -1000,6 +1000,23 @@ class ElementInteriorBiserica(index.Indexed, models.Model):
     def __str__(self):
         return self.nume
 
+@register_snippet
+@register_model_chooser
+class ElementBiserica(index.Indexed, models.Model):
+    nume = models.CharField(max_length=150)
+
+    history = HistoricalRecords()
+    search_fields = [
+        index.SearchField('nume', partial_match=True, boost=10),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Elemente Biserica"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
+
 
 class MaterialFinisajPardoseli(index.Indexed, models.Model):
     nume = models.CharField(max_length=150)
