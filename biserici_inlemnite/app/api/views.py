@@ -268,7 +268,7 @@ class FiltersView(ViewSet):
         valoare_filters = []
         prioritizare_filters = []
 
-        localitati_active = models.IdentificarePage.objects.live().values(
+        localitati_active = models.BisericaPage.objects.live().values(
             'localitate__id', 'localitate__nume', 'localitate__judet__id' ,'localitate__judet__nume')
 
         for localitate in localitati_active:

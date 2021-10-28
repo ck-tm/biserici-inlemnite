@@ -210,7 +210,7 @@ def filter_biserici(data):
             else:
                 filters[f"{indicator}__in"] = indicator_values
 
-        capitole_pages = MAP_CAPITOLE[nume_capitol].objects.filter(**filters).values_list('path', flat=True)
+        capitole_pages = MAP_CAPITOLE[nume_capitol].objects.live().filter(**filters).values_list('path', flat=True)
         if i < 1:
             biserici_paths = set([x[:12] for x in capitole_pages])
         else:
@@ -232,7 +232,7 @@ def filter_biserici(data):
             filters[f"{indicator}__in"] = indicator_values
 
     if filters:
-        biserici = models.BisericaPage.objects.filter(**filters)
+        biserici = models.BisericaPage.objects.live().filter(**filters)
 
-    biserici = models.BisericaPage.objects.filter(**filters)
+    biserici = models.BisericaPage.objects.live().filter(**filters)
     return biserici
