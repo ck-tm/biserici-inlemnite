@@ -17,6 +17,7 @@ from rest_framework_guardian import filters
 
 from guardian.shortcuts import get_objects_for_user
 from guardian.core import ObjectPermissionChecker
+from cacheops import cached_view_as
 
 from app.api import serializers
 # from app.permissions import BaseModelPermissions
@@ -95,8 +96,9 @@ CLASE_PRIORITIZARE = {
         'value': '10-15'
         },
 }
-
-
+# @method_decorator()
+# @method_decorator(cache_page(60 * 60 * 24 * 31), name='dispatch')
+@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
     queryset = models.BisericaPage.objects.live()
@@ -120,9 +122,10 @@ class BisericaViewSet(ModelViewSet):
 
 
 
+@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 class FiltersView(ViewSet):
 
-    @method_decorator(cache_page(60 * 60 * 24 * 31))
+    # @method_decorator(cache_page(60 * 60 * 24 * 31))
     def list(self, request):
         """
         Return a list of all users.

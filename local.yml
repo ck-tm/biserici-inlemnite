@@ -47,13 +47,15 @@ services:
   #   ports:
   #     - "8099:80"
 
-  cache-bi:
-   image: memcached
-   ports:
-     - "11211:11211"
-   entrypoint:
-    - memcached
-    - -m 64
+  # cache-bi:
+  #  image: memcached
+  #  ports:
+  #    - "11211:11211"
+  #  entrypoint:
+  #   - memcached
+  #   - -m 64
+  redis-bi:
+    image: redis:alpine
   # docs-bi:
   #   image: biserici_inlemnite_local_docs
   #   container_name: docs-bi

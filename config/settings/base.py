@@ -102,6 +102,7 @@ THIRD_PARTY_APPS = [
 
     "modelcluster",
     "taggit",
+    "cacheops"
 ]
 
 LOCAL_APPS = [
@@ -504,10 +505,35 @@ WAGTAIL_SITE_NAME = 'Biserici Înlemnite'
 WAGTAILADMIN_COMMENTS_ENABLED = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
 
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+#         'LOCATION': 'cache-bi:11211',
+#         'TIMEOUT': 60 * 60 * 24 * 30,
+#     }
+# }
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': 'cache-bi:11211',
-        'TIMEOUT': 60 * 60 * 24 * 30,
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis-bi:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
+}
+CACHEOPS_REDIS = "redis://redis-bi:6379/1"
+
+CACHEOPS = {
+    # Automatically cache any User.objects.get() calls for 15 minutes
+    # This also includes .first() and .last() calls,
+    # as well as request.user or post.author access,
+    # where Post.author is a foreign key to auth.User
+    # 'auth.user': {'ops': 'get', 'timeout': 60*15},
+
+    # Automatically cache all gets and queryset fetches
+    # to other django.contrib.auth models for an hour
+    # 'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
+
+    # Finally you can explicitely forbid even manual caching with:
+    'app.*': {'ops': 'get', 'timeout': 60 * 60 * 24},
 }
