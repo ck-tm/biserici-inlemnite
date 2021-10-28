@@ -3,13 +3,14 @@ from django.conf.urls.static import static
 from django.views.decorators.csrf import csrf_exempt
 # from django.contrib import admin
 from baton.autodiscover import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 from biserici import views
 from app import views as app_views
-
+# from dj_rest_auth.views import PasswordResetConfirmView
+from rest_framework.authtoken import views as token_views
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -44,14 +45,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # User management
     path("users/", include("biserici_inlemnite.users.urls", namespace="users")),
-    path("accounts/", include("allauth.urls")),
+    # path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
 urlpatterns += [
     # API base url
-    path('api/rest-auth/', include('dj_rest_auth.urls')),
+    # re_path(r'^api/rest-auth/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', PasswordResetConfirmView.as_view(),
+            # name='password_reset_confirm'),
+    # path('api/rest-auth/password/reset/confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('api/auth/', include('djoser.urls')),
+    path("api/auth/token", token_views.obtain_auth_token),
+    # path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
     path("api/", include("config.api_router")),
     path('wagtail/api/', wagtail_api.urls),
     # DRF auth token

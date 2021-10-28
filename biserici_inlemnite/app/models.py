@@ -30,6 +30,7 @@ from wagtailmodelchooser.edit_handlers import ModelChooserPanel
 from wagtail.admin.edit_handlers import InlinePanel as BaseInlinePanel
 from wagtail.admin.edit_handlers import EditHandler
 from wagtail.api import APIField
+from unidecode import unidecode
 
 
 IDENTIFICARE_DOC_CADASTRALE = (
@@ -179,6 +180,7 @@ class BisericaPage(Page):
                               on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
                                    blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    utitle = models.CharField(max_length=250, null=True, blank=True, verbose_name="UTitle")
     adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
     latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
     longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
@@ -230,6 +232,11 @@ class BisericaPage(Page):
 
         verbose_name = "Biserică"
         verbose_name_plural = "Biserici"
+
+    def save(self, *args, **kwargs):
+        self.utitle = unidecode(self.title)
+        return super().save(*args, **kwargs)
+
 
 
 class IdentificarePage(Page):

@@ -120,6 +120,15 @@ class BisericaViewSet(ModelViewSet):
         serializer = serializers.BisericaListSerializer(biserici, many=True)
         return Response(serializer.data)
 
+    def list(self, request):
+        query = request.GET.get('query', None)
+        if query:
+            biserici = models.BisericaPage.objects.filter(utitle__icontains=query)
+        else:
+            biserici = models.BisericaPage.objects.live()
+        serializer = serializers.BisericaListSerializer(biserici, many=True)
+        return Response(serializer.data)
+
 
 
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')

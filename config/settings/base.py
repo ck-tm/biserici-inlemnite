@@ -72,17 +72,22 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
+
     "corsheaders",
     "django_filters",
     "simple_history",
     "guardian",
-    "dj_rest_auth",
+    # "dj_rest_auth",
+    # "dj_rest_auth.registration",
+    # "rest_auth",
+    # "rest_auth.registration",
+    "djoser",
     # "adminsortable",
     "adminsortable2",
 
@@ -126,7 +131,7 @@ MIGRATION_MODULES = {"sites": "biserici_inlemnite.contrib.sites.migrations"}
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
     "guardian.backends.ObjectPermissionBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
@@ -134,7 +139,7 @@ AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+LOGIN_URL = "login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -319,38 +324,58 @@ CELERY_TASK_SOFT_TIME_LIMIT = 60
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
 
-ACCOUNT_EMAIL_REQUIRED = True
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.AccountAdapter"
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ACCOUNT_SIGNUP_FORM_CLASS = "users.forms.customSignupForm"
-ACCOUNT_SIGNUP_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_USERNAME_REQUIRED = True
-LOGIN_REDIRECT_URL = '/?activated'
-ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.AccountAdapter"
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# # ACCOUNT_SIGNUP_FORM_CLASS = "users.forms.customSignupForm"
+# ACCOUNT_SIGNUP_REDIRECT_URL = '/'
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# # ACCOUNT_EMAIL_VERIFICATION = 'optional'
+# ACCOUNT_USERNAME_REQUIRED = False
+# LOGIN_REDIRECT_URL = '/?activated'
+# ACCOUNT_LOGOUT_ON_GET = True
+# ACCOUNT_SESSION_REMEMBER = True
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# CUSTOM_ACCOUNT_CONFIRM_EMAIL_URL = "/verifyemail/?key={0}"
 
+# ACCOUNT_FORMS = {'signup': 'biserici_inlemnite.users.forms.AllAuthCustomSignupForm'}
+# REST_AUTH_REGISTER_SERIALIZERS = {
+#     'REGISTER_SERIALIZER': 'users.api.serializers.CustomRegisterSerializer'
+# }
 
-SOCIALACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.SocialAccountAdapter"
+# SOCIALACCOUNT_ADAPTER = "biserici_inlemnite.users.adapters.SocialAccountAdapter"
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
+DJOSER = {
+    # "LOGIN_FIELD": "email",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "SET_PASSWORD_RETYPE": True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "account/activate/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "account/reset-password/{uid}/{token}",
+    "SEND_CONFIRMATION_EMAIL": True,
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+    # "SERIALIZERS": {
+    #          "user_create": "biserici_inlemnite.users.api.serializers.UserRegistrationSerializer"
+    #     }
+}
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-        # "rest_framework.authentication.TokenAuthentication",
-        # "rest_framework.authentication.SessionAuthentication",
-    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
 }
 
