@@ -1385,11 +1385,21 @@ class BisericaSerializer(serializers.ModelSerializer):
 class BisericaListSerializer(serializers.ModelSerializer):
     poze = PozaSerializer(many=True)
 
+    datare = serializers.SerializerMethodField()
+
     class Meta:
         model = models.BisericaPage
         fields = ["id", "title", "judet", "localitate", "adresa", "latitudine",
-                  "longitudine", "datare_prin_interval_timp", "datare_secol",
-                   "conservare", "valoare", "prioritizare", "poze"]
+                  "longitudine", "datare", "conservare",
+                  "valoare", "prioritizare", "poze"]
+
+    def get_datare(self, obj):
+        if obj.datare_an:
+            return f'Anul {obj.datare_an}' 
+        if obj.datare_prin_interval_timp:
+            return obj.datare_prin_interval_timp
+        if obj.datare_secol:
+            return f'Secolul {obj.datare_secol}'
 
 
 

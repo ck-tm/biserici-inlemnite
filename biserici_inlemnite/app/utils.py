@@ -13,6 +13,9 @@ MAP_CAPITOLE = {
 
 
 MAP_FIELD_VERBOSE_NAME = {
+    'Localizare/Peisaj': {
+        'relatia_cu_cimitirul': 'Relația cu cimitirul'
+    },
     'Sit': {
         "sit": "Sit",
         "sit_pericol": "Pericol sit",
@@ -24,6 +27,8 @@ MAP_FIELD_VERBOSE_NAME = {
         "vegetatie_pericol": "Pericol vegetație",
     },
     'Arhitectura bisericii': {
+        'numar_ochiesi': 'Număr ochieși',
+        'numar_clopote': 'Număr clopote',
         'sarpanta_tip': "Șarpantă corp",
         "turn_tip": "Turn",
         "sistem_in_cheotoare": "Sistem structural al corpului bisericii în cheotoare",
@@ -105,6 +110,7 @@ MAP_FIELD_VERBOSE_NAME = {
         "mobilier_pericol": "Pericol mobilier",
     },
     '': {
+        'an_constructie': 'An construcție',
         "vechime": "Vechime",
         "integritate": "Integritate",
         "unicitate": "Unicitate",
@@ -115,8 +121,11 @@ MAP_FIELD_VERBOSE_NAME = {
         "mestesug": "Meșteșug",
         "pictura": "Pictură",
         "folosinta_actuala": "Folosință actuală",
-        "relevanta_actuala": "Relevanță actuală",
+        "relevanta_actuala": "Relevanță actuală pentru comunitate",
         "potential": "Potențial",
+        "functiune": "Funcțiune",
+        "functiune_initiala": "Funcțiune inițială",
+        "pictura": "Componentă artistică",
 
     }
 }

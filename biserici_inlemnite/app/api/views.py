@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import status
 from rest_framework.decorators import action
@@ -96,8 +97,8 @@ CLASE_PRIORITIZARE = {
         'value': '10-15'
         },
 }
-# @method_decorator()
-# @method_decorator(cache_page(60 * 60 * 24 * 31), name='dispatch')
+
+@method_decorator(csrf_exempt, name='dispatch')
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
@@ -131,6 +132,7 @@ class BisericaViewSet(ModelViewSet):
 
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 class FiltersView(ViewSet):
 
@@ -147,7 +149,7 @@ class FiltersView(ViewSet):
             models.IdentificarePage, identificare_filters_name)
 
         istoric_filters_name = {
-            '': ['datare_prin_interval_timp', 'datare_secol', 'are_pisanie', 'are_studiu_dendro',
+            '': ['datare_prin_interval_timp', 'an_constructie', 'datare_secol', 'are_pisanie', 'are_studiu_dendro',
                 'are_mutari', 'lista_ctitori', 'lista_mesteri', 'lista_zugravi', 'lista_personalitati']
             }
         istoric_filters = utils.get_chapter_filters(
@@ -181,7 +183,7 @@ class FiltersView(ViewSet):
             'Iconostasul': [
                     "iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi"
             ],
-            'Perete despărțitor': [
+            'Perete despărțitor (între pronaos și naos)': [
                     "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
             ],
             'Altar': [
@@ -381,7 +383,7 @@ class FiltersView(ViewSet):
 
 
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class AboutViewSet(ViewSet):
 
     def list(self, request):

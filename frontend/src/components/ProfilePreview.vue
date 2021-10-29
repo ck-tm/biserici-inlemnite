@@ -37,10 +37,15 @@
         />
       </p>
 
-      <hr />
+      <hr v-if="profilePreview.datare" />
 
-      <label class="label is-small" v-text="'Perioada'" />
-      <p v-text="profilePreview.datare_prin_interval_timp" />
+      <label 
+        v-if="profilePreview.datare"
+        class="label is-small"
+        v-text="'Datare'"
+        />
+      <p v-if="profilePreview.datare"
+      v-text="profilePreview.datare" />
 
       <hr />
 

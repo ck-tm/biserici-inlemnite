@@ -31,7 +31,7 @@ certificatesResolvers:
 http:
   routers:
     web-router:
-      rule: "Host(`biserici-inlemnite.spiritcivic.ro`)"
+      rule: "Host(`biserici-inlemnite.ro`)"
       entryPoints:
         - web
       middlewares:
@@ -40,7 +40,7 @@ http:
       service: frontend
 
     web-secure-router:
-      rule: "Host(`biserici-inlemnite.spiritcivic.ro`)"
+      rule: "Host(`biserici-inlemnite.ro`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -51,7 +51,7 @@ http:
         certResolver: letsencrypt
 
     media-router:
-      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/media`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/media`))"
       entryPoints:
         - web
       middlewares:
@@ -60,7 +60,7 @@ http:
       service: media
 
     media-secure-router:
-      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/media`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/media`))"
       entryPoints:
         - web-secure
       middlewares:
@@ -71,7 +71,7 @@ http:
         certResolver: letsencrypt
 
     api-router:
-      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/static`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web
       middlewares:
@@ -80,7 +80,7 @@ http:
       service: django
 
     api-secure-router:
-      rule: "(Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.spiritcivic.ro`) && PathPrefix(`/static`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web-secure
       middlewares:
@@ -91,7 +91,7 @@ http:
         certResolver: letsencrypt
 
     flower-secure-router:
-      rule: "Host(`biserici-inlemnite.spiritcivic.ro`)"
+      rule: "Host(`biserici-inlemnite.ro`)"
       entryPoints:
         - flower
       service: flower

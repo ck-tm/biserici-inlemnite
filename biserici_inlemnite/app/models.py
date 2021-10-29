@@ -189,6 +189,7 @@ class BisericaPage(Page):
     conservare = models.FloatField(null=True, blank=True)
     prioritizare = models.FloatField(null=True, blank=True)
 
+    datare_an = models.IntegerField(null=True, blank=True)
     datare_prin_interval_timp = models.CharField(
         max_length=50, null=True, blank=True)
     datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True,
@@ -204,11 +205,13 @@ class BisericaPage(Page):
             classname='collapsible'
         ),
         MultiFieldPanel([
+            ReadOnlyPanel("utitle", heading="U Title"),
             ReadOnlyPanel("judet", heading="Judet"),
             ReadOnlyPanel("localitate", heading="localitate"),
             ReadOnlyPanel("adresa", heading="adresa"),
             ReadOnlyPanel("latitudine", heading="latitudine"),
             ReadOnlyPanel("longitudine", heading="longitudine"),
+            ReadOnlyPanel("datare_an", heading="Datare An"),
             ReadOnlyPanel("datare_prin_interval_timp", heading="Interval Datare"),
             ReadOnlyPanel("datare_secol", heading="Secol Datare"),
             ReadOnlyPanel("valoare", heading="Clasa valoare"),
@@ -2097,6 +2100,7 @@ class IstoricPage(Page):
         biserica = self.get_parent().specific
         biserica.datare_secol = self.datare_secol
         biserica.datare_prin_interval_timp = self.datare_prin_interval_timp
+        biserica.datare_an = self.an_constructie
         biserica.save_revision().publish()
 
 
