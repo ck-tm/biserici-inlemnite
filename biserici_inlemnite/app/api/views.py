@@ -368,6 +368,7 @@ class FiltersView(ViewSet):
         }
         return Response(response)
 
+    @method_decorator(csrf_exempt)
     @action(
         methods=["post"],
         detail=False,
