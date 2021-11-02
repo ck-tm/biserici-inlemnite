@@ -1,123 +1,86 @@
-"""Streamfields live in here."""
-
-from wagtail.core import blocks
-from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.core.blocks import (
+    CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock, ListBlock
+)
+from wagtail.contrib.table_block.blocks import TableBlock
+
+class CarouselBlock(StructBlock):
+    image = ImageChooserBlock()
+    caption = TextBlock(required=False)
+
+    class Meta:
+        icon = 'fa-camera-retro'
+        # template = "blocks/carousel.html"
 
 
-class TitleAndTextBlock(blocks.StructBlock):
-    """Title and text and nothing else."""
+class ImageBlock(StructBlock):
+    """
+    Custom `StructBlock` for utilizing images with associated caption and
+    attribution data
+    """
+    image = ImageChooserBlock(required=True)
+    caption = CharBlock(required=False)
 
-    title = blocks.CharBlock(required=True, help_text="Add your title")
-    text = blocks.TextBlock(required=True, help_text="Add additional text")
+    class Meta:
+        icon = 'image'
+        template = "blocks/image_block.html"
 
-    class Meta:  # noqa
-        template = "streams/title_and_text_block.html"
-        icon = "edit"
-        label = "Title & Text"
+class ImageTextBlock(StructBlock):
+    """
+    Custom `StructBlock` for utilizing images with associated caption and
+    attribution data
+    """
+    image = ImageChooserBlock(required=True)
+    title = CharBlock(required=False)
+    caption = CharBlock(required=False)
 
-
-class CardBlock(blocks.StructBlock):
-    """Cards with image and text and button(s)."""
-
-    title = blocks.CharBlock(required=True, help_text="Add your title")
-
-    cards = blocks.ListBlock(
-        blocks.StructBlock(
-            [
-                ("image", ImageChooserBlock(required=True)),
-                ("title", blocks.CharBlock(required=True, max_length=40)),
-                ("text", blocks.TextBlock(required=True, max_length=200)),
-                ("button_page", blocks.PageChooserBlock(required=False)),
-                (
-                    "button_url",
-                    blocks.URLBlock(
-                        required=False,
-                        help_text="If the button page above is selected, that will be used first.",  # noqa
-                    ),
-                ),
-            ]
-        )
-    )
-
-    class Meta:  # noqa
-        template = "streams/card_block.html"
-        icon = "placeholder"
-        label = "Staff Cards"
+    class Meta:
+        icon = 'image'
+        template = "blocks/image_text_block.html"
 
 
-class RichtextBlock(blocks.RichTextBlock):
-    """Richtext with all the features."""
 
-    def get_api_representation(self, value, context=None):
-        return richtext(value.source)
+class SectionHeadingBlock(StructBlock):
+    """
+    Custom `StructBlock` that allows the user to set a heading
+    """
+    heading_text = CharBlock(classname="title", required=True)
 
-    class Meta:  # noqa
-        template = "streams/richtext_block.html"
-        icon = "doc-full"
-        label = "Full RichText"
-
-
-class SimpleRichtextBlock(blocks.RichTextBlock):
-    """Richtext without (limited) all the features."""
-
-    def __init__(
-        self, required=True, help_text=None, editor="default", features=None, **kwargs
-    ):  # noqa
-        super().__init__(**kwargs)
-        self.features = ["bold", "italic", "link"]
-
-    class Meta:  # noqa
-        template = "streams/richtext_block.html"
-        icon = "edit"
-        label = "Simple RichText"
+    class Meta:
+        icon = "title"
+        template = "blocks/section_heading_block.html"
 
 
-class CTABlock(blocks.StructBlock):
-    """A simple call to action section."""
+class BlockQuote(StructBlock):
+    """
+    Custom `StructBlock` that allows the user to attribute a quote to the author
+    """
+    text = TextBlock()
+    attribute_name = CharBlock(
+        blank=True, required=False, label='e.g. Mary Berry')
 
-    title = blocks.CharBlock(required=True, max_length=60)
-    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
-    button_page = blocks.PageChooserBlock(required=False)
-    button_url = blocks.URLBlock(required=False)
-    button_text = blocks.CharBlock(required=True, default='Learn More', max_length=40)
-
-    class Meta:  # noqa
-        template = "streams/cta_block.html"
-        icon = "placeholder"
-        label = "Call to Action"
+    class Meta:
+        icon = "fa-quote-left"
+        template = "blocks/blockquote.html"
 
 
-class LinkStructValue(blocks.StructValue):
-    """Additional logic for our urls."""
+class BaseStreamBlock(StreamBlock):
+    """
+    Define the custom blocks that `StreamField` will utilize
+    """
+    # heading_block = SectionHeadingBlock()
+    paragraph_block = RichTextBlock(
+        icon="fa-paragraph",
+        features=['h1', 'h2', 'h3', 'bold', 'ol', 'ul'])
+    # image_block = ImageBlock()
+    # image_text_block = ImageTextBlock()
+    # carousel = ListBlock(
+        # CarouselBlock(label="Poza"),
+        # template="blocks/carousel.html")
+    # block_quote = BlockQuote()
 
-    def url(self):
-        button_page = self.get('button_page')
-        button_url = self.get('button_url')
-        if button_page:
-            return button_page.url
-        elif button_url:
-            return button_url
-
-        return None
-
-    # def latest_posts(self):
-    #     return BlogDetailPage.objects.live()[:3]
-
-
-class ButtonBlock(blocks.StructBlock):
-    """An external or internal URL."""
-
-    button_page = blocks.PageChooserBlock(required=False, help_text='If selected, this url will be used first')
-    button_url = blocks.URLBlock(required=False, help_text='If added, this url will be used secondarily to the button page')
-
-    # def get_context(self, request, *args, **kwargs):
-    #     context = super().get_context(request, *args, **kwargs)
-    #     context['latest_posts'] = BlogDetailPage.objects.live().public()[:3]
-    #     return context
-
-    class Meta:  # noqa
-        template = "streams/button_block.html"
-        icon = "placeholder"
-        label = "Single Button"
-        value_class = LinkStructValue
+    class Meta:
+        icon = "fa-quote-left"
+        # template = "blocks/blockquote.html"

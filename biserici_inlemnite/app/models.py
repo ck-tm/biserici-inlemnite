@@ -32,6 +32,7 @@ from wagtail.admin.edit_handlers import EditHandler
 from wagtail.api import APIField
 from unidecode import unidecode
 
+from .blocks import BaseStreamBlock
 
 IDENTIFICARE_DOC_CADASTRALE = (
     (1, 'Da'),
@@ -132,8 +133,7 @@ class HomePage(Page):
 
 class AboutPage(Page):
     """Home page model."""
-    body = RichTextField(
-        features=["h1", "h2", "bold"], null=True, blank=True)
+    body = StreamField(BaseStreamBlock(), verbose_name="Secțiuni", null=True, blank=True)
 
     subpage_types = []
     parent_page_type = [
@@ -141,7 +141,7 @@ class AboutPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('body')
+        StreamFieldPanel('body', classname="col12"),
     ]
 
     class Meta:  # noqa

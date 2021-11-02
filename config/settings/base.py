@@ -561,4 +561,5 @@ CACHEOPS = {
 
     # Finally you can explicitely forbid even manual caching with:
     'app.*': {'ops': 'get', 'timeout': 60 * 60 * 24},
+    'app.AboutPage': None
 }
