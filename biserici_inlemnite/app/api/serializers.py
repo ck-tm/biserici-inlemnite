@@ -1402,12 +1402,18 @@ class BisericaListSerializer(serializers.ModelSerializer):
             return f'Secolul {obj.datare_secol}'
 
 
+class PartnerSerializer(serializers.ModelSerializer):
+    logo = ImageRenditionField('width-400')
+
+    class Meta:
+        model = models.ParteneriProiect
+        fields = ["logo", "link"]
+
 
 class AboutSerializer(serializers.ModelSerializer):
-    # image = ImageRenditionField('width-1280')
-    # partners = PartnerSerializer(many=True)
+    parteneri = PartnerSerializer(many=True)
 
     class Meta:
         model = models.AboutPage
-        fields = ["title", "body"]
+        fields = ["title", "body", "parteneri"]
 

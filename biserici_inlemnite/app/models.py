@@ -131,6 +131,19 @@ class HomePage(Page):
         verbose_name_plural = "Home Pages"
 
 
+class ParteneriProiect(Orderable):
+    page = ParentalKey('AboutPage',
+                       on_delete=models.CASCADE, related_name='parteneri')
+    logo = models.ForeignKey('wagtailimages.Image', null=True,
+                             blank=True, on_delete=models.SET_NULL, related_name='+')
+    link = models.URLField(null=True, blank=True)
+
+    panels = [
+        ImageChooserPanel('logo'),
+        FieldPanel('link'),
+    ]
+
+
 class AboutPage(Page):
     """Home page model."""
     body = StreamField(BaseStreamBlock(), verbose_name="Secțiuni", null=True, blank=True)
@@ -141,7 +154,8 @@ class AboutPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body', classname="col12"),
+        StreamFieldPanel('body'),
+        InlinePanel('parteneri', label="Partner")
     ]
 
     class Meta:  # noqa
