@@ -148,7 +148,13 @@ def get_chapter_filters(model, filters_dict):
         for filter_name in section_filters:
             filters_mapping[filter_name] = section
 
-    filters_values = model.objects.live().values(*filters_name)
+    prefetch_list = []
+    for field in model._meta.fields:
+        if field.get_internal_type() == 'ForeignKey':
+            prefetch_list.append(field.name)
+    print(prefetch_list)
+    print('------')
+    filters_values = model.objects.prefetch_related(*prefetch_list).live().values(*filters_name)
     for item in filters_values:
         for field_name, field_value in item.items():
             section = filters_mapping[field_name]

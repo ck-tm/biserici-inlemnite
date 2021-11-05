@@ -97,17 +97,44 @@ CLASE_PRIORITIZARE = {
         'value': '10-15'
         },
 }
+from django_auto_prefetching import AutoPrefetchViewSetMixin, _prefetch
+
 
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
-    queryset = models.BisericaPage.objects.live()
 
     def get_serializer_class(self):
         if self.action == 'list':
             return serializers.BisericaListSerializer 
         return serializers.BisericaSerializer
+
+    def get_queryset(self):
+        ignored_fields = ['formsubmission', 'page__revisions', "redirect","sites_rooted_here","aliases","revisions","group_permissions","view_restrictions","workflowpage","workflow_states","wagtail_admin_comments"]
+        queryset = models.BisericaPage.objects.live()
+        if self.action == 'retrieve':
+            prefetch_list = []
+            select_list = []
+            for field in models.BisericaPage._meta.fields:
+                if '_page' in field.name:
+                    for related_field in field.related_model._meta.fields:
+                        if related_field.get_internal_type() == 'ForeignKey':
+                            select_list.append(f"{field.name}__{related_field.name}")
+                    for related_field in field.related_model._meta.fields_map:
+                        if related_field not in ignored_fields and '+' not in related_field:
+                            if 'poze_' in related_field:
+                                prefetch_list.append(f"{field.name}__{related_field}")
+                                # prefetch_list.append(f"{field.name}__{related_field}__poza")
+                            else:
+                                prefetch_list.append(f"{field.name}__{related_field}")
+
+            if select_list:
+                queryset = queryset.select_related(*select_list)
+            if prefetch_list:
+                queryset = queryset.prefetch_related(*prefetch_list)
+
+        return queryset
 
     @action(
         methods=["post"],
@@ -130,7 +157,23 @@ class BisericaViewSet(ModelViewSet):
         serializer = serializers.BisericaListSerializer(biserici, many=True)
         return Response(serializer.data)
 
+    def get(self, request, pk, format=None):
+        biserica = self.get_object(pk)
+        serializer = BisericaSerializer(biserica)
+        return Response(serializer.data)
 
+    def retrieve(self, request, pk=None):
+        biserica = self.get_object()
+        serializer = serializers.BisericaSerializer(biserica)
+        data = {}
+        data['tabs'] = []
+        for key, value in serializer.data.items():
+            if '_page' in key:
+                data['tabs'].append(value)
+            else:
+                data[key] = value
+
+        return Response(data)
 
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')

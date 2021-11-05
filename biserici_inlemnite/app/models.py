@@ -1,9 +1,8 @@
 from app import blocks
 from django.db import models
 from django import forms
-
 from django.utils.html import format_html
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, JSONField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -31,8 +30,10 @@ from wagtail.admin.edit_handlers import InlinePanel as BaseInlinePanel
 from wagtail.admin.edit_handlers import EditHandler
 from wagtail.api import APIField
 from unidecode import unidecode
+import auto_prefetch
 
 from .blocks import BaseStreamBlock
+
 
 IDENTIFICARE_DOC_CADASTRALE = (
     (1, 'Da'),
@@ -190,6 +191,19 @@ class BisericaPage(Page):
         "IstoricPage",
     ]
 
+    identificare_page = models.ForeignKey('IdentificarePage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+    descriere_page = models.ForeignKey('DescrierePage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+    componenta_artistica_page = models.ForeignKey('ComponentaArtisticaPage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+    istoric_page = models.ForeignKey('IstoricPage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+    valoare_page = models.ForeignKey('ValoarePage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+    conservare_page = models.ForeignKey('ConservarePage', null=True, blank=True,
+                              on_delete=models.SET_NULL)
+
     judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
                               on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
@@ -231,19 +245,18 @@ class BisericaPage(Page):
             ReadOnlyPanel("valoare", heading="Clasa valoare"),
             ReadOnlyPanel("conservare", heading="Nota conservare"),
             ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
+
+            ReadOnlyPanel("identificare_page", heading="identificare page"),
+            ReadOnlyPanel("descriere_page", heading="descriere page"),
+            ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
+            ReadOnlyPanel("istoric_page", heading="istoric page"),
+            ReadOnlyPanel("valoare_page", heading="valoare page"),
+            ReadOnlyPanel("conservare_page", heading="conservare page"),
         ],
             heading='Hidden',
             classname='collapsible'
         ),
     ]
-
-    # def get_children(self):
-    #     print('get  children')
-    #     qs = super().get_children()
-    #     print(qs)
-    #     qs = qs.order_by('title')
-    #     print(qs.order_by('title'))
-    #     return qs.order_by('title')
 
     class Meta:  # noqa
 
@@ -672,14 +685,18 @@ class FinisajeAltar(ClusterableModel, Orderable):
     def __str__(self):
         return str(self.element)
 
+
 class Poza(models.Model):
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
+
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
     panels = [
         ImageChooserPanel('poza'),
+        FieldPanel('rendition'),
         FieldPanel('observatii')
     ]
 
@@ -693,6 +710,9 @@ class Poza(models.Model):
 
     def __str__(self):
         return str(self.poza)
+
+
+
 
 class PozeAccese(Orderable, Poza):
     page = ParentalKey(
@@ -2343,13 +2363,7 @@ class ValoarePage(Page):
 
         if active_fields:
             nota_valoare = nota_valoare / active_fields
-        print('******')
-        print('******')
-        print('******')
-        print(nota_valoare)
-        print('******')
-        print('******')
-        print('******')
+        
         biserica = self.get_parent().specific
         biserica.valoare = nota_valoare
 
@@ -3029,13 +3043,6 @@ class ConservarePage(Page):
             if active_fields:
                 nota_conservare = nota_conservare / active_fields
 
-        print('******')
-        print('******')
-        print('******')
-        print(nota_conservare)
-        print('******')
-        print('******')
-        print('******')
         biserica = self.get_parent().specific
         biserica.conservare = nota_conservare
 

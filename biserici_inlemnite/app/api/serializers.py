@@ -9,51 +9,16 @@ from app import models
 from pprint import pprint
 from nomenclatoare import models as n_models
 
-class ReprMixin(object):
-
-    def __init__(self, *args, **kwargs):
-     super().__init__(*args, **kwargs)
-
-     exclude = [
-            "title", "id", "path", "depth", "numchild", "translation_key",
-            "draft_title", "slug", "live", "has_unpublished_changes", "url_path",
-            "seo_title", "show_in_menus", "search_description", "go_live_at",
-            "expire_at", "expired", "locked", "locked_at", "first_published_at",
-            "last_published_at", "latest_revision_created_at", "locale",
-            "content_type", "owner", "locked_by", "live_revision", "alias_of"
-        ]
-
-     for field_name in exclude:
-       if field_name in self.fields:
-         del self.fields[field_name]
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-
-        for field_name, field_type in self.fields.items():
-
-            if field_type.style == {'base_template': 'textarea.html'}:
-                # data[field_name] = strip_tags(data[field_name])
-                pass
-            if type(field_type) == PrimaryKeyRelatedField:
-                if data[field_name]:
-                    data[field_name] = field_type.choices[data[field_name]]
-            if type(field_type) == ManyRelatedField:
-                try:
-                    data[field_name] = [field_type.choices[data[x]] for x in data[field_name]]
-                except:
-                    pass
-
-        return data
-
 
 class PozaSerializer(serializers.Serializer):
     observatii = serializers.CharField()
-    poza = ImageRenditionField('width-1280')
-
+    poza = serializers.SerializerMethodField()
 
     class Meta:
-        fields = ['poza', 'observatii']
+        fields = ['observatii', 'poza']
+
+    def get_poza(self, obj):
+        return obj.rendition
 
 
 def get_nested_model_data(elements):
@@ -78,12 +43,13 @@ def get_nested_model_data(elements):
                     # obj_serializer[field.verbose_name.capitalize()] = str(field_value)
 
         try:
-            if obj.poze.exists():
-                obj_serializer.append({
-                    'label': 'Poze',
-                    'type': 'poze',
-                    'value':PozaSerializer(obj.poze.all(), many=True).data
-                    })
+            # if obj.poze.exists():
+            obj_serializer.append({
+                'label': 'Poze',
+                'type': 'poze',
+                # 'value': obj.poze.count()
+                'value':PozaSerializer(obj.poze.all(), many=True).data
+                })
                 # obj_serializer['_poze'] = PozaSerializer(obj.poze.all(), many=True).data
         except Exception as e:
             # print('******======', e)
@@ -245,7 +211,10 @@ class IdentificareSerializer(serializers.ModelSerializer):
                 ]
             },
         ]
-
+        # prefetch_list = []
+        # for field in model._meta.fields:
+        #     if field.get_internal_type() == 'ForeignKey':
+        #         prefetch_list.append(field.name)
         return get_sections_serialized(obj, sections)
 
     def get_title(self, obj):
@@ -1308,78 +1277,19 @@ class ValoareSerializer(serializers.ModelSerializer):
 
 
 class BisericaSerializer(serializers.ModelSerializer):
-    # identificare = serializers.SerializerMethodField()
-    # descriere = serializers.SerializerMethodField()
-    # istoric = serializers.SerializerMethodField()
-    # componenta_artistica = serializers.SerializerMethodField()
-    # conservare = serializers.SerializerMethodField()
-    tabs = serializers.SerializerMethodField()
+    identificare_page = IdentificareSerializer()
+    istoric_page = IstoricSerializer()
+    descriere_page = DescriereSerializer()
+    componenta_artistica_page = ComponentaArtisticaSerializer()
+    valoare_page = ValoareSerializer()
+    conservare_page = ConservareSerializer()
 
     class Meta:
         model = models.BisericaPage
         fields = ["id", "title", "title", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare_prin_interval_timp", "datare_secol",
-                   "conservare", "valoare", "tabs"]
-
-    def get_tabs(self, obj):
-        identificare_page = obj.get_children().type(
-            models.IdentificarePage)[0].specific
-        descriere_page = obj.get_children().type(
-            models.DescrierePage)[0].specific
-        istoric_page = obj.get_children().type(
-            models.IstoricPage)[0].specific
-        componenta_artistica_page = obj.get_children().type(
-            models.ComponentaArtisticaPage)[0].specific
-        conservare_page = obj.get_children().type(
-            models.ConservarePage)[0].specific
-        valoare_page = obj.get_children().type(
-            models.ValoarePage)[0].specific
-
-        tabs = [
-            IdentificareSerializer(identificare_page).data,
-            IstoricSerializer(istoric_page).data,
-            DescriereSerializer(descriere_page).data,
-            ComponentaArtisticaSerializer(componenta_artistica_page).data,
-            ConservareSerializer(conservare_page).data,
-            ValoareSerializer(valoare_page).data,
-            ]
-        return tabs
-
-    def get_identificare(self, obj):
-        identificare_page = obj.get_children().type(
-            models.IdentificarePage)[0].specific
-        serializer = IdentificareSerializer(identificare_page)
-        return serializer.data
-
-    def get_descriere(self, obj):
-        descriere_page = obj.get_children().type(
-            models.DescrierePage)[0].specific
-        serializer = DescriereSerializer(descriere_page)
-        return serializer.data
-
-    def get_istoric(self, obj):
-        istoric_page = obj.get_children().type(
-            models.IstoricPage)[0].specific
-        serializer = IstoricSerializer(istoric_page)
-        return serializer.data
-
-    def get_componenta_artistica(self, obj):
-        componenta_artistica_page = obj.get_children().type(
-            models.ComponentaArtisticaPage)[0].specific
-        serializer = ComponentaArtisticaSerializer(componenta_artistica_page)
-        return serializer.data
-
-    def get_conservare(self, obj):
-        conservare_page = obj.get_children().type(
-            models.ConservarePage)[0].specific
-        serializer = ConservareSerializer(conservare_page)
-        return serializer.data
-
-    def get_valoare(self, obj):
-        valoare_page = obj.get_children().type(
-            models.ValoarePage)[0].specific
-        serializer = ValoareSerializer(valoare_page)
-        return serializer.data
+                   "conservare", "valoare", "istoric_page", "identificare_page", "descriere_page",
+                   "componenta_artistica_page","valoare_page","conservare_page"]
 
 
 class BisericaListSerializer(serializers.ModelSerializer):
