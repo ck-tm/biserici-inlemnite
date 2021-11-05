@@ -97,7 +97,6 @@ CLASE_PRIORITIZARE = {
         'value': '10-15'
         },
 }
-from django_auto_prefetching import AutoPrefetchViewSetMixin, _prefetch
 
 
 @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
