@@ -99,7 +99,7 @@ CLASE_PRIORITIZARE = {
 }
 
 
-@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
@@ -168,7 +168,9 @@ class BisericaViewSet(ModelViewSet):
         data['tabs'] = []
         for key, value in serializer.data.items():
             if '_page' in key:
-                data['tabs'].append(value)
+                if value:
+                    if value['type'] == 'sections' and  value['sections'] or value['type'] == 'embed' and value['embed']:
+                        data['tabs'].append(value)
             else:
                 data[key] = value
 
@@ -371,9 +373,9 @@ class FiltersView(ViewSet):
             'basic': {
                 'judet': judete_filters,
                 'localitate': localitati_filters,
-                'conservare': conservare_filters,
-                'valoare': valoare_filters,
-                'prioritizare': prioritizare_filters,
+                'conservare': sorted(conservare_filters, key=lambda d: d['id']) ,
+                'valoare': sorted(valoare_filters, key=lambda d: d['id']),
+                'prioritizare': sorted(prioritizare_filters, key=lambda d: d['id']),
             },
             'advanced': [
                 {

@@ -1255,6 +1255,10 @@ class DescrierePage(Page):
     interventii_invelitoare_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
+    # Modele 3d
+    model_nori_de_puncte = models.TextField(null=True, blank=True)
+    model_fotogrametrie = models.TextField(null=True, blank=True)
+
 
     # Invisible fields
     are_scanare_laser = models.BooleanField(default=False)
@@ -1754,7 +1758,6 @@ class DescrierePage(Page):
                 FieldPanel('interventii_invelitoare_alte_tipuri_invelitoare'),
                 FieldPanel('interventii_invelitoare_observatii'),
                 InlinePanel('poze_interventii_invelitoare', label="Poză")
-
             ],
             heading="Etape anterioare vizibile ale învelitorii",
             classname="collapsible collapsed ",
@@ -1769,6 +1772,11 @@ class DescrierePage(Page):
 
     ]
 
+    modele_3d_panels = [
+        FieldPanel('model_nori_de_puncte'),
+        FieldPanel('model_fotogrametrie')
+
+    ]
     edit_handler = TabbedInterface(
         [
             ObjectList(localizare_panels, heading='Localizare/peisaj'),
@@ -1778,6 +1786,7 @@ class DescrierePage(Page):
             ObjectList(finisaje_panels, heading='Finisaje'),
             ObjectList(interventii_panels,
                        heading='Intervenții arhitecturale vizibile în timp'),
+            ObjectList(modele_3d_panels, heading='Modele 3d')
         ]
     )
 

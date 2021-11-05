@@ -129,10 +129,14 @@ def get_sections_serialized(obj, sections):
 class IdentificareSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.IdentificarePage
-        fields = ['title', 'sections']
+        model = models.IstoricPage
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
     def get_sections(self, obj):
         sections =  [
@@ -224,10 +228,14 @@ class IdentificareSerializer(serializers.ModelSerializer):
 class IstoricSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = models.IstoricPage
-        fields = ['title', 'sections']
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
     def get_sections(self, obj):
         sections =  [
@@ -332,10 +340,14 @@ class IstoricSerializer(serializers.ModelSerializer):
 class DescriereSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.DescrierePage
-        fields = ['title', 'sections']
+        model = models.IstoricPage
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
 
     def get_sections(self, obj):
@@ -592,7 +604,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'fields': [
                         ("sistem_in_catei", ""),
                         ("sistem_in_catei_observatii", ""),
-                        ("poze_structura_catei", ""),
+                        ("poze_structura_catei", "Poze"),
                         ]
                     },
                     {
@@ -711,7 +723,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     {
                     'title': 'Finisaje Portic',
                     'fields': [
-                        ("finisaje_portic", ""),
+                        ("finisaje_portic", "Finisaje"),
                         ]
                     },
                     {
@@ -779,10 +791,14 @@ class DescriereSerializer(serializers.ModelSerializer):
 class ComponentaArtisticaSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.ComponentaArtisticaPage
-        fields = ['title', 'sections']
+        model = models.IstoricPage
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
     def get_sections(self, obj):
         sections =  [
@@ -922,10 +938,14 @@ class ComponentaArtisticaSerializer(serializers.ModelSerializer):
 class ConservareSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.ConservarePage
-        fields = ['title', 'sections']
+        model = models.IstoricPage
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
     def get_sections(self, obj):
         sections =  [
@@ -1187,10 +1207,14 @@ class ConservareSerializer(serializers.ModelSerializer):
 class ValoareSerializer(serializers.ModelSerializer):
     sections = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.ValoarePage
-        fields = ['title', 'sections']
+        model = models.IstoricPage
+        fields = ['title', 'sections', 'type']
+
+    def get_type(self, obj):
+        return 'sections'
 
     def get_sections(self, obj):
         sections =  [
@@ -1283,13 +1307,30 @@ class BisericaSerializer(serializers.ModelSerializer):
     componenta_artistica_page = ComponentaArtisticaSerializer()
     valoare_page = ValoareSerializer()
     conservare_page = ConservareSerializer()
+    nori_de_puncte_page = serializers.SerializerMethodField()
+    fotogrametrie_page = serializers.SerializerMethodField()
 
     class Meta:
         model = models.BisericaPage
         fields = ["id", "title", "title", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare_prin_interval_timp", "datare_secol",
-                   "conservare", "valoare", "istoric_page", "identificare_page", "descriere_page",
-                   "componenta_artistica_page","valoare_page","conservare_page"]
+                   "conservare", "valoare", "identificare_page", "istoric_page", "descriere_page",
+                   "componenta_artistica_page","conservare_page", "valoare_page",
+                   "nori_de_puncte_page", "fotogrametrie_page"]
+
+    def get_nori_de_puncte_page(self, obj):
+        return {
+            'title': '3D - Nori de puncte',
+            'type': 'embed',
+            'embed': obj.descriere_page.model_nori_de_puncte
+        }
+
+    def get_fotogrametrie_page(self, obj):
+        return {
+            'title': '3D - Fotogrametrie',
+            'type': 'embed',
+            'embed': obj.descriere_page.model_fotogrametrie
+        }
 
 
 class BisericaListSerializer(serializers.ModelSerializer):

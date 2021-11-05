@@ -1,5 +1,5 @@
 const Colors = {
-  conservare: ['#25E2E2', '#85D634', '#F6D52B', '#FF7E06', '#FB5D5D'],
+  conservare: ['#FB5D5D', '#FF7E06', '#F6D52B', '#85D634', '#25E2E2'],
   // conservare: ['#25E2E2', '#85D634', '#F6D52B', '#FF7E06', '#FB5D5D'],
 }
 
@@ -14,11 +14,11 @@ const BasicFilters = {
     options: [
       {
         id: 1,
-        value: 'Foarte bună',
+        value: 'Foarte proastă',
       },
       {
         id: 2,
-        value: 'Bună',
+        value: 'Proastă',
       },
       {
         id: 3,
@@ -26,11 +26,11 @@ const BasicFilters = {
       },
       {
         id: 4,
-        value: 'Proastă',
+        value: 'Bună',
       },
       {
         id: 5,
-        value: 'Foarte proastă',
+        value: 'Foarte bună',
       },
     ],
   },
