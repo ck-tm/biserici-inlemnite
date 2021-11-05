@@ -589,6 +589,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'title': 'Sistem structural al corpului bisericii',
                     'fields': [
                         ("sistem_structural", ""),
+                        ("sistem_structural_observatii", ""),
                         ]
                     },
                     {

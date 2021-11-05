@@ -1068,7 +1068,8 @@ class DescrierePage(Page):
 
     sistem_structural = models.ForeignKey('nomenclatoare.TipSistemStructural', null=True,
                                             blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
-
+    sistem_structural_observatii = RichTextField(
+        features=[], null=True, blank=True, verbose_name='Observații')
     sistem_in_cheotoare = models.ForeignKey('nomenclatoare.TipStructuraCheotoare', null=True,
                                             blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
     sistem_in_cheotoare_observatii = RichTextField(
@@ -1561,6 +1562,7 @@ class DescrierePage(Page):
         MultiFieldPanel(
             [
                 FieldPanel('sistem_structural'),
+                FieldPanel('sistem_structural_observatii'),
             ],
             heading="SISTEM STRUCTURAL AL CORPULUI BISERICII",
             classname="collapsible collapsed ",
@@ -1805,8 +1807,15 @@ class DescrierePage(Page):
 
     def save(self, *args, **kwargs):
 
-        self.are_scanare_laser = False
-        self.are_model_fotogrametric = False
+        if self.model_nori_de_puncte:
+            self.are_scanare_laser = True
+        else:
+            self.are_scanare_laser = False
+
+        if self.model_fotogrametrie:
+            self.are_model_fotogrametric = True
+        else:
+            self.are_model_fotogrametric = False
 
         self.ansamblu_construit = [x.element.nume for x in self.elemente_ansamblu_construit.all()]
         self.numar_clopote = len(self.clopote.all())
