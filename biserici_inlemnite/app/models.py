@@ -419,7 +419,7 @@ class IdentificarePage(Page):
         biserica.adresa = self.adresa
         biserica.latitudine = self.latitudine
         biserica.longitudine = self.longitudine
-        biserica.save_revision().publish()
+        biserica.save_revision()
         return super().save(*args, **kwargs)
 
 
@@ -2152,7 +2152,7 @@ class IstoricPage(Page):
         biserica.datare_secol = self.datare_secol
         biserica.datare_prin_interval_timp = self.datare_prin_interval_timp
         biserica.datare_an = self.an_constructie
-        biserica.save_revision().publish()
+        biserica.save_revision()
 
 
 
@@ -2386,7 +2386,7 @@ class ValoarePage(Page):
 
         if biserica.conservare:
             biserica.prioritizare = biserica.valoare * biserica.conservare
-        biserica.save_revision().publish()
+        biserica.save_revision()
 
         return super().save(*args, **kwargs)
 
@@ -3065,7 +3065,7 @@ class ConservarePage(Page):
 
         if biserica.valoare:
             biserica.prioritizare = biserica.valoare * biserica.conservare
-        biserica.save_revision().publish()
+        biserica.save_revision()
 
         return super().save(*args, **kwargs)
 
