@@ -30,7 +30,6 @@ from wagtail.admin.edit_handlers import InlinePanel as BaseInlinePanel
 from wagtail.admin.edit_handlers import EditHandler
 from wagtail.api import APIField
 from unidecode import unidecode
-import auto_prefetch
 
 from .blocks import BaseStreamBlock
 
@@ -170,6 +169,7 @@ class PozeBiserica(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -428,6 +428,7 @@ class PozeElementAnsambluConstruit(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -469,6 +470,7 @@ class PozeElementImportantAnsambluConstruit(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -510,6 +512,7 @@ class PozeClopot(Orderable):
                        on_delete=models.CASCADE, related_name='poze_clopot')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
 
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -550,6 +553,7 @@ class PozeFinisajPortic(Orderable):
         'FinisajePortic', on_delete=models.CASCADE, related_name='poze_finisaj')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
 
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -585,6 +589,7 @@ class PozeFinisajPronaos(Orderable):
         'FinisajePronaos', on_delete=models.CASCADE, related_name='poze_finisaj')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
 
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -620,6 +625,7 @@ class PozeFinisajNaos(Orderable):
         'FinisajeNaos', on_delete=models.CASCADE, related_name='poze_finisaj')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
 
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
@@ -655,7 +661,7 @@ class PozeFinisajAltar(Orderable):
         'FinisajeAltar', on_delete=models.CASCADE, related_name='poze_finisaj')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
-
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -696,7 +702,6 @@ class Poza(models.Model):
 
     panels = [
         ImageChooserPanel('poza'),
-        FieldPanel('rendition'),
         FieldPanel('observatii')
     ]
 
@@ -710,8 +715,6 @@ class Poza(models.Model):
 
     def __str__(self):
         return str(self.poza)
-
-
 
 
 class PozeAccese(Orderable, Poza):
@@ -846,6 +849,7 @@ class PozeEtapeIstoriceVizibile(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1828,6 +1832,7 @@ class PozeCtitori(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1849,6 +1854,7 @@ class PozeMesteri(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1870,6 +1876,7 @@ class PozeZugravi(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -1891,6 +1898,7 @@ class PozePersonalitati(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 
@@ -3058,6 +3066,7 @@ class PozeArtisticEtapeIstoriceVizibile(Orderable):
                        on_delete=models.CASCADE, related_name='poze')
     poza = models.ForeignKey('wagtailimages.Image', null=True,
                              blank=True, on_delete=models.SET_NULL, related_name='+')
+    rendition = models.JSONField(null=True, blank=True)
     observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
 

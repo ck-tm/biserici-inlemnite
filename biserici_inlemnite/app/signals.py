@@ -37,8 +37,12 @@ def create_biserica(sender, instance, created, **kwargs):
 
 @receiver(post_save) 
 def create_rendition(sender, instance, created, **kwargs):
+    print(sender, sender.__module__)
+    print(sender.__class__)
+    print(sender.__dict__)
+    print(dir(sender))
     if created:
-        if issubclass(sender, models.Poza):
+        if issubclass(sender, models.Poza) or 'Poze' in str(sender):
             rendition = instance.poza.get_rendition('width-1280')
             instance.rendition = {
                 "url": rendition.url,
@@ -46,4 +50,23 @@ def create_rendition(sender, instance, created, **kwargs):
                 "height": rendition.height,
                 "alt": rendition.alt
             }
+            print(instance.rendition)
             instance.save()
+
+
+
+
+# PozeBiserica
+# PozeElementAnsambluConstruit
+# PozeElementImportantAnsambluConstruit
+# PozeClopot
+# PozeFinisajPortic
+# PozeFinisajPronaos
+# PozeFinisajNaos
+# PozeFinisajAltar
+# PozeEtapeIstoriceVizibile
+# PozeCtitori
+# PozeMesteri
+# PozeZugravi
+# PozePersonalitati
+# PozeArtisticEtapeIstoriceVizibile
