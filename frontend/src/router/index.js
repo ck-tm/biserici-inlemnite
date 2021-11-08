@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Base from '@/views/Base.vue'
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-// import Register from '@/views/Register.vue'
-// import Resources from '@/views/Resources.vue'
+import Base from '@/views/Base'
+import Home from '@/views/Home'
+import About from '@/views/About'
 
 Vue.use(VueRouter)
 
@@ -15,22 +13,35 @@ const routes = [
     component: Base,
     children: [
       {
-        path: '/despre',
+        path: 'despre',
         name: 'About',
         component: About,
       },
-      // {
-      //   path: '/register/:success?',
-      //   name: 'Register',
-      //   component: Register,
-      // },
-      // {
-      //   path: '/resources',
-      //   name: 'Resources',
-      //   component: Resources,
-      // },
       {
-        path: '/:id?',
+        path: 'cont',
+        component: () =>
+          import(/* webpackChunkName: "account" */ '@/views/AccountBase.vue'),
+        children: [
+          {
+            path: 'autentificare',
+            name: 'AccountLogin',
+            component: () =>
+              import(
+                /* webpackChunkName: "account" */ '@/views/AccountLogin.vue'
+              ),
+          },
+          {
+            path: 'inregistrare',
+            name: 'AccountRegister',
+            component: () =>
+              import(
+                /* webpackChunkName: "account" */ '@/views/AccountRegister.vue'
+              ),
+          },
+        ],
+      },
+      {
+        path: ':id?',
         name: 'Home',
         component: Home,
         meta: {},

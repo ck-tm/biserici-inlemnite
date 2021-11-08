@@ -5,10 +5,7 @@
     <div class="container-page">
       <h1 v-text="about.title" />
 
-      <section
-        v-for="(body, index) in about.body"
-        :key="'about-body-' + index"
-      >
+      <section v-for="(body, index) in about.body" :key="'about-body-' + index">
         <div v-html="body.value" class="content" />
       </section>
 

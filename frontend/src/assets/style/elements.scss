@@ -16,3 +16,15 @@
     background-color: $white;
   }
 }
+
+.form-view {
+  .button {
+    padding-left: 24px;
+    padding-right: 24px;
+    font-weight: $weight-bold;
+
+    &.button-submit {
+      margin-top: $size-2;
+    }
+  }
+}

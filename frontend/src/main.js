@@ -11,7 +11,7 @@ import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
 import VueMq from 'vue-mq'
 import './libs/buefy'
-// import './libs/form-validation'
+import './libs/form-validation'
 
 import './components/globals'
 import './services/filters'

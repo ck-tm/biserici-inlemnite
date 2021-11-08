@@ -6,7 +6,10 @@
         :key="'carousel-poze' + index"
       >
         <div class="image">
-          <img :src="'https://biserici-inlemnite.ro' + image.poza.url" :alt="image.poza.alt" />
+          <img
+            :src="'https://biserici-inlemnite.ro' + image.poza.url"
+            :alt="image.poza.alt"
+          />
         </div>
       </b-carousel-item>
     </b-carousel>

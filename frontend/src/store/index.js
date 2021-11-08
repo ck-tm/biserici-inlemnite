@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '@/router'
 
 import ApiService from '@/services/api'
+import UserService from '@/services/user'
+import TokenService from '@/services/storage'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    token: TokenService.getToken(),
     about: null,
     profile: {
       id: null,
@@ -18,6 +22,12 @@ export default new Vuex.Store({
     loading: null,
   },
   mutations: {
+    login(state, token) {
+      state.token = token
+    },
+    logout(state) {
+      state.token = null
+    },
     setMapData(state, data) {
       state.mapData = data
     },
@@ -38,6 +48,22 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    login({ commit }, { username, password }) {
+      return UserService.login(username, password)
+        .then((response) => {
+          commit('login', response)
+
+          router.replace(router.history.current.query.redirect || '/')
+        })
+        .catch(() => {})
+    },
+
+    logout({ commit }) {
+      UserService.logout()
+      commit('logout')
+
+      router.push('/')
+    },
     getData({ commit }, name) {
       commit('setLoading', true)
 

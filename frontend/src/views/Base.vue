@@ -17,8 +17,15 @@
           </div>
           <div class="navbar-end">
             <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="despre" class="navbar-item">
+            <router-link to="/despre" class="navbar-item">
               Despre proiect
+            </router-link>
+
+            <router-link
+              to="/cont/autentificare"
+              class="navbar-item has-text-primary"
+            >
+              Intra in cont / Inregistrare
             </router-link>
           </div>
         </div>

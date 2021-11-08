@@ -1,5 +1,4 @@
 import { extend, localize, setInteractionMode } from 'vee-validate'
-
 import { required, email, min } from 'vee-validate/dist/rules'
 
 import ro from './locale/ro.json'
