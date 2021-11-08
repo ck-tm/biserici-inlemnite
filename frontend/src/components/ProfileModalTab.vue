@@ -1,34 +1,40 @@
 <template>
   <div class="container-scroll">
-    <div
-      class="columns"
-      v-for="(section, index) in sections"
-      :key="'tab_section_' + index"
-    >
-      <div class="column is-3 has-label">
-        <h4>{{ section.title }}</h4>
-      </div>
+    <template v-if="tab.type == 'sections'">
+      <div
+        class="columns"
+        v-for="(section, index) in tab.sections"
+        :key="'tab_section_' + index"
+      >
+        <div class="column is-3 has-label">
+          <h4>{{ section.title }}</h4>
+        </div>
 
-      <div class="column is-9">
-        <template v-if="section.subsections.length">
-          <ProfileModalField
-            v-for="(subsection, sIndex) in section.subsections"
-            :key="'profile-section-field-' + sIndex"
-            :label="subsection.title"
-            :fields="subsection.fields"
-          />
-        </template>
+        <div class="column is-9">
+          <template v-if="section.subsections.length">
+            <ProfileModalField
+              v-for="(subsection, sIndex) in section.subsections"
+              :key="'profile-section-field-' + sIndex"
+              :label="subsection.title"
+              :fields="subsection.fields"
+            />
+          </template>
 
-        <template v-else>
-          <ProfileModalField
-            v-for="field in section.fields"
-            :key="'profile-section-field-' + field.key"
-            :label="field.label"
-            :fields="field"
-          />
-        </template>
+          <template v-else>
+            <ProfileModalField
+              v-for="field in section.fields"
+              :key="'profile-section-field-' + field.key"
+              :label="field.label"
+              :fields="field"
+            />
+          </template>
+        </div>
       </div>
-    </div>
+    </template>
+
+    <template v-if="tab.type == 'embed'">
+      <div class="container-iframe" v-html="tab.embed" />
+    </template>
   </div>
 </template>
 
@@ -40,7 +46,7 @@ import ProfileModalField from '@/components/ProfileModalField'
 export default {
   name: 'ProfileModalTab',
   components: { ProfileModalField },
-  props: { sections: Array },
+  props: { tab: Object },
   data() {
     return {}
   },
@@ -68,6 +74,21 @@ export default {
         position: sticky;
         top: 0;
       }
+    }
+  }
+}
+
+.container-iframe {
+  height: 100%;
+  width: 100%;
+
+  /deep/.sketchfab-embed-wrapper {
+    height: 100%;
+    width: 100%;
+
+    iframe {
+      height: 100%;
+      width: 100%;
     }
   }
 }

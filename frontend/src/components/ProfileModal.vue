@@ -55,7 +55,7 @@
           </template>
 
           <template #default>
-            <ProfileModalTab :sections="tab.sections" />
+            <ProfileModalTab v-bind="{ tab }" />
           </template>
         </b-tab-item>
       </b-tabs>
