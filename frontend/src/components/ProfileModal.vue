@@ -18,21 +18,24 @@
             <div class="columns">
               <div class="column">
                 <FilterDisplayItem
-                  :value="Math.round(profile.conservare)"
+                  v-if="profile.conservare"
+                  :value="profile.conservare"
                   index="conservare"
                   size="is-large"
                 />
               </div>
               <div class="column">
                 <FilterDisplayItem
-                  :value="Math.round(profile.valoare)"
+                  v-if="profile.valoare"
+                  :value="profile.valoare"
                   index="valoare"
                   size="is-large"
                 />
               </div>
               <div class="column">
                 <FilterDisplayItem
-                  :value="Math.round(profile.prioritizare)"
+                  v-if="profile.prioritizare"
+                  :value="profile.prioritizare"
                   index="prioritizare"
                   size="is-large"
                 />

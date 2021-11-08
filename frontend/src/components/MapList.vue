@@ -76,7 +76,7 @@
           v-if="props.row.conservare"
           index="conservare"
           :value="props.row.conservare"
-          :hasLabel="false"
+          :has-label="false"
         />
       </b-table-column>
 
@@ -90,7 +90,7 @@
           v-if="props.row.valoare"
           index="valoare"
           :value="props.row.valoare"
-          :hasLabel="false"
+          :has-label="false"
         />
       </b-table-column>
 
@@ -104,7 +104,7 @@
           v-if="props.row.prioritizare"
           index="prioritizare"
           :value="props.row.prioritizare"
-          :hasLabel="false"
+          :has-label="false"
           :has-caption="false"
         />
       </b-table-column>
@@ -189,6 +189,7 @@ export default {
 
         img {
           object-fit: cover;
+          height: 100%;
         }
       }
     }

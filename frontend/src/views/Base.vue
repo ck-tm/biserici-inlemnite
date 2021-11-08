@@ -4,6 +4,7 @@
       <div class="container is-fullhd">
         <div class="navbar-brand">
           <router-link to="/" class="navbar-item">
+            <img src="@/assets/logo_bis.png">
             Biserici înlemnite
           </router-link>
         </div>
@@ -29,7 +30,7 @@
 </template>
 
 <script>
-import NavSearch from '../components/NavSearch'
+import NavSearch from '@/components/NavSearch'
 
 export default {
   name: 'Base',

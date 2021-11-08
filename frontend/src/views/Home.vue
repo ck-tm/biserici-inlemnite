@@ -78,7 +78,7 @@ export default {
       active: {
         profilePreview: false,
         profileModal: false,
-        mapList: false
+        mapList: false,
       },
       loading: true,
       viewType: 0,

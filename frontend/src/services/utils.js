@@ -49,14 +49,14 @@ const BasicFilters = {
       },
       {
         id: 2,
-        interval: [6, 10],
-        value: 'Medie (6-10)',
+        interval: [5.01, 10],
+        value: 'Medie (5-10)',
         size: 12,
       },
       {
         id: 3,
-        interval: [11, 15],
-        value: 'Scăzută (11-15)',
+        interval: [10.01, 15],
+        value: 'Scăzută (10-15)',
         size: 8,
       },
     ],

@@ -13,10 +13,16 @@ nav.navbar {
 
     .navbar-brand {
       min-height: $navbar-height-mobile;
-      padding-left: 20px;
+      padding-left: 4px;
       margin-left: 0;
+      font-weight: $weight-medium;
+      // font-size: 17px;
 
-      @include touch {
+      img {
+        width: 72px;
+        height: 44px;
+        max-height: 44px;
+        margin-right: 8px;
       }
 
       @include desktop {

@@ -30,6 +30,7 @@ export default {
     hasLabel: { type: Boolean, default: true },
     hasCaption: { type: Boolean, default: true },
     hasSizeVariation: { type: Boolean, default: false },
+    useInterval: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -39,7 +40,7 @@ export default {
   mounted() {},
   methods: {
     compFunc(e) {
-      return e.interval
+      return e.interval && this.useInterval
         ? this.value >= e.interval[0] && this.value <= e.interval[1]
         : Math.round(this.value) == e.id
     },
@@ -115,7 +116,7 @@ export default {
     color: $white;
     margin-right: 8px;
     font-weight: $weight-bold;
-    font-size: $size-5;
+    font-size: $size-6;
     padding: 0;
     flex-shrink: 0;
   }
@@ -158,6 +159,7 @@ export default {
       width: 48px;
       height: 48px;
       margin-right: 16px;
+      font-size: $size-5;
     }
   }
 }

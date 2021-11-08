@@ -39,13 +39,12 @@
 
       <hr v-if="profilePreview.datare" />
 
-      <label 
+      <label
         v-if="profilePreview.datare"
         class="label is-small"
         v-text="'Datare'"
-        />
-      <p v-if="profilePreview.datare"
-      v-text="profilePreview.datare" />
+      />
+      <p v-if="profilePreview.datare" v-text="profilePreview.datare" />
 
       <hr />
 

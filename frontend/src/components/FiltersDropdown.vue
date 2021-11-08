@@ -19,6 +19,7 @@
             :value="model && model.length ? model[0] : null"
             :has-label="false"
             :has-size-variation="true"
+            :use-interval="false"
             size="is-small"
           />
 
@@ -40,6 +41,7 @@
           :value="null"
           :has-label="false"
           size="is-small"
+          :use-interval="false"
         />
 
         <span v-else>Toate</span>
@@ -57,6 +59,7 @@
           :value="item.id"
           :has-label="false"
           :has-size-variation="true"
+          :use-interval="false"
           size="is-small"
         />
 

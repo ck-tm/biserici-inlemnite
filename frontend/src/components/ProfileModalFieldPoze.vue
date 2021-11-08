@@ -6,7 +6,7 @@
         :key="'carousel-poze' + index"
       >
         <div class="image">
-          <img :src="image.poza.url" :alt="image.poza.alt" />
+          <img :src="'https://biserici-inlemnite.ro' + image.poza.url" :alt="image.poza.alt" />
         </div>
       </b-carousel-item>
     </b-carousel>
@@ -32,10 +32,9 @@ export default {
 /deep/.carousel {
   .image {
     img {
-      // width: 900px;
-      // background: $black;
-      // max-height: 80vh;
-      // width: auto;
+      height: 90vh;
+      width: auto;
+      margin: 0 auto;
     }
   }
 }

@@ -46,7 +46,7 @@ export default {
         component: ProfileModalFieldPoze,
         customClass: 'modal-poze',
         trapFocus: true,
-        // width: '40vw',
+        width: 'auto',
         props: {
           field: this.field,
         },
