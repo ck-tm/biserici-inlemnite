@@ -108,8 +108,9 @@ export default {
     clearFilters() {
       this.filterModel = {}
       this.counters = {}
+      this.resultCount = null
 
-      this.update()
+      this.applyFilters()
     },
     update(key) {
       // remove empty keys / create non-existent
