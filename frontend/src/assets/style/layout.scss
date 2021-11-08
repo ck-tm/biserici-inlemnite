@@ -9,13 +9,14 @@ html {
 body {
 }
 
+.is-full-height {
+  height: calc(100vh - #{$navbar-height});
+}
+
 .container {
   border-left: 1px solid $border;
   border-right: 1px solid $border;
-}
-
-.is-full-height {
-  height: calc(100vh - #{$navbar-height});
+  min-height: 100%;
 }
 
 #main-interface {
@@ -25,6 +26,13 @@ body {
   .container {
     display: flex;
     flex: 1;
+
+    .container-sidebar {
+      flex-shrink: 0;
+      width: $navbar-side-width;
+      border-right: 1px solid $grey;
+      height: 100%;
+    }
   }
 
   .container-interface {
@@ -47,10 +55,25 @@ body {
 }
 
 .container-page {
+  flex: 1;
   padding: 20px;
 
   @include desktop {
-    padding: 80px;
+    padding: 0;
+
+    section {
+      padding: 64px;
+
+      .content {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+    }
+
+    > h1 {
+      padding: 48px 64px;
+      max-width: 768px;
+    }
   }
 }
 

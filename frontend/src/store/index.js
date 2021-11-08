@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    about: null,
     profile: {
       id: null,
       data: null,
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     filters: null,
     filterData: { basic: {}, advanced: {} },
     mapData: null,
+    loading: null,
   },
   mutations: {
     setMapData(state, data) {
@@ -22,8 +24,11 @@ export default new Vuex.Store({
     setProfileId(state, data) {
       state.profile.id = data
     },
-    setFilters(state, data) {
-      state.filters = data
+    setLoading(state, data) {
+      state.loading = data
+    },
+    setData(state, { data, name }) {
+      state[name] = data
     },
     setFiltersBasic(state, data) {
       state.filterData.basic = data
@@ -33,21 +38,36 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getFilters({ commit }) {
-      return ApiService.get('/filters/').then((response) => {
-        commit('setFilters', response)
-      })
+    getData({ commit }, name) {
+      commit('setLoading', true)
+
+      return ApiService.get(`/${name}/`)
+        .then((response) => {
+          commit('setData', { data: response, name })
+          commit('setLoading', false)
+        })
+        .catch(() => {
+          commit('setLoading', false)
+        })
     },
 
     getMapData({ commit, state }) {
-      return Object.keys(state.filterData.basic).length ||
+      const request =
+        Object.keys(state.filterData.basic).length ||
         Object.keys(state.filterData.advanced).length
-        ? ApiService.post('/map/filter/', state.filterData).then((response) => {
-            commit('setMapData', response)
-          })
-        : ApiService.get('/map/').then((response) => {
-            commit('setMapData', response)
-          })
+          ? ApiService.post('/map/filter/', state.filterData)
+          : ApiService.get('/map/')
+
+      commit('setLoading', true)
+
+      return request
+        .then((response) => {
+          commit('setMapData', response)
+          commit('setLoading', false)
+        })
+        .catch(() => {
+          commit('setLoading', false)
+        })
     },
   },
   modules: {},

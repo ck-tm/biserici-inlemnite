@@ -4,7 +4,7 @@
       <div class="container is-fullhd">
         <div class="navbar-brand">
           <router-link to="/" class="navbar-item">
-            <img src="@/assets/logo_bis.png">
+            <img src="@/assets/logo_bis.png" />
             Biserici înlemnite
           </router-link>
         </div>
@@ -17,25 +17,31 @@
           </div>
           <div class="navbar-end">
             <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="/" class="navbar-item">Despre proiect</router-link>
+            <router-link to="despre" class="navbar-item">
+              Despre proiect
+            </router-link>
           </div>
         </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div id="main-interface" class="container-fluid">
       <router-view />
     </div>
+
+    <b-loading v-model="loading" />
   </div>
 </template>
 
 <script>
 import NavSearch from '@/components/NavSearch'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Base',
   components: {
     NavSearch,
   },
+  computed: mapState(['loading']),
 }
 </script>

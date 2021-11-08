@@ -1,47 +1,74 @@
 <template>
-  <div class="container container-page">
-    <div class="content">
-      <h3>The Resilience</h3>
-      <br />
-      <br />
+  <div class="container is-fullhd" v-if="about">
+    <div class="container-sidebar"></div>
 
-      <div class="columns">
-        <div class="column is-7">
-          <div v-html="$t('about.text')" />
-          <br />
-          <i18n path="about.text_link" tag="p">
-            <router-link :to="{ name: 'Register' }">
-              {{ $t('menu.register') }}
-            </router-link>
-          </i18n>
-        </div>
-        <div class="column is-5">
-          <p><b v-text="$t('about.team')" /></p>
-          <p>
-            Alexandra-Maria Rigler, Alex Iliescu, Andreea Iager-Tako, Andrei
-            Drăcea, Bogdan Cotîrță, Costin Bleotu, Pepe Peralta Guerrero, Val
-            Mureșan
-          </p>
-          <p><b v-text="$t('about.consultancy')" /></p>
-          <p>
-            Alexandru Ciobotă, Alexandru Lorinți, Ana Kun, Andreas Samuelsson,
-            Atelier Bobar, Bianca Băilă, Cristian Boldișteanu, Diana Marincu,
-            Dragoș Miștorică, Emilia Szuszmann, Gabriel Amza, Hotvath Octavian
-            Nicolae, Levente Kozma, Lia Pfeiffer, Livia Coloji, Loredana Gaiță,
-            Manu Anghelescu, Mihai Drăgan, Monica Diaconu, Ovidiu Hrin, Ovidiu
-            Zimcea, Pusha Petrov, Roxana Puriș, Sasha Bodeanu, Seba Tătaru,
-            Sorin Chiuzbaian, Zoltan Bereczi and many more.
-          </p>
-        </div>
-      </div>
+    <div class="container-page">
+      <h1 v-text="about.title" />
 
-      <h3>Contact</h3>
-      <br />
-      <p>
-        <a href="mailto:noi@resilience.community">noi@resilience.community</a>
-        <br />
-        <a href="tel:+40829281819">+40829281819</a>
-      </p>
+      <section
+        v-for="(body, index) in about.body"
+        :key="'about-body-' + index"
+      >
+        <div v-html="body.value" class="content" />
+      </section>
+
+      <section v-if="about.parteneri">
+        <div class="content">
+          <h2>Parteneri</h2>
+
+          <div class="columns is-multiline is-variable is-3">
+            <a
+              v-for="(item, index) in about.parteneri"
+              :key="'about-logos-' + index"
+              :href="item.link"
+              target="_blank"
+              class="column is-narrow image"
+            >
+              <img
+                :src="'https://biserici-inlemnite.ro' + item.logo.url"
+                :alt="item.logo.alt"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'About',
+  components: {},
+  props: {},
+  data() {
+    return {}
+  },
+  computed: mapState(['about']),
+  mounted() {
+    if (!this.about) this.$store.dispatch('getData', 'about')
+  },
+  methods: {},
+}
+</script>
+
+<style lang="scss" scoped>
+section {
+  &:not(:last-child) {
+    border-bottom: 1px solid $grey;
+  }
+
+  .image {
+    img {
+      height: 80px;
+      width: auto;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+</style>

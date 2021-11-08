@@ -1,55 +1,51 @@
 <template>
-  <div id="main-interface" class="is-full-height">
-    <div class="container is-fullhd">
-      <FiltersAdvanced
+  <div class="container is-fullhd is-full-height">
+    <FiltersAdvanced
+      v-if="filters"
+      :filters="filters.advanced"
+      @update="updateMap"
+    />
+
+    <div class="container-interface">
+      <FiltersBasic
         v-if="filters"
-        :filters="filters.advanced"
+        :filters="filters.basic"
         @update="updateMap"
       />
 
-      <div class="container-interface">
-        <FiltersBasic
-          v-if="filters"
-          :filters="filters.basic"
-          @update="updateMap"
-        />
+      <div class="buttons buttons-toggle">
+        <b-button
+          :type="active.mapList ? 'is-dark' : 'is-primary'"
+          icon-left="pin"
+          @click="active.mapList = false"
+        >
+          Hartă
+        </b-button>
+        <b-button
+          :type="active.mapList ? 'is-primary' : 'is-dark'"
+          icon-left="list"
+          @click="active.mapList = true"
+        >
+          Listă
+        </b-button>
+      </div>
 
-        <div class="buttons buttons-toggle">
-          <b-button
-            :type="active.mapList ? 'is-dark' : 'is-primary'"
-            icon-left="pin"
-            @click="active.mapList = false"
-          >
-            Hartă
-          </b-button>
-          <b-button
-            :type="active.mapList ? 'is-primary' : 'is-dark'"
-            icon-left="list"
-            @click="active.mapList = true"
-          >
-            Listă
-          </b-button>
-        </div>
+      <div class="container-map-profile">
+        <MapList v-if="active.mapList" />
+        <Map />
 
-        <div class="container-map-profile">
-          <MapList v-if="active.mapList" />
-          <Map />
-
-          <ProfilePreview
-            :active="active.profilePreview"
-            @close="active.profilePreview = false"
-            @openProfileModal="openProfileModal"
-          />
-        </div>
-
-        <ProfileModal
-          :active="active.profileModal"
-          @close="active.profileModal = false"
+        <ProfilePreview
+          :active="active.profilePreview"
+          @close="active.profilePreview = false"
+          @openProfileModal="openProfileModal"
         />
       </div>
-    </div>
 
-    <b-loading v-model="loading" />
+      <ProfileModal
+        :active="active.profileModal"
+        @close="active.profileModal = false"
+      />
+    </div>
   </div>
 </template>
 
@@ -80,7 +76,6 @@ export default {
         profileModal: false,
         mapList: false,
       },
-      loading: true,
       viewType: 0,
     }
   },
@@ -88,14 +83,9 @@ export default {
     ...mapState(['filters']),
   },
   mounted() {
-    this.$store
-      .dispatch('getFilters')
-      .then(() => {
-        this.loading = false
+    if (!this.filters)
+      this.$store.dispatch('getData', 'filters').then(() => {
         this.$store.dispatch('getMapData')
-      })
-      .catch(() => {
-        this.loading = false
       })
 
     if (this.$route.params.id) this.openProfilePreview()
@@ -108,18 +98,10 @@ export default {
       this.$store.commit('setProfileId', this.$route.params.id)
     },
     updateMap() {
-      this.loading = true
       if (this.$route.params.id)
         this.$router.push({ name: 'Home', params: { id: null } })
 
-      this.$store
-        .dispatch('getMapData')
-        .then(() => {
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
+      this.$store.dispatch('getMapData')
     },
     // setViewType(type) {
     //   this.viewType = type

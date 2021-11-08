@@ -1,5 +1,5 @@
 <template>
-  <div id="filters-advanced">
+  <div id="filters-advanced" class="container-sidebar">
     <label class="label is-small has-text-grey-light">Filtrare avansată</label>
 
     <b-tabs
@@ -100,6 +100,15 @@ export default {
       loading: false,
     }
   },
+  computed: {
+    ...mapState({ filterBasic: (state) => state.filterData.basic }),
+    filterTotalCount() {
+      return Object.keys(this.counters).reduce(
+        (sum, e) => sum + this.counters[e],
+        0
+      )
+    },
+  },
   mounted() {},
   methods: {
     toggleTab() {
@@ -143,25 +152,13 @@ export default {
       this.$emit('update')
     },
   },
-  computed: {
-    ...mapState({ filterBasic: (state) => state.filterData.basic }),
-    filterTotalCount() {
-      return Object.keys(this.counters).reduce(
-        (sum, e) => sum + this.counters[e],
-        0
-      )
-    },
-  },
 }
 </script>
 
 <style lang="scss" scoped>
 #filters-advanced {
-  width: $navbar-side-width;
-  border-right: 1px solid $grey;
   position: relative;
   padding-top: 160px;
-  height: 100%;
 
   .label {
     padding-left: 32px;

@@ -37,8 +37,31 @@ h4 {
 
 
 .content {
+  line-height: 1.5;
+
   a {
     color: $grey;
     text-decoration: underline;
+  }
+
+  h1 {
+    font-size: $size-2;
+    color: $white;
+    margin-bottom: $size-2;
+
+    &:not(:first-child) {
+      margin-top: 4px;
+    }
+  }
+
+  h2 {
+    font-size: $size-3;
+    color: $white;
+    margin-bottom: $size-3;
+  }
+
+  h3 {
+    font-size: $size-5;
+    color: $primary;
   }
 }
