@@ -612,7 +612,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'title': 'Sistem structural al corpului bisericii mixt',
                     'fields': [
                         ("sistem_mixt", ""),
-                        ("poze_structura_mixt", ""),
+                        ("poze_structura_mixt", "Poze"),
                         ]
                     },
                     {
@@ -1364,8 +1364,14 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 class AboutSerializer(serializers.ModelSerializer):
     parteneri = PartnerSerializer(many=True)
+    body = serializers.SerializerMethodField()
 
     class Meta:
         model = models.AboutPage
         fields = ["title", "body", "parteneri"]
+
+
+    def get_body(self, obj):
+
+        return [str(section) for section in obj.body]
 
