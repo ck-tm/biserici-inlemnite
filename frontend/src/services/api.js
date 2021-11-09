@@ -5,6 +5,8 @@ const ApiService = {
   init(baseURL) {
     axios.defaults.baseURL = baseURL
 
+    // axios.defaults.xsrfCookieName = 'XSRF-TOKEN'
+    // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 

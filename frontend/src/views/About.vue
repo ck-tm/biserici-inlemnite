@@ -6,7 +6,7 @@
       <h1 v-text="about.title" />
 
       <section v-for="(body, index) in about.body" :key="'about-body-' + index">
-        <div v-html="body.value" class="content" />
+        <div v-html="body" class="content" />
       </section>
 
       <section v-if="about.parteneri">
