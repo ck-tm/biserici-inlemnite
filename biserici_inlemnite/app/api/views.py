@@ -99,7 +99,7 @@ CLASE_PRIORITIZARE = {
 }
 
 
-# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
@@ -324,47 +324,50 @@ class FiltersView(ViewSet):
         prioritizare_filters = []
 
         localitati_active = models.BisericaPage.objects.live().values(
-            'localitate__id', 'localitate__nume', 'localitate__judet__id' ,'localitate__judet__nume')
+            'identificare_page__localitate__id', 'identificare_page__localitate__nume', 'identificare_page__localitate__judet__id' ,'identificare_page__localitate__judet__nume')
 
         for localitate in localitati_active:
-            if localitate['localitate__id']:
+            if localitate['identificare_page__localitate__id']:
                 localitate_item = {
-                    'id': localitate['localitate__id'],
-                    'value': localitate['localitate__nume'],
-                    'judet': localitate['localitate__judet__id'],
+                    'id': localitate['identificare_page__localitate__id'],
+                    'value': localitate['identificare_page__localitate__nume'],
+                    'judet': localitate['identificare_page__localitate__judet__id'],
                     }
 
                 if localitate_item not in localitati_filters:
                     localitati_filters.append(localitate_item)
 
                     judet_item = {
-                        'id': localitate['localitate__judet__id'],
-                        'value': localitate['localitate__judet__nume'],
+                        'id': localitate['identificare_page__localitate__judet__id'],
+                        'value': localitate['identificare_page__localitate__judet__nume'],
                     }
                     if judet_item not in judete_filters:
                         judete_filters.append(judet_item)
 
-        biserici = models.BisericaPage.objects.live().values('valoare', 'conservare', 'prioritizare')
+        biserici = models.BisericaPage.objects.live().values('valoare_page__total', 'conservare_page__total')
+
         for biserica in biserici:
-            if biserica['conservare']:
+            if biserica['conservare_page__total']:
                 conservare_item = {
-                    'id': round(biserica['conservare']),
-                    'value': round(biserica['conservare']),
+                    'id': round(biserica['conservare_page__total']),
+                    'value': round(biserica['conservare_page__total']),
                 }
                 if conservare_item not in conservare_filters:
                     conservare_filters.append(conservare_item)
-            if biserica['valoare']:
+            if biserica['valoare_page__total']:
                 valoare_item = {
-                    'id': round(biserica['valoare']),
-                    'value': CLASE_EVALUARE[round(biserica['valoare'])],
+                    'id': round(biserica['valoare_page__total']),
+                    'value': CLASE_EVALUARE[round(biserica['valoare_page__total'])],
                 }
                 if valoare_item not in valoare_filters:
                     valoare_filters.append(valoare_item)
 
-            if biserica['prioritizare']:
+            if biserica['conservare_page__total'] and biserica['valoare_page__total']:
+                prioritizare = biserica['conservare_page__total'] * biserica['valoare_page__total']
+
                 prioritizare_item = {
-                    'id': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['id'],
-                    'value': CLASE_PRIORITIZARE[round(biserica['prioritizare'])]['value'],
+                    'id': CLASE_PRIORITIZARE[round(prioritizare)]['id'],
+                    'value': CLASE_PRIORITIZARE[round(prioritizare)]['value'],
                 }
                 if prioritizare_item not in prioritizare_filters:
                     prioritizare_filters.append(prioritizare_item)

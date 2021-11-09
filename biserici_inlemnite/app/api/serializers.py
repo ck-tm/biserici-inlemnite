@@ -73,9 +73,10 @@ def get_section_fields(obj, section):
                 all_elements = field_obj.all()
                 if all_elements:
                     if type(all_elements[0]).__module__.startswith('nomenclatoare'):
-                        value = ', '.join([str(x) for x in all_elements])
+                        value = ', '.join([str(x) for x in all_elements if str(x) != 'None'])
                     else:
-                        value = ', '.join([str(x) for x in all_elements])
+                        value = ', '.join([str(x) for x in all_elements if str(x) != 'None'])
+
                         elements = get_nested_model_data(all_elements)
         except Exception as e:
             # print('****', field,  type(e), obj, e)
@@ -612,7 +613,7 @@ class DescriereSerializer(serializers.ModelSerializer):
                     'title': 'Sistem structural al corpului bisericii mixt',
                     'fields': [
                         ("sistem_mixt", ""),
-                        ("poze_structura_mixt", ""),
+                        ("poze_structura_mixt", "Poze"),
                         ]
                     },
                     {
@@ -1311,6 +1312,16 @@ class BisericaSerializer(serializers.ModelSerializer):
     nori_de_puncte_page = serializers.SerializerMethodField()
     fotogrametrie_page = serializers.SerializerMethodField()
 
+    judet = serializers.SerializerMethodField()
+    localitate = serializers.SerializerMethodField()
+    adresa = serializers.SerializerMethodField()
+    latitudine = serializers.SerializerMethodField()
+    longitudine = serializers.SerializerMethodField()
+    conservare = serializers.SerializerMethodField()
+    valoare = serializers.SerializerMethodField()
+    datare_prin_interval_timp = serializers.SerializerMethodField()
+    datare_secol = serializers.SerializerMethodField()
+
     class Meta:
         model = models.BisericaPage
         fields = ["id", "title", "title", "judet", "localitate", "adresa", "latitudine",
@@ -1334,10 +1345,53 @@ class BisericaSerializer(serializers.ModelSerializer):
         }
 
 
+    def get_localitate(self, obj):
+        return str(obj.identificare_page.localitate)
+
+    def get_judet(self, obj):
+        return str(obj.identificare_page.judet)
+
+    def get_adresa(self, obj):
+        return obj.identificare_page.adresa
+
+    def get_latitudine(self, obj):
+        return obj.identificare_page.latitudine
+
+    def get_longitudine(self, obj):
+        return obj.identificare_page.longitudine
+
+    def get_conservare(self, obj):
+        return obj.conservare_page.total
+
+    def get_valoare(self, obj):
+        return obj.valoare_page.total
+
+    def get_prioritizare(self, obj):
+        if obj.valoare_page.total and obj.conservare_page.total:
+            return obj.valoare_page.total * obj.conservare_page.total
+        return None
+
+    def get_datare_prin_interval_timp(self, obj):
+        return obj.istoric_page.datare_prin_interval_timp
+
+    def get_datare_secol(self, obj):
+        if obj.istoric_page.datare_secol:
+            return obj.istoric_page.datare_secol.nume
+        return None
+
+
 class BisericaListSerializer(serializers.ModelSerializer):
     poze = PozaSerializer(many=True)
 
+    judet = serializers.SerializerMethodField()
+    localitate = serializers.SerializerMethodField()
+    adresa = serializers.SerializerMethodField()
+    latitudine = serializers.SerializerMethodField()
+    longitudine = serializers.SerializerMethodField()
     datare = serializers.SerializerMethodField()
+    conservare = serializers.SerializerMethodField()
+    valoare = serializers.SerializerMethodField()
+    prioritizare = serializers.SerializerMethodField()
 
     class Meta:
         model = models.BisericaPage
@@ -1345,13 +1399,39 @@ class BisericaListSerializer(serializers.ModelSerializer):
                   "longitudine", "datare", "conservare",
                   "valoare", "prioritizare", "poze"]
 
+    def get_localitate(self, obj):
+        return str(obj.identificare_page.localitate)
+
+    def get_judet(self, obj):
+        return str(obj.identificare_page.judet)
+
+    def get_adresa(self, obj):
+        return obj.identificare_page.adresa
+
+    def get_latitudine(self, obj):
+        return obj.identificare_page.latitudine
+
+    def get_longitudine(self, obj):
+        return obj.identificare_page.longitudine
+
+    def get_conservare(self, obj):
+        return obj.conservare_page.total
+
+    def get_valoare(self, obj):
+        return obj.valoare_page.total
+
+    def get_prioritizare(self, obj):
+        if obj.valoare_page.total and obj.conservare_page.total:
+            return obj.valoare_page.total * obj.conservare_page.total
+        return None
+
     def get_datare(self, obj):
-        if obj.datare_an:
-            return f'Anul {obj.datare_an}' 
-        if obj.datare_prin_interval_timp:
-            return obj.datare_prin_interval_timp
-        if obj.datare_secol:
-            return f'Secolul {obj.datare_secol}'
+        if obj.istoric_page.an_constructie:
+            return f'Anul {obj.istoric_page.an_constructie}' 
+        if obj.istoric_page.datare_prin_interval_timp:
+            return obj.istoric_page.datare_prin_interval_timp
+        if obj.istoric_page.datare_secol:
+            return f'Secolul {obj.istoric_page.datare_secol}'
 
 
 class PartnerSerializer(serializers.ModelSerializer):
@@ -1364,8 +1444,14 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 class AboutSerializer(serializers.ModelSerializer):
     parteneri = PartnerSerializer(many=True)
+    body = serializers.SerializerMethodField()
 
     class Meta:
         model = models.AboutPage
         fields = ["title", "body", "parteneri"]
+
+
+    def get_body(self, obj):
+
+        return [str(section) for section in obj.body]
 

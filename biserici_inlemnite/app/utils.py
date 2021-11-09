@@ -1,3 +1,4 @@
+from django.db.models import F
 from app import models
 from pprint import pprint
 
@@ -219,40 +220,34 @@ def get_chapter_filters(model, filters_dict):
 
 
 def filter_biserici(data):
-    biserici_paths = []
-    i = 0
+    filters = {}
 
     for nume_capitol, capitol_filters in data.get('advanced', {}).items():
-        filters = {}
         for indicator, indicator_values in capitol_filters.items():
             if MAP_CAPITOLE[nume_capitol]._meta.get_field(indicator).get_internal_type() == 'ArrayField':
-                filters[f"{indicator}__contains"] = indicator_values
+                filters[f"{nume_capitol}_page__{indicator}__contains"] = indicator_values
             else:
-                filters[f"{indicator}__in"] = indicator_values
+                filters[f"{nume_capitol}_page__{indicator}__in"] = indicator_values
 
-        capitole_pages = MAP_CAPITOLE[nume_capitol].objects.live().filter(**filters).values_list('path', flat=True)
-        if i < 1:
-            biserici_paths = set([x[:12] for x in capitole_pages])
-        else:
-            biserici_paths = biserici_paths.intersection(set([x[:12] for x in capitole_pages]))
-        i += 1
-    if data.get('advanced', {}):
-        filters = {
-            'path__in': biserici_paths
-        }
-    else:
-        filters = {}
     for indicator, indicator_values in data['basic'].items():
-        if indicator in ['conservare', 'valoare']:
+        if indicator == 'conservare':
 
-            filters[f"{indicator}__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
+            filters["conservare_page__total__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
+        elif indicator == 'valoare':
+            filters["valoare_page__total__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
+
         elif indicator == 'prioritizare':
-            filters[f"{indicator}__range"] = MAP_CLASE_PRIORITIZARE[indicator_values[0]]
+            prioritizare_biserici = models.BisericaPage.objects.annotate(
+                p=F('conservare_page__total') * F('valoare_page__total')).filter(
+                **{'p__range':MAP_CLASE_PRIORITIZARE[indicator_values[0]]}).values_list('pk', flat=True)
+            filters["pk__in"] = prioritizare_biserici
+        elif indicator == 'judet':
+            filters["identificare_page__judet__in"] = indicator_values
         else:
-            filters[f"{indicator}__in"] = indicator_values
+            filters["identificare_page__localitate__in"] = indicator_values
 
     if filters:
         biserici = models.BisericaPage.objects.live().filter(**filters)
-
-    biserici = models.BisericaPage.objects.live().filter(**filters)
+    else:
+        biserici = models.BisericaPage.objects.live()
     return biserici

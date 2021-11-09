@@ -204,24 +204,24 @@ class BisericaPage(Page):
     conservare_page = models.ForeignKey('ConservarePage', null=True, blank=True,
                               on_delete=models.SET_NULL)
 
-    judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
-                              on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
-    localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
-                                   blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    # judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True,
+                              # on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
+    # localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
+                                   # blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
     utitle = models.CharField(max_length=250, null=True, blank=True, verbose_name="UTitle")
-    adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
-    latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
-    longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
+    # adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
+    # latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
+    # longitudine = models.FloatField(null=True, blank=True, verbose_name="Longitudine")
 
-    valoare = models.FloatField(max_length=5, null=True, blank=True)
-    conservare = models.FloatField(null=True, blank=True)
-    prioritizare = models.FloatField(null=True, blank=True)
+    # valoare = models.FloatField(max_length=5, null=True, blank=True)
+    # conservare = models.FloatField(null=True, blank=True)
+    # prioritizare = models.FloatField(null=True, blank=True)
 
-    datare_an = models.IntegerField(null=True, blank=True)
-    datare_prin_interval_timp = models.CharField(
-        max_length=50, null=True, blank=True)
-    datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True,
-                                     blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
+    # datare_an = models.IntegerField(null=True, blank=True)
+    # datare_prin_interval_timp = models.CharField(
+        # max_length=50, null=True, blank=True)
+    # datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True,
+                                     # blank=True, on_delete=models.SET_NULL, related_name='pp_biserici')
     promote_panels = []
 
     content_panels = Page.content_panels + [
@@ -234,17 +234,17 @@ class BisericaPage(Page):
         ),
         MultiFieldPanel([
             ReadOnlyPanel("utitle", heading="U Title"),
-            ReadOnlyPanel("judet", heading="Judet"),
-            ReadOnlyPanel("localitate", heading="localitate"),
-            ReadOnlyPanel("adresa", heading="adresa"),
-            ReadOnlyPanel("latitudine", heading="latitudine"),
-            ReadOnlyPanel("longitudine", heading="longitudine"),
-            ReadOnlyPanel("datare_an", heading="Datare An"),
-            ReadOnlyPanel("datare_prin_interval_timp", heading="Interval Datare"),
-            ReadOnlyPanel("datare_secol", heading="Secol Datare"),
-            ReadOnlyPanel("valoare", heading="Clasa valoare"),
-            ReadOnlyPanel("conservare", heading="Nota conservare"),
-            ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
+            # ReadOnlyPanel("judet", heading="Judet"),
+            # ReadOnlyPanel("localitate", heading="localitate"),
+            # ReadOnlyPanel("adresa", heading="adresa"),
+            # ReadOnlyPanel("latitudine", heading="latitudine"),
+            # ReadOnlyPanel("longitudine", heading="longitudine"),
+            # ReadOnlyPanel("datare_an", heading="Datare An"),
+            # ReadOnlyPanel("datare_prin_interval_timp", heading="Interval Datare"),
+            # ReadOnlyPanel("datare_secol", heading="Secol Datare"),
+            # ReadOnlyPanel("valoare", heading="Clasa valoare"),
+            # ReadOnlyPanel("conservare", heading="Nota conservare"),
+            # ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
 
             ReadOnlyPanel("identificare_page", heading="identificare page"),
             ReadOnlyPanel("descriere_page", heading="descriere page"),
@@ -412,15 +412,15 @@ class IdentificarePage(Page):
         verbose_name = "Identificare"
         verbose_name_plural = "Identificare"
 
-    def save(self, *args, **kwargs):
-        biserica = self.get_parent().specific
-        biserica.judet = self.judet
-        biserica.localitate = self.localitate
-        biserica.adresa = self.adresa
-        biserica.latitudine = self.latitudine
-        biserica.longitudine = self.longitudine
-        biserica.save_revision()
-        return super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     biserica = self.get_parent().specific
+    #     biserica.judet = self.judet
+    #     biserica.localitate = self.localitate
+    #     biserica.adresa = self.adresa
+    #     biserica.latitudine = self.latitudine
+    #     biserica.longitudine = self.longitudine
+    #     biserica.save_revision()
+    #     return super().save(*args, **kwargs)
 
 
 class PozeElementAnsambluConstruit(Orderable):
@@ -2157,14 +2157,11 @@ class IstoricPage(Page):
 
     def save(self, *args, **kwargs):
 
-        biserica = self.get_parent().specific
-        biserica.datare_secol = self.datare_secol
-        biserica.datare_prin_interval_timp = self.datare_prin_interval_timp
-        biserica.datare_an = self.an_constructie
-        biserica.save_revision()
-
-
-
+        # biserica = self.get_parent().specific
+        # biserica.datare_secol = self.datare_secol
+        # biserica.datare_prin_interval_timp = self.datare_prin_interval_timp
+        # biserica.datare_an = self.an_constructie
+        # biserica.save_revision()
 
         self.are_pisanie = True if self.pisanie_traducere else False
         self.are_studiu_dendro = True if self.studiu_dendocronologic_fisier else False
@@ -2178,6 +2175,8 @@ class IstoricPage(Page):
 
 
 class ValoarePage(Page):
+    total = models.FloatField(null=True, blank=True)
+
     vechime = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True,
                                   help_text="Printr-un algorim definit se va da automat o notă de la 1-5 în funcție de vechimea monumentului si a picturii descrise conform OMCC2682/2003 ETC", verbose_name='Clasa')
     vechime_observatii = RichTextField(
@@ -2390,12 +2389,8 @@ class ValoarePage(Page):
         if active_fields:
             nota_valoare = nota_valoare / active_fields
         
-        biserica = self.get_parent().specific
-        biserica.valoare = nota_valoare
 
-        if biserica.conservare:
-            biserica.prioritizare = biserica.valoare * biserica.conservare
-        biserica.save_revision()
+        self.total = nota_valoare
 
         return super().save(*args, **kwargs)
 
@@ -2503,6 +2498,8 @@ class ValoarePage(Page):
 
 
 class ConservarePage(Page):
+    total = models.FloatField(null=True, blank=True)
+
     # Sit
     sit = models.IntegerField(choices=NR15, null=True,
                               blank=True, verbose_name='Stare')
@@ -3069,12 +3066,8 @@ class ConservarePage(Page):
             if active_fields:
                 nota_conservare = nota_conservare / active_fields
 
-        biserica = self.get_parent().specific
-        biserica.conservare = nota_conservare
 
-        if biserica.valoare:
-            biserica.prioritizare = biserica.valoare * biserica.conservare
-        biserica.save_revision()
+        self.total = nota_conservare
 
         return super().save(*args, **kwargs)
 
