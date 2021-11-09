@@ -13,7 +13,7 @@
         <div
           class="column is-6"
           v-for="(image, index) in profilePreview.poze"
-          :key="'images_' + index"
+          :key="'image-' + profilePreview.id + '_' + index"
         >
           <div class="image is-square">
             <img :src="image.poza.url" :alt="image.poza.alt" />
