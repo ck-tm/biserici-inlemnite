@@ -2175,7 +2175,7 @@ class IstoricPage(Page):
 
 
 class ValoarePage(Page):
-    total = models.FloatField(null=True)
+    total = models.FloatField(null=True, blank=True)
 
     vechime = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True,
                                   help_text="Printr-un algorim definit se va da automat o notă de la 1-5 în funcție de vechimea monumentului si a picturii descrise conform OMCC2682/2003 ETC", verbose_name='Clasa')
@@ -2498,7 +2498,7 @@ class ValoarePage(Page):
 
 
 class ConservarePage(Page):
-    total = models.FloatField(null=True)
+    total = models.FloatField(null=True, blank=True)
 
     # Sit
     sit = models.IntegerField(choices=NR15, null=True,
