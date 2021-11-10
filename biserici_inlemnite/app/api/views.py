@@ -99,7 +99,7 @@ CLASE_PRIORITIZARE = {
 }
 
 
-# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
@@ -176,7 +176,7 @@ class BisericaViewSet(ModelViewSet):
 
         return Response(data)
 
-# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class FiltersView(ViewSet):
 
