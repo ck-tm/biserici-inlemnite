@@ -484,20 +484,20 @@ class DescriereSerializer(serializers.ModelSerializer):
                     {
                     'title': 'Bolți',
                     'fields': [
-                        ("bolta_peste_pronaos", ""),
-                        ("bolta_peste_pronaos_structura", ""),
-                        ("bolta_peste_pronaos_tipul_de_arc", ""),
-                        ("bolta_peste_pronaos_observatii", ""),
-                        ("bolta_peste_naos", ""),
-                        ("bolta_peste_naos_structura", ""),
-                        ("bolta_peste_naos_tipul_de_arc", ""),
-                        ("bolta_peste_naos_observatii", ""),
-                        ("bolta_peste_altar", ""),
-                        ("bolta_peste_altar_tip", ""),
-                        ("bolta_peste_altar_material", ""),
-                        ("bolta_peste_altar_structura", ""),
-                        ("bolta_peste_altar_tipul_de_arc", ""),
-                        ("bolta_peste_altar_observatii", ""),
+                        ("bolta_peste_pronaos", "Boltă peste pronaos (Tip)"),
+                        ("bolta_peste_pronaos_structura", "Boltă peste pronaos (Structura)"),
+                        ("bolta_peste_pronaos_tipul_de_arc", "Boltă peste pronaos (Tipul de arc)"),
+                        ("bolta_peste_pronaos_observatii", "Boltă peste pronaos (Observații)"),
+                        ("bolta_peste_naos", "Boltă peste naos (Tip)"),
+                        ("bolta_peste_naos_structura", "Boltă peste naos (Structura)"),
+                        ("bolta_peste_naos_tipul_de_arc", "Boltă peste naos (Tipul de arc)"),
+                        ("bolta_peste_naos_observatii", "Boltă peste naos (Observații)"),
+                        ("bolta_peste_altar", "Boltă peste altar"),
+                        ("bolta_peste_altar_tip", "Boltă peste altar (Tip)"),
+                        ("bolta_peste_altar_material", "Boltă peste altar (Material)"),
+                        ("bolta_peste_altar_structura", "Boltă peste altar(Structură)"),
+                        ("bolta_peste_altar_tipul_de_arc", "Boltă peste altar (Tipul de arc)"),
+                        ("bolta_peste_altar_observatii", "Boltă peste altar (Observații"),
                         ]
                     },
                     {
@@ -1322,7 +1322,7 @@ class BisericaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.BisericaPage
-        fields = ["id", "title", "title", "judet", "localitate", "adresa", "latitudine",
+        fields = ["id", "title", "cod", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare_prin_interval_timp", "datare_secol",
                    "conservare", "valoare", "identificare_page", "istoric_page", "descriere_page",
                    "componenta_artistica_page","conservare_page", "valoare_page",
@@ -1393,7 +1393,7 @@ class BisericaListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.BisericaPage
-        fields = ["id", "title", "judet", "localitate", "adresa", "latitudine",
+        fields = ["id", "title", "cod", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare", "conservare",
                   "valoare", "prioritizare", "poze"]
 

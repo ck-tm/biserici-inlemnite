@@ -208,7 +208,7 @@ class BisericaPage(Page):
                               # on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     # localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
                                    # blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
-    cod = models.CharField(max_length=250, null=True, blank=True)
+    cod = models.CharField(max_length=250, null=True, blank=True, verbose_name='Cod LMI')
     utitle = models.CharField(max_length=250, null=True, blank=True, verbose_name="UTitle")
     # adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
     # latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")

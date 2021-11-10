@@ -99,7 +99,7 @@ CLASE_PRIORITIZARE = {
 }
 
 
-@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class BisericaViewSet(ModelViewSet): 
     serializer_class = serializers.BisericaListSerializer
@@ -176,7 +176,7 @@ class BisericaViewSet(ModelViewSet):
 
         return Response(data)
 
-@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class FiltersView(ViewSet):
 
@@ -212,10 +212,11 @@ class FiltersView(ViewSet):
                 "materiale", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
                 "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
+                "bolta_peste_altar_tip",
                 "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia","sistem_structural", "sistem_in_cheotoare", "sistem_in_catei",
-                "tiranti_tip", "finisaj_exterior_tip", "invelitoare_corp_material", "invelitoare_corp_sindrila_numar_straturi", "invelitoare_corp_sindrlia_tipul_de_batere",
+                "tiranti_tip", "finisaj_exterior_tip", "invelitoare_corp_material", "invelitoare_corp_sindrila_numar_straturi", "invelitoare_corp_sindrila_cu_horj", "invelitoare_corp_sindrlia_tipul_de_batere",
                 "invelitoare_corp_sindrlia_forma_botului", "invelitoare_corp_sindrila_cu_tesitura", "invelitoare_corp_sindrlia_prelucrare", "invelitoare_corp_sindrlia_esenta_lemnoasa",
-                "invelitoare_turn_material", "invelitoare_turn_sindrila_numar_straturi", "invelitoare_turn_sindrlia_tipul_de_batere",
+                "invelitoare_turn_material", "invelitoare_turn_sindrila_numar_straturi", "invelitoare_turn_sindrila_cu_horj", "invelitoare_turn_sindrlia_tipul_de_batere",
                 "invelitoare_turn_sindrlia_forma_botului", "invelitoare_turn_sindrila_cu_tesitura", "invelitoare_turn_sindrlia_prelucrare", "invelitoare_turn_sindrlia_esenta_lemnoasa"
             ],
         }
