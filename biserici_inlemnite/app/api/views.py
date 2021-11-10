@@ -231,7 +231,7 @@ class FiltersView(ViewSet):
                     "iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi"
             ],
             'Perete despărțitor (între pronaos și naos)': [
-                    "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
+                    "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_tehnica", 
             ],
             'Altar': [
                 'altar_placa_mesei', 'altar_piciorul_mesei'

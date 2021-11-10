@@ -172,6 +172,8 @@ def get_chapter_filters(model, filters_dict):
             filters[section].setdefault(field_name, [])
 
             if type(field_value) == list:
+                if model == models.DescrierePage:
+                    print(field_name, field_value)
                 for field in field_value:
                     if field is not None and field not in filters[section][field_name]:
                         filters[section][field_name].append(field)

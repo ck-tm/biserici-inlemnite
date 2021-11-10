@@ -1014,7 +1014,7 @@ class DescrierePage(Page):
     bolta_peste_pronaos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
     bolta_peste_pronaos_structura = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă pronaos", related_name='p_pronaos')
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă/tavan pronaos", related_name='p_pronaos')
 
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
@@ -1026,7 +1026,7 @@ class DescrierePage(Page):
         'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă naos", related_name='p_naos')
 
     bolta_peste_altar = models.ForeignKey('nomenclatoare.BoltaPesteAltar', null=True, blank=True,
-                                          on_delete=models.SET_NULL, verbose_name='Boltă peste altar', related_name='p_biserici_bolta_peste_altar')
+                                          on_delete=models.SET_NULL, verbose_name='Relație boltă altar-naos', related_name='p_biserici_bolta_peste_altar')
     bolta_peste_altar_tip = models.ForeignKey('nomenclatoare.TipBoltaPesteAltar', null=True,
                                               blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
     bolta_peste_altar_material = ParentalManyToManyField(
@@ -1036,7 +1036,7 @@ class DescrierePage(Page):
     bolta_peste_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
     bolta_peste_altar_structura = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă altar", related_name='p_altar')
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă/tavan altar", related_name='p_altar')
     cor = models.BooleanField(default=False)
     cor_material = ParentalManyToManyField(
         'nomenclatoare.MaterialCor', blank=True, related_name='p_biserici_cor')
