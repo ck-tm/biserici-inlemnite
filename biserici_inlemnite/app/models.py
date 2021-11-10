@@ -208,6 +208,7 @@ class BisericaPage(Page):
                               # on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     # localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
                                    # blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    cod = models.CharField(max_length=250, null=True, blank=True)
     utitle = models.CharField(max_length=250, null=True, blank=True, verbose_name="UTitle")
     # adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
     # latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
@@ -226,6 +227,7 @@ class BisericaPage(Page):
 
     content_panels = Page.content_panels + [
         # ModelChooserPanel("judet", disabled=True),
+        FieldPanel("cod"),
         MultiFieldPanel([
             InlinePanel("poze", label="Poză")
         ],
@@ -246,12 +248,12 @@ class BisericaPage(Page):
             # ReadOnlyPanel("conservare", heading="Nota conservare"),
             # ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
 
-            ReadOnlyPanel("identificare_page", heading="identificare page"),
-            ReadOnlyPanel("descriere_page", heading="descriere page"),
-            ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
-            ReadOnlyPanel("istoric_page", heading="istoric page"),
-            ReadOnlyPanel("valoare_page", heading="valoare page"),
-            ReadOnlyPanel("conservare_page", heading="conservare page"),
+            # ReadOnlyPanel("identificare_page", heading="identificare page"),
+            # ReadOnlyPanel("descriere_page", heading="descriere page"),
+            # ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
+            # ReadOnlyPanel("istoric_page", heading="istoric page"),
+            # ReadOnlyPanel("valoare_page", heading="valoare page"),
+            # ReadOnlyPanel("conservare_page", heading="conservare page"),
         ],
             heading='Hidden',
             classname='collapsible'
