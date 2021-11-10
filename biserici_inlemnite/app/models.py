@@ -1335,7 +1335,7 @@ class DescrierePage(Page):
             classname="collapsible collapsed"
         ),
         MultiFieldPanel([
-            ImageChooserPanel('planimetria_bisericii', ['planimetrii']),
+            ImageChooserPanel('planimetria_bisericii'),
         ],
             heading="Planimetria bisericii",
             classname="collapsible collapsed"

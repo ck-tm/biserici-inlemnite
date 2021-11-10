@@ -62,10 +62,14 @@ def get_nested_model_data(elements):
 
 def get_section_fields(obj, section):
     fields = []
+
     for field in section['fields']:
+
         field_obj = getattr(obj, field[0])
         elements = []
         value = None
+        field_type = None
+
         try:
             if 'poze_' in field[0]:
                 value = PozaSerializer(field_obj.all(), many=True).data
@@ -80,19 +84,32 @@ def get_section_fields(obj, section):
                         elements = get_nested_model_data(all_elements)
         except Exception as e:
             # print('****', field,  type(e), obj, e)
-
-
+            # print(field)
             if type(field_obj) in [str, float, type(None), int, bool]:
                 if obj._meta.get_field(field[0]).choices:
+
                     value = getattr(obj, f'get_{field[0]}_display')()
                 else:
                     value = field_obj
             else:
-                value = str(field_obj)
+                if field[0] == 'planimetria_bisericii':
+                    field_type = 'poza'
+                    planimetrie = field_obj.get_rendition('width-200')
+                    rendition = {
+                        "url": planimetrie.url,
+                        "width": planimetrie.width,
+                        "height": planimetrie.height,
+                        "alt": planimetrie.alt
+                    }
+                    value = rendition
+                else:
+                    value = str(field_obj)
         if value :
+            if not field_type:
+                field_type = 'poze' if 'poze_' in field[0] else 'normal'
             field_serializer = {
                 'key': field[0] if 'poze_' not in field[0] else 'Poze',
-                'type': 'poze' if 'poze_' in field[0] else 'normal',
+                'type': field_type,
                 'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name.capitalize(),
                 'value': value,
                 'elements': elements

@@ -209,7 +209,7 @@ class FiltersView(ViewSet):
                 "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului", "ansamblu_construit"
             ],
             'Arhitectura bisericii': [
-                "materiale", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
+                "materiale", "planimetria_bisericii", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
                 "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
                 "bolta_peste_altar_tip",

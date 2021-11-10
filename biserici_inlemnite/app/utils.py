@@ -172,14 +172,13 @@ def get_chapter_filters(model, filters_dict):
             filters[section].setdefault(field_name, [])
 
             if type(field_value) == list:
-                if model == models.DescrierePage:
-                    print(field_name, field_value)
                 for field in field_value:
                     if field is not None and field not in filters[section][field_name]:
                         filters[section][field_name].append(field)
             else:
                 if field_value is not None and field_value not in filters[section][field_name]:
                     filters[section][field_name].append(field_value)
+
 
     for section, section_filters in filters.items():
         filters_list = []
@@ -188,27 +187,54 @@ def get_chapter_filters(model, filters_dict):
                 field_verbose = MAP_FIELD_VERBOSE_NAME.get(section, {}).get(field, None)
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
-                    filters_list.append({
-                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
-                        "key": field,
-                        "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
-                    })
+                    if field == 'planimetria_bisericii':
+                        planimetrii = []
+                        for image in field_model.objects.filter(id__in=section_filters[field]):
+                            try:
+                                planimetrie = image.get_rendition('width-200')
+                                rendition = {
+                                    "url": planimetrie.url,
+                                    "width": planimetrie.width,
+                                    "height": planimetrie.height,
+                                    "alt": planimetrie.alt
+                                }
+                                planimetrii.append(rendition)
+                            except:
+                                pass
+                        filters_list.append({
+                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'poza',
+                            "key": field,
+                            "values": planimetrii
+                        })
+                    else:
+                        # Nomenclatoare
+                        filters_list.append({
+                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
+                            "key": field,
+                            "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
+                        })
                 else:
                     if model._meta.get_field(field).choices:
+                        # Has choices
                         choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
                         filters_list.append({
                             "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
                             "key": field,
                             "values": [{'id': x, 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
                         values = []
                         if type(section_filters[field][0]) == list:
+                            # ManytoMany
                             for x in section_filters[field][0]:
                                 value = {'id': x, 'nume': x}
                                 if value not in values:
                                     values.append(value)
                         else:
+                            # Regular field
                             for x in section_filters[field]:
                                 value = {'id': x, 'nume': x}
                                 if value not in values:
@@ -216,6 +242,7 @@ def get_chapter_filters(model, filters_dict):
                             # values = [{'id': x, 'nume': x} for x in section_filters[field]]
                         filters_list.append({
                             "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
                             "key": field,
                             "values": values
                         })
