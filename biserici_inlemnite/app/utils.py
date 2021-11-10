@@ -161,15 +161,20 @@ def get_chapter_filters(model, filters_dict):
     # print('------')
     # filters_values = model.objects.prefetch_related(*prefetch_list).live().values(*filters_name)
     filters_values = model.objects.live().values(*filters_name)
+
     for item in filters_values:
         for field_name, field_value in item.items():
             section = filters_mapping[field_name]
             filters.setdefault(section, {})
             filters[section].setdefault(field_name, [])
 
-            if field_value is not None and field_value not in filters[section][field_name]:
-                filters[section][field_name].append(field_value)
-
+            if type(field_value) == list:
+                for field in field_value:
+                    if field is not None and field not in filters[section][field_name]:
+                        filters[section][field_name].append(field)
+            else:
+                if field_value is not None and field_value not in filters[section][field_name]:
+                    filters[section][field_name].append(field_value)
 
     for section, section_filters in filters.items():
         filters_list = []

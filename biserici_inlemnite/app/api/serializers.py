@@ -88,8 +88,6 @@ def get_section_fields(obj, section):
                 else:
                     value = field_obj
             else:
-                if field[0] == 'inscriere_documente_cadastrale':
-                    print('not in str')
                 value = str(field_obj)
         if value :
             field_serializer = {

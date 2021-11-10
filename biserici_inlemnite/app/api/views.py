@@ -198,7 +198,9 @@ class FiltersView(ViewSet):
             }
         istoric_filters = utils.get_chapter_filters(
             models.IstoricPage, istoric_filters_name)
-
+        # print('----')
+        # pprint(istoric_filters)
+        # print('----')
         descriere_filters_name = {
             'Tip scanare': [
                 'are_scanare_laser', 'are_model_fotogrametric'
@@ -207,7 +209,7 @@ class FiltersView(ViewSet):
                 "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului", "ansamblu_construit"
             ],
             'Arhitectura bisericii': [
-                "materiale", "numar_accese_pridvor", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
+                "materiale", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
                 "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
                 "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia","sistem_structural", "sistem_in_cheotoare", "sistem_in_catei",

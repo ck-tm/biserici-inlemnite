@@ -2173,7 +2173,6 @@ class IstoricPage(Page):
         return super().save(*args, **kwargs)
 
 
-
 class ValoarePage(Page):
     total = models.FloatField(null=True, blank=True)
 
