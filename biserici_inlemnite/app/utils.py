@@ -193,6 +193,7 @@ def get_chapter_filters(model, filters_dict):
                             try:
                                 planimetrie = image.get_rendition('width-200')
                                 rendition = {
+                                    "id": image.id,
                                     "url": planimetrie.url,
                                     "width": planimetrie.width,
                                     "height": planimetrie.height,
