@@ -40,8 +40,8 @@
           :index="index"
           :value="null"
           :has-label="false"
-          size="is-small"
           :use-interval="false"
+          size="is-small"
         />
 
         <span v-else>Toate</span>

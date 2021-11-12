@@ -1,16 +1,13 @@
 <template>
   <div>
-    <h1 class="title is-1">Activate account</h1>
+    <h1 class="title is-1">Activare cont</h1>
+    <br />
 
     <div class="subtitle" v-if="status != null">
-      <template v-if="status">
-        Account was activated successfully and is awaiting moderation from an
-        administrator. <br />
-        You will receive an e-mail shortly.
-      </template>
+      <template v-if="status"> Contul a fost activat cu succes. </template>
       <template v-else>
-        There was a problem activating your account. Please try again or contact
-        your administrator.
+        A apărut o problemă la activarea contului. Vă rugăm să încercați din nou
+        sau să contactați administratorul.
       </template>
     </div>
   </div>

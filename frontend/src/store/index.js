@@ -10,16 +10,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: TokenService.getToken(),
     about: null,
+    filters: null,
+    filterData: { basic: {}, advanced: {} },
+    loading: null,
+    mapData: null,
     profile: {
       id: null,
       data: null,
     },
-    filters: null,
-    filterData: { basic: {}, advanced: {} },
-    mapData: null,
-    loading: null,
+    token: TokenService.getToken(),
+    user: null,
   },
   mutations: {
     login(state, token) {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     setFiltersAdvanced(state, data) {
       state.filterData.advanced = data
     },
+    setUser(state, data) {
+      state.user = data
+    },
   },
   actions: {
     login({ commit }, { username, password }) {
@@ -53,7 +57,7 @@ export default new Vuex.Store({
         .then((response) => {
           commit('login', response)
 
-          router.replace(router.history.current.query.redirect || '/')
+          router.push('/').catch(() => {})
         })
         .catch(() => {})
     },
@@ -62,8 +66,12 @@ export default new Vuex.Store({
       UserService.logout()
       commit('logout')
 
-      router.push('/')
+      router
+        .push('/account/login')
+        .then(() => {})
+        .catch(() => {})
     },
+
     getData({ commit }, name) {
       commit('setLoading', true)
 
@@ -95,6 +103,19 @@ export default new Vuex.Store({
           commit('setLoading', false)
         })
     },
+
+    registerUser({ commit }, query) {
+      commit('setLoading', true)
+
+      return UserService.register(query)
+        .then((response) => {
+          commit('setUser', response)
+          commit('setLoading', false)
+        })
+        .catch(() => {
+          commit('setLoading', false)
+        })
+    },
   },
   modules: {},
   getters: {
@@ -102,13 +123,5 @@ export default new Vuex.Store({
       state.mapData && state.profile.id
         ? state.mapData.find((e) => e.id == state.profile.id)
         : null,
-    filterValue: (state) => (filter, value) => {
-      if (state.filters && value) {
-        const result = state.filters.basic[filter].find((e) => e.id == value)
-        return result && result.value
-      }
-
-      return null
-    },
   },
 })

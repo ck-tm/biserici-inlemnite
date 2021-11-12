@@ -44,12 +44,8 @@
         cell-class="is-size-6"
         sortable
       >
-        <span v-if="props.row.judet">
-          {{ filterValue('judet', props.row.judet) }},
-        </span>
-        <span v-if="props.row.localitate">
-          {{ filterValue('localitate', props.row.localitate) }},
-        </span>
+        <span v-if="props.row.judet"> {{ props.row.judet }}, </span>
+        <span v-if="props.row.localitate"> {{ props.row.localitate }}, </span>
         <span v-if="props.row.adresa">
           {{ props.row.adresa }}
         </span>
@@ -114,7 +110,7 @@
 
 <script>
 import FilterDisplayItem from '@/components/FilterDisplayItem'
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'MapList',
@@ -127,7 +123,6 @@ export default {
       mapData: (state) => state.mapData,
       profileId: (state) => state.profile.id,
     }),
-    ...mapGetters(['filterValue']),
   },
   mounted() {},
   methods: {

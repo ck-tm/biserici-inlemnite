@@ -20,6 +20,7 @@ import './services/filters'
 import './assets/style/base.scss'
 
 ApiService.init(process.env.VUE_APP_ROOT_API)
+ApiService.setHeader()
 
 Vue.use(VueMeta)
 Vue.use(VueScrollTo)

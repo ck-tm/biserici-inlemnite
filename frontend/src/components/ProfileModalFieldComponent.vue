@@ -2,7 +2,7 @@
   <div>
     <label v-if="field.label" class="label" v-text="field.label" />
 
-    <template v-if="getType == 'poze'">
+    <template v-if="this.field.type == 'poze'">
       <b-button
         size="is-small"
         icon-left="images"
@@ -12,6 +12,12 @@
         Vezi {{ field.value.length }}
         {{ field.value.length == 1 ? 'poză' : 'poze' }}
       </b-button>
+    </template>
+
+    <template v-else-if="this.field.type == 'poza'">
+      <div class="image">
+        <img :src="field.value.url" :alt="field.value.alt" />
+      </div>
     </template>
 
     <template v-else>
@@ -33,7 +39,6 @@ export default {
   props: { field: Object },
   data() {
     return {
-      getType: this.field.type || 'normal',
       booleanOptions: BooleanOptions,
     }
   },
@@ -85,6 +90,13 @@ export default {
     &:not(:last-child) {
       margin-bottom: 4px;
     }
+  }
+}
+
+.image {
+  img {
+    height: 80px;
+    width: auto;
   }
 }
 

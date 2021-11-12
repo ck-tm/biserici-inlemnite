@@ -1,4 +1,5 @@
 import axios from 'axios'
+import TokenService from './storage'
 import { ToastService } from './buefy'
 
 const ApiService = {
@@ -8,7 +9,7 @@ const ApiService = {
     // axios.defaults.xsrfCookieName = 'XSRF-TOKEN'
     // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
     axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
     axios.interceptors.response.use(
       (response) => response.data,
@@ -45,6 +46,15 @@ const ApiService = {
         return Promise.reject(err)
       }
     )
+  },
+
+  setHeader() {
+    const token = TokenService.getToken()
+    if (token) axios.defaults.headers.common['Authorization'] = `Token ${token}`
+  },
+
+  removeHeader() {
+    axios.defaults.headers.common = {}
   },
 
   get(resource) {

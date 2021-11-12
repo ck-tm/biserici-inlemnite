@@ -4,15 +4,15 @@ import TokenService from './storage'
 // import { QueryString } from '@/utils/helpers'
 
 const UserService = {
-  login: function (username, password) {
-    return ApiService.post('/api-token-auth/', {
+  login(username, password) {
+    return ApiService.post('/auth/token', {
       username,
       password,
     }).then((response) => {
       TokenService.saveToken(response.token)
       ApiService.setHeader()
 
-      return response.access_token
+      return response.token
     })
   },
 

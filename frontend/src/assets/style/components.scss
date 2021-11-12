@@ -82,3 +82,23 @@ nav.navbar {
     }
   }
 }
+
+.cod-monument {
+  background-color: $grey-dark;
+  border-radius: $size-5;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px 2px 2px;
+  font-size: $size-7;
+  color: $grey-lighter;
+  font-weight: $weight-bold;
+  margin-bottom: 8px;
+
+  .tag {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: $black !important;
+  }
+}

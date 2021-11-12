@@ -3,14 +3,14 @@
     <l-map
       ref="map"
       v-if="bounds"
-      v-bind="{ options, bounds, maxBounds: bounds }"
+      v-bind="{ options, bounds, maxBounds: bounds.pad(0.7) }"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
       <l-control-zoom position="bottomright" />
 
       <template v-for="marker in mapData">
         <l-marker
-          v-if="marker.latitudine && marker.longitudine"
+          v-if="validateLatLong(marker.latitudine, marker.longitudine)"
           :key="'marker-' + marker.id"
           :icon="getIcon(marker)"
           :lat-lng="getLatLng([marker.latitudine, marker.longitudine])"
@@ -66,7 +66,7 @@ export default {
         const bounds = new latLngBounds(
           this.mapData
             .map((e) => [e.latitudine, e.longitudine])
-            .filter((e) => e[0] < 90 && e[0] > -90 && e[1] < 180 && e[1] > -180)
+            .filter((e) => this.validateLatLong(e[0], e[1]))
         )
         return bounds.pad(0.25)
       }
@@ -78,6 +78,10 @@ export default {
   methods: {
     getLatLng(latlng) {
       return new latLng(latlng)
+    },
+
+    validateLatLong(lat, long) {
+      return lat < 90 && lat > -90 && long < 180 && long > -180
     },
 
     getMarkerIcon(color) {

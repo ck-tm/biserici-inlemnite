@@ -35,7 +35,7 @@ const BasicFilters = {
     ],
   },
   prioritizare: {
-    label: 'Prioritate de intervenție',
+    label: 'Prioritizare',
     default: {
       background: '#484646',
       value: 'Toate',

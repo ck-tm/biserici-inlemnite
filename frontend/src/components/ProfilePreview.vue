@@ -21,19 +21,25 @@
         </div>
       </div>
 
+      <div class="cod-monument" v-if="profilePreview.cod">
+        <div class="tag is-primary" v-text="'M'" />
+        <div v-text="profilePreview.cod" />
+      </div>
+
       <h3 v-text="profilePreview.title" />
       <p>
         <span
           v-if="profilePreview.adresa"
           v-text="profilePreview.adresa + ', '"
         />
+        <br/>
         <span
           v-if="profilePreview.localitate"
-          v-text="filterValue('localitate', profilePreview.localitate) + ', '"
+          v-text="profilePreview.localitate + ', '"
         />
         <span
           v-if="profilePreview.judet"
-          v-text="'jud. ' + filterValue('judet', profilePreview.judet)"
+          v-text="'jud. ' + profilePreview.judet"
         />
       </p>
 
@@ -96,7 +102,7 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['profilePreview', 'filterValue']),
+    ...mapGetters(['profilePreview']),
   },
   mounted() {},
   methods: {

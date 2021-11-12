@@ -10,7 +10,7 @@
           @input="filterLocalities"
         />
       </div>
-      <div class="column">
+      <div class="column is-hidden">
         <FiltersDropdown
           v-model="filterModel.localitate"
           :options="localities"
@@ -42,7 +42,7 @@
           v-model="filterModel.prioritizare"
           :options="filters.prioritizare"
           index="prioritizare"
-          label="Prioritizare"
+          label="Prioritate de intervenție"
           @input="update"
         />
       </div>

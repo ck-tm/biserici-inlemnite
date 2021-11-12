@@ -21,11 +21,20 @@
               Despre proiect
             </router-link>
 
-            <router-link
-              to="/cont/autentificare"
+            <a
+              @click="logout"
               class="navbar-item has-text-primary"
+              v-if="token != null"
             >
-              Intra in cont / Inregistrare
+              Logout
+            </a>
+
+            <router-link
+              to="/account/login"
+              class="navbar-item has-text-primary"
+              v-else
+            >
+              Intră în cont / Înregistrare
             </router-link>
           </div>
         </div>
@@ -49,6 +58,11 @@ export default {
   components: {
     NavSearch,
   },
-  computed: mapState(['loading']),
+  computed: mapState(['loading', 'token']),
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    },
+  },
 }
 </script>

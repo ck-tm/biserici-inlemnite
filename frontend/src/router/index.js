@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import TokenService from '@/services/storage'
 
 import Base from '@/views/Base'
 import Home from '@/views/Home'
@@ -18,12 +19,15 @@ const routes = [
         component: About,
       },
       {
-        path: 'cont',
+        path: 'account',
         component: () =>
           import(/* webpackChunkName: "account" */ '@/views/AccountBase.vue'),
+        meta: {
+          anonymousOnly: true,
+        },
         children: [
           {
-            path: 'autentificare',
+            path: 'login',
             name: 'AccountLogin',
             component: () =>
               import(
@@ -31,11 +35,19 @@ const routes = [
               ),
           },
           {
-            path: 'inregistrare',
+            path: 'register',
             name: 'AccountRegister',
             component: () =>
               import(
                 /* webpackChunkName: "account" */ '@/views/AccountRegister.vue'
+              ),
+          },
+          {
+            path: 'activate/:uid/:token',
+            name: 'AccountActivate',
+            component: () =>
+              import(
+                /* webpackChunkName: "account" */ '@/views/AccountActivate.vue'
               ),
           },
         ],
@@ -54,6 +66,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const anonymousOnly = to.matched.some((record) => record.meta.anonymousOnly)
+  const isLoggedIn = !!TokenService.getToken()
+
+  if (anonymousOnly && isLoggedIn) {
+    return next('/')
+  }
+
+  next()
 })
 
 export default router

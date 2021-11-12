@@ -11,7 +11,7 @@
 
       <p>
         Nu ai cont?
-        <router-link to="/cont/inregistrare">Crează cont nou</router-link>
+        <router-link to="/account/register">Crează cont nou</router-link>
       </p>
     </div>
 
