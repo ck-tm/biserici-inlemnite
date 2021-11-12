@@ -11,7 +11,7 @@
 
         <div class="navbar-menu">
           <div class="navbar-start">
-            <div class="navbar-item">
+            <div class="navbar-item" v-if="this.$mq != 'mobile'">
               <NavSearch />
             </div>
           </div>

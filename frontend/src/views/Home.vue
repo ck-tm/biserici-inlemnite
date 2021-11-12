@@ -1,19 +1,19 @@
 <template>
   <div class="container is-fullhd is-full-height">
     <FiltersAdvanced
-      v-if="filters"
+      v-if="filters && $mq != 'mobile'"
       :filters="filters.advanced"
       @update="updateMap"
     />
 
     <div class="container-interface">
       <FiltersBasic
-        v-if="filters"
+        v-if="filters && $mq != 'mobile'"
         :filters="filters.basic"
         @update="updateMap"
       />
 
-      <div class="buttons buttons-toggle">
+      <div class="buttons buttons-toggle" v-if="this.$mq != 'mobile'">
         <b-button
           :type="active.mapList ? 'is-dark' : 'is-primary'"
           icon-left="pin"
@@ -74,7 +74,7 @@ export default {
       active: {
         profilePreview: false,
         profileModal: false,
-        mapList: false,
+        mapList: this.$mq != 'mobile',
       },
       viewType: 0,
     }

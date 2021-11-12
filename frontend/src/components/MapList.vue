@@ -1,5 +1,5 @@
 <template>
-  <div id="mapList">
+  <div id="mapList" v-if="mapData">
     <h2>
       <b>{{ mapData.length }}</b>
       {{ mapData.length > 19 ? 'de' : '' }}
