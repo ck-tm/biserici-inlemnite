@@ -198,7 +198,9 @@ class FiltersView(ViewSet):
             }
         istoric_filters = utils.get_chapter_filters(
             models.IstoricPage, istoric_filters_name)
-
+        # print('----')
+        # pprint(istoric_filters)
+        # print('----')
         descriere_filters_name = {
             'Tip scanare': [
                 'are_scanare_laser', 'are_model_fotogrametric'
@@ -207,13 +209,14 @@ class FiltersView(ViewSet):
                 "amplasament", "topografie", "relatia_cu_cimitirul", "peisagistica_sitului", "ansamblu_construit"
             ],
             'Arhitectura bisericii': [
-                "materiale", "numar_accese_pridvor", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
+                "materiale", "planimetria_bisericii", "numar_accese_naos", "numar_accese_pronaos", "numar_accese_altar",
                 "numar_ochiesi", "solee", "bolta_peste_pronaos",
                 "bolta_peste_naos", "bolta_peste_altar", "bolta_peste_pronaos_structura", "bolta_peste_naos_structura", "bolta_peste_altar_structura",
+                "bolta_peste_altar_tip",
                 "cor", "sarpanta_tip", "turn_tip", "numar_clopote", "fundatia","sistem_structural", "sistem_in_cheotoare", "sistem_in_catei",
-                "tiranti_tip", "finisaj_exterior_tip", "invelitoare_corp_material", "invelitoare_corp_sindrila_numar_straturi", "invelitoare_corp_sindrlia_tipul_de_batere",
+                "tiranti_tip", "finisaj_exterior_tip", "invelitoare_corp_material", "invelitoare_corp_sindrila_numar_straturi", "invelitoare_corp_sindrila_cu_horj", "invelitoare_corp_sindrlia_tipul_de_batere",
                 "invelitoare_corp_sindrlia_forma_botului", "invelitoare_corp_sindrila_cu_tesitura", "invelitoare_corp_sindrlia_prelucrare", "invelitoare_corp_sindrlia_esenta_lemnoasa",
-                "invelitoare_turn_material", "invelitoare_turn_sindrila_numar_straturi", "invelitoare_turn_sindrlia_tipul_de_batere",
+                "invelitoare_turn_material", "invelitoare_turn_sindrila_numar_straturi", "invelitoare_turn_sindrila_cu_horj", "invelitoare_turn_sindrlia_tipul_de_batere",
                 "invelitoare_turn_sindrlia_forma_botului", "invelitoare_turn_sindrila_cu_tesitura", "invelitoare_turn_sindrlia_prelucrare", "invelitoare_turn_sindrlia_esenta_lemnoasa"
             ],
         }
@@ -228,7 +231,7 @@ class FiltersView(ViewSet):
                     "iconostas_naos_altar_tip", "iconostas_naos_altar_materiale", "iconostas_naos_altar_tehnica", "iconostas_naos_altar_registre", "iconostas_naos_altar_tip_usi"
             ],
             'Perete despărțitor (între pronaos și naos)': [
-                    "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_numar_intrari", 
+                    "iconostas_pronaos_naos_tip", "iconostas_pronaos_naos_tehnica", "iconostas_pronaos_naos_tehnica", 
             ],
             'Altar': [
                 'altar_placa_mesei', 'altar_piciorul_mesei'

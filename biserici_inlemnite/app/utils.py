@@ -38,20 +38,23 @@ MAP_FIELD_VERBOSE_NAME = {
         "turn_tip": "Turn",
         "sistem_in_cheotoare": "Sistem structural al corpului bisericii în cheotoare",
         "sistem_in_catei": "Sistem structural al corpului bisericii în căței",
+        "bolta_peste_altar_tip": "Tip boltă altar",
         # "invelitoare_corp_sindrila_numar_straturi": "Număr straturi șindrilă peste corp biserică",
         # "invelitoare_corp_sindrlia_tipul_de_batere": "Tip batere șindrilă peste corp biserică",
         # "invelitoare_corp_sindrlia_forma_botului": "Forma botului șindrilă peste corp biserică",
 
         "invelitoare_corp_material": "Învelitoare corp",
         "invelitoare_corp_sindrila_numar_straturi": "Șindrilă peste corp (număr straturi)",
+        "invelitoare_corp_sindrila_cu_horj": "Șindrilă peste corp (cu horj)",
         "invelitoare_corp_sindrlia_tipul_de_batere": "Șindrilă peste corp (tipul de batere)",
         "invelitoare_corp_sindrlia_forma_botului": "Șindrilă peste corp (forma botului)",
         "invelitoare_corp_sindrila_cu_tesitura": "Șindrilă peste corp (cu teșitură)",
         "invelitoare_corp_sindrlia_prelucrare": "Șindrilă peste corp (prelucrare)",
         "invelitoare_corp_sindrlia_esenta_lemnoasa": "Șindrilă peste corp (esență lemnoasă)",
-
         "invelitoare_turn_material": "Învelitoare turn",
         "invelitoare_turn_sindrila_numar_straturi": "Șindrilă peste turn (număr straturi)",
+        "invelitoare_turn_sindrila_cu_horj": "Șindrilă peste turn (cu horj)",
+        
         "invelitoare_turn_sindrlia_tipul_de_batere": "Șindrilă peste turn (tipul de batere)",
         "invelitoare_turn_sindrlia_forma_botului": "Șindrilă peste turn (forma botului)",
         "invelitoare_turn_sindrila_cu_tesitura": "Șindrilă peste turn (cu teșitură)",
@@ -161,14 +164,20 @@ def get_chapter_filters(model, filters_dict):
     # print('------')
     # filters_values = model.objects.prefetch_related(*prefetch_list).live().values(*filters_name)
     filters_values = model.objects.live().values(*filters_name)
+
     for item in filters_values:
         for field_name, field_value in item.items():
             section = filters_mapping[field_name]
             filters.setdefault(section, {})
             filters[section].setdefault(field_name, [])
 
-            if field_value is not None and field_value not in filters[section][field_name]:
-                filters[section][field_name].append(field_value)
+            if type(field_value) == list:
+                for field in field_value:
+                    if field is not None and field not in filters[section][field_name]:
+                        filters[section][field_name].append(field)
+            else:
+                if field_value is not None and field_value not in filters[section][field_name]:
+                    filters[section][field_name].append(field_value)
 
 
     for section, section_filters in filters.items():
@@ -178,27 +187,55 @@ def get_chapter_filters(model, filters_dict):
                 field_verbose = MAP_FIELD_VERBOSE_NAME.get(section, {}).get(field, None)
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
-                    filters_list.append({
-                        "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
-                        "key": field,
-                        "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
-                    })
+                    if field == 'planimetria_bisericii':
+                        planimetrii = []
+                        for image in field_model.objects.filter(id__in=section_filters[field]):
+                            try:
+                                planimetrie = image.get_rendition('width-200')
+                                rendition = {
+                                    "id": image.id,
+                                    "url": planimetrie.url,
+                                    "width": planimetrie.width,
+                                    "height": planimetrie.height,
+                                    "alt": planimetrie.alt
+                                }
+                                planimetrii.append(rendition)
+                            except:
+                                pass
+                        filters_list.append({
+                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'poza',
+                            "key": field,
+                            "values": planimetrii
+                        })
+                    else:
+                        # Nomenclatoare
+                        filters_list.append({
+                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
+                            "key": field,
+                            "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
+                        })
                 else:
                     if model._meta.get_field(field).choices:
+                        # Has choices
                         choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
                         filters_list.append({
                             "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
                             "key": field,
                             "values": [{'id': x, 'nume': choices[x]} for x in section_filters[field]]
                         })
                     else:
                         values = []
                         if type(section_filters[field][0]) == list:
+                            # ManytoMany
                             for x in section_filters[field][0]:
                                 value = {'id': x, 'nume': x}
                                 if value not in values:
                                     values.append(value)
                         else:
+                            # Regular field
                             for x in section_filters[field]:
                                 value = {'id': x, 'nume': x}
                                 if value not in values:
@@ -206,6 +243,7 @@ def get_chapter_filters(model, filters_dict):
                             # values = [{'id': x, 'nume': x} for x in section_filters[field]]
                         filters_list.append({
                             "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
+                            "type": 'checkbox',
                             "key": field,
                             "values": values
                         })

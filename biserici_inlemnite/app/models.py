@@ -208,6 +208,7 @@ class BisericaPage(Page):
                               # on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Județ")
     # localitate = models.ForeignKey('nomenclatoare.Localitate', null=True,
                                    # blank=True, on_delete=models.SET_NULL, related_name='pp_biserici', verbose_name="Localitate")
+    cod = models.CharField(max_length=250, null=True, blank=True, verbose_name='Cod LMI')
     utitle = models.CharField(max_length=250, null=True, blank=True, verbose_name="UTitle")
     # adresa = models.CharField(max_length=250, null=True, blank=True, verbose_name="Adresă")
     # latitudine = models.FloatField(null=True, blank=True, verbose_name="Latitudine")
@@ -226,6 +227,7 @@ class BisericaPage(Page):
 
     content_panels = Page.content_panels + [
         # ModelChooserPanel("judet", disabled=True),
+        FieldPanel("cod"),
         MultiFieldPanel([
             InlinePanel("poze", label="Poză")
         ],
@@ -246,12 +248,12 @@ class BisericaPage(Page):
             # ReadOnlyPanel("conservare", heading="Nota conservare"),
             # ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
 
-            ReadOnlyPanel("identificare_page", heading="identificare page"),
-            ReadOnlyPanel("descriere_page", heading="descriere page"),
-            ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
-            ReadOnlyPanel("istoric_page", heading="istoric page"),
-            ReadOnlyPanel("valoare_page", heading="valoare page"),
-            ReadOnlyPanel("conservare_page", heading="conservare page"),
+            # ReadOnlyPanel("identificare_page", heading="identificare page"),
+            # ReadOnlyPanel("descriere_page", heading="descriere page"),
+            # ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
+            # ReadOnlyPanel("istoric_page", heading="istoric page"),
+            # ReadOnlyPanel("valoare_page", heading="valoare page"),
+            # ReadOnlyPanel("conservare_page", heading="conservare page"),
         ],
             heading='Hidden',
             classname='collapsible'
@@ -1012,7 +1014,7 @@ class DescrierePage(Page):
     bolta_peste_pronaos_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
     bolta_peste_pronaos_structura = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă pronaos", related_name='p_pronaos')
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă/tavan pronaos", related_name='p_pronaos')
 
     bolta_peste_naos = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True,
                                          on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='p_biserici_bolta_peste_naos')
@@ -1024,7 +1026,7 @@ class DescrierePage(Page):
         'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă naos", related_name='p_naos')
 
     bolta_peste_altar = models.ForeignKey('nomenclatoare.BoltaPesteAltar', null=True, blank=True,
-                                          on_delete=models.SET_NULL, verbose_name='Boltă peste altar', related_name='p_biserici_bolta_peste_altar')
+                                          on_delete=models.SET_NULL, verbose_name='Relație boltă altar-naos', related_name='p_biserici_bolta_peste_altar')
     bolta_peste_altar_tip = models.ForeignKey('nomenclatoare.TipBoltaPesteAltar', null=True,
                                               blank=True, on_delete=models.SET_NULL, verbose_name='Tip', related_name='p_biserici')
     bolta_peste_altar_material = ParentalManyToManyField(
@@ -1034,7 +1036,7 @@ class DescrierePage(Page):
     bolta_peste_altar_observatii = RichTextField(
         features=[], null=True, blank=True, verbose_name='Observații')
     bolta_peste_altar_structura = ParentalManyToManyField(
-        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă altar", related_name='p_altar')
+        'nomenclatoare.MaterialeStructuraBolta', blank=True, verbose_name="Structură boltă/tavan altar", related_name='p_altar')
     cor = models.BooleanField(default=False)
     cor_material = ParentalManyToManyField(
         'nomenclatoare.MaterialCor', blank=True, related_name='p_biserici_cor')
@@ -1333,7 +1335,7 @@ class DescrierePage(Page):
             classname="collapsible collapsed"
         ),
         MultiFieldPanel([
-            ImageChooserPanel('planimetria_bisericii', ['planimetrii']),
+            ImageChooserPanel('planimetria_bisericii'),
         ],
             heading="Planimetria bisericii",
             classname="collapsible collapsed"
@@ -2171,7 +2173,6 @@ class IstoricPage(Page):
         self.lista_zugravi = [x.nume for x in self.zugravi.all()]
         self.lista_personalitati = [x.nume for x in self.personalitati.all()]
         return super().save(*args, **kwargs)
-
 
 
 class ValoarePage(Page):

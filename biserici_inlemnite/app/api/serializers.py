@@ -62,10 +62,14 @@ def get_nested_model_data(elements):
 
 def get_section_fields(obj, section):
     fields = []
+
     for field in section['fields']:
+
         field_obj = getattr(obj, field[0])
         elements = []
         value = None
+        field_type = None
+
         try:
             if 'poze_' in field[0]:
                 value = PozaSerializer(field_obj.all(), many=True).data
@@ -80,21 +84,32 @@ def get_section_fields(obj, section):
                         elements = get_nested_model_data(all_elements)
         except Exception as e:
             # print('****', field,  type(e), obj, e)
-
-
+            # print(field)
             if type(field_obj) in [str, float, type(None), int, bool]:
                 if obj._meta.get_field(field[0]).choices:
+
                     value = getattr(obj, f'get_{field[0]}_display')()
                 else:
                     value = field_obj
             else:
-                if field[0] == 'inscriere_documente_cadastrale':
-                    print('not in str')
-                value = str(field_obj)
+                if field[0] == 'planimetria_bisericii':
+                    field_type = 'poza'
+                    planimetrie = field_obj.get_rendition('width-200')
+                    rendition = {
+                        "url": planimetrie.url,
+                        "width": planimetrie.width,
+                        "height": planimetrie.height,
+                        "alt": planimetrie.alt
+                    }
+                    value = rendition
+                else:
+                    value = str(field_obj)
         if value :
+            if not field_type:
+                field_type = 'poze' if 'poze_' in field[0] else 'normal'
             field_serializer = {
                 'key': field[0] if 'poze_' not in field[0] else 'Poze',
-                'type': 'poze' if 'poze_' in field[0] else 'normal',
+                'type': field_type,
                 'label': field[1] if field[1] else obj._meta.get_field(field[0]).verbose_name.capitalize(),
                 'value': value,
                 'elements': elements
@@ -486,20 +501,20 @@ class DescriereSerializer(serializers.ModelSerializer):
                     {
                     'title': 'Bolți',
                     'fields': [
-                        ("bolta_peste_pronaos", ""),
-                        ("bolta_peste_pronaos_structura", ""),
-                        ("bolta_peste_pronaos_tipul_de_arc", ""),
-                        ("bolta_peste_pronaos_observatii", ""),
-                        ("bolta_peste_naos", ""),
-                        ("bolta_peste_naos_structura", ""),
-                        ("bolta_peste_naos_tipul_de_arc", ""),
-                        ("bolta_peste_naos_observatii", ""),
-                        ("bolta_peste_altar", ""),
-                        ("bolta_peste_altar_tip", ""),
-                        ("bolta_peste_altar_material", ""),
-                        ("bolta_peste_altar_structura", ""),
-                        ("bolta_peste_altar_tipul_de_arc", ""),
-                        ("bolta_peste_altar_observatii", ""),
+                        ("bolta_peste_pronaos", "Boltă peste pronaos (Tip)"),
+                        ("bolta_peste_pronaos_structura", "Boltă peste pronaos (Structura)"),
+                        ("bolta_peste_pronaos_tipul_de_arc", "Boltă peste pronaos (Tipul de arc)"),
+                        ("bolta_peste_pronaos_observatii", "Boltă peste pronaos (Observații)"),
+                        ("bolta_peste_naos", "Boltă peste naos (Tip)"),
+                        ("bolta_peste_naos_structura", "Boltă peste naos (Structura)"),
+                        ("bolta_peste_naos_tipul_de_arc", "Boltă peste naos (Tipul de arc)"),
+                        ("bolta_peste_naos_observatii", "Boltă peste naos (Observații)"),
+                        ("bolta_peste_altar", "Boltă peste altar"),
+                        ("bolta_peste_altar_tip", "Boltă peste altar (Tip)"),
+                        ("bolta_peste_altar_material", "Boltă peste altar (Material)"),
+                        ("bolta_peste_altar_structura", "Boltă peste altar(Structură)"),
+                        ("bolta_peste_altar_tipul_de_arc", "Boltă peste altar (Tipul de arc)"),
+                        ("bolta_peste_altar_observatii", "Boltă peste altar (Observații"),
                         ]
                     },
                     {
@@ -1324,7 +1339,7 @@ class BisericaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.BisericaPage
-        fields = ["id", "title", "title", "judet", "localitate", "adresa", "latitudine",
+        fields = ["id", "title", "cod", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare_prin_interval_timp", "datare_secol",
                    "conservare", "valoare", "identificare_page", "istoric_page", "descriere_page",
                    "componenta_artistica_page","conservare_page", "valoare_page",
@@ -1395,7 +1410,7 @@ class BisericaListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.BisericaPage
-        fields = ["id", "title", "judet", "localitate", "adresa", "latitudine",
+        fields = ["id", "title", "cod", "judet", "localitate", "adresa", "latitudine",
                   "longitudine", "datare", "conservare",
                   "valoare", "prioritizare", "poze"]
 
