@@ -25,7 +25,10 @@
         @input="update"
       >
         <template v-if="filter.type == 'poza'">
-          <img :src="'https://biserici-inlemnite.ro'+option.url" :alt="option.alt" />
+          <img
+            :src="'https://biserici-inlemnite.ro' + option.url"
+            :alt="option.alt"
+          />
         </template>
         <template v-else>
           {{ option.nume | formatFieldValue }}

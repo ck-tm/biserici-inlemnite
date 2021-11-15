@@ -1,27 +1,14 @@
 <template>
   <div>
-    <b-dropdown>
-      <template #trigger>
-        <div class="field">
-          <b-input
-            placeholder="Caută"
-            icon="search"
-            v-model="query"
-            @input="search"
-            :loading="searching"
-            expanded
-          />
-        </div>
-      </template>
-
-      <b-dropdown-item has-link aria-role="listitem" v-if="results">
-        LINK ME UP, SCOTTY!
-      </b-dropdown-item>
-
-      <b-dropdown-item custom v-else>
-        Introdu un termen pentru căutare
-      </b-dropdown-item>
-    </b-dropdown>
+    <b-input
+      placeholder="Caută"
+      icon="search"
+      v-model="query"
+      @input="search"
+      :loading="searching"
+      class="search-input"
+      expanded
+    />
   </div>
 </template>
 
@@ -49,15 +36,18 @@ export default {
 
         this.searching = true
 
-        ApiService.get('/search/?query=' + this.query.trim())
+        ApiService.get('/map?query=' + this.query.trim())
           .then((response) => {
             this.searching = false
             this.results = response
+            // this.$store.commit('setFiltersBasic', null)
+            // this.$store.commit('setFiltersAdvanced', null)
+            this.$store.commit('setMapData', response)
           })
           .catch(() => {
             this.searching = false
           })
-      }, 300)
+      }, 650)
     },
   },
   watch: {},
@@ -65,26 +55,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/.dropdown {
-  .control {
-    width: 248px;
+/deep/.search-input {
+  width: 248px;
 
-    .input {
-      border-radius: 0;
-      border: 0;
-      border-bottom: 1px solid transparent;
-      background-color: transparent;
+  .input {
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background-color: transparent;
 
-      &:hover,
-      &:focus {
-        // border-bottom: 1px solid $grey;
-      }
+    &:hover,
+    &:focus {
+      // border-bottom: 1px solid $grey;
     }
+  }
 
-    .icon {
-      color: $white;
-      font-size: $size-3;
-    }
+  .icon {
+    color: $white;
+    font-size: $size-3;
   }
 }
 </style>
