@@ -34,7 +34,8 @@ class Judet(index.Indexed, models.Model):
     def __str__(self):
         return self.nume
 
-
+@register_snippet
+@register_model_chooser
 class Comuna(index.Indexed, models.Model):
     """
     Description: Model Description
