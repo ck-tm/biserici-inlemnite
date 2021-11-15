@@ -17,7 +17,7 @@
           </div>
           <div class="navbar-end">
             <router-link to="/" class="navbar-item">Home</router-link>
-            <router-link to="/despre" class="navbar-item">
+            <router-link to="/about" class="navbar-item">
               Despre proiect
             </router-link>
 
