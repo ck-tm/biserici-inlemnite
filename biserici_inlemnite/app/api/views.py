@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -150,7 +151,8 @@ class BisericaViewSet(ModelViewSet):
     def list(self, request):
         query = request.GET.get('query', None)
         if query:
-            biserici = models.BisericaPage.objects.filter(utitle__icontains=query)
+            q = Q(utitle__icontains=query) | Q(cod__icontains=query) | Q(identificare_page__localitate__nume__icontains=query)
+            biserici = models.BisericaPage.objects.filter(q)
         else:
             biserici = models.BisericaPage.objects.live()
         serializer = serializers.BisericaListSerializer(biserici, many=True)
@@ -176,7 +178,7 @@ class BisericaViewSet(ModelViewSet):
 
         return Response(data)
 
-@method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
+# @method_decorator(cached_view_as(models.BisericaPage, models.IdentificarePage, models.DescrierePage, models.ComponentaArtisticaPage, models.ConservarePage, models.ValoarePage, models.IstoricPage), name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class FiltersView(ViewSet):
 

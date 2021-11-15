@@ -241,6 +241,12 @@ def get_chapter_filters(model, filters_dict):
                                 if value not in values:
                                     values.append(value)
                             # values = [{'id': x, 'nume': x} for x in section_filters[field]]
+
+                        try:
+                            values = sorted(values, key=lambda d: d['id'].lower())
+                        except:
+                            values = sorted(values, key=lambda d: d['id'])
+
                         filters_list.append({
                             "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
                             "type": 'checkbox',

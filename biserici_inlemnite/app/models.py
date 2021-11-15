@@ -256,16 +256,22 @@ class BisericaPage(ModelMeta, Page):
     @property
     def sd(self):
         return {
-            "@type": "website",
+            "@type": "TouristAttraction",
+            "address": f"Romania, {self.identificare_page.judet.nume}, {self.identificare_page.localitate.nume}, {self.identificare_page.adresa}",
             "description": self.get_description(),
             "name": self.title,
             "url": self.get_url(),
             "image": self.get_meta_image(),
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": self.identificare_page.latitudine,
+                "longitude": self.identificare_page.longitudine
+              },
         }
 
     _metadata = {
         'title': 'title',
-        'type': 'website',
+        'type': 'TouristAttraction',
         'description': 'get_description',
         'image': 'get_meta_image',
         'url': 'get_url'
