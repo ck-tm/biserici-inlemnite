@@ -24,7 +24,12 @@
         :native-value="option.id"
         @input="update"
       >
-        {{ option.nume | formatFieldValue }}
+        <template v-if="filter.type == 'poza'">
+          <img :src="'https://biserici-inlemnite.ro'+option.url" :alt="option.alt" />
+        </template>
+        <template v-else>
+          {{ option.nume | formatFieldValue }}
+        </template>
       </b-checkbox>
     </b-field>
   </b-collapse>

@@ -288,11 +288,14 @@ export default {
           .icon {
             font-size: 24px;
             transition: transform 0.15s;
+            color: $grey-light;
           }
 
           &.is-active {
+            background: inherit;
+
             .icon {
-              transform: rotate(45deg);
+              transform: rotate(45deg) scale(1.2);
             }
           }
 
@@ -303,6 +306,11 @@ export default {
             .icon {
               color: $primary;
             }
+          }
+
+          .tag {
+            line-height: 1;
+            height: auto;
           }
         }
 

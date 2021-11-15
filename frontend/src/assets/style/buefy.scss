@@ -33,11 +33,18 @@ $checkbox-size: $size-3;
 // @import 'buefy/src/scss/components/_tooltip.scss';
 // @import 'buefy/src/scss/components/_upload.scss';
 
-.b-checkbox.checkbox input[type='checkbox']:checked + .check {
-  background-size: 16px !important;
+.b-checkbox.checkbox {
+  input[type='checkbox']:checked + .check {
+    background-size: 16px !important;
+  }
+
+  img {
+    height: 80px;
+    width: auto;
+  }
 }
 
-.carousel-arrow .icon{
+.carousel-arrow .icon {
   font-size: $size-3;
   width: $size-2;
   height: $size-2;
