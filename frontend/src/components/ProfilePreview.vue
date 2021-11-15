@@ -32,7 +32,7 @@
           v-if="profilePreview.adresa"
           v-text="profilePreview.adresa + ', '"
         />
-        <br/>
+        <br />
         <span
           v-if="profilePreview.localitate"
           v-text="profilePreview.localitate + ', '"
@@ -83,9 +83,13 @@
     </div>
 
     <div class="bottom">
-      <b-button type="is-primary" @click="$emit('openProfileModal')">
+      <router-link
+        tag="button"
+        class="button is-primary"
+        :to="{ name: 'Profile', params: { id: profilePreview.id } }"
+      >
         Află mai multe
-      </b-button>
+      </router-link>
     </div>
   </div>
 </template>

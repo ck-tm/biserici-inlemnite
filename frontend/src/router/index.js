@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 import TokenService from '@/services/storage'
 
 import Base from '@/views/Base'
-import Home from '@/views/Home'
-import About from '@/views/About'
 
 Vue.use(VueRouter)
 
@@ -14,9 +12,10 @@ const routes = [
     component: Base,
     children: [
       {
-        path: 'despre',
+        path: 'about',
         name: 'About',
-        component: About,
+        component: () =>
+          import(/* webpackChunkName: "account" */ '@/views/About.vue'),
       },
       {
         path: 'account',
@@ -53,10 +52,16 @@ const routes = [
         ],
       },
       {
+        path: '/profile/:id',
+        name: 'Profile',
+        component: () =>
+          import(/* webpackChunkName: "home" */ '@/views/Profile.vue'),
+      },
+      {
         path: ':id?',
         name: 'Home',
-        component: Home,
-        meta: {},
+        component: () =>
+          import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
       },
     ],
   },

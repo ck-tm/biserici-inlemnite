@@ -17,7 +17,6 @@ export default new Vuex.Store({
     mapData: null,
     profile: {
       id: null,
-      data: null,
     },
     token: TokenService.getToken(),
     user: null,
@@ -38,7 +37,7 @@ export default new Vuex.Store({
     setLoading(state, data) {
       state.loading = data
     },
-    setData(state, { data, name }) {
+    setData(state, { name, data }) {
       state[name] = data
     },
     setFiltersBasic(state, data) {
@@ -77,7 +76,7 @@ export default new Vuex.Store({
 
       return ApiService.get(`/${name}/`)
         .then((response) => {
-          commit('setData', { data: response, name })
+          commit('setData', { name, data: response })
           commit('setLoading', false)
         })
         .catch(() => {

@@ -37,14 +37,8 @@
         <ProfilePreview
           :active="active.profilePreview"
           @close="active.profilePreview = false"
-          @openProfileModal="openProfileModal"
         />
       </div>
-
-      <ProfileModal
-        :active="active.profileModal"
-        @close="active.profileModal = false"
-      />
     </div>
   </div>
 </template>
@@ -55,7 +49,6 @@ import FiltersAdvanced from '@/components/FiltersAdvanced'
 import Map from '@/components/Map'
 import MapList from '@/components/MapList'
 import ProfilePreview from '@/components/ProfilePreview'
-import ProfileModal from '@/components/ProfileModal'
 
 import { mapState } from 'vuex'
 
@@ -67,14 +60,12 @@ export default {
     Map,
     MapList,
     ProfilePreview,
-    ProfileModal,
   },
   data() {
     return {
       active: {
         profilePreview: false,
-        profileModal: false,
-        mapList: this.$mq != 'mobile',
+        mapList: this.$mq == 'mobile',
       },
       viewType: 0,
     }
@@ -91,9 +82,6 @@ export default {
     if (this.$route.params.id) this.openProfilePreview()
   },
   methods: {
-    openProfileModal() {
-      this.active.profileModal = true
-    },
     openProfilePreview() {
       this.$store.commit('setProfileId', this.$route.params.id)
     },

@@ -1,5 +1,5 @@
 <template>
-  <div id="profileModal" v-if="active">
+  <div class="container is-fullhd is-full-height" id="profileModal">
     <b-button
       icon-left="close"
       type="is-black"
@@ -64,51 +64,41 @@
         </b-tab-item>
       </b-tabs>
     </div>
-
-    <b-loading v-model="loading" />
   </div>
 </template>
 
 <script>
 import ProfileModalTab from '@/components/ProfileModalTab'
 import FilterDisplayItem from '@/components/FilterDisplayItem'
-import { mapState } from 'vuex'
 import ApiService from '@/services/api'
 
 export default {
   name: 'ProfileModal',
   components: { FilterDisplayItem, ProfileModalTab },
-  props: { active: Boolean },
+  props: {},
   data() {
     return {
-      loading: false,
       profile: null,
       tab: 0,
     }
   },
-  computed: {
-    ...mapState({ profileId: (state) => state.profile.id }),
+  computed: {},
+  mounted() {
+    this.getProfile()
   },
-  mounted() {},
   methods: {
     getProfile() {
       this.profile = null
       this.tab = 0
-      this.loading = true
+      this.$store.commit('setLoading', true)
 
-      ApiService.get(`/map/${this.profileId}/`).then((response) => {
+      ApiService.get(`/map/${this.$route.params.id}/`).then((response) => {
         this.profile = response
-        this.loading = false
+        this.$store.commit('setLoading', false)
       })
     },
     close() {
-      this.$emit('close')
-      // this.$router.push({ name: 'Home', params: { id: null } })
-    },
-  },
-  watch: {
-    active(value) {
-      if (value) this.getProfile()
+      this.$router.push({ name: 'Home', params: { id: this.$route.params.id } })
     },
   },
 }
@@ -116,16 +106,9 @@ export default {
 
 <style lang="scss" scoped>
 #profileModal {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 39;
-  background-color: $black;
-
   .profile-container {
     height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
 
