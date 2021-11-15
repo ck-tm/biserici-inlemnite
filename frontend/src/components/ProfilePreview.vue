@@ -22,7 +22,7 @@
       </div>
 
       <div class="cod-monument" v-if="profilePreview.cod">
-        <div class="tag is-primary" v-text="'M'" />
+        <div class="tag is-primary" v-text="'LMI'" />
         <div v-text="profilePreview.cod" />
       </div>
 

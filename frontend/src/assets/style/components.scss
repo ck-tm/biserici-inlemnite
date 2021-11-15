@@ -95,8 +95,9 @@ nav.navbar {
   margin-bottom: 8px;
 
   .tag {
+    border-radius: 10px;
     padding: 0;
-    width: 20px;
+    width: 40px;
     height: 20px;
     margin-right: 8px;
     color: $black !important;

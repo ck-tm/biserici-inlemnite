@@ -13,7 +13,7 @@
         <div class="columns">
           <div class="column is-5">
             <div class="cod-monument" v-if="profile.cod">
-              <div class="tag is-primary" v-text="'M'" />
+              <div class="tag is-primary" v-text="'LMI'" />
               <div v-text="profile.cod" />
             </div>
             <h2 v-text="profile.title" />
