@@ -63,8 +63,13 @@ export default {
   }
 
   .form-view {
-    width: 520px;
-    margin: 80px auto;
+    padding: 24px;
+
+    @include desktop {
+      padding: 0;
+      width: 520px;
+      margin: 80px auto;
+    }
   }
 }
 </style>
