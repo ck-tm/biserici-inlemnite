@@ -83,6 +83,7 @@ $navbar-height: 5rem;
 $navbar-height-mobile: 5rem;
 // $navbar-breakpoint: 0;
 $navbar-side-width: 248px;
+$navbar-fixed-z: 39;
 
 $dropdown-content-background-color: $grey-dark;
 $dropdown-item-color: $white;
@@ -118,7 +119,7 @@ $input-focus-border-color: $grey-lighter;
 $border: $grey;
 $border-hover: $grey-light;
 
-$input-arrow: $blue;
+$input-arrow: $grey-lighter;
 $input-disabled-color: $grey-darker;
 $input-disabled-background-color: $grey;
 $input-disabled-border-color: $grey !important;

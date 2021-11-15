@@ -17,9 +17,13 @@ i {
 }
 
 h1 {
-  font-size: $size-1;
+  font-size: $size-2;
   line-height: 1.2;
   font-weight: 700;
+
+  @include desktop {
+    font-size: $size-1;
+  }
 }
 
 h2 {
@@ -45,8 +49,8 @@ h4 {
   }
 
   h1 {
-    font-size: $size-2;
     color: $white;
+    font-size: $size-2;
     margin-bottom: $size-2;
 
     &:not(:first-child) {
@@ -55,13 +59,17 @@ h4 {
   }
 
   h2 {
-    font-size: $size-4;
     color: $white;
     margin-bottom: $size-4;
+    font-size: $size-4;
   }
 
   h3 {
-    font-size: $size-5;
     color: $primary;
+    font-size: $size-6;
+
+    @include desktop {
+      font-size: $size-5;
+    }
   }
 }

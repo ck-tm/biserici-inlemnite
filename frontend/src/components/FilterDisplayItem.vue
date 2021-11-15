@@ -123,6 +123,7 @@ export default {
 
   .caption {
     font-size: $size-7;
+    padding-right: 8px;
   }
 
   .item {
@@ -161,6 +162,10 @@ export default {
       margin-right: 16px;
       font-size: $size-5;
     }
+  }
+
+  &.mobile-invert .item {
+    flex-direction: row-reverse;
   }
 }
 </style>

@@ -35,9 +35,11 @@ export default {
 /deep/.carousel {
   .image {
     img {
-      height: 90vh;
-      width: auto;
-      margin: 0 auto;
+      @include desktop {
+        height: 90vh;
+        width: auto;
+        margin: 0 auto;
+      }
     }
   }
 }

@@ -8,12 +8,16 @@
 
     <div v-else>Nu există biserici pentru această selecție.</div>
 
-    <b-table v-if="mapData" :data="mapData">
+    <b-table
+      v-if="mapData"
+      :data="mapData"
+      mobile-sort-placeholder="Sortează după..."
+    >
       <b-table-column
         custom-key="poza"
         v-slot="props"
         cell-class="has-text-weight-bold"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
         <router-link
           :to="{ name: 'Profile', params: { id: props.row.id } }"
@@ -33,7 +37,7 @@
         label="Denumire"
         v-slot="props"
         cell-class="has-text-weight-bold"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
         <router-link
           :to="{ name: 'Profile', params: { id: props.row.id } }"
@@ -48,23 +52,25 @@
         label="Localizare"
         v-slot="props"
         cell-class="is-size-6"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
-        <span v-if="props.row.judet"> {{ props.row.judet }}, </span>
-        <span v-if="props.row.localitate"> {{ props.row.localitate }}, </span>
-        <span v-if="props.row.adresa">
+        <template v-if="props.row.judet"> {{ props.row.judet }}, </template>
+        <template v-if="props.row.localitate">
+          {{ props.row.localitate }},
+        </template>
+        <template v-if="props.row.adresa">
           {{ props.row.adresa }}
-        </span>
+        </template>
       </b-table-column>
 
       <b-table-column
-        field="datare_prin_interval_timp"
+        field="datare"
         label="Datare"
         v-slot="props"
         cell-class="is-size-6"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
-        {{ props.row.datare_prin_interval_timp }}
+        {{ props.row.datare }}
       </b-table-column>
 
       <b-table-column
@@ -72,9 +78,10 @@
         label="Stare conservare"
         v-slot="props"
         width="160"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
         <FilterDisplayItem
+          class="mobile-invert"
           v-if="props.row.conservare"
           index="conservare"
           :value="props.row.conservare"
@@ -86,9 +93,10 @@
         field="valoare"
         label="Valoare patrimoniu"
         v-slot="props"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
         <FilterDisplayItem
+          class="mobile-invert"
           v-if="props.row.valoare"
           index="valoare"
           :value="props.row.valoare"
@@ -100,9 +108,10 @@
         field="prioritizare"
         label="Prioritizare"
         v-slot="props"
-        :sortable="$mq != 'mobile'"
+        :sortable="true"
       >
         <FilterDisplayItem
+          class="mobile-invert"
           v-if="props.row.prioritizare"
           index="prioritizare"
           :value="props.row.prioritizare"
@@ -161,7 +170,14 @@ export default {
     margin-bottom: 24px;
   }
 
-  /deep/.table {
+  /deep/.b-table {
+    .table-mobile-sort {
+      .select select {
+        background-color: $grey-darker;
+        border-color: $grey-light;
+      }
+    }
+
     th {
       font-size: $size-6;
       font-weight: normal;
@@ -177,6 +193,9 @@ export default {
       padding: 0.25rem 0.5rem;
 
       @include touch {
+        font-size: $size-6;
+        vertical-align: middle;
+
         &:last-child {
           padding-bottom: 16px;
           border-bottom: 1px solid $grey;
@@ -196,7 +215,7 @@ export default {
         margin-left: -0.5rem;
         overflow: hidden;
         width: 100%;
-        height: 150px;
+        height: 180px;
 
         @include desktop {
           width: 56px;

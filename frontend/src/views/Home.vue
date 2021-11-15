@@ -13,7 +13,7 @@
         @update="updateMap"
       />
 
-      <div class="container-mobile is-size-6 is-flex warning is-hidden-desktop">
+      <div class="container-mobile is-size-6 is-flex container-warning is-hidden-desktop">
         <b-icon class="is-size-3" icon="warning" />
         <p>
           Versiunea de mobil este limitată la o listă. Folosește un dispozitiv
@@ -140,6 +140,12 @@ export default {
         margin: 0;
       }
     }
+  }
+}
+
+.container-warning {
+  .icon {
+    margin-right: 16px;
   }
 }
 </style>

@@ -2,7 +2,6 @@ nav.navbar {
   min-height: $navbar-height-mobile;
   height: $navbar-height-mobile;
   border-bottom: 1px solid $grey;
-  z-index: 99 !important;
 
   @include desktop {
     min-height: $navbar-height;
@@ -38,8 +37,13 @@ nav.navbar {
     .navbar-menu.is-active {
       // z-index: 99;
       width: 100%;
+      box-shadow: none;
+      border-bottom: 1px solid $grey;
+      padding-left: 20px;
 
       @include desktop {
+        border-bottom: 0;
+        padding-left: 0;
         width: auto;
       }
     }
@@ -113,5 +117,15 @@ nav.navbar {
     height: 20px;
     margin-right: 8px;
     color: $black !important;
+  }
+}
+
+.modal-poze {
+  z-index: 100;
+
+  .modal-content {
+    @include touch {
+      max-height: 100vh;
+    }
   }
 }

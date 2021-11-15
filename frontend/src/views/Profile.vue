@@ -131,15 +131,9 @@ export default {
         overflow: hidden;
       }
 
-      .tabs {
-        width: 100%;
-        max-width: 100%;
-        flex-shrink: 1;
-      }
-
       ul {
         padding-left: 32px;
-        width: auto;
+        max-width: 100vw;
 
         li {
           font-size: $size-6;

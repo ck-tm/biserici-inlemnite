@@ -32,21 +32,23 @@
               Despre proiect
             </router-link>
 
-            <a
-              @click="logout"
-              class="navbar-item has-text-primary"
-              v-if="token != null"
-            >
-              Logout
-            </a>
+            <div class="is-hidden">
+              <a
+                @click="logout"
+                class="navbar-item has-text-primary"
+                v-if="token != null"
+              >
+                Logout
+              </a>
 
-            <router-link
-              to="/account/login"
-              class="navbar-item has-text-primary"
-              v-else
-            >
-              Intră în cont / Înregistrare
-            </router-link>
+              <router-link
+                to="/account/login"
+                class="navbar-item has-text-primary"
+                v-else
+              >
+                Intră în cont / Înregistrare
+              </router-link>
+            </div>
           </div>
         </div>
       </div>

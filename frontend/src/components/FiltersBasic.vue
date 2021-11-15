@@ -97,8 +97,11 @@ export default {
   z-index: 38;
 
   .columns {
-    width: 100%;
     align-items: flex-end;
+
+    @include desktop {
+      width: 100%;
+    }
   }
 }
 </style>
