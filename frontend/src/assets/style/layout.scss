@@ -10,7 +10,9 @@ body {
 }
 
 .is-full-height {
-  height: calc(100vh - #{$navbar-height});
+  // @include desktop {
+    height: calc(100vh - #{$navbar-height});
+  // }
 }
 
 .container {

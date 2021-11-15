@@ -31,7 +31,7 @@
       </div>
 
       <div class="container-map-profile">
-        <MapList v-if="active.mapList" />
+        <MapList v-if="active.mapList || this.$mq == 'mobile'" />
         <Map />
 
         <ProfilePreview

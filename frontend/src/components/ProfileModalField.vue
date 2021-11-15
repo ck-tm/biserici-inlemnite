@@ -85,14 +85,21 @@ export default {
   }
 
   .toggle-header {
-    padding: 12px 0;
-    // margin-bottom: 0;
+    padding: 0 0 0 30px;
+
+    @include desktop {
+      padding: 12px 0;
+    }
 
     /deep/.toggle-trigger {
-      padding: 0 12px;
+      padding: 0;
       height: auto;
       color: $primary;
       background: transparent;
+
+      @include desktop {
+        padding: 0 12px;
+      }
 
       &.is-active {
         .icon {
@@ -105,6 +112,11 @@ export default {
   .toggle-body {
     margin-bottom: 12px;
     margin-top: -12px;
+    padding: 0 0 0 32px;
+
+    @include desktop {
+      padding: 0;
+    }
   }
 
   .subsection:not(:last-child) {

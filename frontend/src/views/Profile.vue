@@ -125,11 +125,21 @@ export default {
     /deep/.b-tabs {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       flex: 1;
+
+      @include desktop {
+        overflow: hidden;
+      }
+
+      .tabs {
+        width: 100%;
+        max-width: 100%;
+        flex-shrink: 1;
+      }
 
       ul {
         padding-left: 32px;
+        width: auto;
 
         li {
           font-size: $size-6;
@@ -160,13 +170,21 @@ export default {
 
       .tab-content {
         flex: 1;
-        overflow: hidden;
         background-color: #0f0f0f;
         padding: 0;
+        overflow: visible;
+
+        @include desktop {
+          overflow: hidden;
+        }
 
         .tab-item {
-          height: 100%;
-          overflow: hidden;
+          overflow: visible;
+
+          @include desktop {
+            overflow: hidden;
+            height: 100%;
+          }
         }
       }
     }

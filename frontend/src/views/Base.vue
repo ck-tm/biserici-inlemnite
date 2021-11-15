@@ -7,9 +7,19 @@
             <img src="@/assets/logo_bis.png" />
             Biserici înlemnite
           </router-link>
+
+          <a
+            role="button"
+            class="navbar-burger"
+            @click="active.menu = !active.menu"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
 
-        <div class="navbar-menu">
+        <div class="navbar-menu" :class="{ 'is-active': active.menu }">
           <div class="navbar-start">
             <div class="navbar-item" v-if="this.$mq != 'mobile'">
               <NavSearch />
@@ -58,11 +68,19 @@ export default {
   components: {
     NavSearch,
   },
+  data() {
+    return {
+      active: { menu: false },
+    }
+  },
   computed: mapState(['loading', 'token']),
   methods: {
     logout() {
       this.$store.dispatch('logout')
     },
+  },
+  afterRouteUpdate() {
+    this.active.menu = false
   },
 }
 </script>

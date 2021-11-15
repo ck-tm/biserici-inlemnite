@@ -11,9 +11,9 @@
         custom-key="poza"
         v-slot="props"
         cell-class="has-text-weight-bold"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
-        <router-link :to="{ name: 'Home', params: { id: props.row.id } }">
+        <router-link :to="{ name: 'Profile', params: { id: props.row.id } }">
           <div class="image">
             <img
               v-if="props.row.poze.length"
@@ -30,9 +30,9 @@
         label="Denumire"
         v-slot="props"
         cell-class="has-text-weight-bold"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
-        <router-link :to="{ name: 'Home', params: { id: props.row.id } }">
+        <router-link :to="{ name: 'Profile', params: { id: props.row.id } }">
           {{ props.row.title }}
         </router-link>
       </b-table-column>
@@ -42,7 +42,7 @@
         label="Localizare"
         v-slot="props"
         cell-class="is-size-6"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
         <span v-if="props.row.judet"> {{ props.row.judet }}, </span>
         <span v-if="props.row.localitate"> {{ props.row.localitate }}, </span>
@@ -56,7 +56,7 @@
         label="Datare"
         v-slot="props"
         cell-class="is-size-6"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
         {{ props.row.datare_prin_interval_timp }}
       </b-table-column>
@@ -66,7 +66,7 @@
         label="Stare conservare"
         v-slot="props"
         width="160"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
         <FilterDisplayItem
           v-if="props.row.conservare"
@@ -80,7 +80,7 @@
         field="valoare"
         label="Valoare patrimoniu"
         v-slot="props"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
         <FilterDisplayItem
           v-if="props.row.valoare"
@@ -94,7 +94,7 @@
         field="prioritizare"
         label="Prioritizare"
         v-slot="props"
-        sortable
+        :sortable="$mq != 'mobile'"
       >
         <FilterDisplayItem
           v-if="props.row.prioritizare"
@@ -166,6 +166,13 @@ export default {
     td {
       vertical-align: middle;
       padding: 0.25rem 0.5rem;
+
+      @include touch {
+        &:last-child {
+          padding-bottom: 16px;
+          border-bottom: 1px solid $grey;
+        }
+      }
 
       a {
         color: $white;

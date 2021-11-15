@@ -2,6 +2,7 @@ nav.navbar {
   min-height: $navbar-height-mobile;
   height: $navbar-height-mobile;
   border-bottom: 1px solid $grey;
+  z-index: 99 !important;
 
   @include desktop {
     min-height: $navbar-height;
@@ -9,7 +10,9 @@ nav.navbar {
   }
 
   > .container {
-    padding: 0 32px 0 0;
+    @include desktop {
+      padding: 0 32px 0 0;
+    }
 
     .navbar-brand {
       min-height: $navbar-height-mobile;
@@ -29,6 +32,15 @@ nav.navbar {
         min-height: $navbar-height;
         border-right: 1px solid $grey;
         width: $navbar-side-width;
+      }
+    }
+
+    .navbar-menu.is-active {
+      // z-index: 99;
+      width: 100%;
+
+      @include desktop {
+        width: auto;
       }
     }
   }
