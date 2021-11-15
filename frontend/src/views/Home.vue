@@ -8,10 +8,18 @@
 
     <div class="container-interface">
       <FiltersBasic
-        v-if="filters && $mq != 'mobile'"
+        v-if="filters"
         :filters="filters.basic"
         @update="updateMap"
       />
+
+      <div class="container-mobile is-size-6 is-flex warning">
+        <b-icon class="is-size-3" icon="warning" />
+        <p>
+          Versiunea de mobil este limitată la o listă. Folosește un dispozitiv
+          cu ecran mai mare pentru experiența completă.
+        </p>
+      </div>
 
       <div class="buttons buttons-toggle" v-if="this.$mq != 'mobile'">
         <b-button

@@ -98,7 +98,7 @@ export default {
       })
     },
     close() {
-      this.$router.push({ name: 'Home', params: { id: this.$route.params.id } })
+      this.$router.push({ name: 'Home', params: { id: null } })
     },
   },
 }

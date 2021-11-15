@@ -1,10 +1,12 @@
 <template>
   <div id="mapList" v-if="mapData">
-    <h2>
+    <h2 v-if="mapData.length">
       <b>{{ mapData.length }}</b>
       {{ mapData.length > 19 ? 'de' : '' }}
       {{ mapData.length > 1 ? 'biserici' : 'biserică' }}
     </h2>
+
+    <div v-else>Nu există biserici pentru această selecție.</div>
 
     <b-table v-if="mapData" :data="mapData">
       <b-table-column
@@ -13,15 +15,16 @@
         cell-class="has-text-weight-bold"
         :sortable="$mq != 'mobile'"
       >
-        <router-link :to="{ name: 'Profile', params: { id: props.row.id } }">
-          <div class="image">
-            <img
-              v-if="props.row.poze.length"
-              class="row-thumb"
-              :src="props.row.poze[0].poza.url"
-              :alt="props.row.poze[0].poza.alt"
-            />
-          </div>
+        <router-link
+          :to="{ name: 'Profile', params: { id: props.row.id } }"
+          class="image"
+        >
+          <img
+            v-if="props.row.poze.length"
+            class="row-thumb"
+            :src="props.row.poze[0].poza.url"
+            :alt="props.row.poze[0].poza.alt"
+          />
         </router-link>
       </b-table-column>
 
@@ -32,7 +35,10 @@
         cell-class="has-text-weight-bold"
         :sortable="$mq != 'mobile'"
       >
-        <router-link :to="{ name: 'Profile', params: { id: props.row.id } }">
+        <router-link
+          :to="{ name: 'Profile', params: { id: props.row.id } }"
+          class="underline-mobile"
+        >
           {{ props.row.title }}
         </router-link>
       </b-table-column>
@@ -139,14 +145,17 @@ export default {
 <style lang="scss" scoped>
 #mapList {
   background-color: $black;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: 36;
   overflow: auto;
   padding: 24px;
+
+  @include desktop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
   h2 {
     margin-bottom: 24px;
@@ -184,10 +193,15 @@ export default {
 
       .image {
         background-color: $grey-darker;
-        width: 56px;
-        height: 56px;
         margin-left: -0.5rem;
         overflow: hidden;
+        width: 100%;
+        height: 150px;
+
+        @include desktop {
+          width: 56px;
+          height: 56px;
+        }
 
         img {
           object-fit: cover;
