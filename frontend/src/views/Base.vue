@@ -11,7 +11,8 @@
           <a
             role="button"
             class="navbar-burger"
-            @click="active.menu = !active.menu"
+            :class="{ 'is-active': mobileMenu }"
+            @click="mobileMenu = !mobileMenu"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -19,9 +20,9 @@
           </a>
         </div>
 
-        <div class="navbar-menu" :class="{ 'is-active': active.menu }">
-          <div class="navbar-start">
-            <div class="navbar-item" v-if="this.$mq != 'mobile'">
+        <div class="navbar-menu" :class="{ 'is-active': mobileMenu }">
+          <div class="navbar-start" v-if="this.$mq != 'mobile'">
+            <div class="navbar-item">
               <NavSearch />
             </div>
           </div>
@@ -70,7 +71,7 @@ export default {
   },
   data() {
     return {
-      active: { menu: false },
+      mobileMenu: false,
     }
   },
   computed: mapState(['loading', 'token']),
@@ -79,8 +80,9 @@ export default {
       this.$store.dispatch('logout')
     },
   },
-  afterRouteUpdate() {
-    this.active.menu = false
+  beforeRouteUpdate(to, from, next) {
+    this.mobileMenu = false
+    next()
   },
 }
 </script>
