@@ -132,7 +132,7 @@ class BisericiView(MetadataMixin, ListView):
     object_type = 'website'
     description = 'Biserici Înlemnite a venit ca un răspuns la una dintre cele mai mari probleme ale păstrării și gestionării bisericilor de lemn de patrimoniu din România: lipsa informațiilor privind numărul, starea și valoarea lor.'
     image = '/static/images/logo.png'
-    url = '/en/works'
+    url = '/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
