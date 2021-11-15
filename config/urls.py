@@ -21,7 +21,8 @@ from .api_router import wagtail_api
 
 urlpatterns = [
     # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    path('<int:pk>', app_views.BisericaDetailView.as_view(), name='work-detail'),
+    path('<int:pk>', app_views.BisericaDetailView.as_view(), name='work-preview'),
+    path('profile/<int:pk>', app_views.BisericaDetailView.as_view(), name='work-detail'),
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('cms/pages/<int:parent_page_id>/', app_views.wagtail_pages, name='wagtailadmin_explore'),
