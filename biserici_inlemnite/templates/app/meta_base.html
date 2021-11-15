@@ -1,0 +1,22 @@
+{% load meta %}
+{% load render_json_ld from json_ld %}
+<html >
+<head {% meta_namespaces %}>
+
+    {% include "meta/meta.html" %}
+    {% block extra_meta %}
+
+    {% endblock extra_meta %}
+
+    {% if sd %}
+        {% render_json_ld sd %}
+    {% endif %}
+</head>
+<body>
+    <div>
+    {% block content %}
+        
+    {% endblock content %}
+    </div>
+</body>
+</html>

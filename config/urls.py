@@ -21,32 +21,18 @@ from .api_router import wagtail_api
 
 urlpatterns = [
     # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    path("", view=views.BisericiView.as_view(), name="home"),
+    path('<int:pk>', app_views.BisericaDetailView.as_view(), name='work-detail'),
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('cms/pages/<int:parent_page_id>/', app_views.wagtail_pages, name='wagtailadmin_explore'),
     path('cms/pages/', include(wagtail_urls)),
 
-    path("biserici/", view=views.BisericiView.as_view(), name="biserici"),
-    path('biserici/<int:pk>/', view=views.BisericaView.as_view(), name='biserica'),
-    path('biserici/<int:biserica_pk>/identificare', view=views.IdentificareBisericaView.as_view(), name='identificare'),
-    path('biserici/<int:biserica_pk>/descriere', view=views.DescriereBisericaView.as_view(), name='descriere'),
-    path('biserici/<int:biserica_pk>/istoric', view=views.IstoricBisericaView.as_view(), name='istoric'),
-    path('biserici/<int:biserica_pk>/patrimoniu', view=views.PatrimoniuBisericaView.as_view(), name='patrimoniu'),
-    path('biserici/<int:biserica_pk>/conservare', view=views.ConservareBisericaView.as_view(), name='conservare'),
-    path("biserici/add-constant/<str:model_name>", view=views.ContentCreateView.as_view(), name="constant-create"),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
-    # Django Admin, use {% url 'admin:index' %}
-    # url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    # url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    # path(settings.ADMIN_URL, admin.site.urls),
     path('admin/', admin.site.urls),
     # User management
     path("users/", include("biserici_inlemnite.users.urls", namespace="users")),
     # path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("", view=app_views.BisericiView.as_view(), name="home"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

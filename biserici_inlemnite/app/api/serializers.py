@@ -94,13 +94,16 @@ def get_section_fields(obj, section):
             else:
                 if field[0] == 'planimetria_bisericii':
                     field_type = 'poza'
-                    planimetrie = field_obj.get_rendition('width-200')
-                    rendition = {
-                        "url": planimetrie.url,
-                        "width": planimetrie.width,
-                        "height": planimetrie.height,
-                        "alt": planimetrie.alt
-                    }
+                    try:
+                        planimetrie = field_obj.get_rendition('width-200')
+                        rendition = {
+                            "url": planimetrie.url,
+                            "width": planimetrie.width,
+                            "height": planimetrie.height,
+                            "alt": planimetrie.alt
+                        }
+                    except:
+                        rendition = None
                     value = rendition
                 else:
                     value = str(field_obj)

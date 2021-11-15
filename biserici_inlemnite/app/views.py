@@ -4,12 +4,19 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-
+from django.conf import settings
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
+from django.views.generic import DetailView, RedirectView, UpdateView
+from django.views.generic.list import ListView
+
+from app import models
+
+from meta.views import MetadataMixin
+from django_json_ld.views import JsonLdDetailView
 
 @user_passes_test(user_has_any_page_permission)
 def wagtail_pages(request, parent_page_id=None):
@@ -117,3 +124,37 @@ def wagtail_pages(request, parent_page_id=None):
         })
 
     return TemplateResponse(request, 'wagtailadmin/pages/index.html', context)
+
+class BisericiView(MetadataMixin, ListView):
+    template_name = 'app/meta_base.html'
+    model = models.BisericaPage
+    title = 'Biserici Înlemnite'
+    object_type = 'website'
+    description = 'Biserici Înlemnite a venit ca un răspuns la una dintre cele mai mari probleme ale păstrării și gestionării bisericilor de lemn de patrimoniu din România: lipsa informațiilor privind numărul, starea și valoarea lor.'
+    image = '/static/images/logo.png'
+    url = '/en/works'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sd'] =  {
+          "@context": "https://schema.org/",
+          "@type": "website",
+          "url": "https://biserici-inlemnite.ro/",
+          "name": "Biserici Înlemnite",
+          "description": "Biserici Înlemnite a venit ca un răspuns la una dintre cele mai mari probleme ale păstrării și gestionării bisericilor de lemn de patrimoniu din România: lipsa informațiilor privind numărul, starea și valoarea lor.",
+          "image": '/static/images/logo.png'
+        }
+        return context
+
+class BisericaDetailView(MetadataMixin, JsonLdDetailView):
+    template_name = 'app/meta_biserica.html'
+    model = models.BisericaPage
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(self.get_object())
+        print(self.get_object().as_meta(self.request))
+        context['meta'] = self.get_object().as_meta(self.request)
+        return context
+
+

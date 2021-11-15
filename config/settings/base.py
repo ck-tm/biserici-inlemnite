@@ -107,7 +107,9 @@ THIRD_PARTY_APPS = [
 
     "modelcluster",
     "taggit",
-    "cacheops"
+    "cacheops",
+    "meta",
+    "django_json_ld",
 ]
 
 LOCAL_APPS = [
@@ -563,3 +565,12 @@ CACHEOPS = {
     'app.*': {'ops': 'get', 'timeout': 60 * 60 * 24},
     'app.AboutPage': None
 }
+
+META_SITE_PROTOCOL = 'https'
+META_SITE_DOMAIN = 'biserici-inlemnite.ro'
+META_SITE_TYPE = 'website'
+META_SITE_NAME = 'Biserici Înlemnite'
+META_INCLUDE_KEYWORDS = ['biserici', 'inlemnite', 'lemn', 'patrimoniu', 'conservare', 'prioritizare']
+META_DEFAULT_KEYWORDS = ['biserici', 'inlemnite', 'lemn', 'patrimoniu', 'conservare', 'prioritizare']
+META_IMAGE_URL='/static/images/logo.png'
+META_USE_OG_PROPERTIES=True

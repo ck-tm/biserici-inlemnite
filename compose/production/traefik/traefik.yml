@@ -71,7 +71,7 @@ http:
         certResolver: letsencrypt
 
     api-router:
-      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*facebookexternalhit.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Twitterbot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Googlebot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Slackbot.*`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web
       middlewares:
@@ -80,7 +80,7 @@ http:
       service: django
 
     api-secure-router:
-      rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
+      rule: "(Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*facebookexternalhit.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Twitterbot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Googlebot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Slackbot.*`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web-secure
       middlewares:

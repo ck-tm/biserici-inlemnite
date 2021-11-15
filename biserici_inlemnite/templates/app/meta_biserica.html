@@ -1,0 +1,20 @@
+{% extends "app/meta_base.html" %}
+{% load wagtailimages_tags %}
+
+
+{% block extra_meta %}
+
+{% endblock extra_meta %}
+
+
+{% block content %}
+    ==={{object.meta}}===
+    <h1>
+        {{object.title}}
+    </h1>
+    {% image object.header_image width-600 %}
+    <div class="description">
+        Description: {{object.about|safe}}
+    </div>
+    
+{% endblock content %}

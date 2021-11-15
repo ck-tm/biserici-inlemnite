@@ -2,6 +2,7 @@ from app import blocks
 from django.db import models
 from django import forms
 from django.utils.html import format_html
+from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -33,6 +34,7 @@ from unidecode import unidecode
 
 from .blocks import BaseStreamBlock
 
+from meta.models import ModelMeta
 
 IDENTIFICARE_DOC_CADASTRALE = (
     (1, 'Da'),
@@ -179,7 +181,7 @@ class PozeBiserica(Orderable):
     ]
 
 
-class BisericaPage(Page):
+class BisericaPage(ModelMeta, Page):
     """Home page model."""
 
     subpage_types = [
@@ -236,24 +238,6 @@ class BisericaPage(Page):
         ),
         MultiFieldPanel([
             ReadOnlyPanel("utitle", heading="U Title"),
-            # ReadOnlyPanel("judet", heading="Judet"),
-            # ReadOnlyPanel("localitate", heading="localitate"),
-            # ReadOnlyPanel("adresa", heading="adresa"),
-            # ReadOnlyPanel("latitudine", heading="latitudine"),
-            # ReadOnlyPanel("longitudine", heading="longitudine"),
-            # ReadOnlyPanel("datare_an", heading="Datare An"),
-            # ReadOnlyPanel("datare_prin_interval_timp", heading="Interval Datare"),
-            # ReadOnlyPanel("datare_secol", heading="Secol Datare"),
-            # ReadOnlyPanel("valoare", heading="Clasa valoare"),
-            # ReadOnlyPanel("conservare", heading="Nota conservare"),
-            # ReadOnlyPanel("prioritizare", heading="Nota Prioritizare"),
-
-            # ReadOnlyPanel("identificare_page", heading="identificare page"),
-            # ReadOnlyPanel("descriere_page", heading="descriere page"),
-            # ReadOnlyPanel("componenta_artistica_page", heading="componenta_artistica page"),
-            # ReadOnlyPanel("istoric_page", heading="istoric page"),
-            # ReadOnlyPanel("valoare_page", heading="valoare page"),
-            # ReadOnlyPanel("conservare_page", heading="conservare page"),
         ],
             heading='Hidden',
             classname='collapsible'
@@ -269,6 +253,33 @@ class BisericaPage(Page):
         self.utitle = unidecode(self.title)
         return super().save(*args, **kwargs)
 
+    @property
+    def sd(self):
+        return {
+            "@type": "website",
+            "description": self.get_description(),
+            "name": self.title,
+            "url": self.get_url(),
+            "image": self.get_meta_image(),
+        }
+
+    _metadata = {
+        'title': 'title',
+        'type': 'website',
+        'description': 'get_description',
+        'image': 'get_meta_image',
+        'url': 'get_url'
+    }
+
+    def get_url(self):
+        return '{}//{}/{}'.format(settings.META_SITE_PROTOCOL, settings.META_SITE_DOMAIN, self.id)
+
+    def get_description(self):
+        return 'Biserici Înlemnite a venit ca un răspuns la una dintre cele mai mari probleme ale păstrării și gestionării bisericilor de lemn de patrimoniu din România: lipsa informațiilor privind numărul, starea și valoarea lor.'
+
+    def get_meta_image(self):
+        if self.poze.all():
+            return self.poze.first().poza.get_rendition('width-400|jpegquality-60').url
 
 
 class IdentificarePage(Page):
