@@ -76,6 +76,8 @@ class Localitate(index.Indexed, models.Model):
         ordering = ['nume']
 
     def __str__(self):
+        if self.comuna:
+            return f"{self.nume}, com. {self.comuna.nume}"
         return self.nume
 
 
