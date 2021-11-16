@@ -94,7 +94,7 @@ export default {
         this.$store.dispatch('getMapData')
       })
 
-    if (this.$route.params.id) this.openProfilePreview()
+    this.openProfilePreview()
   },
   methods: {
     openProfilePreview() {
@@ -106,9 +106,6 @@ export default {
 
       this.$store.dispatch('getMapData')
     },
-    // setViewType(type) {
-    //   this.viewType = type
-    // },
   },
   beforeRouteUpdate(to, from, next) {
     next()
