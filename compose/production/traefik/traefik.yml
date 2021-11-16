@@ -35,7 +35,6 @@ http:
     #   entryPoints:
     #     - web
     #   middlewares:
-    #     - redirect-www-to-non-www@file
     #   service: frontend
 
     # www-web-secure-router:
@@ -43,7 +42,6 @@ http:
     #   entryPoints:
     #     - web-secure
     #   middlewares:
-    #     - redirect-www-to-non-www@file
     #   service: frontend
 
     web-router:
@@ -52,7 +50,6 @@ http:
         - web
       middlewares:
         - redirect
-        - redirect-www-to-non-www@file
         - csrf
       service: frontend
 
@@ -60,7 +57,6 @@ http:
       rule: "Host(`biserici-inlemnite.ro`) || Host(`www.biserici-inlemnite.ro`)"
       entryPoints:
         - web-secure
-        - redirect-www-to-non-www@file
       middlewares:
         - csrf
       service: frontend
@@ -74,7 +70,6 @@ http:
         - web
       middlewares:
         - redirect
-        - redirect-www-to-non-www@file
         - csrf
       service: media
 
@@ -82,7 +77,6 @@ http:
       rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/media`))"
       entryPoints:
         - web-secure
-        - redirect-www-to-non-www@file
       middlewares:
         - csrf
       service: media
@@ -96,7 +90,6 @@ http:
         - web
       middlewares:
         - redirect
-        - redirect-www-to-non-www@file
         - csrf
       service: django
 
@@ -104,7 +97,6 @@ http:
       rule: "(Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*facebookexternalhit.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Twitterbot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Googlebot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Slackbot.*`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web-secure
-        - redirect-www-to-non-www@file
       middlewares:
         - csrf
       service: django
