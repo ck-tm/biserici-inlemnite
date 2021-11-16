@@ -74,6 +74,7 @@ http:
         - web
       middlewares:
         - redirect
+        - redirect-www-to-non-www
         - csrf
       service: media
 
@@ -81,6 +82,7 @@ http:
       rule: "(Host(`biserici-inlemnite.ro`) && PathPrefix(`/media`))"
       entryPoints:
         - web-secure
+        - redirect-www-to-non-www
       middlewares:
         - csrf
       service: media
@@ -94,6 +96,7 @@ http:
         - web
       middlewares:
         - redirect
+        - redirect-www-to-non-www
         - csrf
       service: django
 
@@ -101,6 +104,7 @@ http:
       rule: "(Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*facebookexternalhit.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Twitterbot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Googlebot.*`)) || (Host(`biserici-inlemnite.ro`) && HeadersRegexp(`User-Agent`, `.*Slackbot.*`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/api`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/admin`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/cms`)) || (Host(`biserici-inlemnite.ro`) && PathPrefix(`/static`))"
       entryPoints:
         - web-secure
+        - redirect-www-to-non-www
       middlewares:
         - csrf
       service: django
