@@ -30,35 +30,37 @@ certificatesResolvers:
 
 http:
   routers:
-    www-web-router:
-      rule: "Host(`www.biserici-inlemnite.ro`)"
-      entryPoints:
-        - web
-      middlewares:
-        - redirect-www-to-non-www
-      service: frontend
+    # www-web-router:
+    #   rule: "Host(`www.biserici-inlemnite.ro`)"
+    #   entryPoints:
+    #     - web
+    #   middlewares:
+    #     - redirect-www-to-non-www
+    #   service: frontend
 
-    www-web-secure-router:
-      rule: "Host(`www.biserici-inlemnite.ro`)"
-      entryPoints:
-        - web-secure
-      middlewares:
-        - redirect-www-to-non-www
-      service: frontend
+    # www-web-secure-router:
+    #   rule: "Host(`www.biserici-inlemnite.ro`)"
+    #   entryPoints:
+    #     - web-secure
+    #   middlewares:
+    #     - redirect-www-to-non-www
+    #   service: frontend
 
     web-router:
-      rule: "Host(`biserici-inlemnite.ro`)"
+      rule: "Host(`biserici-inlemnite.ro`) || Host(`www.biserici-inlemnite.ro`)"
       entryPoints:
         - web
       middlewares:
         - redirect
+        - redirect-www-to-non-www
         - csrf
       service: frontend
 
     web-secure-router:
-      rule: "Host(`biserici-inlemnite.ro`)"
+      rule: "Host(`biserici-inlemnite.ro`) || Host(`www.biserici-inlemnite.ro`)"
       entryPoints:
         - web-secure
+        - redirect-www-to-non-www
       middlewares:
         - csrf
       service: frontend
