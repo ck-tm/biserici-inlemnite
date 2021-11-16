@@ -21,7 +21,7 @@
         </div>
 
         <div class="navbar-menu" :class="{ 'is-active': mobileMenu }">
-          <div class="navbar-start" v-if="this.$mq != 'mobile'">
+          <div class="navbar-start" v-if="$mq != 'mobile'">
             <div class="navbar-item">
               <NavSearch />
             </div>

@@ -166,6 +166,10 @@ export default {
 
   &.mobile-invert .item {
     flex-direction: row-reverse;
+
+    @include desktop {
+      flex-direction: row;
+    }
   }
 }
 </style>

@@ -13,7 +13,14 @@
         @update="updateMap"
       />
 
-      <div class="container-mobile is-size-6 is-flex container-warning is-hidden-desktop">
+      <div
+        class="
+          container-mobile
+          is-size-6 is-flex
+          container-warning
+          is-hidden-desktop
+        "
+      >
         <b-icon class="is-size-3" icon="warning" />
         <p>
           Versiunea de mobil este limitată la o listă. Folosește un dispozitiv
@@ -21,7 +28,7 @@
         </p>
       </div>
 
-      <div class="buttons buttons-toggle" v-if="this.$mq != 'mobile'">
+      <div class="buttons buttons-toggle" v-if="$mq != 'mobile'">
         <b-button
           :type="active.mapList ? 'is-dark' : 'is-primary'"
           icon-left="pin"
@@ -39,7 +46,7 @@
       </div>
 
       <div class="container-map-profile">
-        <MapList v-if="active.mapList || this.$mq == 'mobile'" />
+        <MapList v-if="active.mapList || $mq == 'mobile'" />
         <Map />
 
         <ProfilePreview

@@ -11,7 +11,7 @@
     <b-table
       v-if="mapData"
       :data="mapData"
-      mobile-sort-placeholder="Sortează după..."
+      mobile-sort-placeholder="Sortează după"
     >
       <b-table-column
         custom-key="poza"
@@ -172,9 +172,19 @@ export default {
 
   /deep/.b-table {
     .table-mobile-sort {
-      .select select {
-        background-color: $grey-darker;
-        border-color: $grey-light;
+      padding: 0 8px;
+
+      .select {
+        select {
+          background-color: $grey-darker;
+          border-color: $grey-light;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+
+        &:after {
+          border-width: 2px;
+        }
       }
     }
 
@@ -182,10 +192,6 @@ export default {
       font-size: $size-6;
       font-weight: normal;
       padding: 1rem 0.5rem;
-
-      .th-wrap {
-        // justify-content: center;
-      }
     }
 
     td {

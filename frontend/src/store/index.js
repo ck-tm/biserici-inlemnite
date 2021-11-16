@@ -5,6 +5,7 @@ import router from '@/router'
 import ApiService from '@/services/api'
 import UserService from '@/services/user'
 import TokenService from '@/services/storage'
+import { ToastService } from '@/services/buefy'
 
 Vue.use(Vuex)
 
@@ -95,7 +96,12 @@ export default new Vuex.Store({
 
       return request
         .then((response) => {
-          commit('setMapData', response)
+          if (response && response.length) commit('setMapData', response)
+          else
+            ToastService.open('Nu există biserici care corespund selecției', {
+              type: 'is-danger',
+            })
+
           commit('setLoading', false)
         })
         .catch(() => {

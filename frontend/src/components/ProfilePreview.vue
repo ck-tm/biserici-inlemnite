@@ -84,11 +84,11 @@
 
     <div class="bottom">
       <router-link
-        tag="button"
-        class="button is-primary"
         :to="{ name: 'Profile', params: { id: profilePreview.id } }"
+        v-slot="{ navigate }"
+        custom
       >
-        Află mai multe
+        <b-button type="is-primary" @click="navigate">Află mai multe</b-button>
       </router-link>
     </div>
   </div>

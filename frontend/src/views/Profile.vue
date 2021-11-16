@@ -98,7 +98,10 @@ export default {
       })
     },
     close() {
-      this.$router.push({ name: 'Home', params: { id: null } })
+      this.$router.push({
+        name: 'Home',
+        params: { id: this.$mq == 'mobile' ? null : this.$route.params.id },
+      })
     },
   },
 }

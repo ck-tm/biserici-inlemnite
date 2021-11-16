@@ -13,7 +13,7 @@
           v-if="validateLatLong(marker.latitudine, marker.longitudine)"
           :key="'marker-' + marker.id"
           :icon="getIcon(marker)"
-          :lat-lng="getLatLng([marker.latitudine, marker.longitudine])"
+          :lat-lng="getLatLng(marker)"
           @click="openProfile(marker)"
         />
       </template>
@@ -76,8 +76,8 @@ export default {
   },
   mounted() {},
   methods: {
-    getLatLng(latlng) {
-      return new latLng(latlng)
+    getLatLng(marker) {
+      return new latLng([marker.latitudine, marker.longitudine])
     },
 
     validateLatLong(lat, long) {
@@ -108,26 +108,26 @@ export default {
         .push({ name: 'Home', params: { id: marker.id } })
         .catch(() => {})
     },
+
+    refreshMap() {
+      this.$nextTick(() => {
+        if (!this.$refs.map) return
+
+        this.$refs.map.mapObject.invalidateSize()
+
+        if (this.profileId) {
+          const marker = this.mapData.find((e) => e.id == this.profileId)
+
+          this.$refs.map.mapObject.setView(this.getLatLng(marker), 12)
+        } else {
+          this.$refs.map.mapObject.fitBounds(this.bounds)
+        }
+      })
+    },
   },
   watch: {
     profileId(vNew, vOld) {
-      if (!vOld || !vNew)
-        this.$nextTick(() => {
-          if (!this.$refs.map) return
-
-          this.$refs.map.mapObject.invalidateSize()
-
-          if (vNew) {
-            const marker = this.mapData.find((e) => e.id == vNew)
-
-            this.$refs.map.mapObject.setView(
-              this.getLatLng([marker.latitudine, marker.longitudine]),
-              12
-            )
-          } else {
-            this.$refs.map.mapObject.fitBounds(this.bounds)
-          }
-        })
+      if (!vOld || !vNew) this.refreshMap()
     },
   },
 }

@@ -4,11 +4,11 @@
       <p class="label">Proiect sub egida</p>
 
       <div class="image">
-        <img src="@/assets/logo-asociatia-vernacular.png"/>
+        <img src="@/assets/logo-asociatia-vernacular.png" />
       </div>
 
       <div class="image">
-        <img src="@/assets/logo-afcn.png"/>
+        <img src="@/assets/logo-afcn.png" />
       </div>
     </div>
 
@@ -105,7 +105,11 @@ section {
 .section-partners {
   background-color: #fff;
   color: $black;
-  padding: 80px 100px;
+  padding: 24px;
+
+  @include desktop {
+    padding: 80px 100px;
+  }
 
   h2 {
     color: $black;

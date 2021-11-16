@@ -1,19 +1,22 @@
 <template>
   <div>
-    <b-input
-      placeholder="Caută"
-      icon="search"
-      v-model="query"
-      @input="search"
-      :loading="searching"
-      class="search-input"
-      expanded
-    />
+    <b-field>
+      <b-input
+        placeholder="Caută"
+        icon="search"
+        v-model="query"
+        @input="search"
+        :loading="searching"
+        class="search-input"
+        expanded
+      />
+    </b-field>
   </div>
 </template>
 
 <script>
 import ApiService from '@/services/api'
+import { ToastService } from '@/services/buefy'
 
 export default {
   name: 'NavSearch',
@@ -21,7 +24,6 @@ export default {
     return {
       query: null,
       timeout: null,
-      results: null,
       searching: false,
     }
   },
@@ -36,13 +38,19 @@ export default {
 
         this.searching = true
 
-        ApiService.get('/map?query=' + this.query.trim())
+        ApiService.get('/map/?query=' + this.query.trim())
           .then((response) => {
             this.searching = false
-            this.results = response
+
             // this.$store.commit('setFiltersBasic', null)
             // this.$store.commit('setFiltersAdvanced', null)
-            this.$store.commit('setMapData', response)
+            if (response != null && response.length)
+              this.$store.commit('setMapData', response)
+            else
+              ToastService.open(
+                'Nu există biserici care corespund termenului căutat',
+                { type: 'is-danger' }
+              )
           })
           .catch(() => {
             this.searching = false

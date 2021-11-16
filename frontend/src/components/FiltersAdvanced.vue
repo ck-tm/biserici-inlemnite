@@ -46,7 +46,10 @@
         </template>
       </b-tab-item>
 
-      <div class="results" v-if="resultCount != null || loading">
+      <div class="results" v-if="resultCount == 0">
+        <div class="is-inline-flex">Nu există niciun rezultat</div>
+      </div>
+      <div class="results" v-else-if="resultCount != null || loading">
         <b-button
           type="is-primary"
           class="has-text-weight-bold"
@@ -56,9 +59,6 @@
           Vezi {{ resultCount }}
           {{ resultCount > 1 ? 'rezultate' : 'rezultat' }}
         </b-button>
-      </div>
-      <div class="results" v-else-if="resultCount == 0">
-        <div class="is-inline-flex">Nu există niciun rezultat</div>
       </div>
     </b-tabs>
 
