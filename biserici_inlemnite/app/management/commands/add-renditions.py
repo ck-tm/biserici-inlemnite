@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 for poza in model.objects.all():
                     print(model, poza)
                     try:
-                        rendition = poza.poza.get_rendition('width-1280')
+                        rendition = poza.poza.get_rendition('width-1279')
                         poza.rendition = {
                             "url": rendition.url,
                             "width": rendition.width,
