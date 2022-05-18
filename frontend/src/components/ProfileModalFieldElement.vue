@@ -8,12 +8,13 @@
         v-for="(element, index) in fieldElements"
         :key="'profile-section-element-field' + index"
         :field="element"
+        :print="print"
         class="field-element"
       />
     </div>
 
     <template v-else>
-      <ProfileModalFieldComponent :field="{ ...fieldElements, label, value }" />
+      <ProfileModalFieldComponent :field="{ ...fieldElements, label, value }" :print="print" />
     </template>
   </div>
 </template>
@@ -23,7 +24,12 @@ import ProfileModalFieldComponent from '@/components/ProfileModalFieldComponent'
 export default {
   name: 'ProfileModalFieldElement',
   components: { ProfileModalFieldComponent },
-  props: { label: String, fieldElements: [Object, Array], value: null },
+  props: {
+    label: String,
+    fieldElements: [Object, Array],
+    value: null,
+    print: { type: Boolean, default: false },
+  },
   data() {
     return {}
   },

@@ -11,9 +11,10 @@
             :label="fields.length > 1 ? fields[0].label : null"
             :value="fields.value || fields[0].value"
             :fieldElements="fields.length ? fields[0] : fields"
+            :print="print"
           />
         </div>
-        <div class="column is-narrow" v-if="fieldList.length">
+        <div class="column is-narrow" v-if="fieldList.length && !print">
           <b-button
             type="is-black"
             size="is-small"
@@ -27,12 +28,13 @@
         </div>
       </div>
 
-      <div class="toggle-body" v-if="active">
+      <div class="toggle-body" v-if="active || print">
         <ProfileModalFieldElement
           v-for="(field, index) in fieldList"
           :key="'profile-toggled-' + index"
           :label="field.label"
           :value="field.value"
+          :print="print"
           :fieldElements="field"
           class="subsection"
         />
@@ -47,7 +49,11 @@ import ProfileModalFieldElement from '@/components/ProfileModalFieldElement'
 export default {
   name: 'ProfileModalField',
   components: { ProfileModalFieldElement },
-  props: { label: String, fields: [Object, Array] },
+  props: {
+    label: String,
+    fields: [Object, Array],
+    print: { type: Boolean, default: false },
+  },
   data() {
     return {
       active: false,

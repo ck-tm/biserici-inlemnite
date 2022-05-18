@@ -19,6 +19,7 @@ const componentList = {
   List: 'ios-list',
   Options: 'md-options',
   People: 'md-people',
+  Print: 'ios-print',
   Person: 'md-person',
   Pin: 'md-pin',
   Search: 'md-search',

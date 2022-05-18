@@ -17,6 +17,7 @@
               :key="'profile-section-field-' + sIndex"
               :label="subsection.title"
               :fields="subsection.fields"
+              :print="print"
             />
           </template>
 
@@ -26,6 +27,7 @@
               :key="'profile-section-field-' + field.key"
               :label="field.label"
               :fields="field"
+              :print="print"
             />
           </template>
         </div>
@@ -46,7 +48,7 @@ import ProfileModalField from '@/components/ProfileModalField'
 export default {
   name: 'ProfileModalTab',
   components: { ProfileModalField },
-  props: { tab: Object },
+  props: { tab: Object, print: { type: Boolean, default: false } },
   data() {
     return {}
   },

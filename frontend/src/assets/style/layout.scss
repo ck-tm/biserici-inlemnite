@@ -4,6 +4,10 @@ html {
   @include desktop {
     padding-top: $navbar-height;
   }
+
+  @media print {
+    padding-top: 0;
+  }
 }
 
 body {

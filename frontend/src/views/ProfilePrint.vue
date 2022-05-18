@@ -1,12 +1,13 @@
 <template>
-  <div class="container is-fullhd is-full-height" id="profileModal">
-    <b-button
-      icon-left="close"
-      type="is-black"
-      size="is-size-2"
-      class="close"
-      @click="close"
-    />
+  <div class="" id="profileModal">
+    <b-loading v-model="loading" />
+
+    <div class="navbar">
+      <div class="navbar-item">
+        <img src="@/assets/logo_bis.png" />
+        Biserici înlemnite
+      </div>
+    </div>
 
     <div class="profile-container" v-if="profile">
       <header>
@@ -17,10 +18,6 @@
               <div v-text="profile.cod" />
             </div>
             <h2 v-text="profile.title" />
-
-            <router-link :to="{ name: 'ProfilePrint' }" target="_blank">
-              <b-icon class="is-size-3" icon="print" title="Versiune print" />
-            </router-link>
           </div>
           <div class="column is-5">
             <div class="columns">
@@ -53,25 +50,21 @@
         </div>
       </header>
 
-      <b-tabs v-model="tab" animation="slide-prev slide-next" animateInitially>
-        <b-tab-item
-          v-for="(tab, index) in profile.tabs"
-          :key="'profile-tab-' + index"
-        >
-          <template #header>
-            <b>{{ tab.title }}</b>
-          </template>
-
-          <template #default>
-            <ProfileModalTab v-bind="{ tab }" />
-          </template>
-        </b-tab-item>
-      </b-tabs>
+      <div v-for="(tab, index) in profile.tabs" :key="'profile-tab-' + index">
+        <template v-if="tab.type != 'embed'">
+          <header class="has-text-centered">
+            <h4>{{ tab.title }}</h4>
+          </header>
+          <ProfileModalTab v-bind="{ tab, print: true }" />
+        </template>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import ProfileModalTab from '@/components/ProfileModalTab'
 import FilterDisplayItem from '@/components/FilterDisplayItem'
 import ApiService from '@/services/api'
@@ -86,7 +79,7 @@ export default {
       tab: 0,
     }
   },
-  computed: {},
+  computed: mapState(['loading']),
   mounted() {
     this.getProfile()
   },
@@ -99,6 +92,10 @@ export default {
       ApiService.get(`/map/${this.$route.params.id}/`).then((response) => {
         this.profile = response
         this.$store.commit('setLoading', false)
+
+        // this.$nextTick(() => {
+        //   window.print()
+        // })
       })
     },
     close() {
@@ -114,7 +111,6 @@ export default {
 <style lang="scss" scoped>
 #profileModal {
   .profile-container {
-    height: 100%;
     flex: 1;
     display: flex;
     flex-direction: column;

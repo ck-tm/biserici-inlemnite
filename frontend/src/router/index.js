@@ -65,6 +65,12 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/profile-print/:id',
+    name: 'ProfilePrint',
+    component: () =>
+      import(/* webpackChunkName: "home" */ '@/views/ProfilePrint.vue'),
+  },
 ]
 
 const router = new VueRouter({
