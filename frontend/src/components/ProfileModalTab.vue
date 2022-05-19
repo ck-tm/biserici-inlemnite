@@ -75,8 +75,18 @@ export default {
         padding: 10px 0 9px 32px;
         position: sticky;
         top: 0;
+
+        @media print {
+          padding: 0;
+        }
       }
     }
+  }
+}
+
+@media print {
+  /deep/.profile-field {
+    // break-inside: avoid-page;
   }
 }
 

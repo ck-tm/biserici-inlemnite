@@ -5,7 +5,7 @@
     </div>
 
     <div class="column">
-      <div class="columns toggle-header">
+      <div class="columns toggle-header" :class="{ 'is-gapless': print }">
         <div class="column">
           <ProfileModalFieldElement
             :label="fields.length > 1 ? fields[0].label : null"
@@ -78,6 +78,7 @@ export default {
 .profile-field {
   &:not(:last-child) {
     border-bottom: 1px solid #1f1f1f;
+    // border-bottom: 1px solid #FFF;
   }
 
   /deep/.label {
@@ -87,11 +88,20 @@ export default {
       padding: 12px 0 12px 30px;
       position: sticky;
       top: 0;
+
+      @media print {
+        padding: 0;
+      }
     }
   }
 
   .toggle-header {
     padding: 0 0 0 30px;
+
+    @media print {
+      padding: 0;
+      margin-bottom: 0 !important;
+    }
 
     @include desktop {
       padding: 12px 0;
@@ -121,6 +131,12 @@ export default {
     padding: 0 0 0 32px;
 
     @include desktop {
+      padding: 0;
+    }
+
+    @media print {
+      margin-top: 0;
+      margin-bottom: 0;
       padding: 0;
     }
   }
