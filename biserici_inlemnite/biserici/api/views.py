@@ -35,28 +35,28 @@ class ForeignMetaData(SimpleMetadata):
 
 
 class BisericaViewSet(ModelViewSet):
-    serializer_class = serializers.BisericaSerializer
+    serializer_class = serializers.BisericaListSerializer
     queryset = models.Biserica.objects.all()
     # metadata_class = ForeignMetaData
     permission_classes = [BaseModelPermissions]
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     filter_backends = [filters.ObjectPermissionsFilter]
 
-    def get_queryset(self):
-        queryset = self.queryset
-        user = self.request.user
+    # def get_queryset(self):
+    #     queryset = self.queryset
+    #     user = self.request.user
 
-        if self.request.META['PATH_INFO'].endswith('identificare/'):
-            return get_objects_for_user(user, 'biserici.view_identificare')
-        if self.request.META['PATH_INFO'].endswith('descriere'):
-            return get_objects_for_user(user, 'biserici.view_descriere')
-        if self.request.META['PATH_INFO'].endswith('istoric'):
-            return get_objects_for_user(user, 'biserici.view_istoric')
-        if self.request.META['PATH_INFO'].endswith('patrimoniu'):
-            return get_objects_for_user(user, 'biserici.view_patrimoniu')
-        if self.request.META['PATH_INFO'].endswith('conservare'):
-            return get_objects_for_user(user, 'biserici.view_conservare')
-        return get_objects_for_user(user, 'biserici.view_biserica')
+    #     if self.request.META['PATH_INFO'].endswith('identificare/'):
+    #         return get_objects_for_user(user, 'biserici.view_identificare')
+    #     if self.request.META['PATH_INFO'].endswith('descriere'):
+    #         return get_objects_for_user(user, 'biserici.view_descriere')
+    #     if self.request.META['PATH_INFO'].endswith('istoric'):
+    #         return get_objects_for_user(user, 'biserici.view_istoric')
+    #     if self.request.META['PATH_INFO'].endswith('patrimoniu'):
+    #         return get_objects_for_user(user, 'biserici.view_patrimoniu')
+    #     if self.request.META['PATH_INFO'].endswith('conservare'):
+    #         return get_objects_for_user(user, 'biserici.view_conservare')
+    #     return get_objects_for_user(user, 'biserici.view_biserica')
 
     def get_serializer_class(self):
         if self.action == 'list':

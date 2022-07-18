@@ -67,7 +67,7 @@ DJANGO_APPS = [
     "jazzmin",
     # "jet",
     # "bootstrap_admin",
-    # "django.contrib.admin",
+    "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
@@ -117,6 +117,7 @@ LOCAL_APPS = [
     "biserici_inlemnite.nomenclatoare.apps.NomenclatoareConfig",
     "biserici_inlemnite.biserici.apps.BisericiConfig",
     "biserici_inlemnite.app.apps.AppConfig",
+    "biserici_inlemnite.fragmente.apps.FragmenteConfig",
     # "biserici_inlemnite.biserici.apps.BisericiAdminConfig",
     # Your stuff: custom apps go here
 ]

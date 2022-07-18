@@ -21,7 +21,7 @@
           class="image is-inline-flex pr-2"
         >
           <img
-            :src="'https://biserici-inlemnite.ro' + image.poza.url"
+            :src="'https://beta.biserici-inlemnite.ro' + image.poza.url"
             :alt="image.poza.alt"
           />
         </div>

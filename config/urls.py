@@ -45,6 +45,7 @@ urlpatterns += [
     path('api/auth/', include('djoser.urls')),
     path("api/auth/token", token_views.obtain_auth_token),
     # path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    path("api/admin/", include("biserici.api_router")),
     path("api/", include("config.api_router")),
     path('wagtail/api/', wagtail_api.urls),
     # DRF auth token

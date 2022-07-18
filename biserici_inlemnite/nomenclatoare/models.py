@@ -201,22 +201,6 @@ class RegimProprietate(index.Indexed, models.Model):
         return self.nume
 
 
-class MutareBiserica(index.Indexed, models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('biserici.Istoric', on_delete=models.CASCADE)
-    localitate = models.ForeignKey(
-        'Localitate', null=True, blank=True, on_delete=models.SET_NULL)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
-    history = HistoricalRecords()
-    # search_fields = [
-    # index.SearchField('nume', partial_match=True, boost=10),
-    # ]
-
-    class Meta:
-        verbose_name_plural = 'Mutări Biserică'
 
 
 @register_snippet
@@ -280,113 +264,7 @@ class Persoana(index.Indexed, models.Model):
         return self.nume
 
 
-class Eveniment(index.Indexed, models.Model):
-    """
-    Description: Model Description
-    """
-    nume = models.CharField(max_length=150)
-    history = HistoricalRecords()
-    search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
-    ]
 
-    class Meta:
-        verbose_name_plural = 'Evenimente'
-        ordering = ['nume']
-
-    def __str__(self):
-        return self.nume
-
-
-class CtitorBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey(
-        'biserici.Istoric', on_delete=models.SET_NULL, null=True, blank=True)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Ctitori'
-
-    def __str__(self):
-        return self.persoana
-
-
-class ZugravBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey(
-        'biserici.Istoric', on_delete=models.SET_NULL, null=True, blank=True)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Zugravi'
-
-    def __str__(self):
-        return self.persoana
-
-
-
-class MesterBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey(
-        'biserici.Istoric', on_delete=models.SET_NULL, null=True, blank=True)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Meșteri'
-
-    def __str__(self):
-        return self.persoana
-
-
-class PersonalitateBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    persoana = models.ForeignKey('Persoana', on_delete=models.CASCADE)
-    istoric = models.ForeignKey(
-        'biserici.Istoric', on_delete=models.SET_NULL, null=True, blank=True)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Personalități Biserică'
-
-    def __str__(self):
-        return self.persoana
-
-
-class EvenimentBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    eveniment = models.ForeignKey('Eveniment', on_delete=models.CASCADE)
-    istoric = models.ForeignKey(
-        'biserici.Istoric', null=True, blank=True, on_delete=models.SET_NULL)
-    detalii = models.TextField()
-    sursa = models.TextField()
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Evenimente Istorice'
-
-    def __str__(self):
-        return self.eveniment.nume
 
 
 class Studiu(index.Indexed, models.Model):
@@ -427,26 +305,6 @@ class Secol(index.Indexed, models.Model):
     def __str__(self):
         return self.nume
 
-
-class StudiuIstoric(index.Indexed, models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('biserici.Istoric', on_delete=models.CASCADE)
-    nume = models.CharField(max_length=150)
-    fisier = models.FileField()
-    drepturi_de_autor = models.TextField()
-    history = HistoricalRecords()
-    search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
-    ]
-
-    class Meta:
-        verbose_name_plural = 'tudii Istorice'
-        ordering = ['nume']
-
-    def __str__(self):
-        return self.studiu.nume
 
 
 @register_snippet

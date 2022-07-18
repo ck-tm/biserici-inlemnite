@@ -121,10 +121,10 @@ class DescriereBisericaView(UpdateChapterMixin, UpdateView):
     form_class = forms.DescriereForm
 
 
-@method_decorator(login_required, name='dispatch')
-class IstoricBisericaView(UpdateChapterMixin, UpdateView):
-    model = models.Istoric
-    form_class = forms.IstoricForm
+# @method_decorator(login_required, name='dispatch')
+# class IstoricBisericaView(UpdateChapterMixin, UpdateView):
+#     model = models.Istoric
+    # form_class = forms.IstoricForm
 
 
 @method_decorator(login_required, name='dispatch')

@@ -47,38 +47,6 @@ ELEMENTE_BISERICA = (
     )
 
 
-def get_completare(self):
-        fields = self._meta.get_fields()
-        n_fields = len(self._meta.get_fields()) - 2
-        n_count = 0
-        missing_fields = []
-
-        for field in fields:
-            if field.name in ['completare', 'missing_fields']:
-                continue
-            try:
-                if getattr(self, field.name):
-                    n_count += 1
-                else:
-                    missing_fields.append(field.verbose_name)
-            except:
-                if getattr(self, field.name+'_set').count():
-                    n_count += 1
-                else:
-                    # print('---')
-                    # print(field)
-                    # print(dir(field))
-                    # print(field.__dict__['related_model'])
-                    # print(dir(field.__dict__['related_model']._meta))
-                    # print(field.__dict__['related_model']._meta.verbose_name)
-                    # print('====')
-                    # print(field.__class__)
-                    # print(dir(field.__class__))
-                    missing_fields.append(field.__dict__['related_model']._meta.verbose_name)
-
-        return round(n_count / n_fields * 100, 2), missing_fields
-
-
 class Biserica(SortableMixin):
     """
     Description: Model Description
@@ -97,8 +65,38 @@ class Biserica(SortableMixin):
         return self.nume
 
 
-    def completare(self):
-        return 0
+class Fotografie(models.Model):
+    """
+    Description: Model Description
+    """
+    titlu = models.CharField(max_length=150, null=True, blank=True)
+    fisier = models.ImageField(upload_to='fotografii', max_length=200)
+    copyright = models.CharField(max_length=150, null=True, blank=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Fotografii"
+
+    def __str__(self):
+        return self.titlu
+
+
+
+class IdentificareFrecventaUtilizarii(models.Model):
+    """
+    Rubrica: Identificare / Frecventa Utilizarii
+    """
+    frecventa_utilizarii = models.ForeignKey('fragmente.FrecventaUtilizarii', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici', verbose_name="Frecvența utilizării")
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class IdentificareSingularitate(models.Model):
+    """
+    Rubrica: Identificare / Singularitate
+    """
+    singularitate = models.ForeignKey('fragmente.Singularitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    observatii = models.TextField("Observații", null=True, blank=True)
 
 
 class Identificare(models.Model):
@@ -106,77 +104,222 @@ class Identificare(models.Model):
     Capitol: Identificare Biserica
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    localitate = models.ForeignKey('nomenclatoare.Localitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    adresa = models.CharField(max_length=250, null=True, blank=True)
-    latitudine = models.FloatField(null=True, blank=True)
-    longitudine = models.FloatField(null=True, blank=True)
-    statut = models.ForeignKey('nomenclatoare.StatutBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    denumire_actuala = models.CharField(max_length=150, null=True, blank=True)
-    denumire_precedenta = models.CharField(max_length=150, null=True, blank=True)
-    denumire_locala = models.CharField(max_length=150, null=True, blank=True)
-    denumire_oberservatii = models.TextField(null=True, blank=True)
-    cult = models.ForeignKey('nomenclatoare.CultBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    utilizare = models.ForeignKey('nomenclatoare.UtilizareBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    utilizare_detalii = models.TextField(null=True, blank=True)
-    singularitate = models.ForeignKey('nomenclatoare.SingularitateBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    singularitate_detalii = models.TextField(null=True, blank=True)
-    functiune = models.ForeignKey('nomenclatoare.FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    functiune_detalii = models.TextField(null=True, blank=True)
-    functiune_initiala = models.ForeignKey('nomenclatoare.FunctiuneBiserica', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
-    functiune_initiala_detalii = models.TextField(null=True, blank=True)
-    proprietate_actuala = models.ForeignKey('nomenclatoare.RegimProprietate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici_initiale')
-    proprietate_detalii = models.TextField(null=True, blank=True)
-    proprietar_actual = models.TextField(null=True, blank=True)
-    inscriere_documente_cadastrale = models.IntegerField(choices=IDENTIFICARE_DOC_CADASTRALE, null=True, blank=True)
-
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
+    codul_lmi = models.CharField(max_length=50, null=True, blank=True)
+    categoria = models.ForeignKey('fragmente.CategorieObiectiv', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    statut = models.ForeignKey('fragmente.Statut', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    denumire_oficiala = models.CharField('Denumire oficială actuală LMI', max_length=250, null=True, blank=True)
+    hram = models.ForeignKey('fragmente.Hram', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    cult = models.ForeignKey('fragmente.Cult', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    frecventa_utilizarii = models.OneToOneField('IdentificareFrecventaUtilizarii', on_delete=models.CASCADE, null=True, blank=True)
+    singularitate = models.OneToOneField('IdentificareSingularitate', on_delete=models.CASCADE, null=True, blank=True)
 
     history = HistoricalRecords()
 
     class Meta:
         ordering = ["biserica__the_order"]
-        verbose_name_plural = "1. Identificare"
+        verbose_name = "Identificare / Denumire / Funcțiune"
+        verbose_name_plural = "Identificare / Denumire / Funcțiune"
 
     def __str__(self):
         return f"Identificare {self.biserica.nume}"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__original_judet = self.judet
+
+class LocalizareUnitatiTeritoriale(models.Model):
+    """
+    Description: Model Description
+    """
+    stat = models.CharField(max_length=50, null=True, blank=True)
+    regiune = models.CharField(max_length=50, null=True, blank=True)
+    uat_1 = models.CharField('UAT 1 (superior)', max_length=50, null=True, blank=True)
+    uat = models.CharField('UAT (intermediar)', max_length=50, null=True, blank=True)
+    uat_2 = models.CharField('UAT 2 (inferior)', max_length=50, null=True, blank=True)
+    ut = models.CharField('UT', max_length=50, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Unități Teritoriale"
+
+class LocalizareAdresaCoordonateGPS(models.Model):
+    """
+    Description: Model Description
+    """
+    latitudine = models.FloatField(null=True, blank=True)
+    longitudine = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Unități Teritoriale"
+
+
+class LocalizareAdresa(models.Model):
+    """
+    Description: Model Description
+    """
+    coordonate_gps = models.OneToOneField('LocalizareAdresaCoordonateGPS', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coordonate GPS")
+    tip_artera = models.ForeignKey('fragmente.TipArtera', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    denumire_artera = models.CharField("Denumire Arteră", max_length=50, null=True, blank=True)
+    nr_postal = models.IntegerField("Număr Poștal", null=True, blank=True)
+    cod_postal = models.IntegerField("Cod Poștal", null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Adresă"
+
+
+class LocalizareReferinteCadastrale(models.Model):
+    """
+    Description: Model Description
+    """
+    nr_carte_funciara = models.CharField("Număr carte funciară", max_length=50, null=True, blank=True)
+    nr_cadastru = models.IntegerField("Număr cadastru", null=True, blank=True)
+    nr_cop_cadastru = models.CharField("Număr cop conform cadastru", max_length=150, null=True, blank=True)
+    nr_parcela = models.IntegerField("Număr parcelă / topografic", null=True, blank=True)
+    suprafata_parcela = models.IntegerField("Suprafață parcelă", null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Referințe Cadastrale"
+
+class LocalizareRegimulDeProprietate(models.Model):
+    """
+    Description: Model Description
+    """
+    tip_regim = models.ForeignKey('fragmente.TipRegimProprietate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici', verbose_name="Tipul Regimului de Proprietate")
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Regimul de Proprietate"
+
+
+class Localizare(models.Model):
+    """
+    Capitol: Localizare Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
+    unitati_teritoriale = models.OneToOneField('LocalizareUnitatiTeritoriale', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Unități Teritoriale")
+    adresa = models.OneToOneField('LocalizareAdresa', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adresă")
+    referinte_cadastrale = models.OneToOneField('LocalizareReferinteCadastrale', on_delete=models.CASCADE, null=True, blank=True,verbose_name="Referințe Cadastrale")
+    regim_proprietate = models.OneToOneField('LocalizareRegimulDeProprietate', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Regimul de Proprietate")
+
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Localizare / Proprietate"
+        verbose_name_plural = "Localizare / Proprietate"
+
+    def __str__(self):
+        return f"Localizare {self.biserica.nume}"
+
+
+class RepereGeograficeFormaRelief(models.Model):
+    tip_forma = models.ForeignKey('fragmente.TipFormaRelief', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici', verbose_name="Tipul Formei de Relief")
+    denumire = models.CharField("Denumire Formă de Relief", max_length=150, null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class RepereGeograficeReperHidrografic(models.Model):
+    tip_reper = models.ForeignKey('fragmente.TipReperHidrografic', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici', verbose_name="Tipul Reperului Hidrografic")
+    denumire = models.CharField("Denumire Reper Hidrografic", max_length=150, null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class RepereGeograficeZoneNaturale(models.Model):
+    tip_zone = models.ManyToManyField('fragmente.TipZoneNaturale', null=True, blank=True, related_name='biserici', verbose_name="Tip Zone Naturale")
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class RepereGeografice(models.Model):
+    """
+    Capitol: Localizare Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name="repere_geografice")
+
+    forma_relief = models.OneToOneField('RepereGeograficeFormaRelief', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Formă de relief")
+    reper_hidrografic = models.OneToOneField('RepereGeograficeReperHidrografic', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Reper Hidrografic")
+    zone_naturale = models.OneToOneField('RepereGeograficeZoneNaturale', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Zone Naturale (Arii Protejate)")
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Repere Geografice"
+        verbose_name_plural = "Repere Geografice"
+
+    def __str__(self):
+        return f"Repere Geografice {self.biserica.nume}"
+
+
+class IstoricScurtIstoricDatare(models.Model):
+    an = models.IntegerField(null=True, blank=True, verbose_name='An')
+    interval_timp = models.CharField("Datare prin interval de timp", max_length=50, null=True, blank=True)
+    secol = models.ManyToManyField('fragmente.Secol', blank=True, related_name='biserici', verbose_name="Secol")
+
+
+class IstoricScurtIstoricJustificareDatare(models.Model):
+    categorie = models.ForeignKey('fragmente.JustificareDatare', null=True, blank=True, on_delete=models.CASCADE, related_name='biserici', verbose_name="Justificare Datare")
+    observatii = models.TextField("Observații", null=True, blank=True)
+    foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+class IstoricScurtIstoric(models.Model):
+    sinteza = models.TextField("Sinteză istorică", null=True, blank=True)
+    bibliografie = models.ManyToManyField('fragmente.Bibliografie', blank=True, related_name='biserici', verbose_name="Bibliografie")
+    datare = models.OneToOneField('IstoricScurtIstoricDatare', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Pisanie")
+    justificare_datare = models.ManyToManyField('IstoricScurtIstoricJustificareDatare', blank=True, verbose_name="Pisanie")
+
+
+class IstoricPisanie(models.Model):
+    tip = models.ManyToManyField('fragmente.TipPisanie', blank=True, related_name='biserici', verbose_name="Tip Pisanie")
+    text = models.TextField("Text", null=True, blank=True)
+
+
+class IstoricPersoana(models.Model):
+    nume = models.CharField("Nume", max_length=150, null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+    sursa = models.TextField("Sursa", null=True, blank=True)
+    foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+class IstoricEveniment(models.Model):
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class IstoricMutare(models.Model):
+    localitate = models.ForeignKey('fragmente.Localitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici', verbose_name="Tipul Formei de Relief")
+    adresa = models.TextField("Adresa", null=True, blank=True)
+    latitudine = models.FloatField(null=True, blank=True)
+    longitudine = models.FloatField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
+    sursa = models.TextField("Sursa", null=True, blank=True)
+
+
+class Istoric(models.Model):
+    """
+    Capitol: Localizare Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name="istoric")
+
+    scurt_istoric = models.OneToOneField('IstoricScurtIstoric', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Scurt Istoric")
+    pisanie = models.OneToOneField('IstoricPisanie', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Pisanie")
+    ctitori = models.ManyToManyField('IstoricPersoana', blank=True, verbose_name="Ctitori", related_name="ctitori")
+    mesteri = models.ManyToManyField('IstoricPersoana', blank=True, verbose_name="Meșteri", related_name="mesteri")
+    zugravi = models.ManyToManyField('IstoricPersoana', blank=True, verbose_name="Zugravi", related_name="zugravi")
+    personalitati = models.ManyToManyField('IstoricPersoana', blank=True, verbose_name="Personalități", related_name="personalitati")
+    evenimente = models.ManyToManyField('IstoricEveniment', blank=True, verbose_name="Evenimente", related_name="evenimente")
+    mutari = models.ManyToManyField('IstoricMutare', blank=True, verbose_name="Mutări", related_name="mutari")
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Istoric"
+        verbose_name_plural = "Istoric"
+
+    def __str__(self):
+        return f"Istoric {self.biserica.nume}"
 
 
 
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
-
-    # def save(self, *args, **kwargs):
-    #     print(kwargs)
-    #     if self.judet:
-    #         if self.__original_judet != self.judet or kwargs.get('force_update', False) == True:
-    #             biserica = self.biserica
-
-    #             judet_biserica = self.judet.nume
-    #             grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-    #             assign_perm('view_biserica', grup_judet, biserica)
-    #             assign_perm('change_biserica', grup_judet, biserica)
-
-    #             for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
-    #                     assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
-    #                     assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
-
-    #             for judet in Group.objects.exclude(name=judet_biserica):
-    #                 remove_perm('view_biserica', judet, biserica)
-    #                 remove_perm('change_biserica', judet, biserica)
-
-    #                 for t in ['identificare', 'istoric', 'descriere', 'patrimoniu', 'conservare']:
-    #                     remove_perm(f'view_{t}', judet, getattr(biserica, t))
-    #                     remove_perm(f'change_{t}', judet, getattr(biserica, t))
-    #     super().save(*args, **kwargs)
 
 
 class Descriere(models.Model):
@@ -187,13 +330,19 @@ class Descriere(models.Model):
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
 
     # Localizare/peisaj
+    judet = models.ForeignKey('nomenclatoare.Judet', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    localitate = models.ForeignKey('nomenclatoare.Localitate', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
+    adresa = models.CharField(max_length=250, null=True, blank=True)
+    latitudine = models.FloatField(null=True, blank=True)
+    longitudine = models.FloatField(null=True, blank=True)
+
     amplasament = models.ForeignKey('nomenclatoare.AmplasamentBiserica', null=True, blank=True, on_delete=models.SET_NULL)
     topografie = models.ForeignKey('nomenclatoare.TopografieBiserica', null=True, blank=True, on_delete=models.SET_NULL)
     toponim = models.CharField(max_length=150, null=True, blank=True, help_text="denumirea locului")
     toponim_sursa  = models.TextField(null=True, blank=True, verbose_name='Sursă informații')
     relatia_cu_cimitirul = models.ForeignKey('nomenclatoare.RelatieCimitir', null=True, blank=True, on_delete=models.SET_NULL)
     peisagistica_sitului = models.ManyToManyField('nomenclatoare.PeisagisticaSit', blank=True)
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
 
     # Ansamblu construit
     elemente = models.ManyToManyField('nomenclatoare.ElementInteriorBiserica', help_text="Elemente ansamblu construit", blank=True)
@@ -223,7 +372,7 @@ class Descriere(models.Model):
     turn_asezare_talpi  = models.ForeignKey('nomenclatoare.AsezareTalpaTurn', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Turn (așezarea tălpilor turnului în legătură cu butea bisericii)')
     turn_relatie_talpi  = models.ForeignKey('nomenclatoare.RelatieTalpaTurn', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Turn (relația dintre tălpile turnului)')
     turn_numar_talpi = models.IntegerField(null=True, blank=True, verbose_name='Turn (număr de tălpi)')
-    turn_observatii = models.TextField(null=True, blank=True)
+    turn_observatii = models.TextField("Observații", null=True, blank=True)
 
     clopote_an = models.IntegerField(null=True, blank=True, verbose_name='Clopote (an)')
     clopote_inscriptie = models.TextField(null=True, blank=True, verbose_name='Clopote (Inscripție)')
@@ -263,22 +412,22 @@ class Descriere(models.Model):
     bolta_peste_pronaos  = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Boltă peste pronaos', related_name='biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_material = models.ManyToManyField('nomenclatoare.Material', blank=True, related_name='biserici_bolta_peste_pronaos')
     bolta_peste_pronaos_tipul_de_arc = models.ManyToManyField('nomenclatoare.TipArcBolta', blank=True, related_name='biserici_bolta_peste_pronaos')
-    bolta_peste_pronaos_observatii = models.TextField(null=True, blank=True)
+    bolta_peste_pronaos_observatii = models.TextField("Observații", null=True, blank=True)
 
     bolta_peste_naos  = models.ForeignKey('nomenclatoare.TipBoltaPronaos', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Boltă peste naos', related_name='biserici_bolta_peste_naos')
     bolta_peste_naos_material = models.ManyToManyField('nomenclatoare.Material', blank=True, related_name='biserici_bolta_peste_naos')
     bolta_peste_naos_tipul_de_arc = models.ManyToManyField('nomenclatoare.TipArcBolta', blank=True, related_name='biserici_bolta_peste_naos')
-    bolta_peste_naos_observatii = models.TextField(null=True, blank=True)
+    bolta_peste_naos_observatii = models.TextField("Observații", null=True, blank=True)
 
     bolta_peste_altar  = models.ForeignKey('nomenclatoare.BoltaPesteAltar', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Boltă peste altar', related_name='biserici_bolta_peste_altar')
     bolta_peste_altar_tip  = models.ForeignKey('nomenclatoare.TipBoltaPesteAltar', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Tip bolta peste altar', related_name='biserici')
     bolta_peste_altar_material = models.ManyToManyField('nomenclatoare.Material', blank=True, related_name='biserici_bolta_peste_altar')
     bolta_peste_altar_tipul_de_arc = models.ManyToManyField('nomenclatoare.TipArcBolta', blank=True, related_name='biserici_bolta_peste_altar')
-    bolta_peste_altar_observatii = models.TextField(null=True, blank=True)
+    bolta_peste_altar_observatii = models.TextField("Observații", null=True, blank=True)
 
     cor = models.BooleanField(default=False)
     cor_material = models.ManyToManyField('nomenclatoare.Material', blank=True, related_name='biserici_cor')
-    cor_observatii = models.TextField(null=True, blank=True)
+    cor_observatii = models.TextField("Observații", null=True, blank=True)
 
     solee = models.BooleanField(default=False)
     solee_detalii =  models.TextField(null=True, blank=True, verbose_name='Solee (observații)')
@@ -299,8 +448,6 @@ class Descriere(models.Model):
     # elemente = models.ManyToManyField('nomenclatoare.ElementInteriorBiserica', help_text="Elemente ansamblu construit", blank=True)
     # datat = models.BooleanField(default=False)
 
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
 
     history = HistoricalRecords()
 
@@ -311,89 +458,7 @@ class Descriere(models.Model):
     def __str__(self):
         return f"Descriere {self.biserica.nume}"
 
-    
 
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
-
-class PovesteBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    detalii = models.TextField()
-    sursa = models.TextField()
-
-    history = HistoricalRecords()
-
-    class Meta:
-        verbose_name_plural = 'Povești Biserică'
-
-
-class InterventieBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    istoric = models.ForeignKey('Istoric', on_delete=models.CASCADE)
-    element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
-    datat = models.BooleanField(default=False)
-    an = models.IntegerField(null=True, blank=True)
-    observatii = models.TextField(null=True, blank=True)
-    sursa = models.TextField(null=True, blank=True)
-    este_ultima_interventie = models.BooleanField(default=False)
-
-
-    class Meta:
-        pass
-
-class Istoric(models.Model):
-    """
-    Capitol: Istoric Biserica
-    """
-
-    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    sursa_datare = models.ManyToManyField('nomenclatoare.SursaDatare', related_name='biserici', blank=True)
-    anul_constructiei = models.IntegerField(null=True, blank=True)
-    datare_prin_interval_timp = models.CharField(max_length=50, null=True, blank=True)
-    datare_secol = models.ForeignKey('nomenclatoare.Secol', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
-    datare_secol_detalii  = models.TextField(null=True, blank=True)
-    datare_secol_sursa  = models.TextField(null=True, blank=True)
-    studiu_dendocronologic = models.ForeignKey('nomenclatoare.StudiuDendocronologic', null=True, blank=True, on_delete=models.SET_NULL)
-    pisanie_traducere = models.TextField(null=True, blank=True)
-    pisanie_secol_detalii  = models.TextField(null=True, blank=True)
-    pisanie_secol_sursa  = models.TextField(null=True, blank=True)
-    ctitori = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.CtitorBiserica, related_name='ctitor', blank=True)
-    mesteri = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.MesterBiserica, related_name='mester', blank=True)
-    zugravi = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.ZugravBiserica, related_name='zugrav', blank=True)
-    personalitati = models.ManyToManyField('nomenclatoare.Persoana', through=nmodels.PersonalitateBiserica, related_name='personalitate', blank=True)
-    evenimente = models.ManyToManyField('nomenclatoare.Eveniment', through=nmodels.EvenimentBiserica, blank=True)
-
-    mutari_biserica = models.ManyToManyField('nomenclatoare.Localitate', through=nmodels.MutareBiserica, blank=True)
-
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
-
-    history = HistoricalRecords()
-
-    class Meta:
-        ordering = ["biserica__the_order"]
-        verbose_name_plural = "2. Istoric"
-        
-
-    def __str__(self):
-        return f"Istoric {self.biserica.nume}"
-
-
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
 
 class Patrimoniu(models.Model):
     """
@@ -426,9 +491,6 @@ class Patrimoniu(models.Model):
     potential = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text= "Potențialul de beneficii aduse comunității locale")
     potential_detalii = models.TextField(null=True, blank=True)
 
-
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -437,16 +499,6 @@ class Patrimoniu(models.Model):
 
     def __str__(self):
         return f"Valoare patrimoniu cultural {self.biserica.nume}"
-
-    
-
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
-
 
 class Conservare(models.Model):
     """
@@ -515,8 +567,6 @@ class Conservare(models.Model):
     starea_mobilier = models.IntegerField(choices=NR15, null=True, blank=True)
     starea_mobilier_detalii = models.TextField( null=True, blank=True)
 
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
     history = HistoricalRecords()
 
     class Meta:
@@ -525,390 +575,6 @@ class Conservare(models.Model):
 
     def __str__(self):
         return f"Stare conservare {self.biserica.nume}"
-
-    
-
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
-
-
-class FotografieAnsamblu(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieFatada(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografiePortal(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieFereastra(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieCheotoar(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieTalpa(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieStreasina(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieInvelitoare(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieCruceBiserica(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieTurn(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieDegradariExterioare(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieInteriorDesfasurat(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografiePisanieInscriptieCtitorMester(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografiePortalPronaos(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografiePortalNaos(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieDetaliuBolta(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieDetaliuSculptura(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieDetaliuImaginePereti(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-
-class FotografieUrmeSemneSimboluri(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieProgramIconografic(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    titlu = models.CharField(max_length=250, null=True, blank=True)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieIconostasNaos(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieIconostasAltar(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieIcoana(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieObiectCult(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieMobilierCandelabre(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieDegradariInterior(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-class FotografieDegradariPod(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class FotografieDetaliuPod(models.Model):
-    """
-    Description: Model Description
-    """
-    fotografii = models.ForeignKey('Fotografii', on_delete=models.CASCADE)
-    detaliu = models.ForeignKey('nomenclatoare.DetaliuPodTurn', on_delete=models.CASCADE)
-    poza = models.ImageField(upload_to='fotografii', max_length=250)
-    detalii = models.TextField(null=True, blank=True)
-    copyright = models.CharField(max_length=150, null=True, blank=True)
-    history = HistoricalRecords()
-    class Meta:
-        pass
-
-
-class Fotografii(models.Model):
-    """
-    Capitol: Fotografii Biserica
-    """
-
-    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
-    history = HistoricalRecords()
-
-    class Meta:
-        ordering = ["biserica__the_order"]
-        verbose_name_plural = "3.1 Fotografii"
-
-    def __str__(self):
-        return f"Fotografii {self.biserica.nume}"
-
-    
-
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
 
 
 class FinisajActualInvelitoare(models.Model):
@@ -930,7 +596,7 @@ class FinisajActualInvelitoare(models.Model):
     sindrila_cu_tesitura = models.BooleanField(default=False)
     sindrlia_prelucrare = models.ForeignKey('nomenclatoare.TipPrelucrareSindrila', null=True, blank=True, on_delete=models.SET_NULL)
     sindrlia_esenta_lemnoasa = models.ForeignKey('nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL)
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -952,7 +618,7 @@ class FinisajAnteriorInvelitoare(models.Model):
     sindrlia_esenta_lemnoasa = models.ForeignKey('nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL)
 
     alte_tipuri_invelitoare = models.TextField(null=True, blank=True)
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
 
     history = HistoricalRecords()
     class Meta:
@@ -978,7 +644,7 @@ class FinisajTamburTurn(models.Model):
     sindrlia_prelucrare = models.ForeignKey('nomenclatoare.TipPrelucrareSindrila', null=True, blank=True, on_delete=models.SET_NULL)
     sindrlia_esenta_lemnoasa = models.ForeignKey('nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1004,7 +670,7 @@ class FinisajInvelitoareTurn(models.Model):
     sindrlia_prelucrare = models.ForeignKey('nomenclatoare.TipPrelucrareSindrila', null=True, blank=True, on_delete=models.SET_NULL)
     sindrlia_esenta_lemnoasa = models.ForeignKey('nomenclatoare.EsentaLemnoasa', null=True, blank=True, on_delete=models.SET_NULL)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1017,7 +683,7 @@ class FinisajPardosea(models.Model):
     element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.MaterialFinisajPardoseli', on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1031,7 +697,7 @@ class FinisajPeretiInterior(models.Model):
     element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.MaterialFinisajPeretiInteriori', on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1045,7 +711,7 @@ class FinisajBolti(models.Model):
     element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.Finisaj', on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1059,7 +725,7 @@ class FinisajTavan(models.Model):
     element = models.ForeignKey('nomenclatoare.ElementInteriorBiserica', on_delete=models.CASCADE)
     material = models.ForeignKey('nomenclatoare.Finisaj', on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1077,7 +743,7 @@ class FinisajPortic(models.Model):
     element = models.CharField(choices=ELEMENTE_BISERICA, null=True, blank=True, max_length=100)
     material = models.ForeignKey('nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1090,7 +756,7 @@ class FinisajPronaos(models.Model):
     element = models.CharField(choices=ELEMENTE_BISERICA, null=True, blank=True, max_length=100)
     material = models.ForeignKey('nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1103,7 +769,7 @@ class FinisajNaos(models.Model):
     element = models.CharField(choices=ELEMENTE_BISERICA, null=True, blank=True, max_length=100)
     material = models.ForeignKey('nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1116,7 +782,7 @@ class FinisajAltar(models.Model):
     element = models.CharField(choices=ELEMENTE_BISERICA, null=True, blank=True, max_length=100)
     material = models.ForeignKey('nomenclatoare.Finisaj', null=True, blank=True, on_delete=models.CASCADE)
 
-    observatii = models.TextField(null=True, blank=True)
+    observatii = models.TextField("Observații", null=True, blank=True)
     history = HistoricalRecords()
     class Meta:
         pass
@@ -1129,13 +795,10 @@ class Finisaj(models.Model):
 
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
     finisaj_exterior_tip = models.ManyToManyField('nomenclatoare.FinisajExterior', blank=True)
-    finisaj_exterior_observatii = models.TextField(null=True, blank=True)
+    finisaj_exterior_observatii = models.TextField("Observații", null=True, blank=True)
 
     # finisaj_actual_invelitoare = models.ForeignKey('FinisajInvelitoare', on_delete=models.SET_NULL, null=True, blank=True)
     # finisaj_tambur_turn = models.ForeignKey('FinisajInvelitoare', related_name='finisaje_tambur_turn', on_delete=models.SET_NULL, null=True, blank=True)
-
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
 
     history = HistoricalRecords()
     class Meta:
@@ -1145,15 +808,7 @@ class Finisaj(models.Model):
     def __str__(self):
         return f"Finisaj Artistica {self.biserica.nume}"
 
-    
-
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)
-
+   
 
 class PicturaExterioara(models.Model):
     """
@@ -1256,9 +911,6 @@ class ComponentaArtistica(models.Model):
     altar_decor = models.ForeignKey('nomenclatoare.TehnicaIconostas', verbose_name = "Decor", on_delete=models.SET_NULL, null=True, blank=True, related_name='decoruri_altar')
     altar_detalii = models.TextField(null=True, blank=True, verbose_name='Detalii')
 
-    completare = models.FloatField(default=0)
-    missing_fields = models.JSONField(null=True, blank=True)
-
     history = HistoricalRecords()
     class Meta:
         ordering = ["biserica__the_order"]
@@ -1268,9 +920,3 @@ class ComponentaArtistica(models.Model):
         return f"Componenta Artistica {self.biserica.nume}"
 
     
-
-    def save(self, *args, **kwargs):
-        completare = get_completare(self)
-        self.completare = completare[0]
-        self.missing_fields = completare[1]
-        super().save(*args, **kwargs)

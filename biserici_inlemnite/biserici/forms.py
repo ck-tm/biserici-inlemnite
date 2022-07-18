@@ -20,11 +20,11 @@ class DescriereForm(ReadOnlyForm, forms.ModelForm):
         model = models.Descriere
         exclude = ('biserica',)
 
-class IstoricForm(ReadOnlyForm, forms.ModelForm):
-    class Meta:
-        model = models.Istoric
-        exclude = ('biserica',)
-        # readonly_fields = '__all__'
+# class IstoricForm(ReadOnlyForm, forms.ModelForm):
+#     class Meta:
+#         model = models.Istoric
+#         exclude = ('biserica',)
+#         # readonly_fields = '__all__'
 
 class PatrimoniuForm(ReadOnlyForm, forms.ModelForm):
     class Meta:
