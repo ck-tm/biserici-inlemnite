@@ -2,8 +2,9 @@
   <div>
     <label v-if="field.label" class="label" v-text="field.label" />
 
-    <template v-if="this.field.type == 'poze'">
+    <template v-if="this.field.type == 'poze' && field.value.length">
       <b-button
+        v-if="!print"
         size="is-small"
         icon-left="images"
         class="button-link"
@@ -12,6 +13,19 @@
         Vezi {{ field.value.length }}
         {{ field.value.length == 1 ? 'poză' : 'poze' }}
       </b-button>
+
+      <template v-else>
+        <div
+          v-for="(image, index) in field.value"
+          :key="'carousel-poze' + index"
+          class="image is-inline-flex pr-2"
+        >
+          <img
+            :src="'https://biserici-inlemnite.ro' + image.poza.url"
+            :alt="image.poza.alt"
+          />
+        </div>
+      </template>
     </template>
 
     <template v-else-if="this.field.type == 'poza'">
@@ -36,7 +50,7 @@ import { BooleanOptions } from '@/services/utils'
 export default {
   name: 'ProfileModalFieldComponent',
   components: {},
-  props: { field: Object },
+  props: { field: Object, print: { type: Boolean, default: false } },
   data() {
     return {
       booleanOptions: BooleanOptions,

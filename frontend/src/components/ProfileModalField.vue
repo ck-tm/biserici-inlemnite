@@ -5,15 +5,16 @@
     </div>
 
     <div class="column">
-      <div class="columns toggle-header">
+      <div class="columns toggle-header" :class="{ 'is-gapless': print }">
         <div class="column">
           <ProfileModalFieldElement
             :label="fields.length > 1 ? fields[0].label : null"
             :value="fields.value || fields[0].value"
             :fieldElements="fields.length ? fields[0] : fields"
+            :print="print"
           />
         </div>
-        <div class="column is-narrow" v-if="fieldList.length">
+        <div class="column is-narrow" v-if="fieldList.length && !print">
           <b-button
             type="is-black"
             size="is-small"
@@ -27,12 +28,13 @@
         </div>
       </div>
 
-      <div class="toggle-body" v-if="active">
+      <div class="toggle-body" v-if="active || print">
         <ProfileModalFieldElement
           v-for="(field, index) in fieldList"
           :key="'profile-toggled-' + index"
           :label="field.label"
           :value="field.value"
+          :print="print"
           :fieldElements="field"
           class="subsection"
         />
@@ -47,7 +49,11 @@ import ProfileModalFieldElement from '@/components/ProfileModalFieldElement'
 export default {
   name: 'ProfileModalField',
   components: { ProfileModalFieldElement },
-  props: { label: String, fields: [Object, Array] },
+  props: {
+    label: String,
+    fields: [Object, Array],
+    print: { type: Boolean, default: false },
+  },
   data() {
     return {
       active: false,
@@ -72,6 +78,7 @@ export default {
 .profile-field {
   &:not(:last-child) {
     border-bottom: 1px solid #1f1f1f;
+    // border-bottom: 1px solid #FFF;
   }
 
   /deep/.label {
@@ -81,11 +88,20 @@ export default {
       padding: 12px 0 12px 30px;
       position: sticky;
       top: 0;
+
+      @media print {
+        padding: 0;
+      }
     }
   }
 
   .toggle-header {
     padding: 0 0 0 30px;
+
+    @media print {
+      padding: 0;
+      margin-bottom: 0 !important;
+    }
 
     @include desktop {
       padding: 12px 0;
@@ -115,6 +131,12 @@ export default {
     padding: 0 0 0 32px;
 
     @include desktop {
+      padding: 0;
+    }
+
+    @media print {
+      margin-top: 0;
+      margin-bottom: 0;
       padding: 0;
     }
   }
