@@ -139,7 +139,7 @@ class BisericiView(MetadataMixin, ListView):
         context['sd'] =  {
           "@context": "https://schema.org/",
           "@type": "website",
-          "url": "https://biserici-inlemnite.ro/",
+          "url": "https://beta.biserici-inlemnite.ro/",
           "name": "Biserici Înlemnite",
           "description": "Biserici Înlemnite a venit ca un răspuns la una dintre cele mai mari probleme ale păstrării și gestionării bisericilor de lemn de patrimoniu din România: lipsa informațiilor privind numărul, starea și valoarea lor.",
           "image": '/static/images/logo.png'

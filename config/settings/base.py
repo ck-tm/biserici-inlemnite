@@ -67,7 +67,7 @@ DJANGO_APPS = [
     "jazzmin",
     # "jet",
     # "bootstrap_admin",
-    "django.contrib.admin",
+    # "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
@@ -567,7 +567,7 @@ CACHEOPS = {
 }
 
 META_SITE_PROTOCOL = 'https'
-META_SITE_DOMAIN = 'biserici-inlemnite.ro'
+META_SITE_DOMAIN = 'beta.biserici-inlemnite.ro'
 META_SITE_TYPE = 'website'
 META_SITE_NAME = 'Biserici Înlemnite'
 META_INCLUDE_KEYWORDS = ['biserici', 'inlemnite', 'lemn', 'patrimoniu', 'conservare', 'prioritizare']

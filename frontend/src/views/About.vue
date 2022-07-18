@@ -42,7 +42,7 @@
               class="column is-3 image"
             >
               <img
-                :src="'https://biserici-inlemnite.ro' + item.logo.url"
+                :src="'https://beta.biserici-inlemnite.ro' + item.logo.url"
                 :alt="item.logo.alt"
               />
             </a>

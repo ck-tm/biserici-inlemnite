@@ -26,7 +26,7 @@
       >
         <template v-if="filter.type == 'poza'">
           <img
-            :src="'https://biserici-inlemnite.ro' + option.url"
+            :src="'https://beta.biserici-inlemnite.ro' + option.url"
             :alt="option.alt"
           />
         </template>
