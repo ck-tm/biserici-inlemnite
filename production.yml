@@ -19,11 +19,11 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     volumes:
-      - /mnt/HC_Volume_12351385/media:/app/biserici_inlemnite/media
+      - /mnt/HC_Volume_21339947/media:/app/biserici_inlemnite/media
   media:
     image: nginx:stable-alpine
     volumes:
-      - /mnt/HC_Volume_12351385/media:/usr/share/nginx/html/media
+      - /mnt/HC_Volume_21339947/media:/usr/share/nginx/html/media
 
   frontend:
     build:
@@ -38,8 +38,8 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: biserici_inlemnite_production_postgres
     volumes:
-      - /mnt/HC_Volume_12351385/pgdata:/var/lib/postgresql/data:Z
-      - /mnt/HC_Volume_12351385/pgbackups:/backups:z
+      - /mnt/HC_Volume_21339947/pgdata:/var/lib/postgresql/data:Z
+      - /mnt/HC_Volume_21339947/pgbackups:/backups:z
     env_file:
       - ./.envs/.production/.postgres
 
