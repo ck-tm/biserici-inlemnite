@@ -20,9 +20,10 @@ class FragmenteView(ViewSet):
         app = apps.get_app_config('fragmente')
 
         for model_name, model in app.models.items():
-            response.append({
-                "model": model_name,
-                "values": model.objects.values()
-                })
+            if not 'historical' in model_name:
+                response.append({
+                    "model": model_name,
+                    "values": model.objects.values()
+                    })
 
         return Response(response)
