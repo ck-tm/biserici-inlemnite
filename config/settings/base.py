@@ -110,6 +110,8 @@ THIRD_PARTY_APPS = [
     "cacheops",
     "meta",
     "django_json_ld",
+
+    "wq.db.rest.apps.RestConfig"
 ]
 
 LOCAL_APPS = [
@@ -232,6 +234,11 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "biserici_inlemnite.utils.context_processors.settings_context",
+                "wq.db.rest.auth.context_processors.is_authenticated",
+                "wq.db.rest.context_processors.version",
+                "wq.db.rest.context_processors.router_info",
+                "wq.db.rest.context_processors.wq_config",
+                "wq.db.rest.context_processors.script_tags",
             ],
         },
     }

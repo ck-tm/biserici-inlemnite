@@ -14,6 +14,6 @@ else:
     router = SimpleRouter()
 
 
-router.register("biserici", views.BisericaViewSet, basename='biserici')
+
 
 urlpatterns = router.urls

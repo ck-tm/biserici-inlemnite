@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.apps import apps
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 
@@ -8,6 +9,10 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
 from app.api import views
+from biserici.api import views as biserici_views
+
+
+
 
 app_name = "api"
 
@@ -30,9 +35,10 @@ else:
 
 
 # NEW
-router.register("map", views.BisericaViewSet, basename='biserica')
+router.register("map", views.MapViewSet, basename='biserica')
 router.register("about", views.AboutViewSet, basename='about')
 router.register("filters", views.FiltersView, basename='filters')
+router.register("biserici", biserici_views.BisericiViewSet, basename='biserici')
 
 
 urlpatterns = router.urls

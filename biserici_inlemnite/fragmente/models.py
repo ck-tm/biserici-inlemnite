@@ -1,6 +1,9 @@
 from django.db import models
+from django.contrib import admin
 from simple_history.models import HistoricalRecords
 
+class GenericAdmin(admin.ModelAdmin):
+    pass
 
 
 class Judet(models.Model):
@@ -223,6 +226,34 @@ class Secol(models.Model):
         return self.nume
 
 
+class TipCadruPeisaj(models.Model):
+    nume = models.CharField(max_length=300)
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tip Cadru Peisaj"
+        ordering = ['nume']
+
+    def __str__(self):
+        return self.nume
 
 
-
+admin.site.register(Judet, GenericAdmin)
+admin.site.register(Comuna, GenericAdmin)
+admin.site.register(Localitate, GenericAdmin)
+admin.site.register(CategorieObiectiv, GenericAdmin)
+admin.site.register(Statut, GenericAdmin)
+admin.site.register(Hram, GenericAdmin)
+admin.site.register(Cult, GenericAdmin)
+admin.site.register(FrecventaUtilizarii, GenericAdmin)
+admin.site.register(Singularitate, GenericAdmin)
+admin.site.register(TipArtera, GenericAdmin)
+admin.site.register(TipRegimProprietate, GenericAdmin)
+admin.site.register(TipFormaRelief, GenericAdmin)
+admin.site.register(TipReperHidrografic, GenericAdmin)
+admin.site.register(TipZoneNaturale, GenericAdmin)
+admin.site.register(Bibliografie, GenericAdmin)
+admin.site.register(JustificareDatare, GenericAdmin)
+admin.site.register(TipPisanie, GenericAdmin)
+admin.site.register(Secol, GenericAdmin)
+admin.site.register(TipCadruPeisaj, GenericAdmin)

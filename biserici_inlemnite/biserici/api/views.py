@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
-from rest_framework.relations import ManyRelatedField
+from rest_framework.relations import ManyRelatedField, PrimaryKeyRelatedField
+from rest_framework.serializers import ListSerializer
 from rest_framework.metadata import SimpleMetadata
 
 from rest_framework_guardian import filters
@@ -21,23 +22,44 @@ from pprint import pprint
 from itertools import chain
 
 
-class ForeignMetaData(SimpleMetadata):
 
-    def get_serializer_info(self, serializer):
-        orderedDict = super().get_serializer_info(serializer)
-        try:
-            functiuni = [{'value': x.id, 'display_name': x.nume} for x in models.FunctiuneBiserica.objects.all()]
-            orderedDict['identificare']['children']['functiune_initiala']['choices'] = functiuni
-            orderedDict['identificare']['children']['functiune']['choices'] = functiuni
-        except:
-            pass
-        return orderedDict
+class ChoicesMetaData(SimpleMetadata):
+
+    def get_field_info(self, field):
+        field_info = super().get_field_info(field)
+        # print('field:', field2)
+        # print('type(field):',field.field_name,  type(field))
+        # print('field_info', field_info)
+        if type(field) in [PrimaryKeyRelatedField, ManyRelatedField]:
+            field_info['choices'] = field.choices
+            if type(field) == ManyRelatedField:
+                field = field.child_relation
+            if field.queryset.model._meta.app_label == 'fragmente':
+                field_info['fragment'] = field.queryset.model._meta.model_name.lower()
+        # if type(field) == ManyRelatedField:
+        #     field_info['choices'] = field.choices
+        #     if field.child_relation.queryset.model._meta.app_label == 'fragmente':
+        #         field_info['fragment'] = field.child_relation.queryset.model._meta.model_name.lower()
+        if type(field) == ListSerializer:
+            field_info['is_repetition_field'] = True
+        else:
+            field_info['is_repetition_field'] = False
+        return field_info
 
 
-class BisericaViewSet(ModelViewSet):
+    # def get_serializer_info(self, serializer):
+    #     serializer_info = super().get_serializer_info(serializer)
+    #     print('-----')
+    #     print(dir(serializer_info))
+    #     print(serializer_info.keys())
+    #     print('-----')
+    #     return serializer_info
+
+
+class BisericiViewSet(ModelViewSet):
     serializer_class = serializers.BisericaListSerializer
     queryset = models.Biserica.objects.all()
-    # metadata_class = ForeignMetaData
+    metadata_class = ChoicesMetaData
     permission_classes = [BaseModelPermissions]
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     filter_backends = [filters.ObjectPermissionsFilter]

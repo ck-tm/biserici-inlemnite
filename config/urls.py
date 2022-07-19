@@ -18,6 +18,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from .api_router import wagtail_api
 
+from wq.db import rest
+
+
+rest.autodiscover()
 
 urlpatterns = [
     # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -47,6 +51,7 @@ urlpatterns += [
     # path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
     path("api/admin/", include("biserici.api_router")),
     path("api/", include("config.api_router")),
+    path('api/fragmente/', include(rest.router.urls)),
     path('wagtail/api/', wagtail_api.urls),
     # DRF auth token
     path("auth-token/", obtain_auth_token),

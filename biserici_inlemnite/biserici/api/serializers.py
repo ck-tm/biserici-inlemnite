@@ -257,7 +257,7 @@ class BisericaSerializer(ObjectPermissionsAssignmentMixin, WritableNestedModelSe
     class Meta:
         model = models.Biserica
         fields = ["nume"]
-        fields = ["nume", "identificare", "localizare", "repere_geografice", "istoric"]
+        fields = ["pk", "nume", "identificare", "localizare", "repere_geografice", "istoric"]
 
 
     def get_permissions_map(self, created):
@@ -276,7 +276,7 @@ class BisericaSerializer(ObjectPermissionsAssignmentMixin, WritableNestedModelSe
         }
 
 class BisericaListSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="api_admin:biserici-detail")
+    url = serializers.HyperlinkedIdentityField(view_name="api:biserici-detail")
     # capitole = serializers.SerializerMethodField()
 
     class Meta:

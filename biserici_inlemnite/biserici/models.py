@@ -46,13 +46,21 @@ ELEMENTE_BISERICA = (
     ('tavan', 'tavan'),
     )
 
+class IstoricNew(models.Model):
+    """
+    Capitol: Localizare Biserica
+    """
+    
+
+    scurt_istoric = models.OneToOneField('IstoricScurtIstoric', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Scurt Istoric")
+
 
 class Biserica(SortableMixin):
     """
     Description: Model Description
     """
     nume = models.CharField(max_length=50)
-
+    istoric_new = models.OneToOneField('IstoricNew', null=True, on_delete=models.SET_NULL, related_name="istoric_new")
     the_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     history = HistoricalRecords()
@@ -104,7 +112,7 @@ class Identificare(models.Model):
     Capitol: Identificare Biserica
     """
     biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE)
-    codul_lmi = models.CharField(max_length=50, null=True, blank=True)
+    codul_lmi = models.CharField("Codul LMI", max_length=50, null=True, blank=True)
     categoria = models.ForeignKey('fragmente.CategorieObiectiv', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     statut = models.ForeignKey('fragmente.Statut', null=True, blank=True, on_delete=models.SET_NULL, related_name='biserici')
     denumire_oficiala = models.CharField('Denumire oficială actuală LMI', max_length=250, null=True, blank=True)
@@ -317,6 +325,62 @@ class Istoric(models.Model):
 
     def __str__(self):
         return f"Istoric {self.biserica.nume}"
+
+    cadru = models.CharField("Nume", max_length=150, null=True, blank=True)
+
+
+class PeisajPeisajCulturalCadru(models.Model):
+    tip = models.OneToOneField("fragmente.TipCadruPeisaj", blank=True, on_delete=models.CASCADE, verbose_name="Tip Cadru")
+    foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+class PeisajPeisajCulturalPatrimoniuImaterial(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    descriere = models.TextField("Descriere", null=True, blank=True)
+    foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+class PeisajPeisajCultural(models.Model):
+    sinteza = models.TextField("Sinteză", null=True, blank=True)
+    cadru = models.OneToOneField('PeisajPeisajCulturalCadru', on_delete=models.CASCADE)
+    patrimoniu_imaterial = models.OneToOneField('PeisajPeisajCulturalPatrimoniuImaterial', on_delete=models.CASCADE, verbose_name="Patrimoniu Imaterial")
+    observatii = models.TextField("observații", null=True, blank=True)
+
+
+# class PeisajAmplasament(models.Model):
+#     nume = models.CharField("Nume", max_length=150, null=True, blank=True)
+#     observatii = models.TextField("Observații", null=True, blank=True)
+#     sursa = models.TextField("Sursa", null=True, blank=True)
+#     foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+# class PeisajAnsambluConstruit(models.Model):
+#     nume = models.CharField("Nume", max_length=150, null=True, blank=True)
+#     observatii = models.TextField("Observații", null=True, blank=True)
+#     sursa = models.TextField("Sursa", null=True, blank=True)
+#     foto = models.ManyToManyField("Fotografie", blank=True)
+
+
+
+class Peisaj(models.Model):
+    """
+    Capitol: Peisaj Biserica
+    """
+    biserica = models.OneToOneField('Biserica', on_delete=models.CASCADE, related_name="peisaj")
+
+    peisaj_cultural = models.OneToOneField('PeisajPeisajCultural', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Scurt Istoric")
+    # amplasament = models.OneToOneField('PeisajAmplasament', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Pisanie")
+    # ansamblu_construit = models.OneToOneField('PeisajAnsambluConstruit', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Pisanie")
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Peisaj"
+        verbose_name_plural = "Peisaj"
+
+    def __str__(self):
+        return f"Peisaj {self.biserica.nume}"
 
 
 
