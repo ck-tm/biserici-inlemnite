@@ -110,7 +110,7 @@ THIRD_PARTY_APPS = [
     "cacheops",
     "meta",
     "django_json_ld",
-
+    "wq.db.rest.auth",
     "wq.db.rest.apps.RestConfig"
 ]
 

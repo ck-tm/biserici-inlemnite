@@ -31,15 +31,11 @@ class ChoicesMetaData(SimpleMetadata):
         # print('type(field):',field.field_name,  type(field))
         # print('field_info', field_info)
         if type(field) in [PrimaryKeyRelatedField, ManyRelatedField]:
-            field_info['choices'] = field.choices
+            # field_info['choices'] = field.choices
             if type(field) == ManyRelatedField:
                 field = field.child_relation
             if field.queryset.model._meta.app_label == 'fragmente':
                 field_info['fragment'] = field.queryset.model._meta.model_name.lower()
-        # if type(field) == ManyRelatedField:
-        #     field_info['choices'] = field.choices
-        #     if field.child_relation.queryset.model._meta.app_label == 'fragmente':
-        #         field_info['fragment'] = field.child_relation.queryset.model._meta.model_name.lower()
         if type(field) == ListSerializer:
             field_info['is_repetition_field'] = True
         else:
@@ -97,6 +93,7 @@ class BisericiViewSet(ModelViewSet):
 
     @action(detail=True, methods=['post', 'get'])
     def identificare(self, request, pk=None, permission_classes=[BaseModelPermissions]):
+        print(request)
         identificare = models.Biserica.objects.get(pk=pk).identificare
         if request.method == 'GET':
             serializer = serializers.IdentificareSerializer(identificare, context={'request': request})

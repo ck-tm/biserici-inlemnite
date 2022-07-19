@@ -13,3 +13,9 @@ for model_name, model in app.models.items():
             viewset=fragmente_views.GenericAPIView,
             url=model_name
         )
+
+rest.router.register(
+    prefix='all',
+    viewset=fragmente_views.FragmenteView,
+    basename="all"
+)
