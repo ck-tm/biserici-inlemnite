@@ -9,23 +9,39 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0058_pozeetapeistoricevizibile'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0058_pozeetapeistoricevizibile"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PozeArtisticEtapeIstoriceVizibile',
+            name="PozeArtisticEtapeIstoriceVizibile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('observatii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze', to='app.artisticetapeistoricevizibile')),
-                ('poza', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("observatii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="poze",
+                        to="app.artisticetapeistoricevizibile",
+                    ),
+                ),
+                (
+                    "poza",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

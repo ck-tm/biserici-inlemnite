@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0104_auto_20211105_1346'),
+        ("app", "0104_auto_20211105_1346"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descrierepage',
-            name='model_fotogrametrie',
+            model_name="descrierepage",
+            name="model_fotogrametrie",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='model_nori_de_puncte',
+            model_name="descrierepage",
+            name="model_nori_de_puncte",
             field=models.TextField(blank=True, null=True),
         ),
     ]

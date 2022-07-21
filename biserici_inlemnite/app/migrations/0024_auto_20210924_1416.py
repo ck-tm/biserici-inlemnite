@@ -9,117 +9,154 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0012_uploadeddocument'),
-        ('app', '0023_auto_20210924_1408'),
+        ("wagtaildocs", "0012_uploadeddocument"),
+        ("app", "0023_auto_20210924_1408"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic',
+            model_name="istoricpage",
+            name="studiu_dendocronologic",
         ),
         migrations.AlterField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_an',
-            field=models.IntegerField(blank=True, null=True, verbose_name='An'),
+            model_name="istoricpage",
+            name="studiu_dendocronologic_an",
+            field=models.IntegerField(blank=True, null=True, verbose_name="An"),
         ),
         migrations.AlterField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_autor',
-            field=models.CharField(blank=True, max_length=150, null=True, verbose_name='Autor'),
+            model_name="istoricpage",
+            name="studiu_dendocronologic_autor",
+            field=models.CharField(blank=True, max_length=150, null=True, verbose_name="Autor"),
         ),
         migrations.AlterField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_fisier',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.document', verbose_name='Fișier'),
+            model_name="istoricpage",
+            name="studiu_dendocronologic_fisier",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtaildocs.document",
+                verbose_name="Fișier",
+            ),
         ),
         migrations.CreateModel(
-            name='Zugravi',
+            name="Zugravi",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('nume', models.CharField(max_length=250)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='zugravi', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("nume", models.CharField(max_length=250)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="zugravi", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='PovestiBiserica',
+            name="PovestiBiserica",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='povesti', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="povesti", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Personalitati',
+            name="Personalitati",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('nume', models.CharField(max_length=250)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='personalitati', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("nume", models.CharField(max_length=250)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="personalitati", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='MutariBiserica',
+            name="MutariBiserica",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('nume', models.CharField(max_length=250)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='mutari', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("nume", models.CharField(max_length=250)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="mutari", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Mesteri',
+            name="Mesteri",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('nume', models.CharField(max_length=250)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='mesteri', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("nume", models.CharField(max_length=250)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="mesteri", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Evenimente',
+            name="Evenimente",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('nume', models.CharField(max_length=250)),
-                ('detalii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('sursa', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='evenimente', to='app.istoricpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("nume", models.CharField(max_length=250)),
+                ("detalii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                ("sursa", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="evenimente", to="app.istoricpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

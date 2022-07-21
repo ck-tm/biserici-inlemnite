@@ -7,28 +7,28 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0004_auto_20210917_0038'),
+        ("app", "0004_auto_20210917_0038"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='identificarepage',
-            name='denumire_actuala',
-            field=models.CharField(blank=True, max_length=150, null=True, verbose_name='Actuală'),
+            model_name="identificarepage",
+            name="denumire_actuala",
+            field=models.CharField(blank=True, max_length=150, null=True, verbose_name="Actuală"),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='denumire_locala',
-            field=models.CharField(blank=True, max_length=150, null=True, verbose_name='Locală'),
+            model_name="identificarepage",
+            name="denumire_locala",
+            field=models.CharField(blank=True, max_length=150, null=True, verbose_name="Locală"),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='denumire_oberservatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="identificarepage",
+            name="denumire_oberservatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='denumire_precedenta',
-            field=models.CharField(blank=True, max_length=150, null=True, verbose_name='Precendentă'),
+            model_name="identificarepage",
+            name="denumire_precedenta",
+            field=models.CharField(blank=True, max_length=150, null=True, verbose_name="Precendentă"),
         ),
     ]

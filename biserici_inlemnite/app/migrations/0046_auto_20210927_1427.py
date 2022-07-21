@@ -8,27 +8,45 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0045_pozeelementansambluconstruit'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0045_pozeelementansambluconstruit"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='pozeelementansambluconstruit',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze', to='app.elementeansambluconstruit'),
+            model_name="pozeelementansambluconstruit",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name="poze", to="app.elementeansambluconstruit"
+            ),
         ),
         migrations.CreateModel(
-            name='PozeElementImportantAnsambluConstruit',
+            name="PozeElementImportantAnsambluConstruit",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze', to='app.elementeimportanteansambluconstruit')),
-                ('poza', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="poze",
+                        to="app.elementeimportanteansambluconstruit",
+                    ),
+                ),
+                (
+                    "poza",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

@@ -6,78 +6,78 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0030_auto_20210803_1617'),
+        ("biserici", "0030_auto_20210803_1617"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='conservare',
-            name='stare_cosoroabe',
+            model_name="conservare",
+            name="stare_cosoroabe",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='conservare',
-            name='stare_cosoroabe_detalii',
+            model_name="conservare",
+            name="stare_cosoroabe_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='conservare',
-            name='stare_sarpanta_turn',
+            model_name="conservare",
+            name="stare_sarpanta_turn",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='conservare',
-            name='stare_sarpanta_turn_detalii',
+            model_name="conservare",
+            name="stare_sarpanta_turn_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='conservare',
-            name='stare_talpi',
+            model_name="conservare",
+            name="stare_talpi",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='conservare',
-            name='stare_talpi_detalii',
+            model_name="conservare",
+            name="stare_talpi_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_cosoroabe',
+            model_name="historicalconservare",
+            name="stare_cosoroabe",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_cosoroabe_detalii',
+            model_name="historicalconservare",
+            name="stare_cosoroabe_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_sarpanta_turn',
+            model_name="historicalconservare",
+            name="stare_sarpanta_turn",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_sarpanta_turn_detalii',
+            model_name="historicalconservare",
+            name="stare_sarpanta_turn_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_talpi',
+            model_name="historicalconservare",
+            name="stare_talpi",
             field=models.IntegerField(blank=True, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)], null=True),
         ),
         migrations.AddField(
-            model_name='historicalconservare',
-            name='stare_talpi_detalii',
+            model_name="historicalconservare",
+            name="stare_talpi_detalii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='descriere',
-            name='toponim_sursa',
-            field=models.TextField(blank=True, null=True, verbose_name='Sursă informații'),
+            model_name="descriere",
+            name="toponim_sursa",
+            field=models.TextField(blank=True, null=True, verbose_name="Sursă informații"),
         ),
         migrations.AlterField(
-            model_name='historicaldescriere',
-            name='toponim_sursa',
-            field=models.TextField(blank=True, null=True, verbose_name='Sursă informații'),
+            model_name="historicaldescriere",
+            name="toponim_sursa",
+            field=models.TextField(blank=True, null=True, verbose_name="Sursă informații"),
         ),
     ]

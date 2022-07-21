@@ -6,323 +6,260 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0101_auto_20211105_1142'),
+        ("app", "0101_auto_20211105_1142"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='pozeaccese',
-            managers=[
-            ],
+            name="pozeaccese",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozealtar',
-            managers=[
-            ],
+            name="pozealtar",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozealteelementeimportante',
-            managers=[
-            ],
+            name="pozealteelementeimportante",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeamplasament',
-            managers=[
-            ],
+            name="pozeamplasament",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozebolti',
-            managers=[
-            ],
+            name="pozebolti",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeclopote',
-            managers=[
-            ],
+            name="pozeclopote",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozecor',
-            managers=[
-            ],
+            name="pozecor",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozecorpbiserica',
-            managers=[
-            ],
+            name="pozecorpbiserica",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozecosoroabe',
-            managers=[
-            ],
+            name="pozecosoroabe",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozedescrierebolti',
-            managers=[
-            ],
+            name="pozedescrierebolti",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeelementearhitecturale',
-            managers=[
-            ],
+            name="pozeelementearhitecturale",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeelementesculptate',
-            managers=[
-            ],
+            name="pozeelementesculptate",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeetapeanterioareinvelitoare',
-            managers=[
-            ],
+            name="pozeetapeanterioareinvelitoare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeferestre',
-            managers=[
-            ],
+            name="pozeferestre",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeexteriorcorp',
-            managers=[
-            ],
+            name="pozefinisajeexteriorcorp",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinchideretambur',
-            managers=[
-            ],
+            name="pozefinisajeinchideretambur",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoare',
-            managers=[
-            ],
+            name="pozefinisajeinvelitoare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoareturle',
-            managers=[
-            ],
+            name="pozefinisajeinvelitoareturle",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoareturn',
-            managers=[
-            ],
+            name="pozefinisajeinvelitoareturn",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajexterior',
-            managers=[
-            ],
+            name="pozefinisajexterior",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajperetiinteriori',
-            managers=[
-            ],
+            name="pozefinisajperetiinteriori",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajtavanesibolti',
-            managers=[
-            ],
+            name="pozefinisajtavanesibolti",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefundatie',
-            managers=[
-            ],
+            name="pozefundatie",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozefundatii',
-            managers=[
-            ],
+            name="pozefundatii",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozegeneraleexterior',
-            managers=[
-            ],
+            name="pozegeneraleexterior",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozegeneraleinterior',
-            managers=[
-            ],
+            name="pozegeneraleinterior",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeicoanevechi',
-            managers=[
-            ],
+            name="pozeicoanevechi",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeiconostas',
-            managers=[
-            ],
+            name="pozeiconostas",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeinstalatieelectrica',
-            managers=[
-            ],
+            name="pozeinstalatieelectrica",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeinstalatietermica',
-            managers=[
-            ],
+            name="pozeinstalatietermica",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeinvelitoaresarpantasiturn',
-            managers=[
-            ],
+            name="pozeinvelitoaresarpantasiturn",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozemasaatlar',
-            managers=[
-            ],
+            name="pozemasaatlar",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozemobilier',
-            managers=[
-            ],
+            name="pozemobilier",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozemobiliere',
-            managers=[
-            ],
+            name="pozemobiliere",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiectedecult',
-            managers=[
-            ],
+            name="pozeobiectedecult",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiectedecultconservare',
-            managers=[
-            ],
+            name="pozeobiectedecultconservare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiecteinstrainate',
-            managers=[
-            ],
+            name="pozeobiecteinstrainate",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeochiesi',
-            managers=[
-            ],
+            name="pozeochiesi",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeparatraznet',
-            managers=[
-            ],
+            name="pozeparatraznet",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozepardoseliinterioare',
-            managers=[
-            ],
+            name="pozepardoseliinterioare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozepeisagisticasitului',
-            managers=[
-            ],
+            name="pozepeisagisticasitului",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeperetedespartitor',
-            managers=[
-            ],
+            name="pozeperetedespartitor",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozepicturaexterioara',
-            managers=[
-            ],
+            name="pozepicturaexterioara",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozepicturainterioara',
-            managers=[
-            ],
+            name="pozepicturainterioara",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozepisanie',
-            managers=[
-            ],
+            name="pozepisanie",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeproscomidie',
-            managers=[
-            ],
+            name="pozeproscomidie",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozesarpanta',
-            managers=[
-            ],
+            name="pozesarpanta",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozesarpantacorpbiserica',
-            managers=[
-            ],
+            name="pozesarpantacorpbiserica",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozesit',
-            managers=[
-            ],
+            name="pozesit",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozesolee',
-            managers=[
-            ],
+            name="pozesolee",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozestratpictural',
-            managers=[
-            ],
+            name="pozestratpictural",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuracatei',
-            managers=[
-            ],
+            name="pozestructuracatei",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuracheotoare',
-            managers=[
-            ],
+            name="pozestructuracheotoare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuramixt',
-            managers=[
-            ],
+            name="pozestructuramixt",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozetalpi',
-            managers=[
-            ],
+            name="pozetalpi",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozetamplarii',
-            managers=[
-            ],
+            name="pozetamplarii",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeteren',
-            managers=[
-            ],
+            name="pozeteren",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozetiranti',
-            managers=[
-            ],
+            name="pozetiranti",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeturle',
-            managers=[
-            ],
+            name="pozeturle",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeturn',
-            managers=[
-            ],
+            name="pozeturn",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozeturnconservare',
-            managers=[
-            ],
+            name="pozeturnconservare",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozevegetatie',
-            managers=[
-            ],
+            name="pozevegetatie",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='pozezonadinjurulbiserici',
-            managers=[
-            ],
+            name="pozezonadinjurulbiserici",
+            managers=[],
         ),
     ]

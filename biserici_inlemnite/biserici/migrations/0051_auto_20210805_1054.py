@@ -6,34 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0010_historicaltiparcbolta_tiparcbolta'),
-        ('biserici', '0050_auto_20210804_1320'),
+        ("nomenclatoare", "0010_historicaltiparcbolta_tiparcbolta"),
+        ("biserici", "0050_auto_20210804_1320"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descriere',
-            name='cor',
+            model_name="descriere",
+            name="cor",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='cor_material',
-            field=models.ManyToManyField(blank=True, related_name='biserici_cor', to='nomenclatoare.Material'),
+            model_name="descriere",
+            name="cor_material",
+            field=models.ManyToManyField(blank=True, related_name="biserici_cor", to="nomenclatoare.Material"),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='cor_observatii',
+            model_name="descriere",
+            name="cor_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='cor',
+            model_name="historicaldescriere",
+            name="cor",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='cor_observatii',
+            model_name="historicaldescriere",
+            name="cor_observatii",
             field=models.TextField(blank=True, null=True),
         ),
     ]

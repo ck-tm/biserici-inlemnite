@@ -7,26 +7,28 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0021_historicalmaterialcor_materialcor'),
-        ('app', '0078_auto_20211026_0101'),
+        ("nomenclatoare", "0021_historicalmaterialcor_materialcor"),
+        ("app", "0078_auto_20211026_0101"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='cor_material',
+            model_name="descrierepage",
+            name="cor_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='masa_altar_material_blat',
+            model_name="descrierepage",
+            name="masa_altar_material_blat",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='masa_altar_material_picior',
+            model_name="descrierepage",
+            name="masa_altar_material_picior",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='cor_material_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_cor', to='nomenclatoare.MaterialCor'),
+            model_name="descrierepage",
+            name="cor_material_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_cor", to="nomenclatoare.MaterialCor"
+            ),
         ),
     ]

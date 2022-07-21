@@ -6,185 +6,185 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0059_auto_20220718_1901'),
-        ('nomenclatoare', '0030_auto_20220718_1503'),
+        ("biserici", "0059_auto_20220718_1901"),
+        ("nomenclatoare", "0030_auto_20220718_1503"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='evenimentbiserica',
-            name='eveniment',
+            model_name="evenimentbiserica",
+            name="eveniment",
         ),
         migrations.RemoveField(
-            model_name='evenimentbiserica',
-            name='istoric',
+            model_name="evenimentbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalctitorbiserica',
-            name='history_user',
+            model_name="historicalctitorbiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalctitorbiserica',
-            name='istoric',
+            model_name="historicalctitorbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalctitorbiserica',
-            name='persoana',
+            model_name="historicalctitorbiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='historicaleveniment',
-            name='history_user',
+            model_name="historicaleveniment",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalevenimentbiserica',
-            name='eveniment',
+            model_name="historicalevenimentbiserica",
+            name="eveniment",
         ),
         migrations.RemoveField(
-            model_name='historicalevenimentbiserica',
-            name='history_user',
+            model_name="historicalevenimentbiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalevenimentbiserica',
-            name='istoric',
+            model_name="historicalevenimentbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalmesterbiserica',
-            name='history_user',
+            model_name="historicalmesterbiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalmesterbiserica',
-            name='istoric',
+            model_name="historicalmesterbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalmesterbiserica',
-            name='persoana',
+            model_name="historicalmesterbiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='historicalmutarebiserica',
-            name='history_user',
+            model_name="historicalmutarebiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalmutarebiserica',
-            name='istoric',
+            model_name="historicalmutarebiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalmutarebiserica',
-            name='localitate',
+            model_name="historicalmutarebiserica",
+            name="localitate",
         ),
         migrations.RemoveField(
-            model_name='historicalpersonalitatebiserica',
-            name='history_user',
+            model_name="historicalpersonalitatebiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalpersonalitatebiserica',
-            name='istoric',
+            model_name="historicalpersonalitatebiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalpersonalitatebiserica',
-            name='persoana',
+            model_name="historicalpersonalitatebiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='historicalstudiuistoric',
-            name='history_user',
+            model_name="historicalstudiuistoric",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalstudiuistoric',
-            name='istoric',
+            model_name="historicalstudiuistoric",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalzugravbiserica',
-            name='history_user',
+            model_name="historicalzugravbiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalzugravbiserica',
-            name='istoric',
+            model_name="historicalzugravbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='historicalzugravbiserica',
-            name='persoana',
+            model_name="historicalzugravbiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='mesterbiserica',
-            name='istoric',
+            model_name="mesterbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='mesterbiserica',
-            name='persoana',
+            model_name="mesterbiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='mutarebiserica',
-            name='istoric',
+            model_name="mutarebiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='mutarebiserica',
-            name='localitate',
+            model_name="mutarebiserica",
+            name="localitate",
         ),
         migrations.RemoveField(
-            model_name='personalitatebiserica',
-            name='istoric',
+            model_name="personalitatebiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='personalitatebiserica',
-            name='persoana',
+            model_name="personalitatebiserica",
+            name="persoana",
         ),
         migrations.RemoveField(
-            model_name='studiuistoric',
-            name='istoric',
+            model_name="studiuistoric",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='zugravbiserica',
-            name='istoric',
+            model_name="zugravbiserica",
+            name="istoric",
         ),
         migrations.RemoveField(
-            model_name='zugravbiserica',
-            name='persoana',
+            model_name="zugravbiserica",
+            name="persoana",
         ),
         migrations.DeleteModel(
-            name='CtitorBiserica',
+            name="CtitorBiserica",
         ),
         migrations.DeleteModel(
-            name='Eveniment',
+            name="Eveniment",
         ),
         migrations.DeleteModel(
-            name='EvenimentBiserica',
+            name="EvenimentBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalCtitorBiserica',
+            name="HistoricalCtitorBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalEveniment',
+            name="HistoricalEveniment",
         ),
         migrations.DeleteModel(
-            name='HistoricalEvenimentBiserica',
+            name="HistoricalEvenimentBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalMesterBiserica',
+            name="HistoricalMesterBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalMutareBiserica',
+            name="HistoricalMutareBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalPersonalitateBiserica',
+            name="HistoricalPersonalitateBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalStudiuIstoric',
+            name="HistoricalStudiuIstoric",
         ),
         migrations.DeleteModel(
-            name='HistoricalZugravBiserica',
+            name="HistoricalZugravBiserica",
         ),
         migrations.DeleteModel(
-            name='MesterBiserica',
+            name="MesterBiserica",
         ),
         migrations.DeleteModel(
-            name='MutareBiserica',
+            name="MutareBiserica",
         ),
         migrations.DeleteModel(
-            name='PersonalitateBiserica',
+            name="PersonalitateBiserica",
         ),
         migrations.DeleteModel(
-            name='StudiuIstoric',
+            name="StudiuIstoric",
         ),
         migrations.DeleteModel(
-            name='ZugravBiserica',
+            name="ZugravBiserica",
         ),
     ]

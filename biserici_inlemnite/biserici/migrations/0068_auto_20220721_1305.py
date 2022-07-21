@@ -6,39 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fragmente', '0008_auto_20220720_2038'),
-        ('biserici', '0067_auto_20220721_1303'),
+        ("fragmente", "0008_auto_20220720_2038"),
+        ("biserici", "0067_auto_20220721_1303"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='abturlecaracteristici',
-            name='amplasare',
-            field=models.ManyToManyField(blank=True, to='fragmente.AmplasareTurle'),
+            model_name="abturlecaracteristici",
+            name="amplasare",
+            field=models.ManyToManyField(blank=True, to="fragmente.AmplasareTurle"),
         ),
         migrations.AlterField(
-            model_name='abturncaracteristici',
-            name='amplasare',
-            field=models.ManyToManyField(blank=True, to='fragmente.AmplasareTurn'),
+            model_name="abturncaracteristici",
+            name="amplasare",
+            field=models.ManyToManyField(blank=True, to="fragmente.AmplasareTurn"),
         ),
         migrations.AlterField(
-            model_name='abturncaracteristicigalerie',
-            name='tip',
-            field=models.ManyToManyField(blank=True, to='fragmente.TipGalerieTurn'),
+            model_name="abturncaracteristicigalerie",
+            name="tip",
+            field=models.ManyToManyField(blank=True, to="fragmente.TipGalerieTurn"),
         ),
         migrations.AlterField(
-            model_name='abturnstructura',
-            name='asezare',
-            field=models.ManyToManyField(blank=True, to='fragmente.AsezareTalpiTurn'),
+            model_name="abturnstructura",
+            name="asezare",
+            field=models.ManyToManyField(blank=True, to="fragmente.AsezareTalpiTurn"),
         ),
         migrations.AlterField(
-            model_name='abturnstructura',
-            name='relatie_talpi',
-            field=models.ManyToManyField(blank=True, to='fragmente.RelatieTalpiTurn'),
+            model_name="abturnstructura",
+            name="relatie_talpi",
+            field=models.ManyToManyField(blank=True, to="fragmente.RelatieTalpiTurn"),
         ),
         migrations.AlterField(
-            model_name='reperegeograficezonenaturale',
-            name='tip_zone',
-            field=models.ManyToManyField(blank=True, to='fragmente.TipZoneNaturale', verbose_name='Tip Zone Naturale'),
+            model_name="reperegeograficezonenaturale",
+            name="tip_zone",
+            field=models.ManyToManyField(blank=True, to="fragmente.TipZoneNaturale", verbose_name="Tip Zone Naturale"),
         ),
     ]

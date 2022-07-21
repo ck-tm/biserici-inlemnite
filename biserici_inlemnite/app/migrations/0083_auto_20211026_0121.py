@@ -7,18 +7,20 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0024_historicalmaterialmobilier_materialmobilier'),
-        ('app', '0082_auto_20211026_0119'),
+        ("nomenclatoare", "0024_historicalmaterialmobilier_materialmobilier"),
+        ("app", "0082_auto_20211026_0119"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='componentaartisticapage',
-            name='mobiliere',
+            model_name="componentaartisticapage",
+            name="mobiliere",
         ),
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='mobiliere_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.MaterialMobilier', verbose_name='Mobilier'),
+            model_name="componentaartisticapage",
+            name="mobiliere_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.MaterialMobilier", verbose_name="Mobilier"
+            ),
         ),
     ]

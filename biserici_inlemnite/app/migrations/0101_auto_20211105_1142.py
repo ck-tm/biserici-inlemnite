@@ -7,386 +7,386 @@ import django.db.models.manager
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0100_auto_20211105_1127'),
+        ("app", "0100_auto_20211105_1127"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='pozeaccese',
+            name="pozeaccese",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozealtar',
+            name="pozealtar",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozealteelementeimportante',
+            name="pozealteelementeimportante",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeamplasament',
+            name="pozeamplasament",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozebolti',
+            name="pozebolti",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeclopote',
+            name="pozeclopote",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozecor',
+            name="pozecor",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozecorpbiserica',
+            name="pozecorpbiserica",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozecosoroabe',
+            name="pozecosoroabe",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozedescrierebolti',
+            name="pozedescrierebolti",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeelementearhitecturale',
+            name="pozeelementearhitecturale",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeelementesculptate',
+            name="pozeelementesculptate",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeetapeanterioareinvelitoare',
+            name="pozeetapeanterioareinvelitoare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeferestre',
+            name="pozeferestre",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeexteriorcorp',
+            name="pozefinisajeexteriorcorp",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinchideretambur',
+            name="pozefinisajeinchideretambur",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoare',
+            name="pozefinisajeinvelitoare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoareturle',
+            name="pozefinisajeinvelitoareturle",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajeinvelitoareturn',
+            name="pozefinisajeinvelitoareturn",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajexterior',
+            name="pozefinisajexterior",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajperetiinteriori',
+            name="pozefinisajperetiinteriori",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefinisajtavanesibolti',
+            name="pozefinisajtavanesibolti",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefundatie',
+            name="pozefundatie",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozefundatii',
+            name="pozefundatii",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozegeneraleexterior',
+            name="pozegeneraleexterior",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozegeneraleinterior',
+            name="pozegeneraleinterior",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeicoanevechi',
+            name="pozeicoanevechi",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeiconostas',
+            name="pozeiconostas",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeinstalatieelectrica',
+            name="pozeinstalatieelectrica",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeinstalatietermica',
+            name="pozeinstalatietermica",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeinvelitoaresarpantasiturn',
+            name="pozeinvelitoaresarpantasiturn",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozemasaatlar',
+            name="pozemasaatlar",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozemobilier',
+            name="pozemobilier",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozemobiliere',
+            name="pozemobiliere",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiectedecult',
+            name="pozeobiectedecult",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiectedecultconservare',
+            name="pozeobiectedecultconservare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeobiecteinstrainate',
+            name="pozeobiecteinstrainate",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeochiesi',
+            name="pozeochiesi",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeparatraznet',
+            name="pozeparatraznet",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozepardoseliinterioare',
+            name="pozepardoseliinterioare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozepeisagisticasitului',
+            name="pozepeisagisticasitului",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeperetedespartitor',
+            name="pozeperetedespartitor",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozepicturaexterioara',
+            name="pozepicturaexterioara",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozepicturainterioara',
+            name="pozepicturainterioara",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozepisanie',
+            name="pozepisanie",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeproscomidie',
+            name="pozeproscomidie",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozesarpanta',
+            name="pozesarpanta",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozesarpantacorpbiserica',
+            name="pozesarpantacorpbiserica",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozesit',
+            name="pozesit",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozesolee',
+            name="pozesolee",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozestratpictural',
+            name="pozestratpictural",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuracatei',
+            name="pozestructuracatei",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuracheotoare',
+            name="pozestructuracheotoare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozestructuramixt',
+            name="pozestructuramixt",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozetalpi',
+            name="pozetalpi",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozetamplarii',
+            name="pozetamplarii",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeteren',
+            name="pozeteren",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozetiranti',
+            name="pozetiranti",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeturle',
+            name="pozeturle",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeturn',
+            name="pozeturn",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozeturnconservare',
+            name="pozeturnconservare",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozevegetatie',
+            name="pozevegetatie",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
         migrations.AlterModelManagers(
-            name='pozezonadinjurulbiserici',
+            name="pozezonadinjurulbiserici",
             managers=[
-                ('cache', django.db.models.manager.Manager()),
+                ("cache", django.db.models.manager.Manager()),
             ],
         ),
     ]

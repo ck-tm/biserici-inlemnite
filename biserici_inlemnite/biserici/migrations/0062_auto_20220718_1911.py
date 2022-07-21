@@ -6,534 +6,534 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0061_auto_20220718_1903'),
+        ("biserici", "0061_auto_20220718_1903"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='fotografiecheotoar',
-            name='fotografii',
+            model_name="fotografiecheotoar",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiecrucebiserica',
-            name='fotografii',
+            model_name="fotografiecrucebiserica",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedegradariexterioare',
-            name='fotografii',
+            model_name="fotografiedegradariexterioare",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedegradariinterior',
-            name='fotografii',
+            model_name="fotografiedegradariinterior",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedegradaripod',
-            name='fotografii',
+            model_name="fotografiedegradaripod",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedetaliubolta',
-            name='fotografii',
+            model_name="fotografiedetaliubolta",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedetaliuimaginepereti',
-            name='fotografii',
+            model_name="fotografiedetaliuimaginepereti",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedetaliupod',
-            name='detaliu',
+            model_name="fotografiedetaliupod",
+            name="detaliu",
         ),
         migrations.RemoveField(
-            model_name='fotografiedetaliupod',
-            name='fotografii',
+            model_name="fotografiedetaliupod",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiedetaliusculptura',
-            name='fotografii',
+            model_name="fotografiedetaliusculptura",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiefatada',
-            name='fotografii',
+            model_name="fotografiefatada",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiefereastra',
-            name='fotografii',
+            model_name="fotografiefereastra",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieicoana',
-            name='fotografii',
+            model_name="fotografieicoana",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieiconostasaltar',
-            name='fotografii',
+            model_name="fotografieiconostasaltar",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieiconostasnaos',
-            name='fotografii',
+            model_name="fotografieiconostasnaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieinteriordesfasurat',
-            name='fotografii',
+            model_name="fotografieinteriordesfasurat",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieinvelitoare',
-            name='fotografii',
+            model_name="fotografieinvelitoare",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiemobiliercandelabre',
-            name='fotografii',
+            model_name="fotografiemobiliercandelabre",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieobiectcult',
-            name='fotografii',
+            model_name="fotografieobiectcult",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiepisanieinscriptiectitormester',
-            name='fotografii',
+            model_name="fotografiepisanieinscriptiectitormester",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieportal',
-            name='fotografii',
+            model_name="fotografieportal",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieportalnaos',
-            name='fotografii',
+            model_name="fotografieportalnaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieportalpronaos',
-            name='fotografii',
+            model_name="fotografieportalpronaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieprogramiconografic',
-            name='fotografii',
+            model_name="fotografieprogramiconografic",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografiestreasina',
-            name='fotografii',
+            model_name="fotografiestreasina",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografietalpa',
-            name='fotografii',
+            model_name="fotografietalpa",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieturn',
-            name='fotografii',
+            model_name="fotografieturn",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografieurmesemnesimboluri',
-            name='fotografii',
+            model_name="fotografieurmesemnesimboluri",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='fotografii',
-            name='biserica',
+            model_name="fotografii",
+            name="biserica",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieansamblu',
-            name='fotografii',
+            model_name="historicalfotografieansamblu",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieansamblu',
-            name='history_user',
+            model_name="historicalfotografieansamblu",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiecheotoar',
-            name='fotografii',
+            model_name="historicalfotografiecheotoar",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiecheotoar',
-            name='history_user',
+            model_name="historicalfotografiecheotoar",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiecrucebiserica',
-            name='fotografii',
+            model_name="historicalfotografiecrucebiserica",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiecrucebiserica',
-            name='history_user',
+            model_name="historicalfotografiecrucebiserica",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradariexterioare',
-            name='fotografii',
+            model_name="historicalfotografiedegradariexterioare",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradariexterioare',
-            name='history_user',
+            model_name="historicalfotografiedegradariexterioare",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradariinterior',
-            name='fotografii',
+            model_name="historicalfotografiedegradariinterior",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradariinterior',
-            name='history_user',
+            model_name="historicalfotografiedegradariinterior",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradaripod',
-            name='fotografii',
+            model_name="historicalfotografiedegradaripod",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedegradaripod',
-            name='history_user',
+            model_name="historicalfotografiedegradaripod",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliubolta',
-            name='fotografii',
+            model_name="historicalfotografiedetaliubolta",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliubolta',
-            name='history_user',
+            model_name="historicalfotografiedetaliubolta",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliuimaginepereti',
-            name='fotografii',
+            model_name="historicalfotografiedetaliuimaginepereti",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliuimaginepereti',
-            name='history_user',
+            model_name="historicalfotografiedetaliuimaginepereti",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliupod',
-            name='detaliu',
+            model_name="historicalfotografiedetaliupod",
+            name="detaliu",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliupod',
-            name='fotografii',
+            model_name="historicalfotografiedetaliupod",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliupod',
-            name='history_user',
+            model_name="historicalfotografiedetaliupod",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliusculptura',
-            name='fotografii',
+            model_name="historicalfotografiedetaliusculptura",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiedetaliusculptura',
-            name='history_user',
+            model_name="historicalfotografiedetaliusculptura",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiefatada',
-            name='fotografii',
+            model_name="historicalfotografiefatada",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiefatada',
-            name='history_user',
+            model_name="historicalfotografiefatada",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiefereastra',
-            name='fotografii',
+            model_name="historicalfotografiefereastra",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiefereastra',
-            name='history_user',
+            model_name="historicalfotografiefereastra",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieicoana',
-            name='fotografii',
+            model_name="historicalfotografieicoana",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieicoana',
-            name='history_user',
+            model_name="historicalfotografieicoana",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieiconostasaltar',
-            name='fotografii',
+            model_name="historicalfotografieiconostasaltar",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieiconostasaltar',
-            name='history_user',
+            model_name="historicalfotografieiconostasaltar",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieiconostasnaos',
-            name='fotografii',
+            model_name="historicalfotografieiconostasnaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieiconostasnaos',
-            name='history_user',
+            model_name="historicalfotografieiconostasnaos",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieinteriordesfasurat',
-            name='fotografii',
+            model_name="historicalfotografieinteriordesfasurat",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieinteriordesfasurat',
-            name='history_user',
+            model_name="historicalfotografieinteriordesfasurat",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieinvelitoare',
-            name='fotografii',
+            model_name="historicalfotografieinvelitoare",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieinvelitoare',
-            name='history_user',
+            model_name="historicalfotografieinvelitoare",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiemobiliercandelabre',
-            name='fotografii',
+            model_name="historicalfotografiemobiliercandelabre",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiemobiliercandelabre',
-            name='history_user',
+            model_name="historicalfotografiemobiliercandelabre",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieobiectcult',
-            name='fotografii',
+            model_name="historicalfotografieobiectcult",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieobiectcult',
-            name='history_user',
+            model_name="historicalfotografieobiectcult",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiepisanieinscriptiectitormester',
-            name='fotografii',
+            model_name="historicalfotografiepisanieinscriptiectitormester",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiepisanieinscriptiectitormester',
-            name='history_user',
+            model_name="historicalfotografiepisanieinscriptiectitormester",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportal',
-            name='fotografii',
+            model_name="historicalfotografieportal",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportal',
-            name='history_user',
+            model_name="historicalfotografieportal",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportalnaos',
-            name='fotografii',
+            model_name="historicalfotografieportalnaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportalnaos',
-            name='history_user',
+            model_name="historicalfotografieportalnaos",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportalpronaos',
-            name='fotografii',
+            model_name="historicalfotografieportalpronaos",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieportalpronaos',
-            name='history_user',
+            model_name="historicalfotografieportalpronaos",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieprogramiconografic',
-            name='fotografii',
+            model_name="historicalfotografieprogramiconografic",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieprogramiconografic',
-            name='history_user',
+            model_name="historicalfotografieprogramiconografic",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiestreasina',
-            name='fotografii',
+            model_name="historicalfotografiestreasina",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografiestreasina',
-            name='history_user',
+            model_name="historicalfotografiestreasina",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografietalpa',
-            name='fotografii',
+            model_name="historicalfotografietalpa",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografietalpa',
-            name='history_user',
+            model_name="historicalfotografietalpa",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieturn',
-            name='fotografii',
+            model_name="historicalfotografieturn",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieturn',
-            name='history_user',
+            model_name="historicalfotografieturn",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieurmesemnesimboluri',
-            name='fotografii',
+            model_name="historicalfotografieurmesemnesimboluri",
+            name="fotografii",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografieurmesemnesimboluri',
-            name='history_user',
+            model_name="historicalfotografieurmesemnesimboluri",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografii',
-            name='biserica',
+            model_name="historicalfotografii",
+            name="biserica",
         ),
         migrations.RemoveField(
-            model_name='historicalfotografii',
-            name='history_user',
+            model_name="historicalfotografii",
+            name="history_user",
         ),
         migrations.DeleteModel(
-            name='FotografieAnsamblu',
+            name="FotografieAnsamblu",
         ),
         migrations.DeleteModel(
-            name='FotografieCheotoar',
+            name="FotografieCheotoar",
         ),
         migrations.DeleteModel(
-            name='FotografieCruceBiserica',
+            name="FotografieCruceBiserica",
         ),
         migrations.DeleteModel(
-            name='FotografieDegradariExterioare',
+            name="FotografieDegradariExterioare",
         ),
         migrations.DeleteModel(
-            name='FotografieDegradariInterior',
+            name="FotografieDegradariInterior",
         ),
         migrations.DeleteModel(
-            name='FotografieDegradariPod',
+            name="FotografieDegradariPod",
         ),
         migrations.DeleteModel(
-            name='FotografieDetaliuBolta',
+            name="FotografieDetaliuBolta",
         ),
         migrations.DeleteModel(
-            name='FotografieDetaliuImaginePereti',
+            name="FotografieDetaliuImaginePereti",
         ),
         migrations.DeleteModel(
-            name='FotografieDetaliuPod',
+            name="FotografieDetaliuPod",
         ),
         migrations.DeleteModel(
-            name='FotografieDetaliuSculptura',
+            name="FotografieDetaliuSculptura",
         ),
         migrations.DeleteModel(
-            name='FotografieFatada',
+            name="FotografieFatada",
         ),
         migrations.DeleteModel(
-            name='FotografieFereastra',
+            name="FotografieFereastra",
         ),
         migrations.DeleteModel(
-            name='FotografieIcoana',
+            name="FotografieIcoana",
         ),
         migrations.DeleteModel(
-            name='FotografieIconostasAltar',
+            name="FotografieIconostasAltar",
         ),
         migrations.DeleteModel(
-            name='FotografieIconostasNaos',
+            name="FotografieIconostasNaos",
         ),
         migrations.DeleteModel(
-            name='FotografieInteriorDesfasurat',
+            name="FotografieInteriorDesfasurat",
         ),
         migrations.DeleteModel(
-            name='FotografieInvelitoare',
+            name="FotografieInvelitoare",
         ),
         migrations.DeleteModel(
-            name='FotografieMobilierCandelabre',
+            name="FotografieMobilierCandelabre",
         ),
         migrations.DeleteModel(
-            name='FotografieObiectCult',
+            name="FotografieObiectCult",
         ),
         migrations.DeleteModel(
-            name='FotografiePisanieInscriptieCtitorMester',
+            name="FotografiePisanieInscriptieCtitorMester",
         ),
         migrations.DeleteModel(
-            name='FotografiePortal',
+            name="FotografiePortal",
         ),
         migrations.DeleteModel(
-            name='FotografiePortalNaos',
+            name="FotografiePortalNaos",
         ),
         migrations.DeleteModel(
-            name='FotografiePortalPronaos',
+            name="FotografiePortalPronaos",
         ),
         migrations.DeleteModel(
-            name='FotografieProgramIconografic',
+            name="FotografieProgramIconografic",
         ),
         migrations.DeleteModel(
-            name='FotografieStreasina',
+            name="FotografieStreasina",
         ),
         migrations.DeleteModel(
-            name='FotografieTalpa',
+            name="FotografieTalpa",
         ),
         migrations.DeleteModel(
-            name='FotografieTurn',
+            name="FotografieTurn",
         ),
         migrations.DeleteModel(
-            name='FotografieUrmeSemneSimboluri',
+            name="FotografieUrmeSemneSimboluri",
         ),
         migrations.DeleteModel(
-            name='Fotografii',
+            name="Fotografii",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieAnsamblu',
+            name="HistoricalFotografieAnsamblu",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieCheotoar',
+            name="HistoricalFotografieCheotoar",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieCruceBiserica',
+            name="HistoricalFotografieCruceBiserica",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDegradariExterioare',
+            name="HistoricalFotografieDegradariExterioare",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDegradariInterior',
+            name="HistoricalFotografieDegradariInterior",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDegradariPod',
+            name="HistoricalFotografieDegradariPod",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDetaliuBolta',
+            name="HistoricalFotografieDetaliuBolta",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDetaliuImaginePereti',
+            name="HistoricalFotografieDetaliuImaginePereti",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDetaliuPod',
+            name="HistoricalFotografieDetaliuPod",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieDetaliuSculptura',
+            name="HistoricalFotografieDetaliuSculptura",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieFatada',
+            name="HistoricalFotografieFatada",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieFereastra',
+            name="HistoricalFotografieFereastra",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieIcoana',
+            name="HistoricalFotografieIcoana",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieIconostasAltar',
+            name="HistoricalFotografieIconostasAltar",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieIconostasNaos',
+            name="HistoricalFotografieIconostasNaos",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieInteriorDesfasurat',
+            name="HistoricalFotografieInteriorDesfasurat",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieInvelitoare',
+            name="HistoricalFotografieInvelitoare",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieMobilierCandelabre',
+            name="HistoricalFotografieMobilierCandelabre",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieObiectCult',
+            name="HistoricalFotografieObiectCult",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografiePisanieInscriptieCtitorMester',
+            name="HistoricalFotografiePisanieInscriptieCtitorMester",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografiePortal',
+            name="HistoricalFotografiePortal",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografiePortalNaos',
+            name="HistoricalFotografiePortalNaos",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografiePortalPronaos',
+            name="HistoricalFotografiePortalPronaos",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieProgramIconografic',
+            name="HistoricalFotografieProgramIconografic",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieStreasina',
+            name="HistoricalFotografieStreasina",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieTalpa',
+            name="HistoricalFotografieTalpa",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieTurn',
+            name="HistoricalFotografieTurn",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografieUrmeSemneSimboluri',
+            name="HistoricalFotografieUrmeSemneSimboluri",
         ),
         migrations.DeleteModel(
-            name='HistoricalFotografii',
+            name="HistoricalFotografii",
         ),
     ]

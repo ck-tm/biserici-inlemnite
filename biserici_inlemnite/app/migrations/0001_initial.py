@@ -11,25 +11,82 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('wagtailcore', '0062_comment_models_and_pagesubscription'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("wagtailcore", "0062_comment_models_and_pagesubscription"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='HomePage',
+            name="HomePage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('banner_title', models.CharField(max_length=100, null=True)),
-                ('banner_subtitle', wagtail.core.fields.RichTextField()),
-                ('streamfields', wagtail.core.fields.StreamField([('cta', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(max_length=60, required=True)), ('text', wagtail.core.blocks.RichTextBlock(features=['bold', 'italic'], required=True)), ('button_page', wagtail.core.blocks.PageChooserBlock(required=False)), ('button_url', wagtail.core.blocks.URLBlock(required=False)), ('button_text', wagtail.core.blocks.CharBlock(default='Learn More', max_length=40, required=True))]))], blank=True, null=True)),
-                ('banner_cta', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.page')),
-                ('banner_image', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                ("banner_title", models.CharField(max_length=100, null=True)),
+                ("banner_subtitle", wagtail.core.fields.RichTextField()),
+                (
+                    "streamfields",
+                    wagtail.core.fields.StreamField(
+                        [
+                            (
+                                "cta",
+                                wagtail.core.blocks.StructBlock(
+                                    [
+                                        ("title", wagtail.core.blocks.CharBlock(max_length=60, required=True)),
+                                        (
+                                            "text",
+                                            wagtail.core.blocks.RichTextBlock(
+                                                features=["bold", "italic"], required=True
+                                            ),
+                                        ),
+                                        ("button_page", wagtail.core.blocks.PageChooserBlock(required=False)),
+                                        ("button_url", wagtail.core.blocks.URLBlock(required=False)),
+                                        (
+                                            "button_text",
+                                            wagtail.core.blocks.CharBlock(
+                                                default="Learn More", max_length=40, required=True
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            )
+                        ],
+                        blank=True,
+                        null=True,
+                    ),
+                ),
+                (
+                    "banner_cta",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "banner_image",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Home Page',
-                'verbose_name_plural': 'Home Pages',
+                "verbose_name": "Home Page",
+                "verbose_name_plural": "Home Pages",
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
     ]

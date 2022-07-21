@@ -7,14 +7,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0018_historicaltipsistemstructural_tipsistemstructural'),
-        ('app', '0068_auto_20211019_0202'),
+        ("nomenclatoare", "0018_historicaltipsistemstructural_tipsistemstructural"),
+        ("app", "0068_auto_20211019_0202"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descrierepage',
-            name='sistem_structural',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_biserici', to='nomenclatoare.tipsistemstructural', verbose_name='Tip'),
+            model_name="descrierepage",
+            name="sistem_structural",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_biserici",
+                to="nomenclatoare.tipsistemstructural",
+                verbose_name="Tip",
+            ),
         ),
     ]

@@ -7,45 +7,91 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fragmente', '0002_categorieobiectiv_cult_frecventautilizarii_historicalcategorieobiectiv_historicalcult_historicalfrec'),
-        ('biserici', '0055_auto_20220718_1518'),
+        (
+            "fragmente",
+            "0002_categorieobiectiv_cult_frecventautilizarii_historicalcategorieobiectiv_historicalcult_historicalfrec",
+        ),
+        ("biserici", "0055_auto_20220718_1518"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='IdentificareSingularitate',
+            name="IdentificareSingularitate",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('singularitate', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='biserici', to='fragmente.singularitate')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "singularitate",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="biserici",
+                        to="fragmente.singularitate",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='IdentificareFrecventaUtilizarii',
+            name="IdentificareFrecventaUtilizarii",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('frecventa_utilizarii', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='biserici', to='fragmente.frecventautilizarii', verbose_name='Frecvența utilizării')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "frecventa_utilizarii",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="biserici",
+                        to="fragmente.frecventautilizarii",
+                        verbose_name="Frecvența utilizării",
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='historicalidentificare',
-            name='frecventa_utilizarii',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.identificarefrecventautilizarii'),
+            model_name="historicalidentificare",
+            name="frecventa_utilizarii",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="biserici.identificarefrecventautilizarii",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalidentificare',
-            name='singularitate',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.identificaresingularitate'),
+            model_name="historicalidentificare",
+            name="singularitate",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="biserici.identificaresingularitate",
+            ),
         ),
         migrations.AlterField(
-            model_name='identificare',
-            name='frecventa_utilizarii',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='biserici.identificarefrecventautilizarii'),
+            model_name="identificare",
+            name="frecventa_utilizarii",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="biserici.identificarefrecventautilizarii",
+            ),
         ),
         migrations.AlterField(
-            model_name='identificare',
-            name='singularitate',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='biserici.identificaresingularitate'),
+            model_name="identificare",
+            name="singularitate",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="biserici.identificaresingularitate",
+            ),
         ),
     ]

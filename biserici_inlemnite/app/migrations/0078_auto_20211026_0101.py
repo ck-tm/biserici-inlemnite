@@ -8,45 +8,61 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0020_auto_20211026_0048'),
-        ('app', '0077_auto_20211026_0032'),
+        ("nomenclatoare", "0020_auto_20211026_0048"),
+        ("app", "0077_auto_20211026_0032"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='bolta_peste_altar_material',
+            model_name="descrierepage",
+            name="bolta_peste_altar_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='bolta_peste_naos_material',
+            model_name="descrierepage",
+            name="bolta_peste_naos_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='bolta_peste_pronaos_material',
+            model_name="descrierepage",
+            name="bolta_peste_pronaos_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='sarpanta_material_cruci',
+            model_name="descrierepage",
+            name="sarpanta_material_cruci",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='bolta_peste_altar_material_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_altar', to='nomenclatoare.MaterialBolta', verbose_name='Material'),
+            model_name="descrierepage",
+            name="bolta_peste_altar_material_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_biserici_bolta_peste_altar",
+                to="nomenclatoare.MaterialBolta",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='bolta_peste_naos_material_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_naos', to='nomenclatoare.MaterialBolta'),
+            model_name="descrierepage",
+            name="bolta_peste_naos_material_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_naos", to="nomenclatoare.MaterialBolta"
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='bolta_peste_pronaos_material_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_pronaos', to='nomenclatoare.MaterialBolta'),
+            model_name="descrierepage",
+            name="bolta_peste_pronaos_material_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_pronaos", to="nomenclatoare.MaterialBolta"
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='sarpanta_material_cruci_new',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_material_cruci', to='nomenclatoare.materialcruci', verbose_name='Material cruci'),
+            model_name="descrierepage",
+            name="sarpanta_material_cruci_new",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_material_cruci",
+                to="nomenclatoare.materialcruci",
+                verbose_name="Material cruci",
+            ),
         ),
     ]

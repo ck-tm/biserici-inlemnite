@@ -6,104 +6,107 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0036_finisajaltar_finisajnaos_finisajportic_finisajpronaos_historicalfinisajaltar_historicalfinisajnaos_h'),
+        (
+            "biserici",
+            "0036_finisajaltar_finisajnaos_finisajportic_finisajpronaos_historicalfinisajaltar_historicalfinisajnaos_h",
+        ),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='finisajnaos',
-            name='finisaj',
+            model_name="finisajnaos",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='finisajnaos',
-            name='material',
+            model_name="finisajnaos",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='finisajportic',
-            name='finisaj',
+            model_name="finisajportic",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='finisajportic',
-            name='material',
+            model_name="finisajportic",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='finisajpronaos',
-            name='finisaj',
+            model_name="finisajpronaos",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='finisajpronaos',
-            name='material',
+            model_name="finisajpronaos",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajaltar',
-            name='finisaj',
+            model_name="historicalfinisajaltar",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajaltar',
-            name='history_user',
+            model_name="historicalfinisajaltar",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajaltar',
-            name='material',
+            model_name="historicalfinisajaltar",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajnaos',
-            name='finisaj',
+            model_name="historicalfinisajnaos",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajnaos',
-            name='history_user',
+            model_name="historicalfinisajnaos",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajnaos',
-            name='material',
+            model_name="historicalfinisajnaos",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajportic',
-            name='finisaj',
+            model_name="historicalfinisajportic",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajportic',
-            name='history_user',
+            model_name="historicalfinisajportic",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajportic',
-            name='material',
+            model_name="historicalfinisajportic",
+            name="material",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajpronaos',
-            name='finisaj',
+            model_name="historicalfinisajpronaos",
+            name="finisaj",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajpronaos',
-            name='history_user',
+            model_name="historicalfinisajpronaos",
+            name="history_user",
         ),
         migrations.RemoveField(
-            model_name='historicalfinisajpronaos',
-            name='material',
+            model_name="historicalfinisajpronaos",
+            name="material",
         ),
         migrations.DeleteModel(
-            name='FinisajAltar',
+            name="FinisajAltar",
         ),
         migrations.DeleteModel(
-            name='FinisajNaos',
+            name="FinisajNaos",
         ),
         migrations.DeleteModel(
-            name='FinisajPortic',
+            name="FinisajPortic",
         ),
         migrations.DeleteModel(
-            name='FinisajPronaos',
+            name="FinisajPronaos",
         ),
         migrations.DeleteModel(
-            name='HistoricalFinisajAltar',
+            name="HistoricalFinisajAltar",
         ),
         migrations.DeleteModel(
-            name='HistoricalFinisajNaos',
+            name="HistoricalFinisajNaos",
         ),
         migrations.DeleteModel(
-            name='HistoricalFinisajPortic',
+            name="HistoricalFinisajPortic",
         ),
         migrations.DeleteModel(
-            name='HistoricalFinisajPronaos',
+            name="HistoricalFinisajPronaos",
         ),
     ]

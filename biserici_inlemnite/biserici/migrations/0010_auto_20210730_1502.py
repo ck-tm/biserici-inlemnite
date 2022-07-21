@@ -7,47 +7,99 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0005_boltapestealtar_historicalboltapestealtar_historicaltipboltapestealtar_historicaltipboltapronaos_tip'),
-        ('biserici', '0009_auto_20210730_1434'),
+        (
+            "nomenclatoare",
+            "0005_boltapestealtar_historicalboltapestealtar_historicaltipboltapestealtar_historicaltipboltapronaos_tip",
+        ),
+        ("biserici", "0009_auto_20210730_1434"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descriere',
-            name='finisaj_exterior',
+            model_name="descriere",
+            name="finisaj_exterior",
         ),
         migrations.RemoveField(
-            model_name='historicaldescriere',
-            name='finisaj_exterior',
+            model_name="historicaldescriere",
+            name="finisaj_exterior",
         ),
         migrations.AddField(
-            model_name='finisaj',
-            name='finisaj_exterior_tip',
-            field=models.ManyToManyField(to='nomenclatoare.FinisajExterior'),
+            model_name="finisaj",
+            name="finisaj_exterior_tip",
+            field=models.ManyToManyField(to="nomenclatoare.FinisajExterior"),
         ),
         migrations.CreateModel(
-            name='FinisajInvelitoare',
+            name="FinisajInvelitoare",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sindrila_lungime', models.IntegerField(blank=True, null=True)),
-                ('sindrila_latime_medie', models.IntegerField(blank=True, null=True)),
-                ('sindrila_grosime_medie', models.IntegerField(blank=True, null=True)),
-                ('sindrila_pasul_latuirii', models.IntegerField(blank=True, null=True)),
-                ('sindrila_pasul_baterii', models.IntegerField(blank=True, null=True)),
-                ('sindrila_numar_straturi', models.IntegerField(blank=True, null=True)),
-                ('sindrila_cu_horj', models.BooleanField(default=False)),
-                ('sindrila_cu_tesitura', models.BooleanField(default=False)),
-                ('material', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='nomenclatoare.finisajexterior')),
-                ('sindrlia_esenta_lemnoasa', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.esentalemnoasa')),
-                ('sindrlia_forma_botului', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.tipbotsindrila')),
-                ('sindrlia_prelucrare', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.tipprelucraresindrila')),
-                ('sindrlia_tipul_de_batere', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.tipbateresindrila')),
-                ('sindrlia_tipul_prindere', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.tipprinderesindrila')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sindrila_lungime", models.IntegerField(blank=True, null=True)),
+                ("sindrila_latime_medie", models.IntegerField(blank=True, null=True)),
+                ("sindrila_grosime_medie", models.IntegerField(blank=True, null=True)),
+                ("sindrila_pasul_latuirii", models.IntegerField(blank=True, null=True)),
+                ("sindrila_pasul_baterii", models.IntegerField(blank=True, null=True)),
+                ("sindrila_numar_straturi", models.IntegerField(blank=True, null=True)),
+                ("sindrila_cu_horj", models.BooleanField(default=False)),
+                ("sindrila_cu_tesitura", models.BooleanField(default=False)),
+                (
+                    "material",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="nomenclatoare.finisajexterior"),
+                ),
+                (
+                    "sindrlia_esenta_lemnoasa",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="nomenclatoare.esentalemnoasa",
+                    ),
+                ),
+                (
+                    "sindrlia_forma_botului",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="nomenclatoare.tipbotsindrila",
+                    ),
+                ),
+                (
+                    "sindrlia_prelucrare",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="nomenclatoare.tipprelucraresindrila",
+                    ),
+                ),
+                (
+                    "sindrlia_tipul_de_batere",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="nomenclatoare.tipbateresindrila",
+                    ),
+                ),
+                (
+                    "sindrlia_tipul_prindere",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="nomenclatoare.tipprinderesindrila",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='finisaj',
-            name='finisaj_actual_invelitoare',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='finisaje_actuale', to='biserici.finisajinvelitoare'),
+            model_name="finisaj",
+            name="finisaj_actual_invelitoare",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="finisaje_actuale",
+                to="biserici.finisajinvelitoare",
+            ),
         ),
     ]

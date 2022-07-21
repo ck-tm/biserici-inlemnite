@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0045_auto_20210804_1252'),
+        ("biserici", "0045_auto_20210804_1252"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='historicalistoric',
-            name='missing_fields',
+            model_name="historicalistoric",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='istoric',
-            name='missing_fields',
+            model_name="istoric",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
     ]

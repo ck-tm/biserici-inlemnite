@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0009_auto_20210803_1534'),
-        ('biserici', '0025_auto_20210803_1540'),
+        ("nomenclatoare", "0009_auto_20210803_1534"),
+        ("biserici", "0025_auto_20210803_1540"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='componentaartistica',
-            name='suport',
-            field=models.ManyToManyField(blank=True, to='nomenclatoare.SuportPictura'),
+            model_name="componentaartistica",
+            name="suport",
+            field=models.ManyToManyField(blank=True, to="nomenclatoare.SuportPictura"),
         ),
     ]

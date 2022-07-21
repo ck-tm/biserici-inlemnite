@@ -6,74 +6,74 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0018_auto_20210924_1100'),
+        ("app", "0018_auto_20210924_1100"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='numar_geamuri_altar_observatii',
-            new_name='numar_ferestre_altar_observatii',
+            model_name="descrierepage",
+            old_name="numar_geamuri_altar_observatii",
+            new_name="numar_ferestre_altar_observatii",
         ),
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='numar_geamuri_naos_observatii',
-            new_name='numar_ferestre_naos_observatii',
+            model_name="descrierepage",
+            old_name="numar_geamuri_naos_observatii",
+            new_name="numar_ferestre_naos_observatii",
         ),
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='numar_geamuri_pridvor_observatii',
-            new_name='numar_ferestre_pridvor_observatii',
+            model_name="descrierepage",
+            old_name="numar_geamuri_pridvor_observatii",
+            new_name="numar_ferestre_pridvor_observatii",
         ),
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='numar_geamuri_pronaos_observatii',
-            new_name='numar_ferestre_pronaos_observatii',
+            model_name="descrierepage",
+            old_name="numar_geamuri_pronaos_observatii",
+            new_name="numar_ferestre_pronaos_observatii",
         ),
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='oachiesi_aerisitoare',
-            new_name='ochiesi_aerisitoare',
+            model_name="descrierepage",
+            old_name="oachiesi_aerisitoare",
+            new_name="ochiesi_aerisitoare",
         ),
         migrations.RenameField(
-            model_name='descrierepage',
-            old_name='oachiesi_aerisitoare_observatii',
-            new_name='ochiesi_aerisitoare_observatii',
+            model_name="descrierepage",
+            old_name="oachiesi_aerisitoare_observatii",
+            new_name="ochiesi_aerisitoare_observatii",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='numar_geamuri_altar',
+            model_name="descrierepage",
+            name="numar_geamuri_altar",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='numar_geamuri_naos',
+            model_name="descrierepage",
+            name="numar_geamuri_naos",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='numar_geamuri_pridvor',
+            model_name="descrierepage",
+            name="numar_geamuri_pridvor",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='numar_geamuri_pronaos',
+            model_name="descrierepage",
+            name="numar_geamuri_pronaos",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='numar_ferestre_altar',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr ferestre altar'),
+            model_name="descrierepage",
+            name="numar_ferestre_altar",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr ferestre altar"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='numar_ferestre_naos',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr ferestre naos'),
+            model_name="descrierepage",
+            name="numar_ferestre_naos",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr ferestre naos"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='numar_ferestre_pridvor',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr ferestre pridvor'),
+            model_name="descrierepage",
+            name="numar_ferestre_pridvor",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr ferestre pridvor"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='numar_ferestre_pronaos',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr ferestre pronaos'),
+            model_name="descrierepage",
+            name="numar_ferestre_pronaos",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr ferestre pronaos"),
         ),
     ]

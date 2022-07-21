@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0075_pozefinisajeinvelitoareturle'),
+        ("app", "0075_pozefinisajeinvelitoareturle"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='conservarepage',
-            name='alte_elemente_importante_pericol',
-            field=models.BooleanField(default=False, verbose_name='Pericol'),
+            model_name="conservarepage",
+            name="alte_elemente_importante_pericol",
+            field=models.BooleanField(default=False, verbose_name="Pericol"),
         ),
         migrations.AddField(
-            model_name='conservarepage',
-            name='elemente_arhitecturale_pericol',
-            field=models.BooleanField(default=False, verbose_name='Pericol'),
+            model_name="conservarepage",
+            name="elemente_arhitecturale_pericol",
+            field=models.BooleanField(default=False, verbose_name="Pericol"),
         ),
         migrations.AddField(
-            model_name='conservarepage',
-            name='sit_pericol',
-            field=models.BooleanField(default=False, verbose_name='Pericol'),
+            model_name="conservarepage",
+            name="sit_pericol",
+            field=models.BooleanField(default=False, verbose_name="Pericol"),
         ),
     ]

@@ -10,39 +10,65 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0017_historicalmaterialestructurabolta_materialestructurabolta'),
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0065_componentaartisticapage_elemente_interventii'),
+        ("nomenclatoare", "0017_historicalmaterialestructurabolta_materialestructurabolta"),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0065_componentaartisticapage_elemente_interventii"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bisericapage',
-            name='datare_prin_interval_timp',
+            model_name="bisericapage",
+            name="datare_prin_interval_timp",
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='datare_secol',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pp_biserici', to='nomenclatoare.secol'),
+            model_name="bisericapage",
+            name="datare_secol",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="pp_biserici",
+                to="nomenclatoare.secol",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='elemente_interventii',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=100), blank=True, null=True, size=20, verbose_name='Element'),
+            model_name="componentaartisticapage",
+            name="elemente_interventii",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(blank=True, max_length=100),
+                blank=True,
+                null=True,
+                size=20,
+                verbose_name="Element",
+            ),
         ),
         migrations.CreateModel(
-            name='PozeBiserica',
+            name="PozeBiserica",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('observatii', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze', to='app.bisericapage')),
-                ('poza', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("observatii", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="poze", to="app.bisericapage"
+                    ),
+                ),
+                (
+                    "poza",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

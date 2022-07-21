@@ -7,18 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0029_elementbiserica_historicalelementbiserica'),
-        ('app', '0090_auto_20211027_2101'),
+        ("nomenclatoare", "0029_elementbiserica_historicalelementbiserica"),
+        ("app", "0090_auto_20211027_2101"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='etapeistoricevizibile',
-            name='element_new',
+            model_name="etapeistoricevizibile",
+            name="element_new",
         ),
         migrations.AddField(
-            model_name='etapeistoricevizibile',
-            name='element',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.elementbiserica'),
+            model_name="etapeistoricevizibile",
+            name="element",
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="nomenclatoare.elementbiserica"
+            ),
         ),
     ]

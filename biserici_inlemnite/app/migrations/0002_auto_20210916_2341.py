@@ -7,40 +7,50 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('app', '0001_initial'),
+        ("wagtailcore", "0062_comment_models_and_pagesubscription"),
+        ("app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BisericaPage',
+            name="BisericaPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Biserică',
-                'verbose_name_plural': 'Biserici',
+                "verbose_name": "Biserică",
+                "verbose_name_plural": "Biserici",
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
         migrations.RemoveField(
-            model_name='homepage',
-            name='banner_cta',
+            model_name="homepage",
+            name="banner_cta",
         ),
         migrations.RemoveField(
-            model_name='homepage',
-            name='banner_image',
+            model_name="homepage",
+            name="banner_image",
         ),
         migrations.RemoveField(
-            model_name='homepage',
-            name='banner_subtitle',
+            model_name="homepage",
+            name="banner_subtitle",
         ),
         migrations.RemoveField(
-            model_name='homepage',
-            name='banner_title',
+            model_name="homepage",
+            name="banner_title",
         ),
         migrations.RemoveField(
-            model_name='homepage',
-            name='streamfields',
+            model_name="homepage",
+            name="streamfields",
         ),
     ]

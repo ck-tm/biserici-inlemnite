@@ -7,13 +7,18 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0076_auto_20211022_0030'),
+        ("app", "0076_auto_20211022_0030"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='conservarepage',
-            name='turn_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='Starea structurii turnului, inclusiv a tălpilor și a coifului', null=True, verbose_name='Observații'),
+            model_name="conservarepage",
+            name="turn_observatii",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                help_text="Starea structurii turnului, inclusiv a tălpilor și a coifului",
+                null=True,
+                verbose_name="Observații",
+            ),
         ),
     ]

@@ -10,133 +10,407 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('nomenclatoare', '0010_historicaltiparcbolta_tiparcbolta'),
-        ('biserici', '0035_auto_20210803_1648'),
+        ("nomenclatoare", "0010_historicaltiparcbolta_tiparcbolta"),
+        ("biserici", "0035_auto_20210803_1648"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='HistoricalFinisajPronaos',
+            name="HistoricalFinisajPronaos",
             fields=[
-                ('id', models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('history_id', models.AutoField(primary_key=True, serialize=False)),
-                ('history_date', models.DateTimeField()),
-                ('history_change_reason', models.CharField(max_length=100, null=True)),
-                ('history_type', models.CharField(choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1)),
-                ('finisaj', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.finisaj')),
-                ('history_user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=settings.AUTH_USER_MODEL)),
-                ('material', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.finisaj')),
+                ("id", models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                ("history_id", models.AutoField(primary_key=True, serialize=False)),
+                ("history_date", models.DateTimeField()),
+                ("history_change_reason", models.CharField(max_length=100, null=True)),
+                (
+                    "history_type",
+                    models.CharField(choices=[("+", "Created"), ("~", "Changed"), ("-", "Deleted")], max_length=1),
+                ),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "history_user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="nomenclatoare.finisaj",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'historical finisaj pronaos',
-                'ordering': ('-history_date', '-history_id'),
-                'get_latest_by': 'history_date',
+                "verbose_name": "historical finisaj pronaos",
+                "ordering": ("-history_date", "-history_id"),
+                "get_latest_by": "history_date",
             },
             bases=(simple_history.models.HistoricalChanges, models.Model),
         ),
         migrations.CreateModel(
-            name='HistoricalFinisajPortic',
+            name="HistoricalFinisajPortic",
             fields=[
-                ('id', models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('history_id', models.AutoField(primary_key=True, serialize=False)),
-                ('history_date', models.DateTimeField()),
-                ('history_change_reason', models.CharField(max_length=100, null=True)),
-                ('history_type', models.CharField(choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1)),
-                ('finisaj', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.finisaj')),
-                ('history_user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=settings.AUTH_USER_MODEL)),
-                ('material', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.finisaj')),
+                ("id", models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                ("history_id", models.AutoField(primary_key=True, serialize=False)),
+                ("history_date", models.DateTimeField()),
+                ("history_change_reason", models.CharField(max_length=100, null=True)),
+                (
+                    "history_type",
+                    models.CharField(choices=[("+", "Created"), ("~", "Changed"), ("-", "Deleted")], max_length=1),
+                ),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "history_user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="nomenclatoare.finisaj",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'historical finisaj portic',
-                'ordering': ('-history_date', '-history_id'),
-                'get_latest_by': 'history_date',
+                "verbose_name": "historical finisaj portic",
+                "ordering": ("-history_date", "-history_id"),
+                "get_latest_by": "history_date",
             },
             bases=(simple_history.models.HistoricalChanges, models.Model),
         ),
         migrations.CreateModel(
-            name='HistoricalFinisajNaos',
+            name="HistoricalFinisajNaos",
             fields=[
-                ('id', models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('history_id', models.AutoField(primary_key=True, serialize=False)),
-                ('history_date', models.DateTimeField()),
-                ('history_change_reason', models.CharField(max_length=100, null=True)),
-                ('history_type', models.CharField(choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1)),
-                ('finisaj', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.finisaj')),
-                ('history_user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=settings.AUTH_USER_MODEL)),
-                ('material', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.finisaj')),
+                ("id", models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                ("history_id", models.AutoField(primary_key=True, serialize=False)),
+                ("history_date", models.DateTimeField()),
+                ("history_change_reason", models.CharField(max_length=100, null=True)),
+                (
+                    "history_type",
+                    models.CharField(choices=[("+", "Created"), ("~", "Changed"), ("-", "Deleted")], max_length=1),
+                ),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "history_user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="nomenclatoare.finisaj",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'historical finisaj naos',
-                'ordering': ('-history_date', '-history_id'),
-                'get_latest_by': 'history_date',
+                "verbose_name": "historical finisaj naos",
+                "ordering": ("-history_date", "-history_id"),
+                "get_latest_by": "history_date",
             },
             bases=(simple_history.models.HistoricalChanges, models.Model),
         ),
         migrations.CreateModel(
-            name='HistoricalFinisajAltar',
+            name="HistoricalFinisajAltar",
             fields=[
-                ('id', models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('history_id', models.AutoField(primary_key=True, serialize=False)),
-                ('history_date', models.DateTimeField()),
-                ('history_change_reason', models.CharField(max_length=100, null=True)),
-                ('history_type', models.CharField(choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1)),
-                ('finisaj', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.finisaj')),
-                ('history_user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=settings.AUTH_USER_MODEL)),
-                ('material', models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.finisaj')),
+                ("id", models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                ("history_id", models.AutoField(primary_key=True, serialize=False)),
+                ("history_date", models.DateTimeField()),
+                ("history_change_reason", models.CharField(max_length=100, null=True)),
+                (
+                    "history_type",
+                    models.CharField(choices=[("+", "Created"), ("~", "Changed"), ("-", "Deleted")], max_length=1),
+                ),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "history_user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True,
+                        db_constraint=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="+",
+                        to="nomenclatoare.finisaj",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'historical finisaj altar',
-                'ordering': ('-history_date', '-history_id'),
-                'get_latest_by': 'history_date',
+                "verbose_name": "historical finisaj altar",
+                "ordering": ("-history_date", "-history_id"),
+                "get_latest_by": "history_date",
             },
             bases=(simple_history.models.HistoricalChanges, models.Model),
         ),
         migrations.CreateModel(
-            name='FinisajPronaos',
+            name="FinisajPronaos",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('finisaj', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='finisaje_pronaos', to='biserici.finisaj')),
-                ('material', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='nomenclatoare.finisaj')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="finisaje_pronaos",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="nomenclatoare.finisaj"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FinisajPortic',
+            name="FinisajPortic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('finisaj', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='finisaje_portic', to='biserici.finisaj')),
-                ('material', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='nomenclatoare.finisaj')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="finisaje_portic",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="nomenclatoare.finisaj"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FinisajNaos',
+            name="FinisajNaos",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('finisaj', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='finisaje_naos', to='biserici.finisaj')),
-                ('material', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='nomenclatoare.finisaj')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="finisaje_naos", to="biserici.finisaj"
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="nomenclatoare.finisaj"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FinisajAltar',
+            name="FinisajAltar",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('element', models.CharField(blank=True, choices=[('pardosea', 'pardosea'), ('pereți interiori', 'pereți interiori'), ('boltă', 'boltă'), ('tavan', 'tavan')], max_length=100, null=True)),
-                ('observatii', models.TextField(blank=True, null=True)),
-                ('finisaj', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='finisaje_altar', to='biserici.finisaj')),
-                ('material', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='nomenclatoare.finisaj')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "element",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("pardosea", "pardosea"),
+                            ("pereți interiori", "pereți interiori"),
+                            ("boltă", "boltă"),
+                            ("tavan", "tavan"),
+                        ],
+                        max_length=100,
+                        null=True,
+                    ),
+                ),
+                ("observatii", models.TextField(blank=True, null=True)),
+                (
+                    "finisaj",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="finisaje_altar",
+                        to="biserici.finisaj",
+                    ),
+                ),
+                (
+                    "material",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="nomenclatoare.finisaj"
+                    ),
+                ),
             ],
         ),
     ]

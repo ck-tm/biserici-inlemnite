@@ -7,29 +7,59 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0009_auto_20210803_1534'),
-        ('biserici', '0028_auto_20210803_1551'),
+        ("nomenclatoare", "0009_auto_20210803_1534"),
+        ("biserici", "0028_auto_20210803_1551"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='componentaartistica',
-            name='iconostas_naos_altar_materiale',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='iconostasuri_naos_altar', to='nomenclatoare.material', verbose_name='Material'),
+            model_name="componentaartistica",
+            name="iconostas_naos_altar_materiale",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="iconostasuri_naos_altar",
+                to="nomenclatoare.material",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_material',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='iconostasuri_pronaos_naos', to='nomenclatoare.material', verbose_name='Material'),
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_material",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="iconostasuri_pronaos_naos",
+                to="nomenclatoare.material",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_naos_altar_materiale',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.material', verbose_name='Material'),
+            model_name="historicalcomponentaartistica",
+            name="iconostas_naos_altar_materiale",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="nomenclatoare.material",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_pronaos_naos_material',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='nomenclatoare.material', verbose_name='Material'),
+            model_name="historicalcomponentaartistica",
+            name="iconostas_pronaos_naos_material",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="nomenclatoare.material",
+                verbose_name="Material",
+            ),
         ),
     ]

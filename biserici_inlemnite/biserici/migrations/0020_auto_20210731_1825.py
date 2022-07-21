@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0006_historicalsuportpictura_suportpictura'),
-        ('biserici', '0019_auto_20210731_0215'),
+        ("nomenclatoare", "0006_historicalsuportpictura_suportpictura"),
+        ("biserici", "0019_auto_20210731_0215"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='picturaexterioara',
-            name='suport',
-            field=models.ManyToManyField(blank=True, to='nomenclatoare.SuportPictura'),
+            model_name="picturaexterioara",
+            name="suport",
+            field=models.ManyToManyField(blank=True, to="nomenclatoare.SuportPictura"),
         ),
         migrations.AddField(
-            model_name='picturainterioara',
-            name='suport',
-            field=models.ManyToManyField(blank=True, to='nomenclatoare.SuportPictura'),
+            model_name="picturainterioara",
+            name="suport",
+            field=models.ManyToManyField(blank=True, to="nomenclatoare.SuportPictura"),
         ),
     ]

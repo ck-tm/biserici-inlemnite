@@ -7,35 +7,39 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0052_auto_20210916_2325'),
+        ("biserici", "0052_auto_20210916_2325"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0077_auto_20211026_0032'),
-        ('nomenclatoare', '0018_historicaltipsistemstructural_tipsistemstructural'),
+        ("app", "0077_auto_20211026_0032"),
+        ("nomenclatoare", "0018_historicaltipsistemstructural_tipsistemstructural"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='HistoricalProprietateBiserica',
-            new_name='HistoricalRegimProprietate',
+            old_name="HistoricalProprietateBiserica",
+            new_name="HistoricalRegimProprietate",
         ),
         migrations.RenameModel(
-            old_name='ProprietateBiserica',
-            new_name='RegimProprietate',
+            old_name="ProprietateBiserica",
+            new_name="RegimProprietate",
         ),
         migrations.AlterModelOptions(
-            name='cultbiserica',
-            options={'ordering': ['nume'], 'verbose_name_plural': 'Culte biserică'},
+            name="cultbiserica",
+            options={"ordering": ["nume"], "verbose_name_plural": "Culte biserică"},
         ),
         migrations.AlterModelOptions(
-            name='historicalregimproprietate',
-            options={'get_latest_by': 'history_date', 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical regim proprietate'},
+            name="historicalregimproprietate",
+            options={
+                "get_latest_by": "history_date",
+                "ordering": ("-history_date", "-history_id"),
+                "verbose_name": "historical regim proprietate",
+            },
         ),
         migrations.AlterModelOptions(
-            name='hram',
-            options={'ordering': ['nume'], 'verbose_name_plural': 'Hram Biserică'},
+            name="hram",
+            options={"ordering": ["nume"], "verbose_name_plural": "Hram Biserică"},
         ),
         migrations.AlterModelOptions(
-            name='regimproprietate',
-            options={'ordering': ['nume'], 'verbose_name_plural': 'Regimul de proprietate'},
+            name="regimproprietate",
+            options={"ordering": ["nume"], "verbose_name_plural": "Regimul de proprietate"},
         ),
     ]

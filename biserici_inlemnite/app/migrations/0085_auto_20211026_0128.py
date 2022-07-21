@@ -8,27 +8,39 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0026_auto_20211026_0128'),
-        ('app', '0084_remove_componentaartisticapage_altar_decor'),
+        ("nomenclatoare", "0026_auto_20211026_0128"),
+        ("app", "0084_remove_componentaartisticapage_altar_decor"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_materiale',
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_materiale",
         ),
         migrations.RemoveField(
-            model_name='componentaartisticapage',
-            name='iconostas_pronaos_naos_material',
+            model_name="componentaartisticapage",
+            name="iconostas_pronaos_naos_material",
         ),
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_materiale_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_naos_altar', to='nomenclatoare.MaterialIconostas', verbose_name='Material'),
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_materiale_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_naos_altar",
+                to="nomenclatoare.MaterialIconostas",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='iconostas_pronaos_naos_materiale',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_iconostasuri_pronaos_naos', to='nomenclatoare.materialiconostas', verbose_name='Material'),
+            model_name="componentaartisticapage",
+            name="iconostas_pronaos_naos_materiale",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_iconostasuri_pronaos_naos",
+                to="nomenclatoare.materialiconostas",
+                verbose_name="Material",
+            ),
         ),
     ]

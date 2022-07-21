@@ -7,43 +7,43 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0003_identificarepage'),
+        ("app", "0003_identificarepage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='identificarepage',
-            name='denumire_oberservatii',
+            model_name="identificarepage",
+            name="denumire_oberservatii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='functiune_detalii',
+            model_name="identificarepage",
+            name="functiune_detalii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='functiune_initiala_detalii',
+            model_name="identificarepage",
+            name="functiune_initiala_detalii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='proprietar_actual',
+            model_name="identificarepage",
+            name="proprietar_actual",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='proprietate_detalii',
+            model_name="identificarepage",
+            name="proprietate_detalii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='singularitate_detalii',
+            model_name="identificarepage",
+            name="singularitate_detalii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='utilizare_detalii',
+            model_name="identificarepage",
+            name="utilizare_detalii",
             field=wagtail.core.fields.RichTextField(blank=True, null=True),
         ),
     ]

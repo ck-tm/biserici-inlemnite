@@ -7,14 +7,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0011_remove_descrierepage_gabarit_exterior_al_talpilor'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0011_remove_descrierepage_gabarit_exterior_al_talpilor"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descrierepage',
-            name='gabarit_exterior_al_talpilor',
-            field=models.ForeignKey(blank=True, help_text='o schiță a planului tălpilor / elevației /  turnului / triunghiului șarpantei', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image'),
+            model_name="descrierepage",
+            name="gabarit_exterior_al_talpilor",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="o schiță a planului tălpilor / elevației /  turnului / triunghiului șarpantei",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+            ),
         ),
     ]

@@ -6,78 +6,78 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0103_auto_20211105_1233'),
+        ("app", "0103_auto_20211105_1233"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pozeartisticetapeistoricevizibile',
-            name='rendition',
+            model_name="pozeartisticetapeistoricevizibile",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozebiserica',
-            name='rendition',
+            model_name="pozebiserica",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozeclopot',
-            name='rendition',
+            model_name="pozeclopot",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozectitori',
-            name='rendition',
+            model_name="pozectitori",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozeelementansambluconstruit',
-            name='rendition',
+            model_name="pozeelementansambluconstruit",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozeelementimportantansambluconstruit',
-            name='rendition',
+            model_name="pozeelementimportantansambluconstruit",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozeetapeistoricevizibile',
-            name='rendition',
+            model_name="pozeetapeistoricevizibile",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozefinisajaltar',
-            name='rendition',
+            model_name="pozefinisajaltar",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozefinisajnaos',
-            name='rendition',
+            model_name="pozefinisajnaos",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozefinisajportic',
-            name='rendition',
+            model_name="pozefinisajportic",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozefinisajpronaos',
-            name='rendition',
+            model_name="pozefinisajpronaos",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozemesteri',
-            name='rendition',
+            model_name="pozemesteri",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozepersonalitati',
-            name='rendition',
+            model_name="pozepersonalitati",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='pozezugravi',
-            name='rendition',
+            model_name="pozezugravi",
+            name="rendition",
             field=models.JSONField(blank=True, null=True),
         ),
     ]

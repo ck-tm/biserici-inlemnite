@@ -80,13 +80,12 @@ class Interventie(models.Model):
     imagini = models.ManyToManyField("Fotografie", blank=True)
 
 
-
 class StareConservare(models.Model):
     nota = models.ForeignKey(
         "fragmente.NotaStareConservare",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
     tipul_de_degradari = models.ManyToManyField("fragmente.TipDegradare", blank=True)
     descriere_degradari = models.TextField("Descriere degradări", null=True, blank=True)
@@ -131,7 +130,7 @@ class Identificare(models.Model):
     Capitol: Identificare Biserica
     """
 
-    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE)
+    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE, related_name="identificare")
     codul_lmi = models.CharField("Codul LMI", max_length=50, null=True, blank=True)
     categoria = models.ForeignKey(
         "fragmente.CategorieObiectiv",
@@ -160,13 +159,13 @@ class Identificare(models.Model):
     )
     frecventa_utilizarii = models.ForeignKey(
         "IdentificareFrecventaUtilizarii",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     singularitate = models.ForeignKey(
         "IdentificareSingularitate",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
@@ -217,7 +216,7 @@ class LocalizareAdresa(models.Model):
 
     coordonate_gps = models.ForeignKey(
         "LocalizareAdresaCoordonateGPS",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Coordonate GPS",
@@ -276,31 +275,31 @@ class Localizare(models.Model):
     Capitol: Localizare Biserica
     """
 
-    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE)
+    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE, related_name="localizare")
     unitati_teritoriale = models.ForeignKey(
         "LocalizareUnitatiTeritoriale",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Unități Teritoriale",
     )
     adresa = models.ForeignKey(
         "LocalizareAdresa",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Adresă",
     )
     referinte_cadastrale = models.ForeignKey(
         "LocalizareReferinteCadastrale",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Referințe Cadastrale",
     )
     regim_proprietate = models.ForeignKey(
         "LocalizareRegimulDeProprietate",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Regimul de Proprietate",
@@ -359,21 +358,21 @@ class RepereGeografice(models.Model):
 
     forma_relief = models.ForeignKey(
         "RepereGeograficeFormaRelief",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Formă de relief",
     )
     reper_hidrografic = models.ForeignKey(
         "RepereGeograficeReperHidrografic",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Reper Hidrografic",
     )
     zone_naturale = models.ForeignKey(
         "RepereGeograficeZoneNaturale",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Zone Naturale (Arii Protejate)",
@@ -405,7 +404,7 @@ class JustificareDatare(models.Model):
         "fragmente.JustificareDatare",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Justificare Datare",
     )
     observatii = models.TextField("Observații", null=True, blank=True)
@@ -421,7 +420,7 @@ class IstoricScurtIstoric(models.Model):
     )
     datare = models.ForeignKey(
         "Datare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Pisanie",
@@ -473,14 +472,14 @@ class Istoric(models.Model):
 
     scurt_istoric = models.ForeignKey(
         "IstoricScurtIstoric",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Scurt Istoric",
     )
     pisanie = models.ForeignKey(
         "IstoricPisanie",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Pisanie",
@@ -538,8 +537,9 @@ class Istoric(models.Model):
 class PeisajPeisajCulturalCadru(models.Model):
     tip = models.ForeignKey(
         "fragmente.TipCadruPeisaj",
+        null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Tip Cadru",
     )
     foto = models.ManyToManyField("Fotografie", blank=True)
@@ -553,10 +553,17 @@ class PeisajPeisajCulturalPatrimoniuImaterial(models.Model):
 
 class PeisajPeisajCultural(models.Model):
     sinteza = models.TextField("Sinteză", null=True, blank=True)
-    cadru = models.ForeignKey("PeisajPeisajCulturalCadru", on_delete=models.CASCADE)
+    cadru = models.ForeignKey(
+        "PeisajPeisajCulturalCadru",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     patrimoniu_imaterial = models.ForeignKey(
         "PeisajPeisajCulturalPatrimoniuImaterial",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Patrimoniu Imaterial",
     )
     observatii = models.TextField("Observații", null=True, blank=True)
@@ -580,40 +587,28 @@ class PeisajAmplasamentRelatiaCuCimitirul(models.Model):
         "fragmente.TipRelatieCuCimitirul",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
     observatii = models.TextField("Observații", null=True, blank=True)
 
 
 class PeisajAmplasament(models.Model):
     loc = models.ForeignKey(
-        "PeisajAmplasamentLoc",
-        on_delete=models.CASCADE,
-        verbose_name="Loc",
-        null=True,
-        blank=True
+        "PeisajAmplasamentLoc", on_delete=models.SET_NULL, verbose_name="Loc", null=True, blank=True
     )
     toponim = models.ForeignKey(
-        "PeisajAmplasamentToponim",
-        on_delete=models.CASCADE,
-        verbose_name="Toponim",
-        null=True,
-        blank=True
+        "PeisajAmplasamentToponim", on_delete=models.SET_NULL, verbose_name="Toponim", null=True, blank=True
     )
     relatia_cu_cimitirul = models.ForeignKey(
         "PeisajAmplasamentRelatiaCuCimitirul",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Relația cu cimitirul",
         null=True,
-        blank=True
+        blank=True,
     )
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
-        "StareConservare",
-        on_delete=models.CASCADE,
-        verbose_name="Stare Conservare",
-        null=True,
-        blank=True
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
     )
 
 
@@ -622,7 +617,7 @@ class PeisajAnsambluConstruitElementArhitectural(models.Model):
         "fragmente.TipElementArhitectural",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Tip",
     )
     element_important = models.BooleanField("Element Important", default=False)
@@ -636,7 +631,7 @@ class PeisajAnsambluConstruitElementPeisaj(models.Model):
         "fragmente.TipElementDePeisaj",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Tip",
     )
     element_important = models.BooleanField("Element Important", default=False)
@@ -660,8 +655,10 @@ class PeisajAnsambluConstruit(models.Model):
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
         "StareConservare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Stare Conservare",
+        null=True,
+        blank=True,
     )
 
 
@@ -674,21 +671,21 @@ class Peisaj(models.Model):
 
     peisaj_cultural = models.ForeignKey(
         "PeisajPeisajCultural",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Scurt Istoric",
     )
     amplasament = models.ForeignKey(
         "PeisajAmplasament",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Pisanie",
     )
     ansamblu_construit = models.ForeignKey(
         "PeisajAnsambluConstruit",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Pisanie",
@@ -711,7 +708,7 @@ class ABGeneralPlanimetriaBisericii(models.Model):
         "fragmente.SpatiiBiserica",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Spații Biserică",
     )
     descriere = models.TextField("Descriere", null=True, blank=True)
@@ -725,14 +722,18 @@ class ABGeneral(models.Model):
     model_3d = models.TextField("Model 3D", null=True, blank=True)
     planimetria_bisericii = models.ForeignKey(
         "ABGeneralPlanimetriaBisericii",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Planimetria bisericii",
     )
     releveu = models.FileField(upload_to="relevee", max_length=250)
-    foto_generale_exterior = models.ManyToManyField("Fotografie", blank=True, related_name="general_foto_generale_exterior")
-    foto_generale_interior = models.ManyToManyField("Fotografie", blank=True, related_name="general_foto_generale_interior")
+    foto_generale_exterior = models.ManyToManyField(
+        "Fotografie", blank=True, related_name="general_foto_generale_exterior"
+    )
+    foto_generale_interior = models.ManyToManyField(
+        "Fotografie", blank=True, related_name="general_foto_generale_interior"
+    )
 
 
 class ABFundatieSocluFundatieStructura(models.Model):
@@ -756,14 +757,14 @@ class ABFundatieSocluFundatieMateriale(models.Model):
 class ABFundatieSocluFundatie(models.Model):
     structura = models.ForeignKey(
         "ABFundatieSocluFundatieStructura",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Structură",
     )
     materiale = models.ForeignKey(
         "ABFundatieSocluFundatieMateriale",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Materiale",
@@ -797,21 +798,21 @@ class ABFundatieSocluSoclu(models.Model):
     exista = models.BooleanField("Există", default=False)
     structura = models.ForeignKey(
         "ABFundatieSocluSocluStructura",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Structură",
     )
     materiale = models.ForeignKey(
         "ABFundatieSocluSocluMateriale",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Materiale",
     )
     finisaje = models.ForeignKey(
         "ABFundatieSocluSocluFinisaje",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Materiale",
@@ -821,14 +822,14 @@ class ABFundatieSocluSoclu(models.Model):
 class ABFundatieSoclu(models.Model):
     fundatie = models.ForeignKey(
         "ABFundatieSocluFundatie",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Fundație",
     )
     soclu = models.ForeignKey(
         "ABFundatieSocluSoclu",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Soclu",
@@ -837,7 +838,7 @@ class ABFundatieSoclu(models.Model):
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
         "StareConservare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Stare conservare",
@@ -901,7 +902,7 @@ class ABCorpTalpi(models.Model):
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
         "StareConservare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Stare conservare",
@@ -949,7 +950,7 @@ class ABCorpPardoseala(models.Model):
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
         "StareConservare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Stare conservare",
@@ -1408,7 +1409,7 @@ class ABCorpGoluri(models.Model):
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
         "StareConservare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Stare conservare",
@@ -1436,7 +1437,7 @@ class ABCorpAlteElementeComponenteAleCorpuluiBisericii(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name="Pastoforii",
-        related_name="elemente_corp_pastoforii"
+        related_name="elemente_corp_pastoforii",
     )
     tiranti = models.ForeignKey(
         "ABCorpAlteElementeComponenteAleCorpuluiBisericiiTiranti",
@@ -1451,7 +1452,7 @@ class ABCorpAlteElementeComponenteAleCorpuluiBisericii(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name="Solee",
-        related_name="elemente_corp_solee"
+        related_name="elemente_corp_solee",
     )
     console_intermediare = models.ForeignKey(
         "ExistaObservatiiImagini",
@@ -1467,7 +1468,7 @@ class ABCorpAlteElementeComponenteAleCorpuluiBisericii(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name="Cosoroabe",
-        related_name="elemente_corp_cosoroabe"
+        related_name="elemente_corp_cosoroabe",
     )
 
 
@@ -1649,7 +1650,7 @@ class ABBoltiTavane(models.Model):
         "fragmente.RelatieBoltaAltarNaos",
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Relație Boltă Altar-Naos",
     )
 
@@ -1745,9 +1746,7 @@ class ABCor(models.Model):
     imagini = models.ManyToManyField("Fotografie", blank=True)
     interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
     stare_conservare = models.ForeignKey(
-        "StareConservare",
-        on_delete=models.CASCADE,
-        verbose_name="Stare Conservare",
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
     )
 
 
@@ -1788,7 +1787,7 @@ class FinisajInvelitoare(models.Model):
     sursa_an_montaj = models.TextField(null=True, blank=True)
     material = models.ForeignKey(
         "fragmente.MaterialInvelitoare",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
@@ -1925,13 +1924,17 @@ class ABSarpantaCorpBiserica(models.Model):
     stare_conservare_invelitoare_sarpanta_corp_biserica = models.ForeignKey(
         "StareConservare",
         related_name="stare_conservare_invelitoare_sarpanta_corp_biserica",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Stare conservare Învelitoare Șarpantă Corp Biserică",
     )
     stare_conservare_structura_sarpanta_corp_biserica = models.ForeignKey(
         "StareConservare",
         related_name="stare_conservare_structura_sarpanta_corp_biserica",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Stare conservare Structură Șarpantă Corp Biserică",
     )
 
@@ -2047,23 +2050,24 @@ class ABTurn(models.Model):
     stare_conservare_structura_turn = models.ForeignKey(
         "StareConservare",
         related_name="turn_stare_conservare_structura_turn",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Stare conservare Structură Turn",
     )
     stare_conservare_finisaje_turn = models.ForeignKey(
         "StareConservare",
         related_name="turn_stare_conservare_finisaje_turn",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Stare conservare Finisaje Turn",
     )
 
 
 class ABTurleCaracteristici(models.Model):
     numar_turle = models.IntegerField("Număr Turle", null=True, blank=True)
-    amplasare = models.ManyToManyField(
-        "fragmente.AmplasareTurle",
-        blank=True
-    )
+    amplasare = models.ManyToManyField("fragmente.AmplasareTurle", blank=True)
     numar_goluri = models.IntegerField("Număr goluri", null=True, blank=True)
     morfologie_acoperis = models.ForeignKey(
         "fragmente.MorfologieTurle",
@@ -2142,14 +2146,18 @@ class ABTurle(models.Model):
     stare_conservare_structura_turle = models.ForeignKey(
         "StareConservare",
         related_name="turle_stare_conservare_structura_turle",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Stare conservare Structură Turle",
+        null=True,
+        blank=True,
     )
     stare_conservare_finisaje_turle = models.ForeignKey(
         "StareConservare",
         related_name="turle_stare_conservare_finisaje_turle",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Stare conservare Finisaje Turn",
+        null=True,
+        blank=True,
     )
 
 
@@ -2162,56 +2170,56 @@ class ArhitecturaBisericii(models.Model):
 
     general = models.ForeignKey(
         "ABGeneral",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="General",
     )
     fundatie_soclu = models.ForeignKey(
         "ABFundatieSoclu",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Fundație / Soclu",
     )
     corp_biserica = models.ForeignKey(
         "ABCorp",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Corp Biserică",
     )
     bolti_tavane = models.ForeignKey(
         "ABBoltiTavane",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Bolți / Tavane",
     )
     cor = models.ForeignKey(
         "ABCor",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Cor",
     )
     sarpanta_corp_biserica = models.ForeignKey(
         "ABSarpantaCorpBiserica",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Șarpantă Corp Biserică",
     )
     turn = models.ForeignKey(
         "ABTurn",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Turn",
     )
     turle = models.ForeignKey(
         "ABTurle",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         verbose_name="Turle",
@@ -2221,8 +2229,513 @@ class ArhitecturaBisericii(models.Model):
 
     class Meta:
         ordering = ["biserica__the_order"]
-        verbose_name = "Arhitectura Bisercii"
-        verbose_name_plural = "Arhitectura Bisercii"
+        verbose_name = "Arhitectura Bisericii"
+        verbose_name_plural = "Arhitectura Bisericii"
 
     def __str__(self):
         return f"Arhitectura Bisericii {self.biserica.nume}"
+
+
+class CAGeneral(models.Model):
+    sinteza = models.TextField("Sinteză descriere", null=True, blank=True)
+    sinteza_conservare = models.TextField("Sinteză stare de conservare", null=True, blank=True)
+    sinteza_interventii = models.TextField("Sinteză intervenții în timp", null=True, blank=True)
+
+    foto_generale_exterior = models.ManyToManyField("Fotografie", blank=True, related_name="ca_foto_generale_exterior")
+    foto_generale_interior = models.ManyToManyField("Fotografie", blank=True, related_name="ca_foto_generale_interior")
+
+
+class CAIconostasTipologie(models.Model):
+    tip = models.ForeignKey(
+        "fragmente.TipIconostas",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAIconostasMateriale(models.Model):
+    materiale = models.ManyToManyField(
+        "fragmente.MaterialeIconostas",
+        blank=True,
+    )
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAIconostasPictura(models.Model):
+    tehnica = models.ManyToManyField(
+        "fragmente.TehnicaPicturiiIconostasului", blank=True, verbose_name="Tehnica Picturii"
+    )
+    proportie_suprafata = models.ForeignKey(
+        "fragmente.ProportiePicturaIconostas",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Proporția de suprafață acoperită",
+    )
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAIconostasScultptura(models.Model):
+    descriere = models.TextField("Descriere", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAIconostasComponente(models.Model):
+    componente = models.ManyToManyField(
+        "fragmente.ComponenteIconostas",
+        blank=True,
+    )
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAIconostas(models.Model):
+    tipologie = models.ForeignKey(
+        "CAIconostasTipologie",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    materiale = models.ForeignKey(
+        "CAIconostasMateriale",
+        null=True,
+        blank=True,
+        verbose_name="Materiale componente",
+        on_delete=models.SET_NULL,
+    )
+    pictura = models.ForeignKey(
+        "CAIconostasPictura",
+        null=True,
+        blank=True,
+        verbose_name="Pictură",
+        on_delete=models.SET_NULL,
+    )
+    sculptura = models.ForeignKey(
+        "CAIconostasScultptura",
+        null=True,
+        blank=True,
+        verbose_name="Sculptură/alte decorații",
+        on_delete=models.SET_NULL,
+    )
+    componente = models.ForeignKey(
+        "CAIconostasComponente",
+        null=True,
+        blank=True,
+        verbose_name="Componente",
+        on_delete=models.SET_NULL,
+    )
+    datare = models.ForeignKey(
+        "Datare",
+        null=True,
+        blank=True,
+        verbose_name="Datare",
+        on_delete=models.SET_NULL,
+    )
+    justificare_datare = models.ForeignKey(
+        "JustificareDatare",
+        null=True,
+        blank=True,
+        verbose_name="Justificare Datare",
+        on_delete=models.SET_NULL,
+    )
+    interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
+    stare_conservare = models.ForeignKey(
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
+    )
+
+
+class CAProportieSuprafata(models.Model):
+    proportie_suprafata = models.ForeignKey(
+        "fragmente.ProportiePicturaMurala",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Proporția de suprafață acoperită/vizibilă",
+    )
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAMurala(models.Model):
+    tehnica = models.ManyToManyField(
+        "fragmente.TehnicaPicturiiDecoratiei", blank=True, verbose_name="Tehnica picturii/decorației"
+    )
+    proportie = models.ForeignKey(
+        "fragmente.ProportiePicturaMurala",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Proporția de suprafață acoperită/vizibilă",
+    )
+    datare = models.ForeignKey(
+        "Datare",
+        null=True,
+        blank=True,
+        verbose_name="Datare",
+        on_delete=models.SET_NULL,
+    )
+    justificare_datare = models.ForeignKey(
+        "JustificareDatare",
+        null=True,
+        blank=True,
+        verbose_name="Justificare Datare",
+        on_delete=models.SET_NULL,
+    )
+    interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
+    stare_conservare = models.ForeignKey(
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
+    )
+
+
+class CAElementeSculptateAlteDecoratii(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+    stare_conservare = models.ForeignKey(
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
+    )
+
+
+class CAObiecteDeCultIstorice(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    denumire = models.ManyToManyField("fragmente.ObiecteDeCultIstorice", blank=True, verbose_name="Denumire")
+
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class CAMobilierIstoric(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    denumire = models.ManyToManyField("fragmente.MobilierIstoric", blank=True, verbose_name="Denumire")
+
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+    stare_conservare = models.ForeignKey(
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
+    )
+
+
+class CAPereteNaosPronaos(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    tehnica = models.ManyToManyField(
+        "fragmente.TehnicaPicturiiDecoratiei", blank=True, verbose_name="Tehnica picturii/decorației"
+    )
+    proportie = models.ForeignKey(
+        "CAProportieSuprafata",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Proporția de suprafață acoperită/vizibilă",
+    )
+    sculptura_alte_decoratii = models.ForeignKey(
+        "ExistaObservatiiImagini",
+        verbose_name="Sculptură/alte decorații",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    datare = models.ForeignKey(
+        "Datare",
+        null=True,
+        blank=True,
+        verbose_name="Datare",
+        on_delete=models.SET_NULL,
+    )
+    justificare_datare = models.ForeignKey(
+        "JustificareDatare",
+        null=True,
+        blank=True,
+        verbose_name="Justificare Datare",
+        on_delete=models.SET_NULL,
+    )
+    interventii = models.ManyToManyField("Interventie", blank=True, verbose_name="Intervenții")
+    stare_conservare = models.ForeignKey(
+        "StareConservare", on_delete=models.SET_NULL, verbose_name="Stare Conservare", null=True, blank=True
+    )
+
+
+class ComponenteArtistice(models.Model):
+    """
+    Capitol: Componente Artistice Biserica
+    """
+
+    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE, related_name="componente_artistice")
+    general = models.ForeignKey("CAGeneral", verbose_name="General", null=True, blank=True, on_delete=models.SET_NULL)
+    iconostas = models.ForeignKey(
+        "CAIconostas", verbose_name="Iconostas", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    murala_interioara = models.ForeignKey(
+        "CAMurala",
+        verbose_name="Pictura/decorația murală interioară",
+        null=True,
+        blank=True,
+        related_name="artistic_murala_interioara",
+        on_delete=models.SET_NULL,
+    )
+    murala_exteroara = models.ForeignKey(
+        "CAMurala",
+        verbose_name="Pictura/decorația murală exteroară",
+        null=True,
+        blank=True,
+        related_name="artistic_murala_exterioara",
+        on_delete=models.SET_NULL,
+    )
+    elemente_sculptate_alte_decoratii = models.ForeignKey(
+        "CAElementeSculptateAlteDecoratii",
+        verbose_name="Elemente sculptate / alte decorații",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    icoane_istorice = models.ForeignKey(
+        "ExistaObservatiiImagini",
+        verbose_name="Icoane Istorice",
+        null=True,
+        blank=True,
+        related_name="artistic_icoane_istorice",
+        on_delete=models.SET_NULL,
+    )
+    obiecte_de_cult_istorice = models.ForeignKey(
+        "CAObiecteDeCultIstorice",
+        verbose_name="Obiecte de Cult Istorice",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    mobilier_istoric = models.ForeignKey(
+        "CAMobilierIstoric", verbose_name="Mobilier Istoric", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    obiecte_de_cult_instrainate = models.ForeignKey(
+        "ExistaObservatiiImagini",
+        verbose_name="Obiecte de cult înstrăinate",
+        null=True,
+        blank=True,
+        related_name="artistic_obiecte_instrainate",
+        on_delete=models.SET_NULL,
+    )
+    perete_naos_pronaos = models.ForeignKey(
+        "CAPereteNaosPronaos",
+        verbose_name="Componente artistice la peretele despărțitor naos-pronaos",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Decriere Componente Artistice"
+        verbose_name_plural = "Decriere Componente Artistice"
+
+    def __str__(self):
+        return f"Decriere Componente Artistice {self.biserica.nume}"
+
+
+class RiscuriInstalatii(models.Model):
+    exista = models.BooleanField("Există", default=False)
+    descriere = models.TextField("Descriere", null=True, blank=True)
+    ultima_interventie = models.DateField(null=True, blank=True, verbose_name="Ultima Intervenție / Verificare")
+    risc = models.BooleanField("Risc", default=False)
+    observatii = models.TextField("Observații", null=True, blank=True)
+    imagini = models.ManyToManyField("Fotografie", blank=True)
+
+
+class InstalatiiEchipamente(models.Model):
+    """
+    Capitol: Componente Artistice Biserica
+    """
+
+    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE, related_name="instalatii_echipamente")
+
+    instalatii_electrice = models.ForeignKey(
+        "RiscuriInstalatii",
+        related_name="instalatii_electrice",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Instalații electrice",
+    )
+    paratraznet = models.ForeignKey(
+        "RiscuriInstalatii",
+        related_name="paratraznet",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Paratrăznet",
+    )
+    instalatii_termice = models.ForeignKey(
+        "RiscuriInstalatii",
+        related_name="instalatii_termice",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Instalații Termice",
+    )
+    pichet_psi = models.ForeignKey(
+        "RiscuriInstalatii",
+        related_name="pichet_psi",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Pichet PSI",
+    )
+    monitorizare_antiefractie_si_vandalism = models.ForeignKey(
+        "RiscuriInstalatii",
+        related_name="monitorizare_antiefractie_si_vandalism",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Monitorizare Antiefracție și Vandalism",
+    )
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name = "Instalații și Echipamente"
+        verbose_name_plural = "Instalații și Echipamente"
+
+    def __str__(self):
+        return f"Instalații și Echipamente {self.biserica.nume}"
+
+
+class CalificativValoare(models.Model):
+    calificativ = models.IntegerField(choices=CLASE_EVALUARE, null=True, blank=True, help_text="Calificativ")
+    observatii = models.TextField("Observații", null=True, blank=True)
+
+
+class Valoare(models.Model):
+    """
+    Capitol: Valoare Patrimoniu Cultural Biserica
+    """
+
+    biserica = models.OneToOneField("Biserica", on_delete=models.CASCADE, related_name="valoare")
+
+    vechime = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="vechime",
+        verbose_name="Vechime",
+    )
+    integritate = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="integritate",
+        verbose_name="Integritate / Autenticitate",
+    )
+    unicitate = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="unicitate",
+        verbose_name="Unicitate",
+    )
+    valoare_memoriala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="valoare_memoriala",
+        verbose_name="Valoare Memorial-Simbolică",
+    )
+    peisaj_cultural = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="peisaj_cultural",
+        verbose_name="Valoarea Peisajului Cultural",
+    )
+    sit = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="sit",
+        verbose_name="Valoarea Sitului",
+    )
+    arhitecturala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="arhitecturala",
+        verbose_name="Valoarea Arhitecturală ",
+    )
+    mestesug = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mestesug",
+        verbose_name="Valoarea Meșteșugului",
+    )
+    componente_artistice = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="componente_artistice",
+        verbose_name="Valoarea Componentelor artistice",
+    )
+    folosinta_actuala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="folosinta_actuala",
+        verbose_name="Folosința Actuală",
+    )
+    relevanta_actuala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="relevanta_actuala",
+        verbose_name="Relevanța Actuală pentru Comunitate",
+    )
+    potential = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="potential",
+        verbose_name="Potențial",
+    )
+    bioculturala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="bioculturala",
+        verbose_name="Valoarea Bioculturală",
+    )
+    imateriala = models.ForeignKey(
+        "CalificativValoare",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="imateriala",
+        verbose_name="Valoarea Imaterială",
+    )
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["biserica__the_order"]
+        verbose_name_plural = "Valoare Patrimoniu Cultural"
+
+    def __str__(self):
+        return f"Valoare patrimoniu cultural {self.biserica.nume}"

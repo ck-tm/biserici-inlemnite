@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0009_auto_20210803_1534'),
-        ('biserici', '0031_auto_20210803_1618'),
+        ("nomenclatoare", "0009_auto_20210803_1534"),
+        ("biserici", "0031_auto_20210803_1618"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='historicaldescriere',
-            name='sarpanta_tip',
+            model_name="historicaldescriere",
+            name="sarpanta_tip",
         ),
         migrations.RemoveField(
-            model_name='descriere',
-            name='sarpanta_tip',
+            model_name="descriere",
+            name="sarpanta_tip",
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='sarpanta_tip',
-            field=models.ManyToManyField(blank=True, to='nomenclatoare.TipSarpanta', verbose_name='Șarpantă (tip)'),
+            model_name="descriere",
+            name="sarpanta_tip",
+            field=models.ManyToManyField(blank=True, to="nomenclatoare.TipSarpanta", verbose_name="Șarpantă (tip)"),
         ),
     ]

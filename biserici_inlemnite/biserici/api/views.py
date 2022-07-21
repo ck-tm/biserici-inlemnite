@@ -32,13 +32,10 @@ from itertools import chain
 class ChoicesMetaData(SimpleMetadata):
     def get_field_info(self, field):
         field_info = super().get_field_info(field)
-        # print('field:', field2)
-        # print('type(field):',field.field_name,  type(field))
-        # print('field_info', field_info)
         if type(field) in [PrimaryKeyRelatedField, ManyRelatedField]:
-            # field_info['choices'] = field.choices
             if type(field) == ManyRelatedField:
                 field = field.child_relation
+                field_info["multiple_select"] = True
             if field.queryset.model._meta.app_label == "fragmente":
                 field_info["fragment"] = field.queryset.model._meta.model_name.lower()
         if type(field) == ListSerializer:

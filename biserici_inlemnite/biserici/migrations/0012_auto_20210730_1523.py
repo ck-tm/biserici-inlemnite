@@ -7,22 +7,22 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0011_finisaj_finisaj_tambur_turn'),
+        ("biserici", "0011_finisaj_finisaj_tambur_turn"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='finisaj',
-            name='finisaj_actual_invelitoare',
+            model_name="finisaj",
+            name="finisaj_actual_invelitoare",
         ),
         migrations.RemoveField(
-            model_name='finisaj',
-            name='finisaj_tambur_turn',
+            model_name="finisaj",
+            name="finisaj_tambur_turn",
         ),
         migrations.AddField(
-            model_name='finisajinvelitoare',
-            name='finisaj',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='biserici.finisaj'),
+            model_name="finisajinvelitoare",
+            name="finisaj",
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to="biserici.finisaj"),
             preserve_default=False,
         ),
     ]

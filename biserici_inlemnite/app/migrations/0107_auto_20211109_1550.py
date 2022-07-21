@@ -6,62 +6,62 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0106_descrierepage_sistem_structural_observatii'),
+        ("app", "0106_descrierepage_sistem_structural_observatii"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='adresa',
+            model_name="bisericapage",
+            name="adresa",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='conservare',
+            model_name="bisericapage",
+            name="conservare",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='datare_an',
+            model_name="bisericapage",
+            name="datare_an",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='datare_prin_interval_timp',
+            model_name="bisericapage",
+            name="datare_prin_interval_timp",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='datare_secol',
+            model_name="bisericapage",
+            name="datare_secol",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='judet',
+            model_name="bisericapage",
+            name="judet",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='latitudine',
+            model_name="bisericapage",
+            name="latitudine",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='localitate',
+            model_name="bisericapage",
+            name="localitate",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='longitudine',
+            model_name="bisericapage",
+            name="longitudine",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='prioritizare',
+            model_name="bisericapage",
+            name="prioritizare",
         ),
         migrations.RemoveField(
-            model_name='bisericapage',
-            name='valoare',
+            model_name="bisericapage",
+            name="valoare",
         ),
         migrations.AddField(
-            model_name='conservarepage',
-            name='total',
+            model_name="conservarepage",
+            name="total",
             field=models.FloatField(null=True),
         ),
         migrations.AddField(
-            model_name='valoarepage',
-            name='total',
+            model_name="valoarepage",
+            name="total",
             field=models.FloatField(null=True),
         ),
     ]

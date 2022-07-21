@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0019_auto_20210924_1106'),
+        ("app", "0019_auto_20210924_1106"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='turn_decor',
+            model_name="descrierepage",
+            name="turn_decor",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='turn_numar_stalpi',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr stâlpi'),
+            model_name="descrierepage",
+            name="turn_numar_stalpi",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr stâlpi"),
         ),
     ]

@@ -7,49 +7,61 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0014_historicalmaterialestructura_materialestructura'),
-        ('app', '0053_auto_20210927_1516'),
+        ("nomenclatoare", "0014_historicalmaterialestructura_materialestructura"),
+        ("app", "0053_auto_20210927_1516"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bisericapage',
-            name='adresa',
+            model_name="bisericapage",
+            name="adresa",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='conservare',
+            model_name="bisericapage",
+            name="conservare",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='latitudine',
+            model_name="bisericapage",
+            name="latitudine",
             field=models.FloatField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='localitate',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pp_biserici', to='nomenclatoare.localitate'),
+            model_name="bisericapage",
+            name="localitate",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="pp_biserici",
+                to="nomenclatoare.localitate",
+            ),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='longitudine',
+            model_name="bisericapage",
+            name="longitudine",
             field=models.FloatField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='prioritizare',
+            model_name="bisericapage",
+            name="prioritizare",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='bisericapage',
-            name='valoare',
+            model_name="bisericapage",
+            name="valoare",
             field=models.CharField(blank=True, max_length=5, null=True),
         ),
         migrations.AddField(
-            model_name='identificarepage',
-            name='judet',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='ppp_biserici', to='nomenclatoare.judet'),
+            model_name="identificarepage",
+            name="judet",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="ppp_biserici",
+                to="nomenclatoare.judet",
+            ),
         ),
     ]

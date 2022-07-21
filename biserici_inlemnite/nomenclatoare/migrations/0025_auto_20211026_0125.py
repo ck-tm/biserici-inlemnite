@@ -8,26 +8,30 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0084_remove_componentaartisticapage_altar_decor'),
-        ('biserici', '0052_auto_20210916_2325'),
-        ('nomenclatoare', '0024_historicalmaterialmobilier_materialmobilier'),
+        ("app", "0084_remove_componentaartisticapage_altar_decor"),
+        ("biserici", "0052_auto_20210916_2325"),
+        ("nomenclatoare", "0024_historicalmaterialmobilier_materialmobilier"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='HistoricalFinisajIconostas',
-            new_name='HistoricalTehnicaIconostas',
+            old_name="HistoricalFinisajIconostas",
+            new_name="HistoricalTehnicaIconostas",
         ),
         migrations.RenameModel(
-            old_name='FinisajIconostas',
-            new_name='TehnicaIconostas',
+            old_name="FinisajIconostas",
+            new_name="TehnicaIconostas",
         ),
         migrations.AlterModelOptions(
-            name='historicaltehnicaiconostas',
-            options={'get_latest_by': 'history_date', 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical tehnica iconostas'},
+            name="historicaltehnicaiconostas",
+            options={
+                "get_latest_by": "history_date",
+                "ordering": ("-history_date", "-history_id"),
+                "verbose_name": "historical tehnica iconostas",
+            },
         ),
         migrations.AlterModelOptions(
-            name='tehnicaiconostas',
-            options={'ordering': ['nume'], 'verbose_name_plural': 'Tehnică Iconostas'},
+            name="tehnicaiconostas",
+            options={"ordering": ["nume"], "verbose_name_plural": "Tehnică Iconostas"},
         ),
     ]

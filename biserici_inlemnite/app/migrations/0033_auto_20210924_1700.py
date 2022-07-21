@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0032_auto_20210924_1658'),
+        ("app", "0032_auto_20210924_1658"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='finisajealtar',
+            name="finisajealtar",
             options={},
         ),
     ]

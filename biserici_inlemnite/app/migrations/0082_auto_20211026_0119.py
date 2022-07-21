@@ -8,45 +8,68 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0023_auto_20211026_0116'),
-        ('app', '0081_descrierepage_turle_stil'),
+        ("nomenclatoare", "0023_auto_20211026_0116"),
+        ("app", "0081_descrierepage_turle_stil"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='inchidere_tambur_turn_material',
+            model_name="descrierepage",
+            name="inchidere_tambur_turn_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='invelitoare_corp_material',
+            model_name="descrierepage",
+            name="invelitoare_corp_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='invelitoare_turle_material',
+            model_name="descrierepage",
+            name="invelitoare_turle_material",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='invelitoare_turn_material',
+            model_name="descrierepage",
+            name="invelitoare_turn_material",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='inchidere_tambur_turn_material_new',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='inchidere_tambur', to='nomenclatoare.finisajinvelitoare', verbose_name='Material'),
+            model_name="descrierepage",
+            name="inchidere_tambur_turn_material_new",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="inchidere_tambur",
+                to="nomenclatoare.finisajinvelitoare",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='invelitoare_corp_material_new',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invelitoare_corp', to='nomenclatoare.finisajinvelitoare', verbose_name='Material'),
+            model_name="descrierepage",
+            name="invelitoare_corp_material_new",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invelitoare_corp",
+                to="nomenclatoare.finisajinvelitoare",
+                verbose_name="Material",
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='invelitoare_turle_material_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.FinisajInvelitoare', verbose_name='Material'),
+            model_name="descrierepage",
+            name="invelitoare_turle_material_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.FinisajInvelitoare", verbose_name="Material"
+            ),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='invelitoare_turn_material_new',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invelitoare_turn', to='nomenclatoare.finisajinvelitoare', verbose_name='Material'),
+            model_name="descrierepage",
+            name="invelitoare_turn_material_new",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invelitoare_turn",
+                to="nomenclatoare.finisajinvelitoare",
+                verbose_name="Material",
+            ),
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0060_auto_20211005_1753'),
+        ("app", "0060_auto_20211005_1753"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='elementeimportanteansambluconstruit',
-            name='element_disonant',
+            model_name="elementeimportanteansambluconstruit",
+            name="element_disonant",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='elementeimportanteansambluconstruit',
-            name='element_important',
+            model_name="elementeimportanteansambluconstruit",
+            name="element_important",
             field=models.BooleanField(default=False),
         ),
     ]

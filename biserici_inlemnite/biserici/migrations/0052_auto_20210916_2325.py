@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0051_auto_20210805_1054'),
+        ("biserici", "0051_auto_20210805_1054"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='descriere',
-            name='detalii_materiale',
-            field=models.TextField(blank=True, help_text='Materialele care compun structura de rezistentă a bisericii', null=True),
+            model_name="descriere",
+            name="detalii_materiale",
+            field=models.TextField(
+                blank=True, help_text="Materialele care compun structura de rezistentă a bisericii", null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='historicaldescriere',
-            name='detalii_materiale',
-            field=models.TextField(blank=True, help_text='Materialele care compun structura de rezistentă a bisericii', null=True),
+            model_name="historicaldescriere",
+            name="detalii_materiale",
+            field=models.TextField(
+                blank=True, help_text="Materialele care compun structura de rezistentă a bisericii", null=True
+            ),
         ),
     ]

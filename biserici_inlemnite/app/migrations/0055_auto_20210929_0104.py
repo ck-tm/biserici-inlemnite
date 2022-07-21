@@ -7,43 +7,43 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0054_auto_20210928_1422'),
+        ("app", "0054_auto_20210928_1422"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pozeclopot',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozeclopot",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozeelementansambluconstruit',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozeelementansambluconstruit",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozeelementimportantansambluconstruit',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozeelementimportantansambluconstruit",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozefinisajaltar',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozefinisajaltar",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozefinisajnaos',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozefinisajnaos",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozefinisajportic',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozefinisajportic",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='pozefinisajpronaos',
-            name='observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="pozefinisajpronaos",
+            name="observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
     ]

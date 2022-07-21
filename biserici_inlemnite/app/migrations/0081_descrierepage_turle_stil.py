@@ -7,14 +7,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0022_auto_20211026_0112'),
-        ('app', '0080_remove_descrierepage_turle_forma_sarpanta'),
+        ("nomenclatoare", "0022_auto_20211026_0112"),
+        ("app", "0080_remove_descrierepage_turle_forma_sarpanta"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descrierepage',
-            name='turle_stil',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='biserici', to='nomenclatoare.stilturle', verbose_name='Stilul turlelor'),
+            model_name="descrierepage",
+            name="turle_stil",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="biserici",
+                to="nomenclatoare.stilturle",
+                verbose_name="Stilul turlelor",
+            ),
         ),
     ]

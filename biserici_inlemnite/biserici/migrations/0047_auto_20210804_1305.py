@@ -6,58 +6,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0046_auto_20210804_1253'),
+        ("biserici", "0046_auto_20210804_1253"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='componentaartistica',
-            name='missing_fields',
+            model_name="componentaartistica",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='missing_fields',
+            model_name="descriere",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='finisaj',
-            name='missing_fields',
+            model_name="finisaj",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='fotografii',
-            name='missing_fields',
+            model_name="fotografii",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalcomponentaartistica',
-            name='missing_fields',
+            model_name="historicalcomponentaartistica",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='missing_fields',
+            model_name="historicaldescriere",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalfinisaj',
-            name='missing_fields',
+            model_name="historicalfinisaj",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalfotografii',
-            name='missing_fields',
+            model_name="historicalfotografii",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalidentificare',
-            name='missing_fields',
+            model_name="historicalidentificare",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='identificare',
-            name='missing_fields',
+            model_name="identificare",
+            name="missing_fields",
             field=models.JSONField(blank=True, null=True),
         ),
     ]

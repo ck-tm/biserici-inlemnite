@@ -7,159 +7,250 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0014_historicalmaterialestructura_materialestructura'),
-        ('app', '0055_auto_20210929_0104'),
+        ("nomenclatoare", "0014_historicalmaterialestructura_materialestructura"),
+        ("app", "0055_auto_20210929_0104"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='altar_piciorul_mesei',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_piciorul_mesei', to='nomenclatoare.Material', verbose_name='Piciorul mesei'),
+            model_name="componentaartisticapage",
+            name="altar_piciorul_mesei",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_piciorul_mesei", to="nomenclatoare.Material", verbose_name="Piciorul mesei"
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='altar_placa_mesei',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_placa_mesei', to='nomenclatoare.Material', verbose_name='Placa mesei'),
+            model_name="componentaartisticapage",
+            name="altar_placa_mesei",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_placa_mesei", to="nomenclatoare.Material", verbose_name="Placa mesei"
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_materiale',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_naos_altar', to='nomenclatoare.Material', verbose_name='Material'),
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_materiale",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_naos_altar",
+                to="nomenclatoare.Material",
+                verbose_name="Material",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_registre',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_naos_altar', to='nomenclatoare.RegistruIconostas', verbose_name='Registru'),
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_registre",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_naos_altar",
+                to="nomenclatoare.RegistruIconostas",
+                verbose_name="Registru",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_tehnica',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_naos_altar', to='nomenclatoare.FinisajIconostas', verbose_name='Tehnică'),
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_tehnica",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_naos_altar",
+                to="nomenclatoare.FinisajIconostas",
+                verbose_name="Tehnică",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='iconostas_naos_altar_tip_usi',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_naos_altar', to='nomenclatoare.TipUsiIconostas', verbose_name='Tip uși'),
+            model_name="componentaartisticapage",
+            name="iconostas_naos_altar_tip_usi",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_naos_altar",
+                to="nomenclatoare.TipUsiIconostas",
+                verbose_name="Tip uși",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='iconostas_pronaos_naos_tehnica',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_iconostasuri_pronaos_naos', to='nomenclatoare.FinisajIconostas', verbose_name='Tehnica'),
+            model_name="componentaartisticapage",
+            name="iconostas_pronaos_naos_tehnica",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_iconostasuri_pronaos_naos",
+                to="nomenclatoare.FinisajIconostas",
+                verbose_name="Tehnica",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='mobiliere',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.Material', verbose_name='Mobilier'),
+            model_name="componentaartisticapage",
+            name="mobiliere",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.Material", verbose_name="Mobilier"
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='obiecte_de_cult',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.ObiectCult', verbose_name='Obiecte de cult'),
+            model_name="componentaartisticapage",
+            name="obiecte_de_cult",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.ObiectCult", verbose_name="Obiecte de cult"
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='pictura_exterioara_suport',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_localizari_exterioare', to='nomenclatoare.SuportPictura', verbose_name='Suport'),
+            model_name="componentaartisticapage",
+            name="pictura_exterioara_suport",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_localizari_exterioare",
+                to="nomenclatoare.SuportPictura",
+                verbose_name="Suport",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='pictura_exterioara_sursa_datare',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_componente_artistice_exterioare', to='nomenclatoare.SursaDatare', verbose_name='Sursa datare'),
+            model_name="componentaartisticapage",
+            name="pictura_exterioara_sursa_datare",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_componente_artistice_exterioare",
+                to="nomenclatoare.SursaDatare",
+                verbose_name="Sursa datare",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='pictura_interioara_suport',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_localizari_interioare', to='nomenclatoare.SuportPictura', verbose_name='Suport'),
+            model_name="componentaartisticapage",
+            name="pictura_interioara_suport",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_localizari_interioare",
+                to="nomenclatoare.SuportPictura",
+                verbose_name="Suport",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='pictura_interioara_sursa_datare',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_componente_artistice_interioare', to='nomenclatoare.SursaDatare', verbose_name='Sursa datare'),
+            model_name="componentaartisticapage",
+            name="pictura_interioara_sursa_datare",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_componente_artistice_interioare",
+                to="nomenclatoare.SursaDatare",
+                verbose_name="Sursa datare",
+            ),
         ),
         migrations.AlterField(
-            model_name='componentaartisticapage',
-            name='suport_proscomidie',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.SuportPictura'),
+            model_name="componentaartisticapage",
+            name="suport_proscomidie",
+            field=modelcluster.fields.ParentalManyToManyField(blank=True, to="nomenclatoare.SuportPictura"),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_altar_material',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_altar', to='nomenclatoare.Material', verbose_name='Material'),
+            model_name="descrierepage",
+            name="bolta_peste_altar_material",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_biserici_bolta_peste_altar",
+                to="nomenclatoare.Material",
+                verbose_name="Material",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_altar_tipul_de_arc',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_altar', to='nomenclatoare.TipArcBolta', verbose_name='Tipul de arc'),
+            model_name="descrierepage",
+            name="bolta_peste_altar_tipul_de_arc",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_biserici_bolta_peste_altar",
+                to="nomenclatoare.TipArcBolta",
+                verbose_name="Tipul de arc",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_naos_material',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_naos', to='nomenclatoare.Material'),
+            model_name="descrierepage",
+            name="bolta_peste_naos_material",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_naos", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_naos_tipul_de_arc',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_naos', to='nomenclatoare.TipArcBolta'),
+            model_name="descrierepage",
+            name="bolta_peste_naos_tipul_de_arc",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_naos", to="nomenclatoare.TipArcBolta"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_pronaos_material',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_pronaos', to='nomenclatoare.Material'),
+            model_name="descrierepage",
+            name="bolta_peste_pronaos_material",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_pronaos", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_pronaos_tipul_de_arc',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_bolta_peste_pronaos', to='nomenclatoare.TipArcBolta'),
+            model_name="descrierepage",
+            name="bolta_peste_pronaos_tipul_de_arc",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_bolta_peste_pronaos", to="nomenclatoare.TipArcBolta"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='cor_material',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici_cor', to='nomenclatoare.Material'),
+            model_name="descrierepage",
+            name="cor_material",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici_cor", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='elemente',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Elemente ansamblu construit', to='nomenclatoare.ElementBiserica'),
+            model_name="descrierepage",
+            name="elemente",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, help_text="Elemente ansamblu construit", to="nomenclatoare.ElementBiserica"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='elemente_importante',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Elemente ansamblu construit', to='nomenclatoare.ElementImportant'),
+            model_name="descrierepage",
+            name="elemente_importante",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, help_text="Elemente ansamblu construit", to="nomenclatoare.ElementImportant"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='finisaj_exterior_tip',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.FinisajExterior', verbose_name='Tip'),
+            model_name="descrierepage",
+            name="finisaj_exterior_tip",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.FinisajExterior", verbose_name="Tip"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='invelitoare_turle_material',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.MaterialInvelitoareTurle', verbose_name='Material'),
+            model_name="descrierepage",
+            name="invelitoare_turle_material",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.MaterialInvelitoareTurle", verbose_name="Material"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='materiale',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, help_text='Materiale folosite in construcția bisericii', to='nomenclatoare.MaterialeStructura'),
+            model_name="descrierepage",
+            name="materiale",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                help_text="Materiale folosite in construcția bisericii",
+                to="nomenclatoare.MaterialeStructura",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='peisagistica_sitului',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.PeisagisticaSit'),
+            model_name="descrierepage",
+            name="peisagistica_sitului",
+            field=modelcluster.fields.ParentalManyToManyField(blank=True, to="nomenclatoare.PeisagisticaSit"),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='sarpanta_tip',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, to='nomenclatoare.TipSarpanta', verbose_name='Tip'),
+            model_name="descrierepage",
+            name="sarpanta_tip",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, to="nomenclatoare.TipSarpanta", verbose_name="Tip"
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='turle_pozitionare',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='biserici', to='nomenclatoare.PozitionareTurle', verbose_name='Poziționare'),
+            model_name="descrierepage",
+            name="turle_pozitionare",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="biserici", to="nomenclatoare.PozitionareTurle", verbose_name="Poziționare"
+            ),
         ),
         migrations.AlterField(
-            model_name='istoricpage',
-            name='sursa_datare',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_biserici', to='nomenclatoare.SursaDatare'),
+            model_name="istoricpage",
+            name="sursa_datare",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="p_biserici", to="nomenclatoare.SursaDatare"
+            ),
         ),
     ]

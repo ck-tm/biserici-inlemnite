@@ -7,74 +7,93 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0010_historicaltiparcbolta_tiparcbolta'),
-        ('biserici', '0033_auto_20210803_1623'),
+        ("nomenclatoare", "0010_historicaltiparcbolta_tiparcbolta"),
+        ("biserici", "0033_auto_20210803_1623"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_altar_material',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_altar', to='nomenclatoare.Material'),
+            model_name="descriere",
+            name="bolta_peste_altar_material",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_altar", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_altar_observatii',
+            model_name="descriere",
+            name="bolta_peste_altar_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_altar_tipul_de_arc',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_altar', to='nomenclatoare.TipArcBolta'),
+            model_name="descriere",
+            name="bolta_peste_altar_tipul_de_arc",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_altar", to="nomenclatoare.TipArcBolta"
+            ),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_naos_material',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_naos', to='nomenclatoare.Material'),
+            model_name="descriere",
+            name="bolta_peste_naos_material",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_naos", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_naos_observatii',
+            model_name="descriere",
+            name="bolta_peste_naos_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_naos_tipul_de_arc',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_naos', to='nomenclatoare.TipArcBolta'),
+            model_name="descriere",
+            name="bolta_peste_naos_tipul_de_arc",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_naos", to="nomenclatoare.TipArcBolta"
+            ),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_pronaos_material',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_pronaos', to='nomenclatoare.Material'),
+            model_name="descriere",
+            name="bolta_peste_pronaos_material",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_pronaos", to="nomenclatoare.Material"
+            ),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_pronaos_observatii',
+            model_name="descriere",
+            name="bolta_peste_pronaos_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='descriere',
-            name='bolta_peste_pronaos_tipul_de_arc',
-            field=models.ManyToManyField(blank=True, related_name='biserici_bolta_peste_pronaos', to='nomenclatoare.TipArcBolta'),
+            model_name="descriere",
+            name="bolta_peste_pronaos_tipul_de_arc",
+            field=models.ManyToManyField(
+                blank=True, related_name="biserici_bolta_peste_pronaos", to="nomenclatoare.TipArcBolta"
+            ),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='bolta_peste_altar_observatii',
+            model_name="historicaldescriere",
+            name="bolta_peste_altar_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='bolta_peste_naos_observatii',
+            model_name="historicaldescriere",
+            name="bolta_peste_naos_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicaldescriere',
-            name='bolta_peste_pronaos_observatii',
+            model_name="historicaldescriere",
+            name="bolta_peste_pronaos_observatii",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='descriere',
-            name='bolta_peste_altar',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='biserici_bolta_peste_altar', to='nomenclatoare.boltapestealtar', verbose_name='Boltă peste altar'),
+            model_name="descriere",
+            name="bolta_peste_altar",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="biserici_bolta_peste_altar",
+                to="nomenclatoare.boltapestealtar",
+                verbose_name="Boltă peste altar",
+            ),
         ),
     ]

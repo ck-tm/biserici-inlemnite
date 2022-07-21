@@ -7,25 +7,46 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0063_auto_20220719_0100'),
+        ("biserici", "0063_auto_20220719_0100"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='IstoricNew',
+            name="IstoricNew",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('scurt_istoric', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='biserici.istoricscurtistoric', verbose_name='Scurt Istoric')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "scurt_istoric",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="biserici.istoricscurtistoric",
+                        verbose_name="Scurt Istoric",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='biserica',
-            name='istoric_new',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='istoric_new', to='biserici.istoricnew'),
+            model_name="biserica",
+            name="istoric_new",
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="istoric_new",
+                to="biserici.istoricnew",
+            ),
         ),
         migrations.AddField(
-            model_name='historicalbiserica',
-            name='istoric_new',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='biserici.istoricnew'),
+            model_name="historicalbiserica",
+            name="istoric_new",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="biserici.istoricnew",
+            ),
         ),
     ]

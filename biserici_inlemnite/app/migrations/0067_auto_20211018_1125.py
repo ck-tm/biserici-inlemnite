@@ -7,18 +7,24 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0017_historicalmaterialestructurabolta_materialestructurabolta'),
-        ('app', '0066_auto_20211014_1617'),
+        ("nomenclatoare", "0017_historicalmaterialestructurabolta_materialestructurabolta"),
+        ("app", "0066_auto_20211014_1617"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='materiale',
+            model_name="descrierepage",
+            name="materiale",
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='materiale',
-            field=models.ForeignKey(blank=True, help_text='Materiale folosite in construcția bisericii', null=True, on_delete=django.db.models.deletion.SET_NULL, to='nomenclatoare.materialestructura'),
+            model_name="descrierepage",
+            name="materiale",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Materiale folosite in construcția bisericii",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="nomenclatoare.materialestructura",
+            ),
         ),
     ]

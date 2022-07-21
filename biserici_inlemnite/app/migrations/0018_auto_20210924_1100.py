@@ -8,28 +8,34 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0017_auto_20210924_1041'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0017_auto_20210924_1041"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='gabarit_exterior_al_talpilor',
+            model_name="descrierepage",
+            name="gabarit_exterior_al_talpilor",
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='planimetria_bisericii',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image'),
+            model_name="descrierepage",
+            name="planimetria_bisericii",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.image",
+            ),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='functiune_initiala_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="identificarepage",
+            name="functiune_initiala_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AlterField(
-            model_name='identificarepage',
-            name='functiune_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="identificarepage",
+            name="functiune_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
     ]

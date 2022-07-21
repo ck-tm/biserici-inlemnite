@@ -6,52 +6,61 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0010_historicaltiparcbolta_tiparcbolta'),
-        ('biserici', '0038_finisajaltar_finisajnaos_finisajportic_finisajpronaos_historicalfinisajaltar_historicalfinisajnaos_h'),
+        ("nomenclatoare", "0010_historicaltiparcbolta_tiparcbolta"),
+        (
+            "biserici",
+            "0038_finisajaltar_finisajnaos_finisajportic_finisajpronaos_historicalfinisajaltar_historicalfinisajnaos_h",
+        ),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_naos_altar_materiale',
+            model_name="historicalcomponentaartistica",
+            name="iconostas_naos_altar_materiale",
         ),
         migrations.AlterField(
-            model_name='componentaartistica',
-            name='alte_icoane_vechi',
-            field=models.BooleanField(default=False, verbose_name='Alte icoane vechi'),
+            model_name="componentaartistica",
+            name="alte_icoane_vechi",
+            field=models.BooleanField(default=False, verbose_name="Alte icoane vechi"),
         ),
         migrations.AlterField(
-            model_name='componentaartistica',
-            name='alte_icoane_vechi_detalii',
-            field=models.TextField(blank=True, help_text='Alte icoane vechi observații', null=True),
+            model_name="componentaartistica",
+            name="alte_icoane_vechi_detalii",
+            field=models.TextField(blank=True, help_text="Alte icoane vechi observații", null=True),
         ),
         migrations.AlterField(
-            model_name='componentaartistica',
-            name='elemente_detalii',
-            field=models.TextField(blank=True, null=True, verbose_name='Elemente sculptate / decoruri în biserică observații'),
+            model_name="componentaartistica",
+            name="elemente_detalii",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="Elemente sculptate / decoruri în biserică observații"
+            ),
         ),
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_naos_altar_materiale',
+            model_name="componentaartistica",
+            name="iconostas_naos_altar_materiale",
         ),
         migrations.AddField(
-            model_name='componentaartistica',
-            name='iconostas_naos_altar_materiale',
-            field=models.ManyToManyField(blank=True, related_name='iconostasuri_naos_altar', to='nomenclatoare.Material', verbose_name='Material'),
+            model_name="componentaartistica",
+            name="iconostas_naos_altar_materiale",
+            field=models.ManyToManyField(
+                blank=True, related_name="iconostasuri_naos_altar", to="nomenclatoare.Material", verbose_name="Material"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalcomponentaartistica',
-            name='alte_icoane_vechi',
-            field=models.BooleanField(default=False, verbose_name='Alte icoane vechi'),
+            model_name="historicalcomponentaartistica",
+            name="alte_icoane_vechi",
+            field=models.BooleanField(default=False, verbose_name="Alte icoane vechi"),
         ),
         migrations.AlterField(
-            model_name='historicalcomponentaartistica',
-            name='alte_icoane_vechi_detalii',
-            field=models.TextField(blank=True, help_text='Alte icoane vechi observații', null=True),
+            model_name="historicalcomponentaartistica",
+            name="alte_icoane_vechi_detalii",
+            field=models.TextField(blank=True, help_text="Alte icoane vechi observații", null=True),
         ),
         migrations.AlterField(
-            model_name='historicalcomponentaartistica',
-            name='elemente_detalii',
-            field=models.TextField(blank=True, null=True, verbose_name='Elemente sculptate / decoruri în biserică observații'),
+            model_name="historicalcomponentaartistica",
+            name="elemente_detalii",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="Elemente sculptate / decoruri în biserică observații"
+            ),
         ),
     ]

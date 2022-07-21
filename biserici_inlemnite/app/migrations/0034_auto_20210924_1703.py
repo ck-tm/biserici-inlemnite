@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0033_auto_20210924_1700'),
+        ("app", "0033_auto_20210924_1700"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='finisajenaos',
+            name="finisajenaos",
             options={},
         ),
         migrations.AlterModelOptions(
-            name='finisajeportic',
+            name="finisajeportic",
             options={},
         ),
         migrations.AlterModelOptions(
-            name='finisajepronaos',
+            name="finisajepronaos",
             options={},
         ),
     ]

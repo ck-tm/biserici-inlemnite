@@ -1023,12 +1023,24 @@ class ProportiePicturaIconostas(models.Model):
         return self.nume
 
 
-class ElementeComponenteIconostas(models.Model):
+class ProportiePicturaMurala(models.Model):
     nume = models.CharField(max_length=300)
     history = HistoricalRecords()
 
     class Meta:
-        verbose_name_plural = "Elemente Componente Iconostas"
+        verbose_name_plural = "Proporție Pictură Murală"
+        ordering = ["nume"]
+
+    def __str__(self):
+        return self.nume
+
+
+class ComponenteIconostas(models.Model):
+    nume = models.CharField(max_length=300)
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Componente Iconostas"
         ordering = ["nume"]
 
     def __str__(self):
@@ -1131,12 +1143,24 @@ class NotaStareMobilier(models.Model):
         return self.nume
 
 
-class TehnicaPicturiiDecoratieiMurale(models.Model):
+class TehnicaPicturiiDecoratieiMuraleInterioare(models.Model):
     nume = models.CharField(max_length=300)
     history = HistoricalRecords()
 
     class Meta:
-        verbose_name_plural = "Tehnica Picturii Decorației Murale"
+        verbose_name_plural = "Tehnica Picturii Decorației Murale Interioare"
+        ordering = ["nume"]
+
+    def __str__(self):
+        return self.nume
+
+
+class TehnicaPicturiiDecoratieiMuraleExterioare(models.Model):
+    nume = models.CharField(max_length=300)
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = "Tehnica Picturii Decorației Murale Exterioare"
         ordering = ["nume"]
 
     def __str__(self):
@@ -1251,7 +1275,8 @@ admin.site.register(TipIconostas, GenericAdmin)
 admin.site.register(MaterialeIconostas, GenericAdmin)
 admin.site.register(TehnicaPicturiiIconostasului, GenericAdmin)
 admin.site.register(ProportiePicturaIconostas, GenericAdmin)
-admin.site.register(ElementeComponenteIconostas, GenericAdmin)
+admin.site.register(ProportiePicturaMurala, GenericAdmin)
+admin.site.register(ComponenteIconostas, GenericAdmin)
 admin.site.register(TehnicaPicturiiDecoratiei, GenericAdmin)
 admin.site.register(ProportiaDeSuprafataAcoperitaVizibila, GenericAdmin)
 admin.site.register(JustificareDatarePicturaDecoratieMuralaExterioara, GenericAdmin)
@@ -1260,6 +1285,7 @@ admin.site.register(IcoaneMobileDinBiserica, GenericAdmin)
 admin.site.register(ObiecteDeCultIstorice, GenericAdmin)
 admin.site.register(MobilierIstoric, GenericAdmin)
 admin.site.register(NotaStareMobilier, GenericAdmin)
-admin.site.register(TehnicaPicturiiDecoratieiMurale, GenericAdmin)
+admin.site.register(TehnicaPicturiiDecoratieiMuraleInterioare, GenericAdmin)
+admin.site.register(TehnicaPicturiiDecoratieiMuraleExterioare, GenericAdmin)
 admin.site.register(JustificareDatarePicturaDecoratieMuralaPereteDespartitor, GenericAdmin)
 admin.site.register(TipDegradarePicturaDecoratieMuralaPereteDespartitor, GenericAdmin)

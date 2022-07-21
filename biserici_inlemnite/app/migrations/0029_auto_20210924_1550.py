@@ -8,44 +8,51 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0012_historicaltiptiranti_tiptiranti'),
-        ('app', '0028_auto_20210924_1541'),
+        ("nomenclatoare", "0012_historicaltiptiranti_tiptiranti"),
+        ("app", "0028_auto_20210924_1541"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='descrierepage',
-            name='fundatia_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="descrierepage",
+            name="fundatia_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='sistem_in_catei_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="descrierepage",
+            name="sistem_in_catei_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='sistem_in_cheotoare_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="descrierepage",
+            name="sistem_in_cheotoare_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='tiranti_numar',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Număr'),
+            model_name="descrierepage",
+            name="tiranti_numar",
+            field=models.IntegerField(blank=True, null=True, verbose_name="Număr"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='tiranti_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="descrierepage",
+            name="tiranti_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
         migrations.AddField(
-            model_name='descrierepage',
-            name='tiranti_tip',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_biserici', to='nomenclatoare.tiptiranti', verbose_name='Tip'),
+            model_name="descrierepage",
+            name="tiranti_tip",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_biserici",
+                to="nomenclatoare.tiptiranti",
+                verbose_name="Tip",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='sistem_mixt',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="descrierepage",
+            name="sistem_mixt",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
     ]

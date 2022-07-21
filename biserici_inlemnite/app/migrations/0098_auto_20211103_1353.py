@@ -10,28 +10,54 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0097_auto_20211102_1445'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0097_auto_20211102_1445"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aboutpage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('paragraph_block', wagtail.core.blocks.RichTextBlock(features=['h1', 'h2', 'h3', 'bold', 'ol', 'ul'], icon='fa-paragraph'))], blank=True, null=True, verbose_name='Secțiuni'),
+            model_name="aboutpage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "paragraph_block",
+                        wagtail.core.blocks.RichTextBlock(
+                            features=["h1", "h2", "h3", "bold", "ol", "ul"], icon="fa-paragraph"
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+                verbose_name="Secțiuni",
+            ),
         ),
         migrations.CreateModel(
-            name='ParteneriProiect',
+            name="ParteneriProiect",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('link', models.URLField(blank=True, null=True)),
-                ('logo', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='parteneri', to='app.aboutpage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("link", models.URLField(blank=True, null=True)),
+                (
+                    "logo",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="parteneri", to="app.aboutpage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

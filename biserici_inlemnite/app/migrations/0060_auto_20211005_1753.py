@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0059_pozeartisticetapeistoricevizibile'),
+        ("app", "0059_pozeartisticetapeistoricevizibile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='elementeansambluconstruit',
-            name='element_disonant',
+            model_name="elementeansambluconstruit",
+            name="element_disonant",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='elementeansambluconstruit',
-            name='element_important',
+            model_name="elementeansambluconstruit",
+            name="element_important",
             field=models.BooleanField(default=False),
         ),
     ]

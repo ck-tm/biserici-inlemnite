@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0064_auto_20211014_1353'),
+        ("app", "0064_auto_20211014_1353"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='elemente_interventii',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=100), blank=True, null=True, size=20),
+            model_name="componentaartisticapage",
+            name="elemente_interventii",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(blank=True, max_length=100), blank=True, null=True, size=20
+            ),
         ),
     ]

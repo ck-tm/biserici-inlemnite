@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0107_auto_20211109_1550'),
+        ("app", "0107_auto_20211109_1550"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bisericapage',
-            name='cod',
+            model_name="bisericapage",
+            name="cod",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AlterField(
-            model_name='conservarepage',
-            name='total',
+            model_name="conservarepage",
+            name="total",
             field=models.FloatField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='valoarepage',
-            name='total',
+            model_name="valoarepage",
+            name="total",
             field=models.FloatField(blank=True, null=True),
         ),
     ]

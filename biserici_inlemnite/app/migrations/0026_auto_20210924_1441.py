@@ -9,30 +9,35 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0025_auto_20210924_1434'),
+        ("app", "0025_auto_20210924_1434"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='clopote_an',
+            model_name="descrierepage",
+            name="clopote_an",
         ),
         migrations.RemoveField(
-            model_name='descrierepage',
-            name='clopote_inscriptie',
+            model_name="descrierepage",
+            name="clopote_inscriptie",
         ),
         migrations.CreateModel(
-            name='ClopoteBiserica',
+            name="ClopoteBiserica",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('an', models.IntegerField(blank=True, null=True, verbose_name='An')),
-                ('inscriptie', wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Inscripție')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='clopote', to='app.descrierepage')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                ("an", models.IntegerField(blank=True, null=True, verbose_name="An")),
+                ("inscriptie", wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Inscripție")),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="clopote", to="app.descrierepage"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

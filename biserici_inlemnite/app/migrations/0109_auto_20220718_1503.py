@@ -8,29 +8,46 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0030_auto_20220718_1503'),
-        ('app', '0108_auto_20211110_1134'),
+        ("nomenclatoare", "0030_auto_20220718_1503"),
+        ("app", "0108_auto_20211110_1134"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='bisericapage',
-            name='cod',
-            field=models.CharField(blank=True, max_length=250, null=True, verbose_name='Cod LMI'),
+            model_name="bisericapage",
+            name="cod",
+            field=models.CharField(blank=True, max_length=250, null=True, verbose_name="Cod LMI"),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_altar',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_biserici_bolta_peste_altar', to='nomenclatoare.boltapestealtar', verbose_name='Relație boltă altar-naos'),
+            model_name="descrierepage",
+            name="bolta_peste_altar",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_biserici_bolta_peste_altar",
+                to="nomenclatoare.boltapestealtar",
+                verbose_name="Relație boltă altar-naos",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_altar_structura',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_altar', to='nomenclatoare.MaterialeStructuraBolta', verbose_name='Structură boltă/tavan altar'),
+            model_name="descrierepage",
+            name="bolta_peste_altar_structura",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_altar",
+                to="nomenclatoare.MaterialeStructuraBolta",
+                verbose_name="Structură boltă/tavan altar",
+            ),
         ),
         migrations.AlterField(
-            model_name='descrierepage',
-            name='bolta_peste_pronaos_structura',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_pronaos', to='nomenclatoare.MaterialeStructuraBolta', verbose_name='Structură boltă/tavan pronaos'),
+            model_name="descrierepage",
+            name="bolta_peste_pronaos_structura",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_pronaos",
+                to="nomenclatoare.MaterialeStructuraBolta",
+                verbose_name="Structură boltă/tavan pronaos",
+            ),
         ),
     ]

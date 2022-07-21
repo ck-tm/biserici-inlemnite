@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0036_auto_20210924_1713'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0036_auto_20210924_1713"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='PozeMasa_atlar',
-            new_name='PozeMasaAtlar',
+            old_name="PozeMasa_atlar",
+            new_name="PozeMasaAtlar",
         ),
     ]

@@ -9,35 +9,91 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('biserici', '0060_auto_20220718_1901'),
+        ("biserici", "0060_auto_20220718_1901"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Istoric',
+            name="Istoric",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('biserica', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='istoric', to='biserici.biserica')),
-                ('ctitori', models.ManyToManyField(blank=True, related_name='ctitori', to='biserici.IstoricPersoana', verbose_name='Ctitori')),
-                ('evenimente', models.ManyToManyField(blank=True, related_name='evenimente', to='biserici.IstoricEveniment', verbose_name='Evenimente')),
-                ('mesteri', models.ManyToManyField(blank=True, related_name='mesteri', to='biserici.IstoricPersoana', verbose_name='Meșteri')),
-                ('mutari', models.ManyToManyField(blank=True, related_name='mutari', to='biserici.IstoricMutare', verbose_name='Mutări')),
-                ('personalitati', models.ManyToManyField(blank=True, related_name='personalitati', to='biserici.IstoricPersoana', verbose_name='Personalități')),
-                ('pisanie', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='biserici.istoricpisanie', verbose_name='Pisanie')),
-                ('scurt_istoric', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='biserici.istoricscurtistoric', verbose_name='Scurt Istoric')),
-                ('zugravi', models.ManyToManyField(blank=True, related_name='zugravi', to='biserici.IstoricPersoana', verbose_name='Zugravi')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "biserica",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="istoric", to="biserici.biserica"
+                    ),
+                ),
+                (
+                    "ctitori",
+                    models.ManyToManyField(
+                        blank=True, related_name="ctitori", to="biserici.IstoricPersoana", verbose_name="Ctitori"
+                    ),
+                ),
+                (
+                    "evenimente",
+                    models.ManyToManyField(
+                        blank=True, related_name="evenimente", to="biserici.IstoricEveniment", verbose_name="Evenimente"
+                    ),
+                ),
+                (
+                    "mesteri",
+                    models.ManyToManyField(
+                        blank=True, related_name="mesteri", to="biserici.IstoricPersoana", verbose_name="Meșteri"
+                    ),
+                ),
+                (
+                    "mutari",
+                    models.ManyToManyField(
+                        blank=True, related_name="mutari", to="biserici.IstoricMutare", verbose_name="Mutări"
+                    ),
+                ),
+                (
+                    "personalitati",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="personalitati",
+                        to="biserici.IstoricPersoana",
+                        verbose_name="Personalități",
+                    ),
+                ),
+                (
+                    "pisanie",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="biserici.istoricpisanie",
+                        verbose_name="Pisanie",
+                    ),
+                ),
+                (
+                    "scurt_istoric",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="biserici.istoricscurtistoric",
+                        verbose_name="Scurt Istoric",
+                    ),
+                ),
+                (
+                    "zugravi",
+                    models.ManyToManyField(
+                        blank=True, related_name="zugravi", to="biserici.IstoricPersoana", verbose_name="Zugravi"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Istoric',
-                'verbose_name_plural': 'Istoric',
-                'ordering': ['biserica__the_order'],
+                "verbose_name": "Istoric",
+                "verbose_name_plural": "Istoric",
+                "ordering": ["biserica__the_order"],
             },
         ),
         migrations.RenameModel(
-            old_name='HistoricalIstoricB',
-            new_name='HistoricalIstoric',
+            old_name="HistoricalIstoricB",
+            new_name="HistoricalIstoric",
         ),
         migrations.DeleteModel(
-            name='IstoricB',
+            name="IstoricB",
         ),
     ]

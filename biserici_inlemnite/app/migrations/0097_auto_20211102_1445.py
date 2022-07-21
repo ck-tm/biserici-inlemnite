@@ -8,13 +8,27 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0096_bisericapage_datare_an'),
+        ("app", "0096_bisericapage_datare_an"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aboutpage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('paragraph_block', wagtail.core.blocks.RichTextBlock(features=['h2', 'h3', 'bold', 'italic', 'link', 'ol', 'ul', 'document-link'], icon='fa-paragraph', template='blocks/paragraph_block.html'))], blank=True, null=True, verbose_name='Page body'),
+            model_name="aboutpage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "paragraph_block",
+                        wagtail.core.blocks.RichTextBlock(
+                            features=["h2", "h3", "bold", "italic", "link", "ol", "ul", "document-link"],
+                            icon="fa-paragraph",
+                            template="blocks/paragraph_block.html",
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+                verbose_name="Page body",
+            ),
         ),
     ]

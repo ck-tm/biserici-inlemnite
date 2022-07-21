@@ -8,25 +8,58 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0023_add_choose_permissions'),
-        ('app', '0030_auto_20210924_1627'),
+        ("wagtailimages", "0023_add_choose_permissions"),
+        ("app", "0030_auto_20210924_1627"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PozeFinisaj',
+            name="PozeFinisaj",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('page_altar', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze_finisaj', to='app.finisajealtar')),
-                ('page_naos', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze_finisaj', to='app.finisajenaos')),
-                ('page_portic', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze_finisaj', to='app.finisajeportic')),
-                ('page_pronaos', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='poze_finisaj', to='app.finisajepronaos')),
-                ('poza', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.image')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("sort_order", models.IntegerField(blank=True, editable=False, null=True)),
+                (
+                    "page_altar",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="poze_finisaj", to="app.finisajealtar"
+                    ),
+                ),
+                (
+                    "page_naos",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="poze_finisaj", to="app.finisajenaos"
+                    ),
+                ),
+                (
+                    "page_portic",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="poze_finisaj",
+                        to="app.finisajeportic",
+                    ),
+                ),
+                (
+                    "page_pronaos",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="poze_finisaj",
+                        to="app.finisajepronaos",
+                    ),
+                ),
+                (
+                    "poza",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailimages.image",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

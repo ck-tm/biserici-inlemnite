@@ -7,27 +7,37 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0027_historicalmaterialmasaaltar_materialmasaaltar'),
-        ('app', '0085_auto_20211026_0128'),
+        ("nomenclatoare", "0027_historicalmaterialmasaaltar_materialmasaaltar"),
+        ("app", "0085_auto_20211026_0128"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='componentaartisticapage',
-            name='altar_piciorul_mesei',
+            model_name="componentaartisticapage",
+            name="altar_piciorul_mesei",
         ),
         migrations.RemoveField(
-            model_name='componentaartisticapage',
-            name='altar_placa_mesei',
+            model_name="componentaartisticapage",
+            name="altar_placa_mesei",
         ),
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='altar_piciorul_mesei_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_piciorul_mesei', to='nomenclatoare.MaterialMasaAltar', verbose_name='Piciorul mesei'),
+            model_name="componentaartisticapage",
+            name="altar_piciorul_mesei_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_piciorul_mesei",
+                to="nomenclatoare.MaterialMasaAltar",
+                verbose_name="Piciorul mesei",
+            ),
         ),
         migrations.AddField(
-            model_name='componentaartisticapage',
-            name='altar_placa_mesei_new',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='p_placa_mesei', to='nomenclatoare.MaterialMasaAltar', verbose_name='Placa mesei'),
+            model_name="componentaartisticapage",
+            name="altar_placa_mesei_new",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="p_placa_mesei",
+                to="nomenclatoare.MaterialMasaAltar",
+                verbose_name="Placa mesei",
+            ),
         ),
     ]

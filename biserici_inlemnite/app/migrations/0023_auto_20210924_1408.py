@@ -8,29 +8,35 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0012_uploadeddocument'),
-        ('app', '0022_istoricpage_an_constructie'),
+        ("wagtaildocs", "0012_uploadeddocument"),
+        ("app", "0022_istoricpage_an_constructie"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_an',
+            model_name="istoricpage",
+            name="studiu_dendocronologic_an",
             field=models.IntegerField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_autor',
+            model_name="istoricpage",
+            name="studiu_dendocronologic_autor",
             field=models.CharField(blank=True, max_length=150, null=True),
         ),
         migrations.AddField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_fisier',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.document'),
+            model_name="istoricpage",
+            name="studiu_dendocronologic_fisier",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtaildocs.document",
+            ),
         ),
         migrations.AddField(
-            model_name='istoricpage',
-            name='studiu_dendocronologic_observatii',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name='Observații'),
+            model_name="istoricpage",
+            name="studiu_dendocronologic_observatii",
+            field=wagtail.core.fields.RichTextField(blank=True, null=True, verbose_name="Observații"),
         ),
     ]

@@ -8,26 +8,30 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0087_auto_20211026_0131'),
-        ('biserici', '0052_auto_20210916_2325'),
-        ('nomenclatoare', '0027_historicalmaterialmasaaltar_materialmasaaltar'),
+        ("app", "0087_auto_20211026_0131"),
+        ("biserici", "0052_auto_20210916_2325"),
+        ("nomenclatoare", "0027_historicalmaterialmasaaltar_materialmasaaltar"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='ElementInteriorBiserică',
-            new_name='ElementInteriorBiserica',
+            old_name="ElementInteriorBiserică",
+            new_name="ElementInteriorBiserica",
         ),
         migrations.RenameModel(
-            old_name='HistoricalElementInteriorBiserică',
-            new_name='HistoricalElementInteriorBiserica',
+            old_name="HistoricalElementInteriorBiserică",
+            new_name="HistoricalElementInteriorBiserica",
         ),
         migrations.AlterModelOptions(
-            name='elementinteriorbiserica',
-            options={'ordering': ['nume'], 'verbose_name_plural': 'Elemente interior Biserica'},
+            name="elementinteriorbiserica",
+            options={"ordering": ["nume"], "verbose_name_plural": "Elemente interior Biserica"},
         ),
         migrations.AlterModelOptions(
-            name='historicalelementinteriorbiserica',
-            options={'get_latest_by': 'history_date', 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical element interior biserica'},
+            name="historicalelementinteriorbiserica",
+            options={
+                "get_latest_by": "history_date",
+                "ordering": ("-history_date", "-history_id"),
+                "verbose_name": "historical element interior biserica",
+            },
         ),
     ]

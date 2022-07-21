@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0049_auto_20210804_1309'),
+        ("biserici", "0049_auto_20210804_1309"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='componentaartistica',
-            name='completare',
+            model_name="componentaartistica",
+            name="completare",
             field=models.FloatField(default=0),
         ),
         migrations.AddField(
-            model_name='historicalcomponentaartistica',
-            name='completare',
+            model_name="historicalcomponentaartistica",
+            name="completare",
             field=models.FloatField(default=0),
         ),
     ]

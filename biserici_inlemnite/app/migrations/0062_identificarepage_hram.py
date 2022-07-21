@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nomenclatoare', '0016_historicalhram_hram'),
-        ('app', '0061_auto_20211005_1754'),
+        ("nomenclatoare", "0016_historicalhram_hram"),
+        ("app", "0061_auto_20211005_1754"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='identificarepage',
-            name='hram',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='p_biserici', to='nomenclatoare.hram'),
+            model_name="identificarepage",
+            name="hram",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="p_biserici",
+                to="nomenclatoare.hram",
+            ),
         ),
     ]
