@@ -4,24 +4,22 @@ from pprint import pprint
 
 
 MAP_CAPITOLE = {
-    'identificare': models.IdentificarePage,
-    'istoric': models.IstoricPage,
-    'descriere': models.DescrierePage,
-    'componenta_artistica': models.ComponentaArtisticaPage,
-    'conservare': models.ConservarePage,
-    'valoare': models.ValoarePage,
+    "identificare": models.IdentificarePage,
+    "istoric": models.IstoricPage,
+    "descriere": models.DescrierePage,
+    "componenta_artistica": models.ComponentaArtisticaPage,
+    "conservare": models.ConservarePage,
+    "valoare": models.ValoarePage,
 }
 
 
 MAP_FIELD_VERBOSE_NAME = {
-    'Localizare/Peisaj': {
-        'relatia_cu_cimitirul': 'Relația cu cimitirul'
+    "Localizare/Peisaj": {"relatia_cu_cimitirul": "Relația cu cimitirul"},
+    "Tip scanare": {
+        "are_scanare_laser": "Model 3d - nor de puncte",
+        "are_model_fotogrametric": "Model 3d - fotogrametrie",
     },
-    'Tip scanare': {
-        'are_scanare_laser': 'Model 3d - nor de puncte',
-        'are_model_fotogrametric': 'Model 3d - fotogrametrie'
-    },
-    'Sit': {
+    "Sit": {
         "sit": "Sit",
         "sit_pericol": "Pericol sit",
         "elemente_arhitecturale": "Elemente arhitecturale",
@@ -31,10 +29,10 @@ MAP_FIELD_VERBOSE_NAME = {
         "vegetatie": "Vegetație",
         "vegetatie_pericol": "Pericol vegetație",
     },
-    'Arhitectura bisericii': {
-        'numar_ochiesi': 'Număr ochieși',
-        'numar_clopote': 'Număr clopote',
-        'sarpanta_tip': "Șarpantă corp",
+    "Arhitectura bisericii": {
+        "numar_ochiesi": "Număr ochieși",
+        "numar_clopote": "Număr clopote",
+        "sarpanta_tip": "Șarpantă corp",
         "turn_tip": "Turn",
         "sistem_in_cheotoare": "Sistem structural al corpului bisericii în cheotoare",
         "sistem_in_catei": "Sistem structural al corpului bisericii în căței",
@@ -42,7 +40,6 @@ MAP_FIELD_VERBOSE_NAME = {
         # "invelitoare_corp_sindrila_numar_straturi": "Număr straturi șindrilă peste corp biserică",
         # "invelitoare_corp_sindrlia_tipul_de_batere": "Tip batere șindrilă peste corp biserică",
         # "invelitoare_corp_sindrlia_forma_botului": "Forma botului șindrilă peste corp biserică",
-
         "invelitoare_corp_material": "Învelitoare corp",
         "invelitoare_corp_sindrila_numar_straturi": "Șindrilă peste corp (număr straturi)",
         "invelitoare_corp_sindrila_cu_horj": "Șindrilă peste corp (cu horj)",
@@ -54,13 +51,11 @@ MAP_FIELD_VERBOSE_NAME = {
         "invelitoare_turn_material": "Învelitoare turn",
         "invelitoare_turn_sindrila_numar_straturi": "Șindrilă peste turn (număr straturi)",
         "invelitoare_turn_sindrila_cu_horj": "Șindrilă peste turn (cu horj)",
-        
         "invelitoare_turn_sindrlia_tipul_de_batere": "Șindrilă peste turn (tipul de batere)",
         "invelitoare_turn_sindrlia_forma_botului": "Șindrilă peste turn (forma botului)",
         "invelitoare_turn_sindrila_cu_tesitura": "Șindrilă peste turn (cu teșitură)",
         "invelitoare_turn_sindrlia_prelucrare": "Șindrilă peste turn (prelucrare)",
         "invelitoare_turn_sindrlia_esenta_lemnoasa": "Șindrilă peste turn (esență lemnoasă)",
-
         "inchidere_tambur_turn_material": "închidere tambur turn",
         "inchidere_tambur_turn_sindrila_numar_straturi": "Șindrilă închidere turn (număr straturi)",
         "inchidere_tambur_turn_sindrlia_tipul_de_batere": "Șindrilă închidere turn (tipul de batere)",
@@ -69,7 +64,7 @@ MAP_FIELD_VERBOSE_NAME = {
         "inchidere_tambur_turn_sindrlia_prelucrare": "Șindrilă închidere turn (prelucrare)",
         "inchidere_tambur_turn_sindrlia_esenta_lemnoasa": "Șindrilă închidere turn (esență lemnoasă)",
     },
-    'Strucutra bisericii': {
+    "Strucutra bisericii": {
         "teren": "Teren",
         "teren_pericol": "Pericol teren",
         "fundatii": "Fundații",
@@ -87,7 +82,7 @@ MAP_FIELD_VERBOSE_NAME = {
         "turn": "Turn",
         "turn_pericol": "Pericol turn",
     },
-    'Finisaje biserică': {
+    "Finisaje biserică": {
         "zona_din_jurul_biserici": "Zona din jurul biserici",
         "zona_din_jurul_biserici_pericol": "Pericol zona din jurul biserici",
         "pardoseli_interioare": "Pardoseli interioare",
@@ -109,7 +104,7 @@ MAP_FIELD_VERBOSE_NAME = {
         "paratraznet": "Paratrăznet",
         "paratraznet_pericol": "Pericol paratrăznet",
     },
-    'Componenta Artistică': {
+    "Componenta Artistică": {
         "strat_pictural": "Strat pictural",
         "strat_pictural_pericol": "Pericol strat pictural",
         "obiecte_de_cult": "Obiecte de cult",
@@ -117,8 +112,8 @@ MAP_FIELD_VERBOSE_NAME = {
         "mobilier": "Mobilier",
         "mobilier_pericol": "Pericol mobilier",
     },
-    '': {
-        'an_constructie': 'An construcție',
+    "": {
+        "an_constructie": "An construcție",
         "vechime": "Vechime",
         "integritate": "Integritate",
         "unicitate": "Unicitate",
@@ -134,8 +129,7 @@ MAP_FIELD_VERBOSE_NAME = {
         "functiune": "Funcțiune",
         "functiune_initiala": "Funcțiune inițială",
         "pictura": "Componentă artistică",
-
-    }
+    },
 }
 
 MAP_CLASE_PRIORITIZARE = {
@@ -179,7 +173,6 @@ def get_chapter_filters(model, filters_dict):
                 if field_value is not None and field_value not in filters[section][field_name]:
                     filters[section][field_name].append(field_value)
 
-
     for section, section_filters in filters.items():
         filters_list = []
         for field in section_filters:
@@ -187,105 +180,128 @@ def get_chapter_filters(model, filters_dict):
                 field_verbose = MAP_FIELD_VERBOSE_NAME.get(section, {}).get(field, None)
                 if model._meta.get_field(field).remote_field:
                     field_model = model._meta.get_field(field).remote_field.model
-                    if field == 'planimetria_bisericii':
+                    if field == "planimetria_bisericii":
                         planimetrii = []
                         for image in field_model.objects.filter(id__in=section_filters[field]):
                             try:
-                                planimetrie = image.get_rendition('width-200')
+                                planimetrie = image.get_rendition("width-200")
                                 rendition = {
                                     "id": image.id,
                                     "url": planimetrie.url,
                                     "width": planimetrie.width,
                                     "height": planimetrie.height,
-                                    "alt": planimetrie.alt
+                                    "alt": planimetrie.alt,
                                 }
                                 planimetrii.append(rendition)
                             except:
                                 pass
-                        filters_list.append({
-                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
-                            "type": 'poza',
-                            "key": field,
-                            "values": planimetrii
-                        })
+                        filters_list.append(
+                            {
+                                "title": field_verbose
+                                if field_verbose
+                                else model._meta.get_field(field).verbose_name.capitalize(),
+                                "type": "poza",
+                                "key": field,
+                                "values": planimetrii,
+                            }
+                        )
                     else:
                         # Nomenclatoare
-                        filters_list.append({
-                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
-                            "type": 'checkbox',
-                            "key": field,
-                            "values": field_model.objects.filter(id__in=section_filters[field]).values('id', 'nume')
-                        })
+                        filters_list.append(
+                            {
+                                "title": field_verbose
+                                if field_verbose
+                                else model._meta.get_field(field).verbose_name.capitalize(),
+                                "type": "checkbox",
+                                "key": field,
+                                "values": field_model.objects.filter(id__in=section_filters[field]).values(
+                                    "id", "nume"
+                                ),
+                            }
+                        )
                 else:
                     if model._meta.get_field(field).choices:
                         # Has choices
-                        choices =  {x[0]: x[1] for x in model._meta.get_field(field).choices}
-                        filters_list.append({
-                            "title": field_verbose if field_verbose else model._meta.get_field(field).verbose_name.capitalize(),
-                            "type": 'checkbox',
-                            "key": field,
-                            "values": [{'id': x, 'nume': choices[x]} for x in section_filters[field]]
-                        })
+                        choices = {x[0]: x[1] for x in model._meta.get_field(field).choices}
+                        filters_list.append(
+                            {
+                                "title": field_verbose
+                                if field_verbose
+                                else model._meta.get_field(field).verbose_name.capitalize(),
+                                "type": "checkbox",
+                                "key": field,
+                                "values": [{"id": x, "nume": choices[x]} for x in section_filters[field]],
+                            }
+                        )
                     else:
                         values = []
                         if type(section_filters[field][0]) == list:
                             # ManytoMany
                             for x in section_filters[field][0]:
-                                value = {'id': x, 'nume': x}
+                                value = {"id": x, "nume": x}
                                 if value not in values:
                                     values.append(value)
                         else:
                             # Regular field
                             for x in section_filters[field]:
-                                value = {'id': x, 'nume': x}
+                                value = {"id": x, "nume": x}
                                 if value not in values:
                                     values.append(value)
                             # values = [{'id': x, 'nume': x} for x in section_filters[field]]
 
                         try:
-                            values = sorted(values, key=lambda d: d['id'].lower())
+                            values = sorted(values, key=lambda d: d["id"].lower())
                         except:
-                            values = sorted(values, key=lambda d: d['id'])
+                            values = sorted(values, key=lambda d: d["id"])
 
-                        filters_list.append({
-                            "title": field_verbose if field_verbose else  model._meta.get_field(field).verbose_name.capitalize(),
-                            "type": 'checkbox',
-                            "key": field,
-                            "values": values
-                        })
+                        filters_list.append(
+                            {
+                                "title": field_verbose
+                                if field_verbose
+                                else model._meta.get_field(field).verbose_name.capitalize(),
+                                "type": "checkbox",
+                                "key": field,
+                                "values": values,
+                            }
+                        )
             # else:
-                # del section_filters[field]
+            # del section_filters[field]
         if len(filters_list):
-            sections_list.append({
-                'title': section,
-                'filters': filters_list
-                })
+            sections_list.append({"title": section, "filters": filters_list})
     return sections_list
 
 
 def filter_biserici(data):
     filters = {}
 
-    for nume_capitol, capitol_filters in data.get('advanced', {}).items():
+    for nume_capitol, capitol_filters in data.get("advanced", {}).items():
         for indicator, indicator_values in capitol_filters.items():
-            if MAP_CAPITOLE[nume_capitol]._meta.get_field(indicator).get_internal_type() == 'ArrayField':
+            if MAP_CAPITOLE[nume_capitol]._meta.get_field(indicator).get_internal_type() == "ArrayField":
                 filters[f"{nume_capitol}_page__{indicator}__contains"] = indicator_values
             else:
                 filters[f"{nume_capitol}_page__{indicator}__in"] = indicator_values
 
-    for indicator, indicator_values in data['basic'].items():
-        if indicator == 'conservare':
+    for indicator, indicator_values in data["basic"].items():
+        if indicator == "conservare":
 
-            filters["conservare_page__total__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
-        elif indicator == 'valoare':
-            filters["valoare_page__total__range"] = (indicator_values[0]-0.5, indicator_values[0]+0.5)
+            filters["conservare_page__total__range"] = (
+                indicator_values[0] - 0.5,
+                indicator_values[0] + 0.5,
+            )
+        elif indicator == "valoare":
+            filters["valoare_page__total__range"] = (
+                indicator_values[0] - 0.5,
+                indicator_values[0] + 0.5,
+            )
 
-        elif indicator == 'prioritizare':
-            prioritizare_biserici = models.BisericaPage.objects.annotate(
-                p=F('conservare_page__total') * F('valoare_page__total')).filter(
-                **{'p__range':MAP_CLASE_PRIORITIZARE[indicator_values[0]]}).values_list('pk', flat=True)
+        elif indicator == "prioritizare":
+            prioritizare_biserici = (
+                models.BisericaPage.objects.annotate(p=F("conservare_page__total") * F("valoare_page__total"))
+                .filter(**{"p__range": MAP_CLASE_PRIORITIZARE[indicator_values[0]]})
+                .values_list("pk", flat=True)
+            )
             filters["pk__in"] = prioritizare_biserici
-        elif indicator == 'judet':
+        elif indicator == "judet":
             filters["identificare_page__judet__in"] = indicator_values
         else:
             filters["identificare_page__localitate__in"] = indicator_values

@@ -8,6 +8,7 @@ from nomenclatoare import models as nmodels
 from datetime import datetime
 import json
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -16,8 +17,8 @@ class Command(BaseCommand):
             for revision in descriere_page.revisions.all():
                 print(revision)
                 j = json.loads(revision.content_json)
-                if 'materiale' in j.keys():
-                    j['materiale'] = None
-                    pprint(j['materiale'])
+                if "materiale" in j.keys():
+                    j["materiale"] = None
+                    pprint(j["materiale"])
                     revision.content_json = json.dumps(j)
                     revision.save()

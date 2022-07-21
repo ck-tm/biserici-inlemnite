@@ -42,16 +42,17 @@ BISERICI = [
     "Zăbalț",
 ]
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
 
-        judet, _  = nmodels.Judet.objects.get_or_create(nume="Arad")
+        judet, _ = nmodels.Judet.objects.get_or_create(nume="Arad")
         # print(models.BisericaPage.objects.all().delete())
         biserici_index = models.HomePage.objects.last()
         for biserica_old in b_models.Biserica.objects.all():
             nume = biserica_old.nume
-            print(f'Create: {nume}')
+            print(f"Create: {nume}")
 
             biserica = models.BisericaPage.objects.filter(title=nume)
             if not biserica.exists():

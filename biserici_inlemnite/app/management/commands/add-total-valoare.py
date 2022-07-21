@@ -8,6 +8,7 @@ from nomenclatoare import models as nmodels
 from datetime import datetime
 import json
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for x in models.ConservarePage.objects.all():

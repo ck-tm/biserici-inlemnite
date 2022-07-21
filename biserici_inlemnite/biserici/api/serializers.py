@@ -11,11 +11,11 @@ from biserici import models
 from pprint import pprint
 
 
-
 class FotografieSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fotografie
         exclude = ["id"]
+
 
 class IdentificareFrecventaUtilizariiSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,20 +28,24 @@ class IdentificareSingularitateSerializer(serializers.ModelSerializer):
         model = models.IdentificareSingularitate
         exclude = ["id"]
 
+
 class LocalizareUnitatiTeritorialeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LocalizareUnitatiTeritoriale
         exclude = ["id"]
+
 
 class LocalizareAdresaSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LocalizareAdresa
         exclude = ["id"]
 
+
 class LocalizareReferinteCadastraleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LocalizareReferinteCadastrale
         exclude = ["id"]
+
 
 class LocalizareRegimulDeProprietateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -66,15 +70,18 @@ class RepereGeograficeZoneNaturaleSerializer(serializers.ModelSerializer):
         model = models.RepereGeograficeZoneNaturale
         exclude = ["id"]
 
+
 class IstoricScurtIstoricSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.IstoricScurtIstoric
         exclude = ["id"]
 
+
 class IstoricPisanieSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.IstoricPisanie
         exclude = ["id"]
+
 
 class IstoricPersoanaSerializer(serializers.ModelSerializer):
     foto = FotografieSerializer(many=True)
@@ -83,10 +90,12 @@ class IstoricPersoanaSerializer(serializers.ModelSerializer):
         model = models.IstoricPersoana
         exclude = ["id"]
 
+
 class IstoricEvenimentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.IstoricEveniment
         exclude = ["id"]
+
 
 class IstoricMutareSerializer(serializers.ModelSerializer):
     class Meta:
@@ -113,19 +122,19 @@ class IdentificareSerializer(ObjectPermissionsAssignmentMixin, WritableNestedMod
         # read_only_fields = ["last_edit_user"]
 
     def get_permissions_map(self, created):
-        current_user = self.context['request'].user
+        current_user = self.context["request"].user
         instance = self.instance
 
-        grup_judet = None 
+        grup_judet = None
 
-        if instance.biserica.descriere.judet:
-            judet_biserica = instance.descriere.judet.nume
-            grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
+        # if instance.biserica.descriere.judet:
+        #     judet_biserica = instance.descriere.judet.nume
+        #     grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
 
         return {
-            'view_identificare': [current_user, grup_judet],
-            'change_identificare': [current_user, grup_judet],
-            'delete_identificare': []
+            "view_identificare": [current_user, grup_judet],
+            "change_identificare": [current_user, grup_judet],
+            "delete_identificare": [],
         }
 
 
@@ -149,6 +158,7 @@ class RepereGeograficeSeralizer(WritableNestedModelSerializer):
         model = models.RepereGeografice
         exclude = ["biserica"]
 
+
 class IstoricSerializer(WritableNestedModelSerializer):
     scurt_istoric = IstoricScurtIstoricSerializer()
     pisanie = IstoricPisanieSerializer()
@@ -158,94 +168,12 @@ class IstoricSerializer(WritableNestedModelSerializer):
     personalitati = IstoricPersoanaSerializer(many=True)
     evenimente = IstoricEvenimentSerializer(many=True)
     mutari = IstoricMutareSerializer(many=True)
+
     class Meta:
         model = models.Istoric
         exclude = ["biserica"]
 
 
-
-
-class DescriereSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
-    class Meta:
-        model = models.Descriere
-        exclude = ["biserica"]
-        # read_only_fields = ["last_edit_user"]
-
-    def get_permissions_map(self, created):
-        current_user = self.context['request'].user
-        instance = self.instance
-        grup_judet = None
-        if instance.judet:
-            grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-        #     biserica = instance.biserica
-
-        #     judet_biserica = instance.judet.nume
-        #     assign_perm('view_biserica', grup_judet, biserica)
-        #     assign_perm('change_biserica', grup_judet, biserica)
-
-        #     for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
-        #             assign_perm(f'view_{t}', grup_judet, getattr(biserica, t))
-        #             assign_perm(f'change_{t}', grup_judet, getattr(biserica, t))
-
-        #     for judet in Group.objects.exclude(name=judet_biserica):
-        #         remove_perm('view_biserica', judet, biserica)
-        #         remove_perm('change_biserica', judet, biserica)
-
-        #         for t in ['istoric', 'descriere', 'patrimoniu', 'conservare']:
-        #             remove_perm(f'view_{t}', judet, getattr(biserica, t))
-        #             remove_perm(f'change_{t}', judet, getattr(biserica, t))
-
-        return {
-            'view_identificare': [current_user, grup_judet],
-            'change_identificare': [current_user, grup_judet],
-            'delete_identificare': []
-        }
-class PatrimoniuSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
-    class Meta:
-        model = models.Patrimoniu
-        exclude = ["biserica"]
-        # read_only_fields = ["last_edit_user"]
-
-    def get_permissions_map(self, created):
-        current_user = self.context['request'].user
-        instance = self.instance
-
-        grup_judet = None 
-
-        if instance.biserica.descriere.judet:
-            judet_biserica = instance.descriere.judet.nume
-            grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-
-        
-
-        return {
-            'view_identificare': [current_user, grup_judet],
-            'change_identificare': [current_user, grup_judet],
-            'delete_identificare': []
-        }
-
-class ConservareSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
-    class Meta:
-        model = models.Conservare
-        exclude = ["biserica"]
-        # read_only_fields = ["last_edit_user"]
-
-    def get_permissions_map(self, created):
-        current_user = self.context['request'].user
-        instance = self.instance
-
-        grup_judet = None 
-
-        if instance.biserica.descriere.judet:
-            judet_biserica = instance.descriere.judet.nume
-            grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
-
-
-        return {
-            'view_identificare': [current_user, grup_judet],
-            'change_identificare': [current_user, grup_judet],
-            'delete_identificare': []
-        }
 
 
 class BisericaSerializer(ObjectPermissionsAssignmentMixin, WritableNestedModelSerializer):
@@ -257,23 +185,30 @@ class BisericaSerializer(ObjectPermissionsAssignmentMixin, WritableNestedModelSe
     class Meta:
         model = models.Biserica
         fields = ["nume"]
-        fields = ["pk", "nume", "identificare", "localizare", "repere_geografice", "istoric"]
-
+        fields = [
+            "pk",
+            "nume",
+            "identificare",
+            "localizare",
+            "repere_geografice",
+            "istoric",
+        ]
 
     def get_permissions_map(self, created):
-        current_user = self.context['request'].user
+        current_user = self.context["request"].user
         instance = self.instance
         grup_judet = None
 
-        if instance.descriere.judet:
-            judet_biserica = instance.descriere.judet.nume
-            grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
+        # if instance.descriere.judet:
+        #     judet_biserica = instance.descriere.judet.nume
+        #     grup_judet, _ = Group.objects.get_or_create(name=judet_biserica)
 
         return {
-            'view_biserica': [current_user, grup_judet],
-            'change_biserica': [current_user, grup_judet],
-            'delete_biserica': []
+            "view_biserica": [current_user, grup_judet],
+            "change_biserica": [current_user, grup_judet],
+            "delete_biserica": [],
         }
+
 
 class BisericaListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="api:biserici-detail")
@@ -296,4 +231,3 @@ class BisericaListSerializer(serializers.HyperlinkedModelSerializer):
     #                 'url': reverse(f"api_admin:biserici-{capitol}", args=[obj.pk], request=self.context['request'])
     #                 })
     #     return capitole
-

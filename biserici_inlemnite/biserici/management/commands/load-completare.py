@@ -7,25 +7,23 @@ from nomenclatoare import models as nmodels
 from datetime import datetime
 
 
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting import..")
         for biserica in models.Biserica.objects.all():
-            print(biserica, 'identificare')
+            print(biserica, "identificare")
             biserica.identificare.save()
-            print(biserica, 'descriere')
+            print(biserica, "descriere")
             biserica.descriere.save()
-            print(biserica, 'istoric')
+            print(biserica, "istoric")
             biserica.istoric.save()
-            print(biserica, 'patrimoniu')
+            print(biserica, "patrimoniu")
             biserica.patrimoniu.save()
-            print(biserica, 'conservare')
+            print(biserica, "conservare")
             biserica.conservare.save()
-            print(biserica, 'fotografii')
+            print(biserica, "fotografii")
             biserica.fotografii.save()
-            print(biserica, 'finisaj')
+            print(biserica, "finisaj")
             biserica.finisaj.save()
-            print(biserica, 'componentaartistica')
+            print(biserica, "componentaartistica")
             biserica.componentaartistica.save()
-        

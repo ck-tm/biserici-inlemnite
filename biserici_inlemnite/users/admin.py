@@ -35,7 +35,4 @@ class UserAdmin(auth_admin.UserAdmin):
     search_fields = ["name"]
 
     def user_groups(self, obj):
-        return ', '.join(obj.groups.values_list('name', flat=True))
-
-
-
+        return ", ".join(obj.groups.values_list("name", flat=True))

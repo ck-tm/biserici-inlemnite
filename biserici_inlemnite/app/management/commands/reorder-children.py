@@ -15,4 +15,3 @@ class Command(BaseCommand):
         print(biserica.get_children())
         for capitol in biserica.get_children():
             print(capitol, capitol.path)
-        

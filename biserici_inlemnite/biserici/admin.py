@@ -51,8 +51,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #     verbose_name_plural = "Identificare"
 
 
-
-
 # # class IstoricInline(admin.StackedInline):
 # #     model = models.Istoric
 # #     verbose_name = "Istoric"
@@ -77,7 +75,7 @@ from simple_history.admin import SimpleHistoryAdmin
 # #     list_display = ['biserica']
 # #     search_fields = ["biserica__nume"]
 # #     exclude = ['biserica']
-    
+
 # #     inlines = [
 # #         nadmin.CtitorBisericaInline,
 # #         nadmin.MesterBisericaInline,
@@ -102,7 +100,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #     list_display = ['biserica']
 #     search_fields = ["biserica__nume"]
 #     exclude = ['biserica']
-    
+
 #     fieldsets = (
 #         ('Localizare/peisaj', {
 #            'fields': ("amplasament", "topografie", "toponim", "toponim_sursa", "relatia_cu_cimitirul", "peisagistica_sitului", "observatii"),
@@ -127,7 +125,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #     )
 
 
-
 # class PatrimoniuInline(admin.StackedInline):
 #     model = models.Patrimoniu
 #     verbose_name = "Valoare Patrimoniu Cultural"
@@ -139,7 +136,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #     list_display = ['biserica']
 #     search_fields = ["biserica__nume"]
 #     exclude = ['biserica']
-    
 
 
 # class ConservareInline(admin.StackedInline):
@@ -153,7 +149,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #     list_display = ['biserica']
 #     search_fields = ["biserica__nume"]
 #     exclude = ['biserica']
-    
+
 #     inlines = [
 #     ]
 #     fieldsets = (
@@ -172,7 +168,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #         ('Obiecte de cult', {
 #            'fields': ("stare_icoane_istorice", "stare_icoane_istorice_detalii", "starea_obiecte_de_cult", "starea_obiecte_de_cult_detalii", "starea_mobilier", "starea_mobilier_detalii")
 #         }),
-        
+
 #     )
 
 
@@ -196,7 +192,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #         return qs
 
 #     def descriere_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
 #         return format_html(html)
 
@@ -205,34 +201,34 @@ from simple_history.admin import SimpleHistoryAdmin
 #         return format_html(html)
 
 #     def decriere_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/descriere/{obj.descriere.pk}/change/'>{obj.descriere.completare}</a> <br>"
 #         return format_html(html)
 
 
 #     def fotografii_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/fotografii/{obj.fotografii.pk}/change/'>{obj.fotografii.completare}</a> <br>"
 #         return format_html(html)
 
 
 #     def finisaje_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/finisaj/{obj.finisaj.pk}/change/'>{obj.finisaj.completare}</a> <br>"
 #         return format_html(html)
 
 #     def componenta_artistica_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/componentaartistica/{obj.componentaartistica.pk}/change/'>{obj.componentaartistica.completare}</a> <br>"
 #         return format_html(html)
 
 #     def patrimoniu_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/patrimoniu/{obj.patrimoniu.pk}/change/'>{obj.patrimoniu.completare}</a> <br>"
 #         return format_html(html)
 
 #     def conservare_completare(self, obj):
-        
+
 #         html = f"<a href='/{settings.ADMIN_URL}biserici/conservare/{obj.conservare.pk}/change/'>{obj.conservare.completare}</a> <br>"
 #         return format_html(html)
 
@@ -278,7 +274,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #         if last_update:
 #             return f"{last_update.history_user} ({last_update.history_date.strftime('%d %b %Y %H:%M:%S')})"
 #         return '-'
-
 
 
 # # class InterventieBisericaInline(admin.StackedInline):
@@ -463,7 +458,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #     extra = 1
 
 
-
 # class FotografieDetaliuImaginePeretiInline(admin.StackedInline):
 #     model = models.FotografieDetaliuImaginePereti
 #     verbose_name = 'Fotografie Detaliu Imagine Pereți'
@@ -490,7 +484,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #     list_display = ['biserica']
 #     search_fields = ["biserica__nume"]
 #     exclude = ['biserica']
-    
+
 #     inlines = [
 #         FotografieFatadaInline,
 #         FotografiePortalInline,
@@ -534,69 +528,69 @@ from simple_history.admin import SimpleHistoryAdmin
 #     model = models.FinisajAnteriorInvelitoare
 #     verbose_name = 'Etapă anterioară vizibilă a învelitorii '
 #     verbose_name_plural = 'Etape anterioare vizibile ale învelitorii '
-#     max_num = 1 
+#     max_num = 1
 
 
 # class FinisajTamburTurnInline(admin.StackedInline):
 #     model = models.FinisajTamburTurn
 #     verbose_name = 'Finisaj exterior al tamburului turnului bisericii (dacă are turn)'
 #     verbose_name_plural = 'Finisajul exterior al tamburului turnului bisericii (dacă are turn)'
-#     max_num = 1 
+#     max_num = 1
 
 # class FinisajInvelitoareTurnInline(admin.StackedInline):
 #     model = models.FinisajInvelitoareTurn
 #     verbose_name = 'Finisaj învelitore peste turnul bisercii (dacă are turn)'
 #     verbose_name_plural = 'Finisajul învelitorii peste turnul bisercii (dacă are turn)'
-#     max_num = 1 
+#     max_num = 1
 
 # class FinisajPardoseaInline(admin.StackedInline):
 #     model = models.FinisajPardosea
 #     verbose_name = 'Finisaj pardoseli interioare'
 #     verbose_name_plural = 'Finisajul pardoselilor interioare'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajPeretiInteriorInline(admin.StackedInline):
 #     model = models.FinisajPeretiInterior
 #     verbose_name = 'Finisaj perete interior'
 #     verbose_name_plural = 'Pereți interiori'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajBoltiInline(admin.StackedInline):
 #     model = models.FinisajBolti
 #     verbose_name = 'Finisaj boltă'
 #     verbose_name_plural = 'Bolți'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajTavanInline(admin.StackedInline):
 #     model = models.FinisajTavan
 #     verbose_name = 'Finisaj tavan'
 #     verbose_name_plural = 'Tavane'
-#     extra = 1 
+#     extra = 1
 
 
 # class FinisajPorticInline(admin.StackedInline):
 #     model = models.FinisajPortic
 #     verbose_name = 'Finisaj Portic'
 #     verbose_name_plural = 'Portic'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajPronaosInline(admin.StackedInline):
 #     model = models.FinisajPronaos
 #     verbose_name = 'Finisaj Pronaos'
 #     verbose_name_plural = 'Pronaos'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajNaosInline(admin.StackedInline):
 #     model = models.FinisajNaos
 #     verbose_name = 'Finisaj Naos'
 #     verbose_name_plural = 'Naos'
-#     extra = 1 
+#     extra = 1
 
 # class FinisajAltarInline(admin.StackedInline):
 #     model = models.FinisajAltar
 #     verbose_name = 'Finisaj Altar'
 #     verbose_name_plural = 'Altar'
-#     extra = 1 
+#     extra = 1
 
 
 # @admin.register(models.Finisaj)
@@ -604,7 +598,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #     list_display = ['biserica']
 #     search_fields = ["biserica__nume"]
 #     exclude = ['biserica']
-    
+
 #     inlines = [
 #         FinisajActualInline,
 #         FinisajAnteriorInvelitoareInline,
@@ -642,7 +636,7 @@ from simple_history.admin import SimpleHistoryAdmin
 #         PicturaExterioaraInline,
 #         PicturaInterioaraInline
 #     ]
-    
+
 
 #     fieldsets = (
 #         ('General', {
@@ -658,7 +652,6 @@ from simple_history.admin import SimpleHistoryAdmin
 #            'fields': ("altar_placa_mesei", "altar_piciorul_mesei", "altar_decor", "altar_detalii")
 #         })
 #     )
-
 
 
 # @admin.register(models.Identificare)

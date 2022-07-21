@@ -6,14 +6,10 @@ from biserici.api import views
 app_name = "api_admin"
 
 
-
-
 if settings.DEBUG:
     router = DefaultRouter()
 else:
     router = SimpleRouter()
-
-
 
 
 urlpatterns = router.urls

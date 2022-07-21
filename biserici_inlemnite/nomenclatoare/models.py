@@ -8,9 +8,8 @@ from wagtailmodelchooser import register_model_chooser, Chooser
 
 
 class CustomChooser(Chooser):
-    modal_template = 'wagtailmodelchooser/modal.html'
-    modal_results_template = \
-        'wagtailmodelchooser/results.html'
+    modal_template = "wagtailmodelchooser/modal.html"
+    modal_results_template = "wagtailmodelchooser/results.html"
 
 
 @register_snippet
@@ -19,20 +18,22 @@ class Judet(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=50)
     cod = models.CharField(max_length=2)
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Județe"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -40,16 +41,17 @@ class Comuna(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=50)
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Comune"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -61,19 +63,19 @@ class Localitate(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=50)
-    judet = models.ForeignKey('Judet', on_delete=models.CASCADE)
-    comuna = models.ForeignKey(
-        'Comuna', on_delete=models.CASCADE, null=True, blank=True)
+    judet = models.ForeignKey("Judet", on_delete=models.CASCADE)
+    comuna = models.ForeignKey("Comuna", on_delete=models.CASCADE, null=True, blank=True)
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Localități"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         if self.comuna:
@@ -87,15 +89,16 @@ class FunctiuneBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Funcțiuni Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -107,15 +110,16 @@ class StatutBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Statuturi Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -127,15 +131,16 @@ class CultBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Culte biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -147,15 +152,16 @@ class UtilizareBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Utilizări Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -167,15 +173,16 @@ class SingularitateBiserica(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Singularități Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -187,20 +194,19 @@ class RegimProprietate(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Regimul de proprietate"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
-
-
 
 
 @register_snippet
@@ -209,15 +215,16 @@ class SursaDatare(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
-        verbose_name_plural = 'Surse Datări'
-        ordering = ['nume']
+        verbose_name_plural = "Surse Datări"
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -227,6 +234,7 @@ class StudiuDendocronologic(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     fisier = models.FileField()
     an = models.IntegerField(null=True, blank=True)
@@ -235,12 +243,12 @@ class StudiuDendocronologic(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
-        verbose_name_plural = 'Studii dendocronologice'
-        ordering = ['nume']
+        verbose_name_plural = "Studii dendocronologice"
+        ordering = ["nume"]
 
     def __str__(self):
         return f"{self.nume} - {self.autor} ({self.an})"
@@ -250,37 +258,36 @@ class Persoana(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
-        verbose_name_plural = 'Persoane'
-        ordering = ['nume']
+        verbose_name_plural = "Persoane"
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
-
-
-
 
 
 class Studiu(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=150)
     fisier = models.FileField()
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
-        verbose_name_plural = 'Studii'
-        ordering = ['nume']
+        verbose_name_plural = "Studii"
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -292,19 +299,19 @@ class Secol(index.Indexed, models.Model):
     """
     Description: Model Description
     """
+
     nume = models.CharField(max_length=6)
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
-        verbose_name_plural = 'Secole'
-        ordering = ['nume']
+        verbose_name_plural = "Secole"
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
-
 
 
 @register_snippet
@@ -318,12 +325,12 @@ class AmplasamentBiserica(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Amplasamente Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -340,12 +347,12 @@ class TopografieBiserica(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Topografii Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -358,12 +365,12 @@ class RelatieCimitir(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Relația cu cimitirul"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -376,12 +383,12 @@ class PeisagisticaSit(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Peisagistica sitului"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -394,12 +401,12 @@ class ElementAnsambluConstruit(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Elemente Ansamblu Construit"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -412,12 +419,12 @@ class ElementImportant(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Elemente Importante"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -428,12 +435,12 @@ class Planimetrie(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Planimetrii"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -446,15 +453,16 @@ class Material(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -463,15 +471,16 @@ class MaterialMobilier(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale mobilier"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -480,15 +489,16 @@ class MaterialMasaAltar(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale masă altar"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -497,15 +507,16 @@ class MaterialIconostas(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Iconostas"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -514,15 +525,16 @@ class MaterialCruci(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Cruci"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -531,15 +543,16 @@ class MaterialBolta(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Boltă"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -548,12 +561,12 @@ class MaterialCor(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Cor"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -566,12 +579,12 @@ class MaterialeStructura(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Structura"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -584,15 +597,16 @@ class MaterialeStructuraBolta(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Materiale Structură Boltă"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -601,12 +615,12 @@ class DimensiuneTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Dimensiuni Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -619,12 +633,12 @@ class TipTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -635,12 +649,12 @@ class DecorTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Decoruri Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -653,12 +667,12 @@ class PlanTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Planuri Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -671,12 +685,12 @@ class AmplasareTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Amplasări Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -689,12 +703,12 @@ class GalerieTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Galerii Turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -707,12 +721,12 @@ class TipSarpanta(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Sarpanta"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -725,12 +739,12 @@ class FinisajExterior(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Finisaje Exterioare"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -743,12 +757,12 @@ class FinisajInvelitoare(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Finisaj Învelitore"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -761,12 +775,12 @@ class TipBatereSindrila(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Batere Sindrila"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -779,12 +793,12 @@ class TipPrindereSindrila(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri montaj șindrilă"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -797,12 +811,12 @@ class TipBotSindrila(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Bot Sindrila"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -815,12 +829,12 @@ class TipPrelucrareSindrila(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Prelucrare Sindrila"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -833,12 +847,12 @@ class EsentaLemnoasa(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Esenta Lemnoasa"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -851,15 +865,16 @@ class ElementInteriorBiserica(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Elemente interior Biserica"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -868,12 +883,12 @@ class ElementBiserica(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Elemente Biserica"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -884,12 +899,12 @@ class MaterialFinisajPardoseli(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Material Finisaj Pardoseli"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -900,12 +915,12 @@ class MaterialFinisajPeretiInteriori(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Material Finisaj Pereti Interiori"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -918,12 +933,12 @@ class Finisaj(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Finisaje biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -936,12 +951,12 @@ class TipFundatie(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Fundatie"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -954,12 +969,12 @@ class TipStructuraCheotoare(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Structură Cheotoare"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -972,12 +987,12 @@ class TipStructuraCatei(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Structură Căței"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -990,12 +1005,12 @@ class LocalizarePictura(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Localizări Pictură"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1008,12 +1023,12 @@ class TehnicaPictura(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tehnici Pictura"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1026,12 +1041,12 @@ class SuportPictura(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Suport Pictură"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1044,12 +1059,12 @@ class TehnicaIconostas(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tehnici Iconostas"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1062,12 +1077,12 @@ class RegistruIconostas(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Registre Iconostas"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1080,12 +1095,12 @@ class TipIconostas(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Iconostas"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1098,12 +1113,12 @@ class TipUsiIconostas(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri Uși Iconostas"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1114,12 +1129,12 @@ class DetaliuPodTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Detalii podul turnului"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1132,12 +1147,12 @@ class AsezareTalpaTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Așezări talpă turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1150,12 +1165,12 @@ class RelatieTalpaTurn(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Relații talpă turn"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1168,12 +1183,12 @@ class BoltaPesteAltar(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Boltă peste altar"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1186,12 +1201,12 @@ class TipBoltaPesteAltar(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri boltă peste altar"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1204,12 +1219,12 @@ class TipBoltaPronaos(index.Indexed, models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri boltă pronaos/naos"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1220,12 +1235,12 @@ class Mobilier(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Mobilier"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1238,12 +1253,12 @@ class ObiectCult(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Obiecte de Cult"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1256,12 +1271,12 @@ class TipArcBolta(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri arc boltă"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1274,12 +1289,12 @@ class PozitionareTurle(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Poziționare turle"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1292,12 +1307,12 @@ class StilTurle(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Stilul turlelor"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1310,12 +1325,12 @@ class TipTiranti(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tip tiranti"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1328,15 +1343,16 @@ class MaterialInvelitoareTurle(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Material învelitoare turle"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
+
 
 @register_snippet
 @register_model_chooser
@@ -1345,12 +1361,12 @@ class Hram(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Hram Biserică"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume
@@ -1363,12 +1379,12 @@ class TipSistemStructural(models.Model):
 
     history = HistoricalRecords()
     search_fields = [
-        index.SearchField('nume', partial_match=True, boost=10),
+        index.SearchField("nume", partial_match=True, boost=10),
     ]
 
     class Meta:
         verbose_name_plural = "Tipuri sisteme structurale"
-        ordering = ['nume']
+        ordering = ["nume"]
 
     def __str__(self):
         return self.nume

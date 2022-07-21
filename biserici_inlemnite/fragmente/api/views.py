@@ -17,13 +17,10 @@ class FragmenteView(ViewSet):
     # @method_decorator(cache_page(60 * 60 * 24 * 31))
     def list(self, request):
         response = []
-        app = apps.get_app_config('fragmente')
+        app = apps.get_app_config("fragmente")
 
         for model_name, model in app.models.items():
-            if not 'historical' in model_name:
-                response.append({
-                    "model": model_name,
-                    "values": model.objects.values()
-                    })
+            if not "historical" in model_name:
+                response.append({"model": model_name, "values": model.objects.values()})
 
         return Response(response)

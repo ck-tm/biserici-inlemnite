@@ -1,10 +1,17 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import (
+    ListModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+)
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import (
+    SessionAuthentication,
+    BasicAuthentication,
+)
 
 from rest_framework.relations import ManyRelatedField, PrimaryKeyRelatedField
 from rest_framework.serializers import ListSerializer
@@ -22,9 +29,7 @@ from pprint import pprint
 from itertools import chain
 
 
-
 class ChoicesMetaData(SimpleMetadata):
-
     def get_field_info(self, field):
         field_info = super().get_field_info(field)
         # print('field:', field2)
@@ -34,14 +39,13 @@ class ChoicesMetaData(SimpleMetadata):
             # field_info['choices'] = field.choices
             if type(field) == ManyRelatedField:
                 field = field.child_relation
-            if field.queryset.model._meta.app_label == 'fragmente':
-                field_info['fragment'] = field.queryset.model._meta.model_name.lower()
+            if field.queryset.model._meta.app_label == "fragmente":
+                field_info["fragment"] = field.queryset.model._meta.model_name.lower()
         if type(field) == ListSerializer:
-            field_info['is_repetition_field'] = True
+            field_info["is_repetition_field"] = True
         else:
-            field_info['is_repetition_field'] = False
+            field_info["is_repetition_field"] = False
         return field_info
-
 
     # def get_serializer_info(self, serializer):
     #     serializer_info = super().get_serializer_info(serializer)
@@ -77,80 +81,82 @@ class BisericiViewSet(ModelViewSet):
     #     return get_objects_for_user(user, 'biserici.view_biserica')
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action == "list":
             return serializers.BisericaListSerializer
-        if self.action == 'identificare':
+        if self.action == "identificare":
             return serializers.IdentificareSerializer
-        if self.action == 'descriere':
+        if self.action == "descriere":
             return serializers.DescriereSerializer
-        if self.action == 'istoric':
+        if self.action == "istoric":
             return serializers.IstoricSerializer
-        if self.action == 'patrimoniu':
+        if self.action == "patrimoniu":
             return serializers.PatrimoniuSerializer
-        if self.action == 'conservare':
+        if self.action == "conservare":
             return serializers.ConservareSerializer
         return serializers.BisericaSerializer
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def identificare(self, request, pk=None, permission_classes=[BaseModelPermissions]):
         print(request)
         identificare = models.Biserica.objects.get(pk=pk).identificare
-        if request.method == 'GET':
-            serializer = serializers.IdentificareSerializer(identificare, context={'request': request})
-        elif request.method == 'POST':
-            serializer = serializers.IdentificareSerializer(identificare, data=request.data, context={'request': request})
+        if request.method == "GET":
+            serializer = serializers.IdentificareSerializer(identificare, context={"request": request})
+        elif request.method == "POST":
+            serializer = serializers.IdentificareSerializer(
+                identificare, data=request.data, context={"request": request}
+            )
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def descriere(self, request, pk=None):
         descriere = models.Biserica.objects.get(pk=pk).descriere
-        if request.method == 'GET':
-            serializer = serializers.DescriereSerializer(descriere, context={'request': request})
-        elif request.method == 'POST':
-            serializer = serializers.DescriereSerializer(descriere, data=request.data, context={'request': request})
+        if request.method == "GET":
+            serializer = serializers.DescriereSerializer(descriere, context={"request": request})
+        elif request.method == "POST":
+            serializer = serializers.DescriereSerializer(descriere, data=request.data, context={"request": request})
             if serializer.is_valid():
                 serializer.save(last_edit_user=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def istoric(self, request, pk=None):
         istoric = models.Biserica.objects.get(pk=pk).istoric
-        if request.method == 'GET':
-            serializer = serializers.IstoricSerializer(istoric, context={'request': request})
-        elif request.method == 'POST':
-            serializer = serializers.IstoricSerializer(istoric, data=request.data, context={'request': request})
+        if request.method == "GET":
+            serializer = serializers.IstoricSerializer(istoric, context={"request": request})
+        elif request.method == "POST":
+            serializer = serializers.IstoricSerializer(istoric, data=request.data, context={"request": request})
             if serializer.is_valid():
                 serializer.save(last_edit_user=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def patrimoniu(self, request, pk=None):
         patrimoniu = models.Biserica.objects.get(pk=pk).patrimoniu
-        if request.method == 'GET':
-            serializer = serializers.PatrimoniuSerializer(patrimoniu, context={'request': request})
-        elif request.method == 'POST':
-            serializer = serializers.PatrimoniuSerializer(patrimoniu, data=request.data, context={'request': request})
+        if request.method == "GET":
+            serializer = serializers.PatrimoniuSerializer(patrimoniu, context={"request": request})
+        elif request.method == "POST":
+            serializer = serializers.PatrimoniuSerializer(patrimoniu, data=request.data, context={"request": request})
             if serializer.is_valid():
                 serializer.save(last_edit_user=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def conservare(self, request, pk=None):
         conservare = models.Biserica.objects.get(pk=pk).conservare
-        if request.method == 'GET':
-            serializer = serializers.ConservareSerializer(conservare, context={'request': request})
-        elif request.method == 'POST':
-            serializer = serializers.ConservareSerializer(conservare, data=request.data, context={'request': request})
+        if request.method == "GET":
+            serializer = serializers.ConservareSerializer(conservare, context={"request": request})
+        elif request.method == "POST":
+            serializer = serializers.ConservareSerializer(conservare, data=request.data, context={"request": request})
             if serializer.is_valid():
                 serializer.save(last_edit_user=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

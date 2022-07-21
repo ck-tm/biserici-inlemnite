@@ -2,13 +2,13 @@ from django.db.models.signals import post_save, pre_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 
-from app  import models 
+from app import models
 
 
-@receiver(post_save, sender=models.BisericaPage) 
+@receiver(post_save, sender=models.BisericaPage)
 def create_biserica(sender, instance, created, **kwargs):
     if created:
-        print('Create biserica', instance, created)
+        print("Create biserica", instance, created)
         identificare = models.IdentificarePage(title="1. Identificare")
         instance.add_child(instance=identificare)
         instance.identificare_page = identificare
@@ -35,17 +35,16 @@ def create_biserica(sender, instance, created, **kwargs):
         instance.save()
 
 
-@receiver(post_save) 
+@receiver(post_save)
 def create_rendition(sender, instance, created, **kwargs):
     if created:
-        if issubclass(sender, models.Poza) or 'Poze' in str(sender):
-            rendition = instance.poza.get_rendition('width-1280')
+        if issubclass(sender, models.Poza) or "Poze" in str(sender):
+            rendition = instance.poza.get_rendition("width-1280")
             instance.rendition = {
                 "url": rendition.url,
                 "width": rendition.width,
                 "height": rendition.height,
-                "alt": rendition.alt
+                "alt": rendition.alt,
             }
             print(instance.rendition)
             instance.save()
-

@@ -9,16 +9,19 @@ from django.templatetags.static import static
 
 from wagtail.core import hooks
 
-@hooks.register('insert_editor_js')
+
+@hooks.register("insert_editor_js")
 def editor_js():
     js_files = [
-        'js/admin/invelitoare.js',
+        "js/admin/invelitoare.js",
     ]
-    js_includes = format_html_join('\n', '<script src="{0}"></script>',
-        ((static(filename),) for filename in js_files)
+    js_includes = format_html_join(
+        "\n",
+        '<script src="{0}"></script>',
+        ((static(filename),) for filename in js_files),
     )
     # remember to use double '{{' so they are not parsed as template placeholders
-    return js_includes 
+    return js_includes
     # return js_includes + format_html(
     #     """
     #     <script>
@@ -28,6 +31,7 @@ def editor_js():
     #     </script>
     #     """
     # )
+
 
 # @hooks.register('construct_image_chooser_queryset')
 # def show_images_for_specific_collections_on_page_editing(images, request):
@@ -52,5 +56,3 @@ def editor_js():
 #         return images.filter(collection=image_collection_id)
 
 #     return images
-
-

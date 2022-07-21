@@ -8,22 +8,19 @@ from nomenclatoare import models as nmodels
 from datetime import datetime
 import json
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
         for biserica in models.BisericaPage.objects.all():
-            biserica.identificare_page = biserica.get_children().type(
-                models.IdentificarePage)[0].specific
-            biserica.descriere_page = biserica.get_children().type(
-                models.DescrierePage)[0].specific
-            biserica.istoric_page = biserica.get_children().type(
-                models.IstoricPage)[0].specific
-            biserica.componenta_artistica_page = biserica.get_children().type(
-                models.ComponentaArtisticaPage)[0].specific
-            biserica.conservare_page = biserica.get_children().type(
-                models.ConservarePage)[0].specific
-            biserica.valoare_page = biserica.get_children().type(
-                models.ValoarePage)[0].specific
+            biserica.identificare_page = biserica.get_children().type(models.IdentificarePage)[0].specific
+            biserica.descriere_page = biserica.get_children().type(models.DescrierePage)[0].specific
+            biserica.istoric_page = biserica.get_children().type(models.IstoricPage)[0].specific
+            biserica.componenta_artistica_page = (
+                biserica.get_children().type(models.ComponentaArtisticaPage)[0].specific
+            )
+            biserica.conservare_page = biserica.get_children().type(models.ConservarePage)[0].specific
+            biserica.valoare_page = biserica.get_children().type(models.ValoarePage)[0].specific
             biserica.save()
             print(biserica)
 
@@ -35,4 +32,4 @@ class Command(BaseCommand):
             print(biserica.componenta_artistica_page)
             print(biserica.conservare_page)
             print(biserica.valoare_page)
-            print('------')
+            print("------")

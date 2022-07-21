@@ -11,22 +11,19 @@ from django.contrib.auth import get_user_model
 import json
 
 
-
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
         print("Starting OPTIONS..")
 
         rf = RequestFactory()
-        c= rf.get('/api/biserici/1')
-        c.META['SERVER_NAME'] = 'localhost'
-        c.user= get_user_model().objects.get(username='admin')
-        c.method="OPTIONS"
+        c = rf.get("/api/biserici/1")
+        c.META["SERVER_NAME"] = "localhost"
+        c.user = get_user_model().objects.get(username="admin")
+        c.method = "OPTIONS"
         a = BisericiViewSet
 
-
-        x = a.as_view({'post': 'list'})(c).data
+        x = a.as_view({"post": "list"})(c).data
         json_data = json.dumps(x, indent=4)
 
-        with open('frontend/src/models_biserici.js', 'w') as f:
+        with open("frontend/src/models_biserici.js", "w") as f:
             f.write(json_data)

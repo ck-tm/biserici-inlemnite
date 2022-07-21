@@ -1,18 +1,22 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
+
 # Register your models here.
 from nomenclatoare import models
 from guardian.admin import GuardedModelAdmin
 
 from simple_history.admin import SimpleHistoryAdmin
 
+
 class HistoryChangedFields(object):
     history_list_display = ["changed_fields"]
+
     def changed_fields(self, obj):
         if obj.prev_record:
             delta = obj.diff_against(obj.prev_record)
             return delta.changed_fields
         return None
+
 
 # @admin.register(models.Localitate)
 # class LocalitateAdmin(HistoryChangedFields, SimpleHistoryAdmin):
@@ -636,8 +640,6 @@ class HistoryChangedFields(object):
 #             return 'N.A.'
 
 
-
-
 # @admin.register(models.AsezareTalpaTurn)
 # class AsezareTalpaTurnAdmin(HistoryChangedFields, SimpleHistoryAdmin):
 #     list_display = ["nume", "nr_biserici"]
@@ -659,7 +661,6 @@ class HistoryChangedFields(object):
 #             return obj.biserici.count()
 #         except:
 #             return 'N.A.'
-
 
 
 # @admin.register(models.BoltaPesteAltar)
@@ -710,8 +711,6 @@ class HistoryChangedFields(object):
 #             return 'N.A.'
 
 
-
-
 # @admin.register(models.ObiectCult)
 # class ObiectCultAdmin(HistoryChangedFields, SimpleHistoryAdmin):
 #     list_display = ["nume", "nr_biserici"]
@@ -734,7 +733,3 @@ class HistoryChangedFields(object):
 #             return obj.biserici.count()
 #         except:
 #             return 'N.A.'
-
-
-
-

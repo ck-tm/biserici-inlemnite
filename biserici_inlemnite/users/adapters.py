@@ -7,7 +7,6 @@ from django.conf import settings
 from django.http import HttpRequest
 
 
-
 class AccountAdapter(DefaultAccountAdapter):
     def is_open_for_signup(self, request: HttpRequest):
         return getattr(settings, "ACCOUNT_ALLOW_REGISTRATION", True)
@@ -20,10 +19,9 @@ class AccountAdapter(DefaultAccountAdapter):
 
     def get_email_confirmation_url(self, request, emailconfirmation):
         url = settings.CUSTOM_ACCOUNT_CONFIRM_EMAIL_URL.format(emailconfirmation.key)
-        ret = build_absolute_uri(
-            request,
-            url)
+        ret = build_absolute_uri(request, url)
         return ret
+
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
     def is_open_for_signup(self, request: HttpRequest, sociallogin: Any):

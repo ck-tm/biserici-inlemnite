@@ -3,7 +3,8 @@ from django.forms.models import ModelChoiceField, ModelMultipleChoiceField
 
 register = template.Library()
 
-@register.filter(name='get_model')
+
+@register.filter(name="get_model")
 def get_model(field):
     if field.field.__class__ in [ModelChoiceField, ModelMultipleChoiceField]:
         try:
@@ -14,7 +15,7 @@ def get_model(field):
     return None
 
 
-@register.filter(name='has_group')
+@register.filter(name="has_group")
 def has_group(user, group_name):
     return user.groups.filter(name=group_name).exists()
 

@@ -6,44 +6,44 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('biserici', '0044_auto_20210803_1738'),
+        ("biserici", "0044_auto_20210803_1738"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_detalii',
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_detalii",
         ),
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_material',
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_material",
         ),
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_numar_intrari',
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_numar_intrari",
         ),
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_tehnica',
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_tehnica",
         ),
         migrations.RemoveField(
-            model_name='componentaartistica',
-            name='iconostas_pronaos_naos_tip',
+            model_name="componentaartistica",
+            name="iconostas_pronaos_naos_tip",
         ),
         migrations.RemoveField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_pronaos_naos_detalii',
+            model_name="historicalcomponentaartistica",
+            name="iconostas_pronaos_naos_detalii",
         ),
         migrations.RemoveField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_pronaos_naos_material',
+            model_name="historicalcomponentaartistica",
+            name="iconostas_pronaos_naos_material",
         ),
         migrations.RemoveField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_pronaos_naos_numar_intrari',
+            model_name="historicalcomponentaartistica",
+            name="iconostas_pronaos_naos_numar_intrari",
         ),
         migrations.RemoveField(
-            model_name='historicalcomponentaartistica',
-            name='iconostas_pronaos_naos_tip',
+            model_name="historicalcomponentaartistica",
+            name="iconostas_pronaos_naos_tip",
         ),
     ]

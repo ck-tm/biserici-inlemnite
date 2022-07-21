@@ -28,7 +28,7 @@ TIME_ZONE = "Europe/Bucharest"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "ro"
 LANGUAGES = [
-  ('ro', _('Romanian')),
+    ("ro", _("Romanian")),
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -78,7 +78,6 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
-
     "corsheaders",
     "django_filters",
     "simple_history",
@@ -90,7 +89,6 @@ THIRD_PARTY_APPS = [
     "djoser",
     # "adminsortable",
     "adminsortable2",
-
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -104,14 +102,13 @@ THIRD_PARTY_APPS = [
     "wagtail.core",
     "wagtail.api.v2",
     "wagtailmodelchooser",
-
     "modelcluster",
     "taggit",
     "cacheops",
     "meta",
     "django_json_ld",
     "wq.db.rest.auth",
-    "wq.db.rest.apps.RestConfig"
+    "wq.db.rest.apps.RestConfig",
 ]
 
 LOCAL_APPS = [
@@ -158,9 +155,7 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -182,7 +177,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
-    "wagtail.contrib.redirects.middleware.RedirectMiddleware"
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 
@@ -293,12 +288,7 @@ MANAGERS = ADMINS
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        }
-    },
+    "formatters": {"verbose": {"format": "%(levelname)s %(asctime)s %(module)s " "%(process)d %(thread)d %(message)s"}},
     "handlers": {
         "console": {
             "level": "DEBUG",
@@ -391,7 +381,7 @@ REST_FRAMEWORK = {
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://localhost:8099']
+CORS_ALLOWED_ORIGINS = ["http://localhost:8080", "http://localhost:8099"]
 # Your stuff...
 # ------------------------------------------------------------------------------
 
@@ -399,44 +389,31 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://localhost:8099']
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Biserici Înlemnite",
-
     # Title on the brand, and login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "Biserici Înlemnite",
-
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "images/church-solid.svg",
-
     # CSS classes that are applied to the logo above
     "site_logo_classes": "bi-brand-image",
-
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
-
     # Welcome text on the login screen
     "welcome_sign": "",
-
     # Copyright on the footer
     "copyright": "CK",
-
     # The model admin to search from the search bar, search bar omitted if excluded
     "search_model": "biserici.Biserica",
-
     # Field name on user model that contains avatar image
     "user_avatar": None,
-
     ############
     # Top Menu #
     ############
-
     # Links to put along the top menu
     "topmenu_links": [
-
         # Url that gets reversed (Permissions can be added)
         # {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-
         # external url that opens in a new window (Permissions can be added)
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-
         # model admin to link to (Permissions checked against model)
         # {"model": "biserici.Identificare"},
         # {"model": "biserici.Istoric"},
@@ -446,50 +423,39 @@ JAZZMIN_SETTINGS = {
         # {"model": "biserici.Conservare "},
         # {"model": "biserici.Fotografii "},
         # {"model": "biserici.Finisaje "},
-
         # App with dropdown menu to all its models pages (Permissions checked against models)
         # {"app": "biserici"},
     ],
-
     #############
     # User Menu #
     #############
-
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
     ],
-
     #############
     # Side Menu #
     #############
-
     # Whether to display the side menu
     "show_sidebar": True,
-
     # Whether to aut expand the menu
     "navigation_expanded": True,
-
     # Hide these apps when generating side menu e.g (auth)
     "hide_apps": [],
-
     # Hide these models when generating side menu (e.g auth.user)
     "hide_models": [],
-
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["auth", "biserici"],
-
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         # "biserici": [{
-        #     "name": "Make Messages", 
-        #     "url": "make_messages", 
+        #     "name": "Make Messages",
+        #     "url": "make_messages",
         #     "icon": "fas fa-comments",
         #     "permissions": ["biserici.view_biserica"]
         # }]
     },
-
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
     # for the full list of 5.13.0 free icon classes
     "icons": {
@@ -500,13 +466,11 @@ JAZZMIN_SETTINGS = {
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
-
     #################
     # Related Modal #
     #################
     # Use modals instead of popups
     "related_modal_active": True,
-
     #############
     # UI Tweaks #
     #############
@@ -515,7 +479,6 @@ JAZZMIN_SETTINGS = {
     "custom_js": None,
     # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
-
     ###############
     # Change view #
     ###############
@@ -534,9 +497,9 @@ JAZZMIN_SETTINGS = {
 
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'JWT'
+JWT_AUTH_COOKIE = "JWT"
 
-WAGTAIL_SITE_NAME = 'Biserici Înlemnite'
+WAGTAIL_SITE_NAME = "Biserici Înlemnite"
 WAGTAILADMIN_COMMENTS_ENABLED = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
@@ -553,7 +516,7 @@ CACHES = {
         "LOCATION": "redis://redis-bi:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        },
     }
 }
 CACHEOPS_REDIS = "redis://redis-bi:6379/1"
@@ -564,21 +527,33 @@ CACHEOPS = {
     # as well as request.user or post.author access,
     # where Post.author is a foreign key to auth.User
     # 'auth.user': {'ops': 'get', 'timeout': 60*15},
-
     # Automatically cache all gets and queryset fetches
     # to other django.contrib.auth models for an hour
     # 'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
-
     # Finally you can explicitely forbid even manual caching with:
-    'app.*': {'ops': 'get', 'timeout': 60 * 60 * 24},
-    'app.AboutPage': None
+    "app.*": {"ops": "get", "timeout": 60 * 60 * 24},
+    "app.AboutPage": None,
 }
 
-META_SITE_PROTOCOL = 'https'
-META_SITE_DOMAIN = 'beta.biserici-inlemnite.ro'
-META_SITE_TYPE = 'website'
-META_SITE_NAME = 'Biserici Înlemnite'
-META_INCLUDE_KEYWORDS = ['biserici', 'inlemnite', 'lemn', 'patrimoniu', 'conservare', 'prioritizare']
-META_DEFAULT_KEYWORDS = ['biserici', 'inlemnite', 'lemn', 'patrimoniu', 'conservare', 'prioritizare']
-META_IMAGE_URL='/static/images/logo.png'
-META_USE_OG_PROPERTIES=True
+META_SITE_PROTOCOL = "https"
+META_SITE_DOMAIN = "beta.biserici-inlemnite.ro"
+META_SITE_TYPE = "website"
+META_SITE_NAME = "Biserici Înlemnite"
+META_INCLUDE_KEYWORDS = [
+    "biserici",
+    "inlemnite",
+    "lemn",
+    "patrimoniu",
+    "conservare",
+    "prioritizare",
+]
+META_DEFAULT_KEYWORDS = [
+    "biserici",
+    "inlemnite",
+    "lemn",
+    "patrimoniu",
+    "conservare",
+    "prioritizare",
+]
+META_IMAGE_URL = "/static/images/logo.png"
+META_USE_OG_PROPERTIES = True
